@@ -50,6 +50,8 @@ class AboutFragment : ToolbarFragment(R.layout.layout_about) {
             .replace(R.id.about_fragment_holder, AboutContent())
             .commitAllowingStateLoss()
 
+        binding.versionFooter.text = "${getString(R.string.app_name)} v${BuildConfig.VERSION_NAME}"
+
         runOnDefaultDispatcher {
             val license = view.context.assets.open("LICENSE").bufferedReader().readText()
             onMainDispatcher {
@@ -190,11 +192,12 @@ class AboutFragment : ToolbarFragment(R.layout.layout_about) {
                                 .build())
                         .addItem(
                             MaterialAboutActionItem.Builder()
-                                .icon(R.drawable.ic_qu_shadowsocks_foreground)
+                                .icon(R.drawable.baseline_send_24)
                                 .text(R.string.telegram)
+                                .subText("@v2ray_DA")
                                 .setOnClickAction {
                                     requireContext().launchCustomTab(
-                                        "https://t.me/MatsuriDayo"
+                                        "https://t.me/v2ray_DA"
                                     )
                                 }
                                 .build())

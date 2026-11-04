@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Fix permissions
+        run: chmod +x run gradlew libcore/*.sh && find buildScript -name '*.sh' -exec chmod +x {} +
       - name: Golang Status
         run: find buildScript libcore/*.sh | xargs cat | sha1sum > golang_status
       - name: Libcore Status
@@ -36,6 +38,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Fix permissions
+        run: chmod +x run gradlew libcore/*.sh && find buildScript -name '*.sh' -exec chmod +x {} +
       - name: Golang Status
         run: find buildScript libcore/*.sh | xargs cat | sha1sum > golang_status
       - name: Libcore Status

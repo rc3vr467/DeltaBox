@@ -10,13 +10,33 @@ if [ -z "$ANDROID_HOME" ]; then
   fi
 fi
 
-_NDK="$ANDROID_HOME/ndk/25.0.8775105"
-[ -f "$_NDK/source.properties" ] || _NDK="$ANDROID_NDK_HOME"
-[ -f "$_NDK/source.properties" ] || _NDK="$NDK"
-[ -f "$_NDK/source.properties" ] || _NDK="$ANDROID_HOME/ndk-bundle"
+_NDK=""
 
-if [ ! -f "$_NDK/source.properties" ]; then
-  echo "Error: NDK not found."
+# 1) Preferred versions, in order
+for _VER in 25.2.9519653 25.1.8937393 25.0.8775105; do
+  if [ -f "$ANDROID_HOME/ndk/$_VER/source.properties" ]; then
+    _NDK="$ANDROID_HOME/ndk/$_VER"
+    break
+  fi
+done
+
+# 2) Environment variables (GitHub Actions runners set ANDROID_NDK_HOME)
+[ -z "$_NDK" ] && [ -f "$ANDROID_NDK_HOME/source.properties" ] && _NDK="$ANDROID_NDK_HOME"
+[ -z "$_NDK" ] && [ -f "$NDK/source.properties" ] && _NDK="$NDK"
+
+# 3) Any installed side-by-side NDK (newest), then legacy ndk-bundle
+if [ -z "$_NDK" ] && [ -d "$ANDROID_HOME/ndk" ]; then
+  for _D in $(ls -1d "$ANDROID_HOME"/ndk/*/ 2>/dev/null | sort -V -r); do
+    if [ -f "${_D}source.properties" ]; then
+      _NDK="${_D%/}"
+      break
+    fi
+  done
+fi
+[ -z "$_NDK" ] && [ -f "$ANDROID_HOME/ndk-bundle/source.properties" ] && _NDK="$ANDROID_HOME/ndk-bundle"
+
+if [ -z "$_NDK" ]; then
+  echo "Error: NDK not found (ANDROID_HOME=$ANDROID_HOME)" >&2
   exit 1
 fi
 

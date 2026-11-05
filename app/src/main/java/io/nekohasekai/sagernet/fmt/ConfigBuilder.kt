@@ -748,6 +748,7 @@ fun buildConfig(
     }.let {
         val configMap = it.asMap()
         Util.mergeJSON(configMap, proxy.requireBean().customConfigJson)
+        ConfigMigrate.migrate(configMap)
         ConfigBuildResult(
             gson.toJson(configMap),
             externalIndexMap,

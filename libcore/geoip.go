@@ -1,6 +1,7 @@
 package libcore
 
 import (
+	"encoding/json"
 	"fmt"
 	"net"
 	"path/filepath"
@@ -45,9 +46,17 @@ func (g *geoip) Rules(countryCode string) ([]option.HeadlessRule, error) {
 	}
 
 	var headlessRule option.DefaultHeadlessRule
-	headlessRule.IPCIDR = make([]string, 0, len(ipNets))
+	cidrs := make([]string, 0, len(ipNets))
 	for _, cidr := range ipNets {
-		headlessRule.IPCIDR = append(headlessRule.IPCIDR, cidr.String())
+		cidrs = append(cidrs, cidr.String())
+	}
+	// IPCIDR is a Listable of *badoption.Prefixable in recent sing-box; decode from strings.
+	cidrJSON, err := json.Marshal(cidrs)
+	if err != nil {
+		return nil, err
+	}
+	if err = json.Unmarshal(cidrJSON, &headlessRule.IPCIDR); err != nil {
+		return nil, fmt.Errorf("parse cidr list: %w", err)
 	}
 
 	return []option.HeadlessRule{

@@ -540,7 +540,7 @@
     <string name="protocol_version">Protocol Version</string>
     <string name="share_subscription">Share Subscription</string>
     <string name="show_group_in_notification">Show group name in notification</string>
-    <string name="reset_connections">Reset Connections</string>
+    <string name="reset_connections">Reset</string>
     <string name="remove_duplicate">Remove duplicate servers</string>
     <string name="mtu_help">Long press the preference to set custom MTU.</string>
     <string name="log_level_help">Long press the preference to set the buffer size.</string>

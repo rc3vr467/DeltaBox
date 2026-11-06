@@ -55,7 +55,15 @@ class ServiceNotification(
 
     var listenPostSpeed = true
 
+    private var lastSpeedKey: String? = null
+
     suspend fun postNotificationSpeedUpdate(stats: SpeedDisplayData) {
+        // Skip redundant notify() calls when nothing changed (idle traffic) to avoid
+        // flooding NotificationManager every second.
+        val key = "${stats.txRateProxy}|${stats.rxRateProxy}|${stats.txRateDirect}|" +
+                "${stats.rxRateDirect}|${stats.txTotal}|${stats.rxTotal}"
+        if (key == lastSpeedKey) return
+        lastSpeedKey = key
         useBuilder {
             if (showDirectSpeed) {
                 val speedDetail = (service as Context).getString(
@@ -170,7 +178,9 @@ class ServiceNotification(
             val resetUpstreamAction = NotificationCompat.Action.Builder(
                 0, service.getString(R.string.reset_connections),
                 PendingIntent.getBroadcast(
-                    service, 0, Intent(Action.RESET_UPSTREAM_CONNECTIONS), flags
+                    service, 0,
+                    Intent(Action.RESET_UPSTREAM_CONNECTIONS).setPackage(service.packageName),
+                    flags
                 )
             ).setShowsUserInterface(false).build()
             it.addAction(resetUpstreamAction)

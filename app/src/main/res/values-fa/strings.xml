@@ -507,7 +507,7 @@
     <string name="protocol_version">نسخه پروتکل</string>
     <string name="share_subscription">اشتراک‌گذاری گروه اشتراکی</string>
     <string name="show_group_in_notification">نمایش نام گروه در نوار اعلان</string>
-    <string name="reset_connections">بازنشانی اتصالات</string>
+    <string name="reset_connections">بازنشانی</string>
     <string name="remove_duplicate">حذف سرورهای تکراری</string>
     <string name="mtu_help">برای تنظیم MTU سفارشی، تنظیمات را مدتی فشار دهید.</string>
     <string name="log_level_help">برای تنظیم اندازه بافر، تنظیمات را مدتی فشار دهید.</string>

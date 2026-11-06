@@ -656,14 +656,15 @@ fun buildConfig(
         dns.servers.add(DNSServerOptions().apply {
             address = "local"
             tag = "dns-local"
-            detour = TAG_DIRECT
+            // sing-box 1.14: detour to an empty direct outbound is an error.
+            // Leave detour empty so the default (direct) dialer is used.
         })
 
         directDNS.firstOrNull().let {
             dns.servers.add(DNSServerOptions().apply {
                 address = it ?: throw Exception("No direct DNS, check your settings!")
                 tag = "dns-direct"
-                detour = TAG_DIRECT
+                // no detour (see dns-local): empty direct detour fails in sing-box 1.14
                 address_resolver = "dns-local"
                 strategy = autoDnsDomainStrategy(SingBoxOptionsUtil.domainStrategy(tag))
             })
@@ -674,6 +675,9 @@ fun buildConfig(
             if (!forTest) dns.servers.add(DNSServerOptions().apply {
                 address = it ?: throw Exception("No remote DNS, check your settings!")
                 tag = "dns-remote"
+                // remote DNS must go through the proxy, otherwise it leaks to the local
+                // network and times out when the network blocks it
+                detour = TAG_PROXY
                 address_resolver = "dns-direct"
                 strategy = autoDnsDomainStrategy(SingBoxOptionsUtil.domainStrategy(tag))
             })

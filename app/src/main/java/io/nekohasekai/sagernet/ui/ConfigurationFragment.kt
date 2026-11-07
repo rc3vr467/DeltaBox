@@ -177,6 +177,8 @@ class ConfigurationFragment @JvmOverloads constructor(
 
         if (!select) {
             toolbar.inflateMenu(R.menu.add_profile_menu)
+            // show the icons of overflow items (test servers menu) for a consistent look
+            (toolbar.menu as? androidx.appcompat.view.menu.MenuBuilder)?.setOptionalIconsVisible(true)
             toolbar.setOnMenuItemClickListener(this)
         } else {
             toolbar.setTitle(titleRes)

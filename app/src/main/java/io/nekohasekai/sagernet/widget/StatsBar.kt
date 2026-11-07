@@ -3,14 +3,15 @@ package io.nekohasekai.sagernet.widget
 import android.annotation.SuppressLint
 import android.content.Context
 import android.text.format.Formatter
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.TooltipCompat
-import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
-import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.card.MaterialCardView
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.bg.BaseService
 import io.nekohasekai.sagernet.database.DataStore
@@ -20,64 +21,69 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+/**
+ * Glass info panel shown to the right of the cat connect button.
+ * UI only: state badge, ping, download / upload speed and the status / test message.
+ * The public API (allowShow, changeState, updateSpeed, testConnection, performShow/Hide) is unchanged.
+ */
 class StatsBar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null,
-    defStyleAttr: Int = R.attr.bottomAppBarStyle,
-) : BottomAppBar(context, attrs, defStyleAttr) {
+    defStyleAttr: Int = com.google.android.material.R.attr.materialCardViewStyle,
+) : MaterialCardView(context, attrs, defStyleAttr) {
+    private lateinit var stateText: TextView
+    private lateinit var stateDot: View
+    private lateinit var pingText: TextView
     private lateinit var statusText: TextView
     private lateinit var txText: TextView
     private lateinit var rxText: TextView
-    private lateinit var behavior: YourBehavior
 
     var allowShow = true
 
-    override fun getBehavior(): YourBehavior {
-        if (!this::behavior.isInitialized) behavior = YourBehavior { allowShow }
-        return behavior
-    }
-
-    class YourBehavior(val getAllowShow: () -> Boolean) : Behavior() {
-
-        override fun onNestedScroll(
-            coordinatorLayout: CoordinatorLayout, child: BottomAppBar, target: View,
-            dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int,
-            type: Int, consumed: IntArray,
-        ) {
-            super.onNestedScroll(
-                coordinatorLayout,
-                child,
-                target,
-                dxConsumed,
-                dyConsumed + dyUnconsumed,
-                dxUnconsumed,
-                0,
-                type,
-                consumed
-            )
-        }
-
-        override fun slideUp(child: BottomAppBar) {
-            if (!getAllowShow()) return
-            super.slideUp(child)
-        }
-
-        override fun slideDown(child: BottomAppBar) {
-            if (!getAllowShow()) return
-            super.slideDown(child)
-        }
-    }
-
-
-    override fun setOnClickListener(l: OnClickListener?) {
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+        stateText = findViewById(R.id.state)
+        stateDot = findViewById(R.id.state_dot)
+        pingText = findViewById(R.id.ping)
         statusText = findViewById(R.id.status)
         txText = findViewById(R.id.tx)
         rxText = findViewById(R.id.rx)
-        super.setOnClickListener(l)
+        resetPing()
+    }
+
+    fun performShow() {
+        visibility = View.VISIBLE
+    }
+
+    fun performHide() {
+        visibility = View.GONE
     }
 
     private fun setStatus(text: CharSequence) {
         statusText.text = text
         TooltipCompat.setTooltipText(this, text)
+    }
+
+    private fun resetPing() {
+        pingText.text = context.getString(
+            R.string.delta_ping_label
+        ) + " " + context.getString(R.string.delta_ping_unknown)
+    }
+
+    private fun setPing(elapsed: Int) {
+        pingText.text = context.getString(R.string.delta_ping_label) + " " +
+                context.getString(R.string.delta_ping_value, elapsed)
+    }
+
+    /** State badge (text + colored dot) follows the real service state. */
+    private fun setBadge(state: BaseService.State) {
+        val (textRes, colorRes) = when (state) {
+            BaseService.State.Connected -> R.string.delta_state_connected to R.color.delta_success
+            BaseService.State.Connecting -> R.string.connecting to R.color.delta_neon_soft
+            BaseService.State.Stopping -> R.string.stopping to R.color.delta_neon_soft
+            else -> R.string.delta_state_disconnected to R.color.delta_error
+        }
+        stateText.setText(textRes)
+        stateDot.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, colorRes))
     }
 
     fun changeState(state: BaseService.State) {
@@ -86,16 +92,18 @@ class StatsBar @JvmOverloads constructor(
             delay(100L)
             activity.whenStarted { what() }
         }
-        if ((state == BaseService.State.Connected).also { hideOnScroll = it }) {
+        setBadge(state)
+        if (state == BaseService.State.Connected) {
             postWhenStarted {
                 if (allowShow) performShow()
                 setStatus(app.getText(R.string.vpn_connected))
             }
         } else {
             postWhenStarted {
-                performHide()
+                if (allowShow) performShow()
             }
             updateSpeed(0, 0)
+            resetPing()
             setStatus(
                 context.getText(
                     when (state) {
@@ -110,16 +118,12 @@ class StatsBar @JvmOverloads constructor(
 
     @SuppressLint("SetTextI18n")
     fun updateSpeed(txRate: Long, rxRate: Long) {
-        txText.text = "▲  ${
-            context.getString(
-                R.string.speed, Formatter.formatFileSize(context, txRate)
-            )
-        }"
-        rxText.text = "▼  ${
-            context.getString(
-                R.string.speed, Formatter.formatFileSize(context, rxRate)
-            )
-        }"
+        txText.text = context.getString(
+            R.string.speed, Formatter.formatFileSize(context, txRate)
+        )
+        rxText.text = context.getString(
+            R.string.speed, Formatter.formatFileSize(context, rxRate)
+        )
     }
 
     fun testConnection() {
@@ -131,6 +135,7 @@ class StatsBar @JvmOverloads constructor(
                 val elapsed = activity.urlTest()
                 onMainDispatcher {
                     isEnabled = true
+                    setPing(elapsed)
                     setStatus(
                         app.getString(
                             if (DataStore.connectionTestURL.startsWith("https://")) {

@@ -136,7 +136,38 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <!-- Glass popup menu used by every toolbar overflow menu (test servers, ordering, ...) -->
+    <style name="ThemeOverlay.Delta.Popup" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="popupMenuStyle">@style/Widget.Delta.PopupMenu</item>
+        <item name="textAppearanceLargePopupMenu">@style/TextAppearance.Delta.PopupItem</item>
+        <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.Delta.PopupItem</item>
+        <item name="dropdownListPreferredItemHeight">52dp</item>
+        <item name="android:textColorPrimary">@color/delta_dock_text</item>
+        <item name="android:textColorSecondary">@color/delta_dock_text_secondary</item>
+        <item name="colorControlNormal">@color/delta_popup_icon</item>
+    </style>
+
+    <style name="Widget.Delta.PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/bg_delta_popup</item>
+        <item name="android:popupElevation">12dp</item>
+    </style>
+
+    <style name="TextAppearance.Delta.PopupItem" parent="TextAppearance.AppCompat.Menu">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/delta_dock_text</item>
+    </style>
+
+    <!-- Cards: rounded, hairline glass border, flat -->
+    <style name="Widget.Delta.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/delta_divider</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
     <style name="Theme.SagerNet.Delta">
+        <item name="materialCardViewStyle">@style/Widget.Delta.Card</item>
+        <item name="tabIndicatorColor">@color/delta_neon_soft</item>
         <item name="colorPrimary">@color/delta_primary</item>
         <item name="colorPrimaryDark">@color/delta_primary_dark</item>
         <item name="colorAccent">@color/delta_accent</item>

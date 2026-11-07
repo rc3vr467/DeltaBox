@@ -274,6 +274,11 @@
     <string name="connecting">Connecting…</string>
     <string name="vpn_connected">Connected, tap to check connection</string>
     <string name="not_connected">Not connected</string>
+    <string name="delta_state_connected">Connected</string>
+    <string name="delta_state_disconnected">Disconnected</string>
+    <string name="delta_ping_label">Ping</string>
+    <string name="delta_ping_value">%d ms</string>
+    <string name="delta_ping_unknown">—</string>
     <!-- subscriptions -->
     <string name="subscriptions">Subscriptions</string>
     <string name="cleartext_http_warning">Cleartext HTTP traffic is insecure</string>

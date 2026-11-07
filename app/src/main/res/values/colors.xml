@@ -303,4 +303,23 @@
     <color name="delta_text_secondary">#A6000000</color>
     <color name="delta_divider">#332A1E4D</color>
     <color name="delta_selected">#335A3B8C</color>
+
+    <!-- DeltaBox Dark Premium: glass dock, cat button and popup menu (same in light and dark) -->
+    <color name="delta_glass_top">#E6282046</color>
+    <color name="delta_glass_bottom">#F2150F26</color>
+    <color name="delta_glass_stroke">#3DFFFFFF</color>
+    <color name="delta_glass_stroke_connected">#80B65CFF</color>
+    <color name="delta_neon">#B65CFF</color>
+    <color name="delta_neon_soft">#E0A8FF</color>
+    <color name="delta_magenta">#E879F9</color>
+    <color name="delta_dock_text">#F5F3FF</color>
+    <color name="delta_dock_text_secondary">#B8B2CC</color>
+    <color name="delta_success">#5EDC9A</color>
+    <color name="delta_error">#FF6B86</color>
+    <color name="delta_idle">#8F86AD</color>
+    <color name="delta_cat_button">#17122A</color>
+    <color name="delta_cat_button_connected">#24173F</color>
+    <color name="delta_popup_bg">#F2181328</color>
+    <color name="delta_popup_stroke">#33FFFFFF</color>
+    <color name="delta_popup_icon">#C9A2FF</color>
 </resources>

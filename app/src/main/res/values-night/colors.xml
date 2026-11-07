@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="fab_color_progress">@color/material_light_white</color>
-    <!-- DeltaBox dark theme: #0E0B1D everywhere; the light palette colors (#8B7CC7, #C9C2E3) read best on it -->
-    <color name="preference_simple_menu_background">#0E0B1D</color>
-    <color name="delta_bg">#0E0B1D</color>
-    <color name="delta_surface">#0E0B1D</color>
-    <color name="delta_primary">#5A3B8C</color>
-    <color name="delta_primary_dark">#0E0B1D</color>
+    <!-- DeltaBox Dark Premium: deep navy-black background, dark purple-grey cards, neon purple accent -->
+    <color name="preference_simple_menu_background">#181423</color>
+    <color name="delta_bg">#0A0812</color>
+    <color name="delta_surface">#181423</color>
+    <color name="delta_primary">#1A1430</color>
+    <color name="delta_primary_dark">#0A0812</color>
     <color name="delta_on_primary">#FFFFFF</color>
-    <color name="delta_accent">#8B7CC7</color>
-    <color name="delta_fab">#5A3B8C</color>
+    <color name="delta_accent">#A66BFF</color>
+    <color name="delta_fab">#1B1530</color>
     <color name="delta_text">#FFFFFF</color>
-    <color name="delta_text_secondary">#B3FFFFFF</color>
-    <color name="delta_divider">#33FFFFFF</color>
-    <color name="delta_selected">#665A3B8C</color>
+    <color name="delta_text_secondary">#B8B2CC</color>
+    <color name="delta_divider">#1FFFFFFF</color>
+    <color name="delta_selected">#40A66BFF</color>
 </resources>

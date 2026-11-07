@@ -1,5 +1,6 @@
 package io.nekohasekai.sagernet.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.text.format.DateFormat
@@ -133,6 +134,11 @@ class AssetsActivity : ThemedActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.action_open_route -> {
+                startActivity(Intent(this, RouteActivity::class.java))
+                return true
+            }
+
             R.id.action_import_file -> {
                 startFilesForResult(importFile, "*/*")
                 return true

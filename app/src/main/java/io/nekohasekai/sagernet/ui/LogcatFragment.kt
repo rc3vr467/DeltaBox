@@ -64,7 +64,7 @@ class LogcatFragment : ToolbarFragment(R.layout.layout_logcat),
 
     private fun reloadSession() {
         val span = SpannableString(
-            String(SendLog.getNekoLog(50 * 1024))
+            String(SendLog.getNekoLog(256 * 1024))
         )
         var offset = 0
         for (line in span.lines()) {

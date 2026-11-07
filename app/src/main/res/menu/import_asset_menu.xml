@@ -7,4 +7,8 @@
         android:icon="@drawable/ic_action_note_add"
         android:title="@string/action_import_file"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/action_open_route"
+        android:title="@string/menu_route"
+        app:showAsAction="never" />
 </menu>

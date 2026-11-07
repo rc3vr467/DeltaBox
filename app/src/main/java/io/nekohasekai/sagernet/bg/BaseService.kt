@@ -8,6 +8,7 @@ import android.os.*
 import android.widget.Toast
 import io.nekohasekai.sagernet.Action
 import io.nekohasekai.sagernet.BootReceiver
+import io.nekohasekai.sagernet.BuildConfig
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.SagerNet
 import io.nekohasekai.sagernet.aidl.ISagerNetService
@@ -83,6 +84,7 @@ class BaseService {
 
         fun changeState(s: State, msg: String? = null) {
             if (state == s && msg == null) return
+            Logs.step("State: $state -> $s" + (if (msg != null) " | $msg" else ""))
             state = s
             DataStore.serviceState = s
             binder.stateChanged(s, msg)
@@ -211,6 +213,22 @@ class BaseService {
             return false
         }
 
+        /** Runs one URL test after connecting so the log says whether traffic really flows. */
+        fun verifyConnectivity(proxy: ProxyInstance) {
+            runOnDefaultDispatcher {
+                delay(1500)
+                if (data.state != State.Connected) return@runOnDefaultDispatcher
+                val url = DataStore.connectionTestURL
+                try {
+                    val ms = Libcore.urlTest(proxy.box, url, 5000)
+                    Logs.step("Connectivity check OK: $url -> ${ms}ms")
+                } catch (e: Throwable) {
+                    Logs.e("Connectivity check FAILED: $url -> ${e.readableMessage}")
+                    Logs.w("Connected but no traffic through proxy: check server, DNS, routes and SplitTunnel list")
+                }
+            }
+        }
+
         suspend fun startProcesses() {
             data.proxy!!.launch()
         }
@@ -237,6 +255,8 @@ class BaseService {
             DataStore.vpnService = null
 
             if (data.state == State.Stopping) return
+            Logs.section("Connection stop")
+            Logs.step("Stop requested: state=${data.state}, restart=$restart, reason=${msg ?: "user/none"}")
             data.notification?.destroy()
             data.notification = null
             this as Service
@@ -259,6 +279,7 @@ class BaseService {
 
                 // change the state
                 data.changeState(State.Stopped, msg)
+                Logs.step("Stopped" + (if (restart) " (restarting)" else ""))
                 // stop the service if nothing has bound to it
                 if (restart) startRunner() else {
                     stopSelf()
@@ -282,6 +303,7 @@ class BaseService {
                     val oldName = upstreamInterfaceName
                     if (oldName != link.interfaceName) {
                         upstreamInterfaceName = link.interfaceName
+                        Logs.step("Underlying network: ${oldName ?: "none"} -> ${link.interfaceName} (dns=${link.dnsServers.joinToString { d -> d.hostAddress ?: "?" }})")
                     }
                     if (oldName != null && upstreamInterfaceName != null && oldName != upstreamInterfaceName) {
                         Logs.d("Network changed: $oldName -> $upstreamInterfaceName")
@@ -317,12 +339,34 @@ class BaseService {
             if (data.state != State.Stopped) return Service.START_NOT_STICKY
             val profile = SagerDatabase.proxyDao.getById(DataStore.selectedProxy)
             this as Context
+            val t0 = SystemClock.elapsedRealtime()
+            Logs.section("Connection start")
+            Logs.step(
+                "App ${SagerNet.appVersionNameForDisplay} (${BuildConfig.VERSION_CODE}) | " +
+                        "Android ${Build.VERSION.RELEASE} (SDK ${Build.VERSION.SDK_INT}) | " +
+                        "${Build.MANUFACTURER} ${Build.MODEL}"
+            )
+            Logs.step(
+                "Settings: mode=${DataStore.serviceMode}, mtu=${DataStore.mtu}, " +
+                        "ipv6=${DataStore.ipv6Mode}, bypassLan=${DataStore.bypassLan}, " +
+                        "mixedPort=${DataStore.mixedPort}, logLevel=${DataStore.logLevel}"
+            )
+            Logs.step(
+                "SplitTunnel: enabled=${DataStore.proxyApps}, " +
+                        "mode=${if (DataStore.bypass) "bypass(selected apps skip VPN)" else "only(selected apps use VPN)"}, " +
+                        "apps=${DataStore.individual.split('\n').count { it.isNotBlank() }}"
+            )
             if (profile == null) { // gracefully shutdown: https://stackoverflow.com/q/47337857/2245107
+                Logs.e("No profile selected (id=${DataStore.selectedProxy}), aborting start")
                 data.notification = createNotification("")
                 stopRunner(false, getString(R.string.profile_empty))
                 return Service.START_NOT_STICKY
             }
 
+            Logs.step(
+                "Profile: [${profile.displayType()}] ${profile.displayName()} " +
+                        "@ ${profile.displayAddress()} (id=${profile.id})"
+            )
             val proxy = ProxyInstance(profile, this)
             data.proxy = proxy
             BootReceiver.enabled = DataStore.persistAcrossReboot
@@ -361,9 +405,13 @@ class BaseService {
                 try {
                     data.notification = createNotification(ServiceNotification.genTitle(profile))
 
+                    Logs.step("[1/5] Cleaning up old processes", SystemClock.elapsedRealtime() - t0)
                     Executable.killAll()    // clean up old processes
+                    Logs.step("[2/5] Watching default network", SystemClock.elapsedRealtime() - t0)
                     preInit()
+                    Logs.step("[3/5] Building config & loading core", SystemClock.elapsedRealtime() - t0)
                     proxy.init()
+                    Logs.step("Config built and core loaded", SystemClock.elapsedRealtime() - t0)
                     DataStore.currentProfile = profile.id
 
                     proxy.processes = GuardedProcessPool {
@@ -371,20 +419,27 @@ class BaseService {
                         stopRunner(false, it.readableMessage)
                     }
 
+                    Logs.step("[4/5] Starting core / VPN interface", SystemClock.elapsedRealtime() - t0)
                     startProcesses()
                     data.changeState(State.Connected)
+                    Logs.step("[5/5] CONNECTED", SystemClock.elapsedRealtime() - t0)
+                    verifyConnectivity(proxy)
                     BlackWallEngine.startNoiseInjection(GlobalScope)
 
                     lateInit()
                 } catch (_: CancellationException) { // if the job was cancelled, it is canceller's responsibility to call stopRunner
-                } catch (_: UnknownHostException) {
+                    Logs.w("Connection attempt cancelled after ${SystemClock.elapsedRealtime() - t0}ms")
+                } catch (e: UnknownHostException) {
+                    Logs.e("FAILED: cannot resolve server address (${e.message}) after ${SystemClock.elapsedRealtime() - t0}ms")
                     stopRunner(false, getString(R.string.invalid_server))
                 } catch (e: PluginManager.PluginNotFoundException) {
+                    Logs.e("FAILED: missing plugin '${e.plugin}'")
                     Toast.makeText(this@Interface, e.readableMessage, Toast.LENGTH_SHORT).show()
                     Logs.w(e)
                     data.binder.missingPlugin(e.plugin)
                     stopRunner(false, null)
                 } catch (exc: Throwable) {
+                    Logs.e("FAILED after ${SystemClock.elapsedRealtime() - t0}ms: ${exc.javaClass.simpleName}: ${exc.readableMessage}")
                     if (exc.javaClass.name.endsWith("proxyerror")) {
                         // error from golang
                         Logs.w(exc.readableMessage)

@@ -20,7 +20,6 @@ import moe.matsuri.nb4a.ui.*
 
 class SettingsPreferenceFragment : PreferenceFragmentCompat() {
 
-    private lateinit var isProxyApps: SwitchPreference
 
     private lateinit var globalCustomConfig: EditConfigPreference
 
@@ -29,6 +28,19 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
         super.onViewCreated(view, savedInstanceState)
 
         listView.layoutManager = FixedLinearLayoutManager(listView)
+
+        // Show the ">" chevron on rows that have no switch/widget (menu-style rows).
+        listView.addOnChildAttachStateChangeListener(object :
+            androidx.recyclerview.widget.RecyclerView.OnChildAttachStateChangeListener {
+            override fun onChildViewAttachedToWindow(child: View) {
+                val chevron = child.findViewById<View>(R.id.pref_chevron) ?: return
+                val widget = child.findViewById<android.view.ViewGroup>(android.R.id.widget_frame)
+                val hasWidget = widget != null && widget.visibility == View.VISIBLE && widget.childCount > 0
+                chevron.visibility = if (hasWidget) View.GONE else View.VISIBLE
+            }
+
+            override fun onChildViewDetachedFromWindow(child: View) {}
+        })
     }
 
     private val reloadListener = Preference.OnPreferenceChangeListener { _, _ ->
@@ -41,20 +53,18 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
         DataStore.initGlobal()
         addPreferencesFromResource(R.xml.global_preferences)
 
-        val appTheme = findPreference<ColorPickerPreference>(Key.APP_THEME)!!
-        appTheme.setOnPreferenceChangeListener { _, newTheme ->
-            if (DataStore.serviceState.started) {
-                SagerNet.reloadService()
-            }
-            val theme = Theme.getTheme(newTheme as Int)
-            app.setTheme(theme)
-            requireActivity().apply {
-                setTheme(theme)
-                ActivityCompat.recreate(this)
-            }
+        val language = findPreference<SimpleMenuPreference>(Key.APP_LANGUAGE)!!
+        language.setOnPreferenceChangeListener { _, newLang ->
+            androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(
+                androidx.core.os.LocaleListCompat.forLanguageTags(newLang as String)
+            )
             true
         }
 
+        // old values (follow system / auto) are no longer offered: fall back to Dark
+        if (DataStore.nightTheme != 1 && DataStore.nightTheme != 2) {
+            DataStore.nightTheme = 1
+        }
         val nightTheme = findPreference<SimpleMenuPreference>(Key.NIGHT_THEME)!!
         nightTheme.setOnPreferenceChangeListener { _, newTheme ->
             Theme.currentNightMode = (newTheme as String).toInt()
@@ -94,7 +104,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             val view = EditText(context).apply {
                 inputType = EditorInfo.TYPE_CLASS_NUMBER
                 var size = DataStore.logBufSize
-                if (size == 0) size = 50
+                if (size == 0) size = 256
                 setText(size.toString())
             }
 
@@ -102,7 +112,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                 .setView(view)
                 .setPositiveButton(android.R.string.ok) { _, _ ->
                     DataStore.logBufSize = view.text.toString().toInt()
-                    if (DataStore.logBufSize <= 0) DataStore.logBufSize = 50
+                    if (DataStore.logBufSize <= 0) DataStore.logBufSize = 256
                     needRestart()
                 }
                 .setNegativeButton(android.R.string.cancel, null)
@@ -115,12 +125,6 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
         val metedNetwork = findPreference<Preference>(Key.METERED_NETWORK)!!
         if (Build.VERSION.SDK_INT < 28) {
             metedNetwork.remove()
-        }
-        isProxyApps = findPreference(Key.PROXY_APPS)!!
-        isProxyApps.setOnPreferenceChangeListener { _, newValue ->
-            startActivity(Intent(activity, AppManagerActivity::class.java))
-            if (newValue as Boolean) DataStore.dirty = true
-            newValue
         }
 
         val profileTrafficStatistics =
@@ -173,9 +177,6 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
     override fun onResume() {
         super.onResume()
 
-        if (::isProxyApps.isInitialized) {
-            isProxyApps.isChecked = DataStore.proxyApps
-        }
         if (::globalCustomConfig.isInitialized) {
             globalCustomConfig.notifyChanged()
         }

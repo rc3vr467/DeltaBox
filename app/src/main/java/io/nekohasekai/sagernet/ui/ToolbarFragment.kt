@@ -18,9 +18,15 @@ open class ToolbarFragment : Fragment {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         toolbar = view.findViewById(R.id.toolbar)
-        toolbar.setNavigationIcon(R.drawable.ic_navigation_menu)
-        toolbar.setNavigationOnClickListener {
-            (activity as MainActivity).binding.drawerLayout.openDrawer(GravityCompat.START)
+        val main = activity as? MainActivity
+        if (main != null) {
+            toolbar.setNavigationIcon(R.drawable.ic_navigation_menu)
+            toolbar.setNavigationOnClickListener {
+                main.binding.drawerLayout.openDrawer(GravityCompat.START)
+            }
+        } else {
+            toolbar.setNavigationIcon(R.drawable.ic_navigation_close)
+            toolbar.setNavigationOnClickListener { activity?.finish() }
         }
     }
 

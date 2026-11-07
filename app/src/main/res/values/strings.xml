@@ -173,6 +173,10 @@
     <string name="mux_concurrency">Mux Concurrent Connections</string>
     <string name="tcp_keep_alive_interval">TCP keep active packet delivery interval</string>
     <string name="proxied_apps">Apps VPN mode</string>
+    <string name="menu_split_tunnel" translatable="false">SplitTunnel</string>
+    <string name="language">Language</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_light">Light</string>
     <string name="proxied_apps_summary">Configure VPN mode for selected apps</string>
     <string name="on">On</string>
     <string name="off">Off</string>
@@ -182,8 +186,6 @@
     <string name="clear_selections">Clear selections</string>
     <string name="bypass_apps">Bypass</string>
     <string name="show_system_apps">Show system apps</string>
-    <string name="auto_connect">Auto Connect</string>
-    <string name="auto_connect_summary">Enable proxy on startup/app update if it was running before</string>
     <string name="direct_boot_aware">Allow Toggling in Lock Screen</string>
     <string name="direct_boot_aware_summary">Your selected profile information will be less
         protected</string>

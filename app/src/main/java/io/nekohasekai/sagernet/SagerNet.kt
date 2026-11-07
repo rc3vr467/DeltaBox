@@ -64,7 +64,7 @@ class SagerNet : Application(),
                 cacheDir.absolutePath + "/",
                 filesDir.absolutePath + "/",
                 externalAssets.absolutePath + "/",
-                DataStore.logBufSize,
+                if (DataStore.logBufSize <= 0) 256 else DataStore.logBufSize,
                 DataStore.logLevel > 0,
                 nativeInterface, nativeInterface, LocalResolverImpl
             )
@@ -79,6 +79,9 @@ class SagerNet : Application(),
         }
 
         if (isMainProcess) {
+            androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(
+                androidx.core.os.LocaleListCompat.forLanguageTags(DataStore.appLanguage)
+            )
             Theme.apply(this)
             Theme.applyNightTheme()
             runOnDefaultDispatcher {

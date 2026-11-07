@@ -132,6 +132,64 @@
         <item name="rippleColor">@color/chip_ripple_color</item>
     </style>
 
+    <style name="TextAppearance.Delta.Nav" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Theme.SagerNet.Delta">
+        <item name="colorPrimary">@color/delta_primary</item>
+        <item name="colorPrimaryDark">@color/delta_primary_dark</item>
+        <item name="colorAccent">@color/delta_accent</item>
+        <item name="colorSecondary">@color/delta_accent</item>
+        <item name="colorOnPrimary">@color/delta_on_primary</item>
+        <item name="colorOnSecondary">@color/delta_bg</item>
+        <item name="colorSurface">@color/delta_surface</item>
+        <item name="colorOnSurface">@color/delta_text</item>
+        <item name="colorOnBackground">@color/delta_text</item>
+        <item name="android:colorBackground">@color/delta_bg</item>
+        <item name="colorBackgroundFloating">@color/delta_surface</item>
+        <item name="android:textColorPrimary">@color/delta_text</item>
+        <item name="android:textColorSecondary">@color/delta_text_secondary</item>
+        <item name="android:navigationBarColor">@color/delta_bg</item>
+        <item name="colorMaterial100">@color/delta_accent</item>
+        <item name="colorMaterial300">@color/delta_primary</item>
+        <item name="selectedColorPrimary">@color/delta_accent</item>
+        <item name="itemShapeFillColor">@color/delta_selected</item>
+        <item name="fabColorBackground">@color/delta_fab</item>
+        <item name="accentOrTextSecondary">@color/delta_accent</item>
+        <item name="accentOrTextPrimary">@color/delta_accent</item>
+        <item name="primaryOrTextSecondary">@color/delta_accent</item>
+        <item name="primaryOrTextPrimary">@color/delta_accent</item>
+        <item name="android:windowBackground">@color/delta_bg</item>
+        <item name="android:statusBarColor">@color/delta_primary_dark</item>
+    </style>
+
+    <style name="Theme.SagerNet.Dialog.Delta">
+        <item name="colorPrimary">@color/delta_primary</item>
+        <item name="colorPrimaryDark">@color/delta_primary_dark</item>
+        <item name="colorAccent">@color/delta_accent</item>
+        <item name="colorSecondary">@color/delta_accent</item>
+        <item name="colorOnPrimary">@color/delta_on_primary</item>
+        <item name="colorOnSecondary">@color/delta_bg</item>
+        <item name="colorSurface">@color/delta_surface</item>
+        <item name="colorOnSurface">@color/delta_text</item>
+        <item name="colorOnBackground">@color/delta_text</item>
+        <item name="android:colorBackground">@color/delta_bg</item>
+        <item name="colorBackgroundFloating">@color/delta_surface</item>
+        <item name="android:textColorPrimary">@color/delta_text</item>
+        <item name="android:textColorSecondary">@color/delta_text_secondary</item>
+        <item name="android:navigationBarColor">@color/delta_bg</item>
+        <item name="colorMaterial100">@color/delta_accent</item>
+        <item name="colorMaterial300">@color/delta_primary</item>
+        <item name="selectedColorPrimary">@color/delta_accent</item>
+        <item name="itemShapeFillColor">@color/delta_selected</item>
+        <item name="fabColorBackground">@color/delta_fab</item>
+        <item name="accentOrTextSecondary">@color/delta_accent</item>
+        <item name="accentOrTextPrimary">@color/delta_accent</item>
+        <item name="primaryOrTextSecondary">@color/delta_accent</item>
+        <item name="primaryOrTextPrimary">@color/delta_accent</item>
+    </style>
+
     <style name="Theme.SagerNet.Pink_SSR">
         <item name="colorPrimary">@color/color_pink_ssr</item>
         <item name="colorPrimaryDark">@color/color_pink_ssr</item>

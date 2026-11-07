@@ -288,6 +288,19 @@
     <color name="color_ng_black_accent">#9E9E9E</color>
     <color name="color_ng_black_primary">#2B2B2B</color>
 
-    <color name="preference_simple_menu_background">#FAFAFA</color>
+    <color name="preference_simple_menu_background">#EADCC8</color>
 
+
+    <!-- DeltaBox light theme: cream #EADCC8 everywhere; the darker palette colors (#2A1E4D, #5A3B8C) read best on it -->
+    <color name="delta_bg">#EADCC8</color>
+    <color name="delta_surface">#EADCC8</color>
+    <color name="delta_primary">#5A3B8C</color>
+    <color name="delta_primary_dark">#2A1E4D</color>
+    <color name="delta_on_primary">#EADCC8</color>
+    <color name="delta_accent">#5A3B8C</color>
+    <color name="delta_fab">#5A3B8C</color>
+    <color name="delta_text">#000000</color>
+    <color name="delta_text_secondary">#A6000000</color>
+    <color name="delta_divider">#332A1E4D</color>
+    <color name="delta_selected">#335A3B8C</color>
 </resources>

@@ -2,23 +2,19 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory app:title="@string/general_settings">
-        <SwitchPreference
-            app:defaultValue="false"
-            app:icon="@drawable/ic_communication_phonelink_ring"
-            app:key="isAutoConnect"
-            app:summary="@string/auto_connect_summary"
-            app:title="@string/auto_connect" />
-        <moe.matsuri.nb4a.ui.ColorPickerPreference
-            android:title="@string/theme"
-            app:icon="@drawable/ic_baseline_color_lens_24"
-            app:key="appTheme" />
         <moe.matsuri.nb4a.ui.SimpleMenuPreference
-            app:defaultValue="0"
-            app:entries="@array/night_mode"
-            app:entryValues="@array/int_array_4"
-            app:icon="@drawable/ic_baseline_wb_sunny_24"
+            app:defaultValue="en"
+            app:entries="@array/language_entries"
+            app:entryValues="@array/language_values"
+            app:key="appLanguage"
+            app:title="@string/language"
+            app:useSimpleSummaryProvider="true" />
+        <moe.matsuri.nb4a.ui.SimpleMenuPreference
+            app:defaultValue="1"
+            app:entries="@array/theme_entries"
+            app:entryValues="@array/theme_values"
             app:key="nightTheme"
-            app:title="@string/night_mode"
+            app:title="@string/theme"
             app:useSimpleSummaryProvider="true" />
         <moe.matsuri.nb4a.ui.SimpleMenuPreference
             app:defaultValue="vpn"
@@ -97,11 +93,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/cag_route">
-        <SwitchPreference
-            app:icon="@drawable/ic_navigation_apps"
-            app:key="proxyApps"
-            app:summary="@string/proxied_apps_summary"
-            app:title="@string/proxied_apps" />
         <SwitchPreference
             app:icon="@drawable/ic_baseline_legend_toggle_24"
             app:key="bypassLan"

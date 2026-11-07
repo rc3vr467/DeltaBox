@@ -41,7 +41,10 @@ abstract class BoxInstance(
     }
 
     protected fun initPlugin(name: String): PluginManager.InitResult {
-        return pluginPath.getOrPut(name) { PluginManager.init(name)!! }
+        return pluginPath.getOrPut(name) {
+            Logs.step("Plugin: initializing $name")
+            PluginManager.init(name)!!
+        }
     }
 
     protected open fun buildConfig() {
@@ -49,11 +52,20 @@ abstract class BoxInstance(
     }
 
     protected open suspend fun loadConfig() {
-        box = Libcore.newSingBoxInstance(config.config, LocalResolverImpl)
+        try {
+            box = Libcore.newSingBoxInstance(config.config, LocalResolverImpl)
+            Logs.step("sing-box core instance created")
+        } catch (e: Throwable) {
+            Logs.e("sing-box core rejected the config: ${e.readableMessage}")
+            throw e
+        }
     }
 
     open suspend fun init() {
+        val t = SystemClock.elapsedRealtime()
+        Logs.step("Building sing-box config for [${profile.displayType()}] ${profile.displayName()}")
         buildConfig()
+        Logs.step("Config built: ${config.config.length} bytes, ${config.externalIndex.size} external chain(s)", SystemClock.elapsedRealtime() - t)
         for ((chain) in config.externalIndex) {
             chain.entries.forEachIndexed { index, (port, profile) ->
                 when (val bean = profile.requireBean()) {
@@ -199,11 +211,19 @@ abstract class BoxInstance(
             }
         }
 
-        box.start()
+        Logs.step("Starting sing-box core")
+        try {
+            box.start()
+        } catch (e: Throwable) {
+            Logs.e("sing-box core failed to start: ${e.readableMessage}")
+            throw e
+        }
+        Logs.step("sing-box core started")
     }
 
     @Suppress("EXPERIMENTAL_API_USAGE")
     override fun close() {
+        Logs.step("Closing core and plugin processes")
         for (instance in externalInstances.values) {
             runCatching {
                 instance.close()

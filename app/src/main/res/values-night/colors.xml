@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="fab_color_progress">@color/material_light_white</color>
-    <color name="preference_simple_menu_background">#303030</color>
+    <!-- DeltaBox dark theme: #0E0B1D everywhere; the light palette colors (#8B7CC7, #C9C2E3) read best on it -->
+    <color name="preference_simple_menu_background">#0E0B1D</color>
+    <color name="delta_bg">#0E0B1D</color>
+    <color name="delta_surface">#0E0B1D</color>
+    <color name="delta_primary">#5A3B8C</color>
+    <color name="delta_primary_dark">#0E0B1D</color>
+    <color name="delta_on_primary">#FFFFFF</color>
+    <color name="delta_accent">#8B7CC7</color>
+    <color name="delta_fab">#5A3B8C</color>
+    <color name="delta_text">#FFFFFF</color>
+    <color name="delta_text_secondary">#B3FFFFFF</color>
+    <color name="delta_divider">#33FFFFFF</color>
+    <color name="delta_selected">#665A3B8C</color>
 </resources>

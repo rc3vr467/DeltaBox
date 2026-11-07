@@ -23,7 +23,7 @@ import io.nekohasekai.sagernet.widget.UndoSnackbarManager
 
 class RouteFragment : ToolbarFragment(R.layout.layout_route), Toolbar.OnMenuItemClickListener {
 
-    lateinit var activity: MainActivity
+    lateinit var activity: ThemedActivity
     lateinit var ruleListView: RecyclerView
     lateinit var ruleAdapter: RuleAdapter
     lateinit var undoManager: UndoSnackbarManager<RuleEntity>
@@ -31,7 +31,7 @@ class RouteFragment : ToolbarFragment(R.layout.layout_route), Toolbar.OnMenuItem
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity = requireActivity() as MainActivity
+        activity = requireActivity() as ThemedActivity
 
         ViewCompat.setOnApplyWindowInsetsListener(view, ListListener)
         toolbar.setTitle(R.string.menu_route)
@@ -117,9 +117,6 @@ class RouteFragment : ToolbarFragment(R.layout.layout_route), Toolbar.OnMenuItem
                     }
                     .setNegativeButton(R.string.no, null)
                     .show()
-            }
-            R.id.action_manage_assets -> {
-                startActivity(Intent(requireContext(), AssetsActivity::class.java))
             }
         }
         return true

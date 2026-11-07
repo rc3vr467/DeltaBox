@@ -97,6 +97,10 @@ class VpnService : BaseVpnService(),
             .setMtu(DataStore.mtu)
         val ipv6Mode = DataStore.ipv6Mode
 
+        Logs.step(
+            "VPN: building interface (mtu=${DataStore.mtu}, ipv6=$ipv6Mode, " +
+                    "bypassLan=${DataStore.bypassLan}, httpProxy=${DataStore.appendHttpProxy})"
+        )
         // address
         builder.addAddress(PRIVATE_VLAN4_CLIENT, 30)
         if (ipv6Mode != IPv6Mode.DISABLE) {
@@ -177,15 +181,21 @@ class VpnService : BaseVpnService(),
                     }
                     added.add(it)
                 } catch (ex: PackageManager.NameNotFoundException) {
-                    Logs.w(ex)
+                    Logs.w("SplitTunnel: app not installed, skipped: $it")
                 }
             }
 
+            Logs.step(
+                "SplitTunnel applied: " + (if (bypass) "BYPASS (these apps skip VPN)" else "ALLOW (only these apps use VPN)") +
+                        " | ${added.size}/${individual.size} apps"
+            )
             if (bypass) {
                 Logs.d("Add bypass: ${added.joinToString(", ")}")
             } else {
                 Logs.d("Add allow: ${added.joinToString(", ")}")
             }
+        } else {
+            Logs.step("SplitTunnel: off, all apps use the VPN")
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && DataStore.appendHttpProxy) {
@@ -194,9 +204,20 @@ class VpnService : BaseVpnService(),
 
         metered = DataStore.meteredNetwork
         if (Build.VERSION.SDK_INT >= 29) builder.setMetered(metered)
-        conn = builder.establish() ?: throw NullConnectionException()
+        val established = try {
+            builder.establish()
+        } catch (e: Exception) {
+            Logs.e("VPN: establish() threw an exception", e)
+            throw e
+        }
+        if (established == null) {
+            Logs.e("VPN: establish() returned null (VPN permission revoked or another VPN took over)")
+            throw NullConnectionException()
+        }
+        conn = established
+        Logs.step("VPN: interface established (fd=${established.fd})")
 
-        return conn!!.fd
+        return established.fd
     }
 
     fun updateUnderlyingNetwork(builder: Builder? = null) {

@@ -210,7 +210,7 @@ class AppManagerActivity : ThemedActivity() {
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
-            setTitle(R.string.proxied_apps)
+            setTitle(R.string.menu_split_tunnel)
             setDisplayHomeAsUpEnabled(true)
             setHomeAsUpIndicator(R.drawable.ic_navigation_close)
         }

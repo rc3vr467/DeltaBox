@@ -304,6 +304,19 @@ class MainActivity : ThemedActivity(),
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_assets -> {
+                startActivity(Intent(this, AssetsActivity::class.java))
+                binding.drawerLayout.closeDrawers()
+                return false
+            }
+
+            R.id.nav_split_tunnel -> {
+                startActivity(Intent(this, AppManagerActivity::class.java))
+                binding.drawerLayout.closeDrawers()
+                return false
+            }
+        }
         if (item.isChecked) binding.drawerLayout.closeDrawers() else {
             return displayFragmentWithId(item.itemId)
         }
@@ -334,7 +347,6 @@ class MainActivity : ThemedActivity(),
             }
 
             R.id.nav_group -> displayFragment(GroupFragment())
-            R.id.nav_route -> displayFragment(RouteFragment())
             R.id.nav_settings -> displayFragment(SettingsFragment())
             R.id.nav_traffic -> displayFragment(WebviewFragment())
             R.id.nav_tools -> displayFragment(ToolsFragment())

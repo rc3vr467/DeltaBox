@@ -8,9 +8,10 @@
     <string name="telegram">Telegram update channel</string>
     <string name="about_developer">Developer</string>
     <string name="about_publisher">Publisher</string>
-    <string name="developer_name" translatable="false">Pedram</string>
+    <string name="developer_name" translatable="false">Pedram &amp; Daniel</string>
     <string name="publisher_name" translatable="false">Pedram</string>
     <string name="menu_update_group_sub" translatable="false">Update Current Group\'s Sub</string>
+    <string name="menu_delete_invalid" translatable="false">Delete Invalid</string>
     <string name="menu_reset_ping" translatable="false">Reset Ping</string>
     <string name="menu_reset_data" translatable="false">Reset Data</string>
     <string name="menu_sort_by_delay" translatable="false">Sort By Delay</string>

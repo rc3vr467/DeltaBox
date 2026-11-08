@@ -84,13 +84,13 @@ object DataStore : OnPreferenceDataStoreChangeListener {
         return groups.find { it.type == GroupType.BASIC }!!.id
     }
 
-    var appTLSVersion by configurationStore.string(Key.APP_TLS_VERSION)
+    var appTLSVersion by configurationStore.string(Key.APP_TLS_VERSION) { "1.2" }
     var enableClashAPI by configurationStore.boolean(Key.ENABLE_CLASH_API)
     var showBottomBar by configurationStore.boolean(Key.SHOW_BOTTOM_BAR)
 
-    var allowInsecureOnRequest by configurationStore.boolean(Key.ALLOW_INSECURE_ON_REQUEST)
+    var allowInsecureOnRequest by configurationStore.boolean(Key.ALLOW_INSECURE_ON_REQUEST) { true }
     var networkChangeResetConnections by configurationStore.boolean(Key.NETWORK_CHANGE_RESET_CONNECTIONS) { true }
-    var wakeResetConnections by configurationStore.boolean(Key.WAKE_RESET_CONNECTIONS)
+    var wakeResetConnections by configurationStore.boolean(Key.WAKE_RESET_CONNECTIONS) { true }
 
     //
 
@@ -103,24 +103,24 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var trafficSniffing by configurationStore.stringToInt(Key.TRAFFIC_SNIFFING) { 1 }
     var resolveDestination by configurationStore.boolean(Key.RESOLVE_DESTINATION)
 
-    var mtu by configurationStore.stringToInt(Key.MTU) { 9000 }
+    var mtu by configurationStore.stringToInt(Key.MTU) { 1500 }
 
     var bypassLan by configurationStore.boolean(Key.BYPASS_LAN)
     var bypassLanInCore by configurationStore.boolean(Key.BYPASS_LAN_IN_CORE)
 
     var allowAccess by configurationStore.boolean(Key.ALLOW_ACCESS)
-    var speedInterval by configurationStore.stringToInt(Key.SPEED_INTERVAL)
+    var speedInterval by configurationStore.stringToInt(Key.SPEED_INTERVAL) { 1000 }
     var showGroupInNotification by configurationStore.boolean("showGroupInNotification")
 
     var globalCustomConfig by configurationStore.string(Key.GLOBAL_CUSTOM_CONFIG) { "" }
 
-    var remoteDns by configurationStore.string(Key.REMOTE_DNS) { "https://dns.google/dns-query" }
-    var directDns by configurationStore.string(Key.DIRECT_DNS) { "https://223.5.5.5/dns-query" }
+    var remoteDns by configurationStore.string(Key.REMOTE_DNS) { "8.8.8.8" }
+    var directDns by configurationStore.string(Key.DIRECT_DNS) { "223.5.5.5" }
     var enableDnsRouting by configurationStore.boolean(Key.ENABLE_DNS_ROUTING) { true }
-    var enableFakeDns by configurationStore.boolean(Key.ENABLE_FAKEDNS) { true }
+    var enableFakeDns by configurationStore.boolean(Key.ENABLE_FAKEDNS) { false }
 
-    var rulesProvider by configurationStore.stringToInt(Key.RULES_PROVIDER)
-    var logLevel by configurationStore.stringToInt(Key.LOG_LEVEL)
+    var rulesProvider by configurationStore.stringToInt(Key.RULES_PROVIDER) { 2 }
+    var logLevel by configurationStore.stringToInt(Key.LOG_LEVEL) { 2 }
     var logBufSize by configurationStore.int(Key.LOG_BUF_SIZE) { 0 }
     var acquireWakeLock by configurationStore.boolean(Key.ACQUIRE_WAKE_LOCK)
 
@@ -129,6 +129,38 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var mixedPort: Int
         get() = getLocalPort(Key.MIXED_PORT, 2080)
         set(value) = saveLocalPort(Key.MIXED_PORT, value)
+
+    /**
+     * Factory defaults (taken from the author's own backup). Written only for keys that have
+     * never been stored, so existing user choices are never overwritten.
+     */
+    fun applyFactoryDefaults() {
+        val dao = PublicDatabase.kvPairDao
+        fun missing(key: String) = dao[key] == null
+        val strings = mapOf(
+            "speedInterval" to "1000", "appTLSVersion" to "1.2", "logLevel" to "2",
+            "trafficSniffing" to "1", "domain_strategy_for_direct" to "ipv4_only",
+            "domain_strategy_for_remote" to "ipv4_only", "domain_strategy_for_server" to "ipv4_only",
+            "ipv6Mode" to "0", "mtu" to "1500", "tunImplementation" to "0", "rulesProvider" to "2",
+            "directDns" to "223.5.5.5", "remoteDns" to "8.8.8.8", "serviceMode" to "vpn",
+            "black_wall_level" to "PHANTOM", "appLanguage" to "en", "nightTheme" to "1",
+            "connectionTestURL" to CONNECTION_TEST_URL,
+        )
+        val booleans = mapOf(
+            "profileTrafficStatistics" to true, "showDirectSpeed" to true,
+            "showGroupInNotification" to false, "meteredNetwork" to false,
+            "networkChangeResetConnections" to true, "showBottomBar" to false,
+            "enableFakeDns" to false, "wakeResetConnections" to true,
+            "allowInsecureOnRequest" to true, "alwaysShowAddress" to true,
+            "acquireWakeLock" to false, "bypassLan" to false, "resolveDestination" to false,
+            "bypassLanInCore" to false, "enableDnsRouting" to true, "globalAllowInsecure" to true,
+            "enableClashAPI" to false, "allowAccess" to false, "appendHttpProxy" to true,
+            "proxyApps" to true, "black_wall_enabled" to false,
+        )
+        for ((k, v) in strings) if (missing(k)) configurationStore.putString(k, v)
+        for ((k, v) in booleans) if (missing(k)) configurationStore.putBoolean(k, v)
+        if (missing("connectionTestConcurrent")) configurationStore.putInt("connectionTestConcurrent", 5)
+    }
 
     fun initGlobal() {
         if (configurationStore.getString(Key.MIXED_PORT) == null) {
@@ -148,7 +180,7 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     var ipv6Mode by configurationStore.stringToInt(Key.IPV6_MODE) { IPv6Mode.DISABLE }
 
     var meteredNetwork by configurationStore.boolean(Key.METERED_NETWORK)
-    var proxyApps by configurationStore.boolean(Key.PROXY_APPS)
+    var proxyApps by configurationStore.boolean(Key.PROXY_APPS) { true }
     var bypass by configurationStore.boolean(Key.BYPASS_MODE) { true }
     var individual by configurationStore.string(Key.INDIVIDUAL)
     var showDirectSpeed by configurationStore.boolean(Key.SHOW_DIRECT_SPEED) { true }
@@ -156,19 +188,17 @@ object DataStore : OnPreferenceDataStoreChangeListener {
     // Auto Connect was removed: never restart the service on boot / app update.
     val persistAcrossReboot: Boolean get() = false
 
-    var appendHttpProxy by configurationStore.boolean(Key.APPEND_HTTP_PROXY)
+    var appendHttpProxy by configurationStore.boolean(Key.APPEND_HTTP_PROXY) { true }
     var connectionTestURL by configurationStore.string(Key.CONNECTION_TEST_URL) { CONNECTION_TEST_URL }
     var connectionTestConcurrent by configurationStore.int("connectionTestConcurrent") { 5 }
-    var alwaysShowAddress by configurationStore.boolean(Key.ALWAYS_SHOW_ADDRESS)
+    var alwaysShowAddress by configurationStore.boolean(Key.ALWAYS_SHOW_ADDRESS) { true }
 
     var tunImplementation by configurationStore.stringToInt(Key.TUN_IMPLEMENTATION) { TunImplementation.GVISOR }
     var profileTrafficStatistics by configurationStore.boolean(Key.PROFILE_TRAFFIC_STATISTICS) { true }
 
-    var yacdURL by configurationStore.string("yacdURL") { "http://127.0.0.1:9090/ui" }
-
     // protocol
 
-    var globalAllowInsecure by configurationStore.boolean(Key.GLOBAL_ALLOW_INSECURE) { false }
+    var globalAllowInsecure by configurationStore.boolean(Key.GLOBAL_ALLOW_INSECURE) { true }
 
     // old cache, DO NOT ADD
 

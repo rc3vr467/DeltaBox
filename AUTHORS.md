@@ -1,4 +1,4 @@
 # DeltaBox
 
-- Developer: Pedram
+- Developer: Pedram & Daniel
 - Publisher & maintainer: Pedram

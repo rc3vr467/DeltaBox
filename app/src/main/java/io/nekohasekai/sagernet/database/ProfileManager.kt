@@ -200,12 +200,7 @@ object ProfileManager {
                     outbound = -2
                 )
             )
-            val fuckedCountry = mutableListOf("cn:中国")
-            if (Locale.getDefault().country != Locale.CHINA.country) {
-                // 非中文用户
-                fuckedCountry += "ir:Iran"
-                fuckedCountry += "ru:Russia"
-            }
+            val fuckedCountry = mutableListOf("cn:中国", "ir:Iran", "ru:Russia")
             for (c in fuckedCountry) {
                 val country = c.substringBefore(":")
                 val displayCountry = c.substringAfter(":")

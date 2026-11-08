@@ -46,6 +46,27 @@ class AssetsActivity : ThemedActivity() {
             setHomeAsUpIndicator(R.drawable.ic_navigation_close)
         }
 
+        val providerNames = resources.getStringArray(R.array.rules_dat_provider)
+        fun updateProviderSummary() {
+            binding.rulesProviderSummary.text =
+                providerNames[DataStore.rulesProvider.coerceIn(0, providerNames.size - 1)]
+        }
+        updateProviderSummary()
+        binding.rulesProviderRow.setOnClickListener {
+            com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.route_rules_provider)
+                .setSingleChoiceItems(
+                    providerNames,
+                    DataStore.rulesProvider.coerceIn(0, providerNames.size - 1)
+                ) { dialog, which ->
+                    DataStore.rulesProvider = which
+                    updateProviderSummary()
+                    dialog.dismiss()
+                }
+                .setNegativeButton(android.R.string.cancel, null)
+                .show()
+        }
+
         binding.recyclerView.layoutManager = FixedLinearLayoutManager(binding.recyclerView)
         adapter = AssetAdapter()
         binding.recyclerView.adapter = adapter

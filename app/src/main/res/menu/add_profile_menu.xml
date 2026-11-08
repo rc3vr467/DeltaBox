@@ -99,6 +99,9 @@
                 android:id="@+id/action_clear_traffic_statistics"
                 android:title="@string/menu_reset_data" />
             <item
+                android:id="@+id/action_connection_test_delete_unavailable"
+                android:title="@string/menu_delete_invalid" />
+            <item
                 android:id="@+id/action_order_by_delay"
                 android:title="@string/menu_sort_by_delay" />
         </menu>

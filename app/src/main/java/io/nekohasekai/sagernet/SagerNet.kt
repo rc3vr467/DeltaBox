@@ -56,6 +56,14 @@ class SagerNet : Application(),
 
         Thread.setDefaultUncaughtExceptionHandler(CrashHandler)
 
+        if (isMainProcess) {
+            try {
+                DataStore.applyFactoryDefaults()
+            } catch (e: Exception) {
+                Logs.w(e)
+            }
+        }
+
         if (isMainProcess || isBgProcess) {
             externalAssets.mkdirs()
             Seq.setContext(this)

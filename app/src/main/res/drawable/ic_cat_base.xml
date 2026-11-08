@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DeltaBox cat logo. Resting state = DISCONNECTED (red, closed eyes, faint red aura).
+     Every colour and alpha here is driven by the ic_service_* animations from the real BaseService state.
+     Geometry of ears/head/eyes/mouth is unchanged from the original cat; only the group scale fits it inside the aura ring.
+     Intrinsic size equals the 68dp connect button, so FloatingActionButton does not up-scale (no blur). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="68dp"
+    android:height="68dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- aura: thin ring + very soft disc, no blur, no per-frame cost -->
+    <path
+        android:name="aura_disc"
+        android:pathData="M24,24 m-21.5,0 a21.5,21.5 0,1,1 43,0 a21.5,21.5 0,1,1 -43,0"
+        android:fillColor="@color/cat_red"
+        android:fillAlpha="0.10" />
+    <path
+        android:name="aura_ring"
+        android:pathData="M24,24 m-22.6,0 a22.6,22.6 0,1,1 45.2,0 a22.6,22.6 0,1,1 -45.2,0"
+        android:strokeWidth="1.4"
+        android:strokeColor="@color/cat_red"
+        android:strokeAlpha="0.55" />
+
+    <group
+        android:name="cat"
+        android:pivotX="24"
+        android:pivotY="24"
+        android:scaleX="0.82"
+        android:scaleY="0.82">
+
+        <path
+            android:name="cat_ears"
+            android:pathData="M9.5,21 L12.5,6.5 L20,14.2 M38.5,21 L35.5,6.5 L28,14.2"
+            android:strokeWidth="2.6"
+            android:strokeColor="@color/cat_red"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+
+        <path
+            android:name="cat_head"
+            android:pathData="M9.5,25 C9.5,16 15.5,11 24,11 C32.5,11 38.5,16 38.5,25 C38.5,34.5 32.5,40 24,40 C15.5,40 9.5,34.5 9.5,25 Z"
+            android:strokeWidth="2.6"
+            android:strokeColor="@color/cat_red"
+            android:strokeLineJoin="round" />
+
+        <!-- eyes closed -->
+        <path
+            android:name="eye_l_off"
+            android:pathData="M14.5,26 L20.5,26"
+            android:strokeWidth="2.8"
+            android:strokeColor="@color/cat_red_soft"
+            android:strokeAlpha="1"
+            android:strokeLineCap="round" />
+        <path
+            android:name="eye_r_off"
+            android:pathData="M27.5,26 L33.5,26"
+            android:strokeWidth="2.8"
+            android:strokeColor="@color/cat_red_soft"
+            android:strokeAlpha="1"
+            android:strokeLineCap="round" />
+
+        <!-- eyes glowing: halo + core -->
+        <path
+            android:name="eye_l_halo"
+            android:pathData="M17.5,26 m-5,0 a5,5 0,1,1 10,0 a5,5 0,1,1 -10,0"
+            android:fillColor="@color/cat_red"
+            android:fillAlpha="0" />
+        <path
+            android:name="eye_r_halo"
+            android:pathData="M30.5,26 m-5,0 a5,5 0,1,1 10,0 a5,5 0,1,1 -10,0"
+            android:fillColor="@color/cat_red"
+            android:fillAlpha="0" />
+        <path
+            android:name="eye_l_core"
+            android:pathData="M17.5,26 m-2.7,0 a2.7,2.7 0,1,1 5.4,0 a2.7,2.7 0,1,1 -5.4,0"
+            android:fillColor="@color/cat_red_soft"
+            android:fillAlpha="0" />
+        <path
+            android:name="eye_r_core"
+            android:pathData="M30.5,26 m-2.7,0 a2.7,2.7 0,1,1 5.4,0 a2.7,2.7 0,1,1 -5.4,0"
+            android:fillColor="@color/cat_red_soft"
+            android:fillAlpha="0" />
+
+        <!-- nose + mouth -->
+        <path
+            android:name="cat_mouth"
+            android:pathData="M24,30.5 L24,32.3 M20.8,34.2 Q24,36.4 27.2,34.2"
+            android:strokeWidth="2"
+            android:strokeColor="@color/cat_red_soft"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+    </group>
+</vector>

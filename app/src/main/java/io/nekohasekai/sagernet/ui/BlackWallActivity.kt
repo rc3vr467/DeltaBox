@@ -1,0 +1,142 @@
+package io.nekohasekai.sagernet.ui
+
+import android.content.res.ColorStateList
+import android.graphics.drawable.GradientDrawable
+import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
+import androidx.core.graphics.ColorUtils
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.switchmaterial.SwitchMaterial
+import io.nekohasekai.sagernet.R
+import io.nekohasekai.sagernet.bg.BlackWallEngine
+import io.nekohasekai.sagernet.bg.BlackWallEngine.StealthLevel
+
+/**
+ * Black Wall — Anti-DPI Stealth Engine settings screen.
+ *
+ * Opened from the shield icon in the toolbar. Toggling the switch and
+ * picking a level both write straight to DataStore (BlackWallEngine), so
+ * the change is live for the *next* connection without needing a Save
+ * button, and it never touches any other NekoBox preference key.
+ */
+class BlackWallActivity : ThemedActivity(R.layout.layout_black_wall) {
+
+    private class LevelRow(
+        val container: View,
+        val title: TextView,
+        val check: View,
+        val level: StealthLevel,
+    )
+
+    private lateinit var rows: List<LevelRow>
+    private lateinit var switchView: SwitchMaterial
+    private lateinit var noticeView: TextView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.apply {
+            setTitle(R.string.black_wall)
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_navigation_close)
+        }
+
+        switchView = findViewById(R.id.black_wall_switch)
+        noticeView = findViewById(R.id.black_wall_applies_notice)
+
+        rows = listOf(
+            LevelRow(
+                findViewById(R.id.level_ghost),
+                findViewById(R.id.level_ghost_title),
+                findViewById(R.id.level_ghost_check),
+                StealthLevel.GHOST,
+            ),
+            LevelRow(
+                findViewById(R.id.level_phantom),
+                findViewById(R.id.level_phantom_title),
+                findViewById(R.id.level_phantom_check),
+                StealthLevel.PHANTOM,
+            ),
+            LevelRow(
+                findViewById(R.id.level_wraith),
+                findViewById(R.id.level_wraith_title),
+                findViewById(R.id.level_wraith_check),
+                StealthLevel.WRAITH,
+            ),
+        )
+
+        rows.forEach { row ->
+            row.container.setOnClickListener {
+                BlackWallEngine.level = row.level
+                refresh()
+            }
+        }
+
+        val blackWallAccent = MaterialColors.getColor(this, R.attr.blackWallAccent, 0)
+        val switchTrackUnchecked = MaterialColors.getColor(
+            this, com.google.android.material.R.attr.colorSurfaceVariant, 0
+        )
+        switchView.thumbTintList = ColorStateList(
+            arrayOf(
+                intArrayOf(android.R.attr.state_checked),
+                intArrayOf(-android.R.attr.state_checked)
+            ),
+            intArrayOf(blackWallAccent, switchTrackUnchecked)
+        )
+        switchView.trackTintList = ColorStateList(
+            arrayOf(
+                intArrayOf(android.R.attr.state_checked),
+                intArrayOf(-android.R.attr.state_checked)
+            ),
+            intArrayOf(
+                ColorUtils.setAlphaComponent(blackWallAccent, 120),
+                ColorUtils.setAlphaComponent(switchTrackUnchecked, 180)
+            )
+        )
+
+        switchView.isChecked = BlackWallEngine.enabled
+        switchView.setOnCheckedChangeListener { _, isChecked ->
+            BlackWallEngine.enabled = isChecked
+            refresh()
+        }
+
+        // Black Wall starts at Ghost by default if no level was chosen yet.
+        if (BlackWallEngine.level == StealthLevel.OFF) {
+            BlackWallEngine.level = StealthLevel.GHOST
+        }
+
+        refresh()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun refresh() {
+        val enabled = BlackWallEngine.enabled
+        val level = BlackWallEngine.level
+
+        val accent = MaterialColors.getColor(this, R.attr.blackWallAccent, 0)
+        val surface = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, 0)
+        val textPrimary = MaterialColors.getColor(this, android.R.attr.textColorPrimary, 0)
+
+        rows.forEach { row ->
+            val selected = enabled && row.level == level
+            row.container.alpha = if (enabled) 1f else 0.5f
+            row.container.isEnabled = enabled
+            (row.container.background as? GradientDrawable)?.setColor(
+                if (selected) ColorUtils.setAlphaComponent(accent, 40) else surface
+            )
+            row.title.setTextColor(if (selected) accent else textPrimary)
+            row.check.visibility = if (selected) View.VISIBLE else View.INVISIBLE
+        }
+
+        noticeView.visibility = if (enabled) View.VISIBLE else View.GONE
+    }
+}

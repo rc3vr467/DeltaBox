@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- White icons on the midnight toolbar -->
-    <style name="ThemeOverlay.Delta.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-</resources>

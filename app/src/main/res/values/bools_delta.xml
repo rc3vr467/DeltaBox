@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Light mode has a white toolbar and white navigation bar, so system-bar icons must be dark. Night overrides to false. -->
-    <bool name="delta_light_nav_bar">true</bool>
-    <bool name="delta_light_status_bar">true</bool>
-</resources>

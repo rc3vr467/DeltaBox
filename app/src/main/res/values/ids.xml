@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- Menu items removed from the toolbar overflow menu but still referenced in code -->
-    <item name="action_remove_duplicate" type="id" />
-    <item name="action_connection_tcp_ping" type="id" />
-    <item name="action_connection_test_delete_unavailable" type="id" />
-    <item name="action_order_origin" type="id" />
-    <item name="action_order_by_name" type="id" />
-</resources>

@@ -46,13 +46,6 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="v1.4.2"
-            android:textColor="@color/delta_nav_footer_text"
-            android:textSize="11sp"
-            android:fontFamily="sans-serif" />
 
     </LinearLayout>
 

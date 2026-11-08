@@ -197,10 +197,10 @@ fun Project.setupApp() {
                 outputFileName = if (isPreview) {
                     outputFileName.replace(
                         project.name,
-                        "DeltaBox-" + requireMetadata().getProperty("PRE_VERSION_NAME")
+                        "DeltaBox"
                     ).replace("-preview", "")
                 } else {
-                    outputFileName.replace(project.name, "DeltaBox-$versionName")
+                    outputFileName.replace(project.name, "DeltaBox")
                         .replace("-release", "")
                         .replace("-oss", "")
                 }

@@ -68,53 +68,6 @@
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:id="@+id/about_row_version"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:padding="16dp"
-                        android:background="?attr/selectableItemBackground">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_baseline_update_24"
-                            app:tint="?attr/colorControlNormal" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="24dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/about_version_title"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/app_version"
-                                android:textAppearance="?attr/textAppearanceSubtitle2" />
-
-                            <TextView
-                                android:id="@+id/about_version_subtitle"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="2dp"
-                                android:textAppearance="?attr/textAppearanceBody2"
-                                android:textColor="?android:textColorSecondary"
-                                tools:text="1.4.2" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="?android:attr/listDivider" />
-
-                    <LinearLayout
                         android:id="@+id/about_row_telegram"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -148,7 +101,97 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="@v2ray_DA"
+                                android:text="\@v2ray_DA"
+                                android:textAppearance="?attr/textAppearanceBody2"
+                                android:textColor="?android:textColorSecondary" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <LinearLayout
+                        android:id="@+id/about_row_developer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_baseline_person_24"
+                            android:importantForAccessibility="no"
+                            app:tint="?attr/colorControlNormal" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="24dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/about_developer"
+                                android:textAppearance="?attr/textAppearanceSubtitle2" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="@string/developer_name"
+                                android:textAppearance="?attr/textAppearanceBody2"
+                                android:textColor="?android:textColorSecondary" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <LinearLayout
+                        android:id="@+id/about_row_publisher"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_baseline_person_24"
+                            android:importantForAccessibility="no"
+                            app:tint="?attr/colorControlNormal" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="24dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/about_publisher"
+                                android:textAppearance="?attr/textAppearanceSubtitle2" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="@string/publisher_name"
                                 android:textAppearance="?attr/textAppearanceBody2"
                                 android:textColor="?android:textColorSecondary" />
 

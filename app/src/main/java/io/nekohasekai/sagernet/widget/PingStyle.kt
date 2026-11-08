@@ -11,13 +11,12 @@ import io.nekohasekai.sagernet.R
  * It never measures, stores or changes a ping: the caller passes in the value the app already has,
  * or null when there is none, in which case the badge shows an em dash instead of a made-up number.
  *
- * Thresholds (visual rules only): 0-100 green, 101-180 yellow-green, 181-250 orange, >250 red, unknown grey.
+ * Thresholds (visual rules only): 0-500 green, 501-1600 orange, >1600 red, unknown grey.
  */
 object PingStyle {
 
     private enum class Level(val text: Int, val bg: Int) {
         GOOD(R.color.delta_ping_good, R.color.delta_ping_good_bg),
-        OK(R.color.delta_ping_ok, R.color.delta_ping_ok_bg),
         WARN(R.color.delta_ping_warn, R.color.delta_ping_warn_bg),
         BAD(R.color.delta_ping_bad, R.color.delta_ping_bad_bg),
         NONE(R.color.delta_ping_none, R.color.delta_ping_none_bg)
@@ -25,9 +24,8 @@ object PingStyle {
 
     private fun levelOf(ms: Int?): Level = when {
         ms == null || ms < 0 -> Level.NONE
-        ms <= 100 -> Level.GOOD
-        ms <= 180 -> Level.OK
-        ms <= 250 -> Level.WARN
+        ms <= 500 -> Level.GOOD
+        ms <= 1600 -> Level.WARN
         else -> Level.BAD
     }
 

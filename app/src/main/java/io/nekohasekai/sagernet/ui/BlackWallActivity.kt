@@ -1,5 +1,6 @@
 package io.nekohasekai.sagernet.ui
 
+import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.MenuItem
@@ -73,6 +74,28 @@ class BlackWallActivity : ThemedActivity(R.layout.layout_black_wall) {
             }
         }
 
+        val blackWallAccent = MaterialColors.getColor(this, R.attr.blackWallAccent, 0)
+        val switchTrackUnchecked = MaterialColors.getColor(
+            this, com.google.android.material.R.attr.colorSurfaceVariant, 0
+        )
+        switchView.thumbTintList = ColorStateList(
+            arrayOf(
+                intArrayOf(android.R.attr.state_checked),
+                intArrayOf(-android.R.attr.state_checked)
+            ),
+            intArrayOf(blackWallAccent, switchTrackUnchecked)
+        )
+        switchView.trackTintList = ColorStateList(
+            arrayOf(
+                intArrayOf(android.R.attr.state_checked),
+                intArrayOf(-android.R.attr.state_checked)
+            ),
+            intArrayOf(
+                ColorUtils.setAlphaComponent(blackWallAccent, 120),
+                ColorUtils.setAlphaComponent(switchTrackUnchecked, 180)
+            )
+        )
+
         switchView.isChecked = BlackWallEngine.enabled
         switchView.setOnCheckedChangeListener { _, isChecked ->
             BlackWallEngine.enabled = isChecked
@@ -99,7 +122,7 @@ class BlackWallActivity : ThemedActivity(R.layout.layout_black_wall) {
         val enabled = BlackWallEngine.enabled
         val level = BlackWallEngine.level
 
-        val primary = MaterialColors.getColor(this, com.google.android.material.R.attr.colorPrimary, 0)
+        val accent = MaterialColors.getColor(this, R.attr.blackWallAccent, 0)
         val surface = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, 0)
         val textPrimary = MaterialColors.getColor(this, android.R.attr.textColorPrimary, 0)
 
@@ -108,9 +131,9 @@ class BlackWallActivity : ThemedActivity(R.layout.layout_black_wall) {
             row.container.alpha = if (enabled) 1f else 0.5f
             row.container.isEnabled = enabled
             (row.container.background as? GradientDrawable)?.setColor(
-                if (selected) ColorUtils.setAlphaComponent(primary, 40) else surface
+                if (selected) ColorUtils.setAlphaComponent(accent, 40) else surface
             )
-            row.title.setTextColor(if (selected) primary else textPrimary)
+            row.title.setTextColor(if (selected) accent else textPrimary)
             row.check.visibility = if (selected) View.VISIBLE else View.INVISIBLE
         }
 

@@ -34,7 +34,7 @@
         <item name="android:layout_height">22dp</item>
         <item name="android:src">@drawable/ic_action_done</item>
         <item name="android:visibility">invisible</item>
-        <item name="tint">?attr/colorPrimary</item>
+        <item name="tint">?attr/blackWallAccent</item>
     </style>
 
 </resources>

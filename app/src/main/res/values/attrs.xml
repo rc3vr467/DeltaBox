@@ -10,4 +10,5 @@
     <attr name="fabColorBackground" format="color" />
     <attr name="selectedColorPrimary" format="color" />
     <attr name="whiteOrTextPrimary" format="color" />
+    <attr name="blackWallAccent" format="color" />
 </resources>

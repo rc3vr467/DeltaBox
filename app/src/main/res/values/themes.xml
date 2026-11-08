@@ -179,6 +179,7 @@
         <item name="tabIndicatorColor">@color/delta_accent</item>
         <item name="tabRippleColor">@color/delta_selected</item>
         <item name="android:windowLightStatusBar">@bool/delta_light_status_bar</item>
+        <item name="blackWallAccent">@color/delta_blackwall_accent</item>
 
     </style>
 

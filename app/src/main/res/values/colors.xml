@@ -306,6 +306,8 @@
 
     <!-- Accent — Light uses green -->
     <color name="delta_accent">#16A34A</color>
+    <!-- Black Wall screen only (light): dark purple instead of green, kept dark enough that white icon/text drawn on top of it (selected row) stays readable, but used here mainly for icon/title/checkmark on a light card, where it must be dark enough to read against white. -->
+    <color name="delta_blackwall_accent">#5B21B6</color>
     <color name="delta_accent_soft">#22C55E</color>
     <color name="delta_fab">#171717</color>
 
@@ -313,6 +315,9 @@
     <color name="delta_text">#171717</color>
     <color name="delta_text_secondary">#525D56</color>
     <color name="delta_text_muted">#7A877F</color>
+
+    <!-- Server type label (Shadowsocks / VLESS / ...) — Light: keep neutral, only Dark uses purple -->
+    <color name="delta_server_type_text">#525D56</color>
 
     <!-- Chrome — Light -->
     <color name="delta_divider">#1A000000</color>

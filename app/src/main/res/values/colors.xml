@@ -368,4 +368,13 @@
     <color name="delta_settings_group_text">#16A34A</color>
     <color name="delta_settings_group_icon">#16A34A</color>
 
+    <color name="material_deep_orange_accent_200">#FF9E80</color>
+    <color name="color_ng_black_primary">#000000</color>
+    <color name="color_ng_black_accent">#BDBDBD</color>
+    <color name="cat_red">#EF4444</color>
+    <color name="cat_red_soft">#FCA5A5</color>
+    <color name="cat_blue">#3B82F6</color>
+    <color name="cat_blue_soft">#93C5FD</color>
+    <color name="cat_green">#22C55E</color>
+    <color name="cat_green_soft">#86EFAC</color>
 </resources>

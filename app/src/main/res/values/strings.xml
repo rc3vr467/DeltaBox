@@ -597,4 +597,6 @@
     <string name="black_wall_how_wraith">Wraith — maximum masking: periodic noise HTTPS requests to legitimate domains run alongside the tunnel, making the traffic pattern look like normal browsing.</string>
     <string name="black_wall_reality_notice">Note: servers using REALITY already provide their own camouflage. Black Wall leaves REALITY outbounds untouched to avoid breaking the handshake.</string>
     <string name="black_wall_applies_next_connection">Changes apply on the next connection.</string>
+    <string name="auto_connect">Auto connect</string>
+    <string name="auto_connect_summary">Enable the proxy on startup/app update if it was running before</string>
 </resources>

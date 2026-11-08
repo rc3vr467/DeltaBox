@@ -1105,44 +1105,15 @@ class ConfigurationFragment @JvmOverloads constructor(
 
             val pf = requireParentFragment() as? ToolbarFragment ?: return
             val menu = pf.toolbar.menu
-            val origin = menu.findItem(R.id.action_order_origin)
-            val byName = menu.findItem(R.id.action_order_by_name)
-            val byDelay = menu.findItem(R.id.action_order_by_delay)
-            when (proxyGroup.order) {
-                GroupOrder.ORIGIN -> {
-                    origin.isChecked = true
-                }
+            val byDelay = menu.findItem(R.id.action_order_by_delay) ?: return
 
-                GroupOrder.BY_NAME -> {
-                    byName.isChecked = true
-                }
-
-                GroupOrder.BY_DELAY -> {
-                    byDelay.isChecked = true
-                }
-            }
-
-            fun updateTo(order: Int) {
-                if (proxyGroup.order == order) return
-                runOnDefaultDispatcher {
-                    proxyGroup.order = order
-                    GroupManager.updateGroup(proxyGroup)
-                }
-            }
-
-            origin.setOnMenuItemClickListener {
-                it.isChecked = true
-                updateTo(GroupOrder.ORIGIN)
-                true
-            }
-            byName.setOnMenuItemClickListener {
-                it.isChecked = true
-                updateTo(GroupOrder.BY_NAME)
-                true
-            }
             byDelay.setOnMenuItemClickListener {
-                it.isChecked = true
-                updateTo(GroupOrder.BY_DELAY)
+                if (proxyGroup.order != GroupOrder.BY_DELAY) {
+                    runOnDefaultDispatcher {
+                        proxyGroup.order = GroupOrder.BY_DELAY
+                        GroupManager.updateGroup(proxyGroup)
+                    }
+                }
                 true
             }
         }

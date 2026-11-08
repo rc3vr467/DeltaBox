@@ -359,7 +359,11 @@ class MainActivity : ThemedActivity(),
 
             else -> return false
         }
-        navigation.menu.findItem(id).isChecked = true
+        for (nav in listOf(navigation, binding.navViewTools)) {
+            val m = nav.menu
+            for (i in 0 until m.size()) m.getItem(i).isChecked = false
+            m.findItem(id)?.isChecked = true
+        }
         return true
     }
 

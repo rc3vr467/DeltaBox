@@ -10,6 +10,10 @@
     <string name="about_publisher">Publisher</string>
     <string name="developer_name" translatable="false">Pedram</string>
     <string name="publisher_name" translatable="false">Pedram</string>
+    <string name="menu_update_group_sub" translatable="false">Update Current Group\'s Sub</string>
+    <string name="menu_reset_ping" translatable="false">Reset Ping</string>
+    <string name="menu_reset_data" translatable="false">Reset Data</string>
+    <string name="menu_sort_by_delay" translatable="false">Sort By Delay</string>
     <string name="oss_licenses">Open source licenses</string>
     <string name="app_version">Version</string>
     <string name="version_x">Version (%s)</string>

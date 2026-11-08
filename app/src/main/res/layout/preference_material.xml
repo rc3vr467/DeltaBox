@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- DeltaBox v3 — Single preference row: icon + title + summary + widget -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
@@ -68,5 +69,16 @@
         android:gravity="center"
         android:paddingStart="8dp"
         android:minWidth="?android:attr/listPreferredItemPaddingEnd" />
+
+    <!-- Chevron for menu-style rows (shown by SettingsPreferenceFragment when no widget) -->
+    <ImageView
+        android:id="@+id/pref_chevron"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_pref_chevron"
+        android:visibility="gone"
+        app:tint="@color/delta_text_muted" />
 
 </LinearLayout>

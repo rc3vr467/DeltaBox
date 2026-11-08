@@ -599,4 +599,6 @@
     <string name="black_wall_applies_next_connection">Changes apply on the next connection.</string>
     <string name="auto_connect">Auto connect</string>
     <string name="auto_connect_summary">Enable the proxy on startup/app update if it was running before</string>
+    <string name="service_mode_transproxy">Transparent proxy</string>
+    <string name="copy_toast_msg">Link copied to clipboard.</string>
 </resources>

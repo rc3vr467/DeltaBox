@@ -24,7 +24,7 @@
     </style>
 
     <!-- Toolbar overlay -->
-    <style name="ThemeOverlay.Delta.ActionBar" parent="ThemeOverlay.AppCompat.Light.ActionBar" />
+    <style name="ThemeOverlay.Delta.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar" />
 
     <!-- ── Cards ── -->
     <style name="Widget.Delta.Card" parent="Widget.MaterialComponents.CardView">

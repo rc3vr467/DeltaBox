@@ -1,17 +1,20 @@
 package io.nekohasekai.sagernet.widget
 
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
-import android.text.format.Formatter
 import android.content.res.ColorStateList
+import android.text.format.Formatter
 import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.whenStarted
-import com.google.android.material.card.MaterialCardView
+import com.google.android.material.bottomappbar.BottomAppBar
 import io.nekohasekai.sagernet.R
 import io.nekohasekai.sagernet.bg.BaseService
 import io.nekohasekai.sagernet.database.DataStore
@@ -21,69 +24,128 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-/**
- * Glass info panel shown to the right of the cat connect button.
- * UI only: state badge, ping, download / upload speed and the status / test message.
- * The public API (allowShow, changeState, updateSpeed, testConnection, performShow/Hide) is unchanged.
- */
 class StatsBar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null,
-    defStyleAttr: Int = com.google.android.material.R.attr.materialCardViewStyle,
-) : MaterialCardView(context, attrs, defStyleAttr) {
-    private lateinit var stateText: TextView
-    private lateinit var stateDot: View
-    private lateinit var pingText: TextView
+    defStyleAttr: Int = R.attr.bottomAppBarStyle,
+) : BottomAppBar(context, attrs, defStyleAttr) {
     private lateinit var statusText: TextView
     private lateinit var txText: TextView
     private lateinit var rxText: TextView
+    private lateinit var statusDot: View
+    private lateinit var pingBadge: TextView
+    private lateinit var behavior: YourBehavior
+
+    // Display-only: panel tint follows the real service state, animated once per change (220 ms).
+    private var panelColor = 0
+    private var panelAnimator: ValueAnimator? = null
 
     var allowShow = true
 
-    override fun onFinishInflate() {
-        super.onFinishInflate()
-        stateText = findViewById(R.id.state)
-        stateDot = findViewById(R.id.state_dot)
-        pingText = findViewById(R.id.ping)
+    override fun getBehavior(): YourBehavior {
+        if (!this::behavior.isInitialized) behavior = YourBehavior { allowShow }
+        return behavior
+    }
+
+    class YourBehavior(val getAllowShow: () -> Boolean) : Behavior() {
+
+        override fun onNestedScroll(
+            coordinatorLayout: CoordinatorLayout, child: BottomAppBar, target: View,
+            dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int,
+            type: Int, consumed: IntArray,
+        ) {
+            super.onNestedScroll(
+                coordinatorLayout,
+                child,
+                target,
+                dxConsumed,
+                dyConsumed + dyUnconsumed,
+                dxUnconsumed,
+                0,
+                type,
+                consumed
+            )
+        }
+
+        override fun slideUp(child: BottomAppBar) {
+            if (!getAllowShow()) return
+            super.slideUp(child)
+        }
+
+        override fun slideDown(child: BottomAppBar) {
+            if (!getAllowShow()) return
+            super.slideDown(child)
+        }
+    }
+
+
+    override fun setOnClickListener(l: OnClickListener?) {
         statusText = findViewById(R.id.status)
         txText = findViewById(R.id.tx)
         rxText = findViewById(R.id.rx)
-        resetPing()
+        statusDot = findViewById(R.id.statusDot)
+        pingBadge = findViewById(R.id.pingBadge)
+        setPing(null)
+        super.setOnClickListener(l)
     }
 
-    fun performShow() {
-        visibility = View.VISIBLE
+    override fun onDetachedFromWindow() {
+        panelAnimator?.cancel()
+        panelAnimator = null
+        super.onDetachedFromWindow()
     }
 
-    fun performHide() {
-        visibility = View.GONE
+    /** Ping badge in the panel. [ms] comes from the real connection test; null shows an em dash. */
+    private fun setPing(ms: Int?) {
+        PingStyle.apply(pingBadge, ms, if (ms == null) "PING —" else "PING $ms ms")
+    }
+
+    private fun applyStateStyle(state: BaseService.State) {
+        val dot: Int
+        val text: Int
+        val panel: Int
+        when (state) {
+            BaseService.State.Connected -> {
+                dot = R.color.delta_state_on
+                text = R.color.delta_state_on_text
+                panel = R.color.delta_panel_on
+            }
+            BaseService.State.Connecting, BaseService.State.Stopping -> {
+                dot = R.color.delta_state_connecting
+                text = R.color.delta_state_connecting_text
+                panel = R.color.delta_panel_connecting
+            }
+            else -> {
+                dot = R.color.delta_state_off
+                text = R.color.delta_state_off_text
+                panel = R.color.delta_panel_off
+            }
+        }
+        ViewCompat.setBackgroundTintList(
+            statusDot, ColorStateList.valueOf(ContextCompat.getColor(context, dot))
+        )
+        statusText.setTextColor(ContextCompat.getColor(context, text))
+
+        val target = ContextCompat.getColor(context, panel)
+        val from = if (panelColor == 0) target else panelColor
+        panelAnimator?.cancel()
+        if (from == target) {
+            panelColor = target
+            setBackgroundTint(ColorStateList.valueOf(target))
+        } else {
+            panelAnimator = ValueAnimator.ofArgb(from, target).apply {
+                duration = 220L
+                addUpdateListener {
+                    panelColor = it.animatedValue as Int
+                    setBackgroundTint(ColorStateList.valueOf(panelColor))
+                }
+                start()
+            }
+        }
     }
 
     private fun setStatus(text: CharSequence) {
         statusText.text = text
         TooltipCompat.setTooltipText(this, text)
-    }
-
-    private fun resetPing() {
-        pingText.text = context.getString(
-            R.string.delta_ping_label
-        ) + " " + context.getString(R.string.delta_ping_unknown)
-    }
-
-    private fun setPing(elapsed: Int) {
-        pingText.text = context.getString(R.string.delta_ping_label) + " " +
-                context.getString(R.string.delta_ping_value, elapsed)
-    }
-
-    /** State badge (text + colored dot) follows the real service state. */
-    private fun setBadge(state: BaseService.State) {
-        val (textRes, colorRes) = when (state) {
-            BaseService.State.Connected -> R.string.delta_state_connected to R.color.delta_success
-            BaseService.State.Connecting -> R.string.connecting to R.color.delta_neon_soft
-            BaseService.State.Stopping -> R.string.stopping to R.color.delta_neon_soft
-            else -> R.string.delta_state_disconnected to R.color.delta_error
-        }
-        stateText.setText(textRes)
-        stateDot.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, colorRes))
     }
 
     fun changeState(state: BaseService.State) {
@@ -92,18 +154,18 @@ class StatsBar @JvmOverloads constructor(
             delay(100L)
             activity.whenStarted { what() }
         }
-        setBadge(state)
-        if (state == BaseService.State.Connected) {
+        applyStateStyle(state)
+        if (state != BaseService.State.Connected) setPing(null)
+        if ((state == BaseService.State.Connected).also { hideOnScroll = it }) {
             postWhenStarted {
                 if (allowShow) performShow()
                 setStatus(app.getText(R.string.vpn_connected))
             }
         } else {
             postWhenStarted {
-                if (allowShow) performShow()
+                performHide()
             }
             updateSpeed(0, 0)
-            resetPing()
             setStatus(
                 context.getText(
                     when (state) {
@@ -118,12 +180,16 @@ class StatsBar @JvmOverloads constructor(
 
     @SuppressLint("SetTextI18n")
     fun updateSpeed(txRate: Long, rxRate: Long) {
-        txText.text = context.getString(
-            R.string.speed, Formatter.formatFileSize(context, txRate)
-        )
-        rxText.text = context.getString(
-            R.string.speed, Formatter.formatFileSize(context, rxRate)
-        )
+        txText.text = "▲  ${
+            context.getString(
+                R.string.speed, Formatter.formatFileSize(context, txRate)
+            )
+        }"
+        rxText.text = "▼  ${
+            context.getString(
+                R.string.speed, Formatter.formatFileSize(context, rxRate)
+            )
+        }"
     }
 
     fun testConnection() {

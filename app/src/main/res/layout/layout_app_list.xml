@@ -28,7 +28,7 @@
                 android:theme="?actionBarTheme"
                 android:touchscreenBlocksFocus="false"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.Delta.Popup"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
                 app:title="@string/app_name" />
 
             <LinearLayout
@@ -46,8 +46,7 @@
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
-                        app:cardElevation="2dp">
+                        android:layout_margin="4dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"

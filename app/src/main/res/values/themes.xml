@@ -104,6 +104,7 @@
     </style>
 
     <style name="ThemeOverlay.MaterialComponents.MaterialAlertDialog.SagerNet">
+        <item name="shapeAppearanceOverlay">@style/DeltaDialogShape</item>
         <item name="buttonBarPositiveButtonStyle">
             @style/Widget.MaterialComponents.Button.TextButton.Dialog.Primary
         </item>
@@ -133,41 +134,12 @@
     </style>
 
     <style name="TextAppearance.Delta.Nav" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="android:textSize">18sp</item>
-    </style>
-
-    <!-- Glass popup menu used by every toolbar overflow menu (test servers, ordering, ...) -->
-    <style name="ThemeOverlay.Delta.Popup" parent="ThemeOverlay.AppCompat.Dark">
-        <item name="popupMenuStyle">@style/Widget.Delta.PopupMenu</item>
-        <item name="textAppearanceLargePopupMenu">@style/TextAppearance.Delta.PopupItem</item>
-        <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.Delta.PopupItem</item>
-        <item name="dropdownListPreferredItemHeight">52dp</item>
-        <item name="android:textColorPrimary">@color/delta_dock_text</item>
-        <item name="android:textColorSecondary">@color/delta_dock_text_secondary</item>
-        <item name="colorControlNormal">@color/delta_popup_icon</item>
-    </style>
-
-    <style name="Widget.Delta.PopupMenu" parent="Widget.AppCompat.PopupMenu">
-        <item name="android:popupBackground">@drawable/bg_delta_popup</item>
-        <item name="android:popupElevation">12dp</item>
-    </style>
-
-    <style name="TextAppearance.Delta.PopupItem" parent="TextAppearance.AppCompat.Menu">
-        <item name="android:textSize">15sp</item>
-        <item name="android:textColor">@color/delta_dock_text</item>
-    </style>
-
-    <!-- Cards: rounded, hairline glass border, flat -->
-    <style name="Widget.Delta.Card" parent="Widget.MaterialComponents.CardView">
-        <item name="cardCornerRadius">16dp</item>
-        <item name="cardElevation">0dp</item>
-        <item name="strokeColor">@color/delta_divider</item>
-        <item name="strokeWidth">1dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0</item>
     </style>
 
     <style name="Theme.SagerNet.Delta">
-        <item name="materialCardViewStyle">@style/Widget.Delta.Card</item>
-        <item name="tabIndicatorColor">@color/delta_neon_soft</item>
         <item name="colorPrimary">@color/delta_primary</item>
         <item name="colorPrimaryDark">@color/delta_primary_dark</item>
         <item name="colorAccent">@color/delta_accent</item>
@@ -178,7 +150,7 @@
         <item name="colorOnSurface">@color/delta_text</item>
         <item name="colorOnBackground">@color/delta_text</item>
         <item name="android:colorBackground">@color/delta_bg</item>
-        <item name="colorBackgroundFloating">@color/delta_surface</item>
+        <item name="colorBackgroundFloating">@color/delta_card</item>
         <item name="android:textColorPrimary">@color/delta_text</item>
         <item name="android:textColorSecondary">@color/delta_text_secondary</item>
         <item name="android:navigationBarColor">@color/delta_bg</item>
@@ -193,6 +165,26 @@
         <item name="primaryOrTextPrimary">@color/delta_accent</item>
         <item name="android:windowBackground">@color/delta_bg</item>
         <item name="android:statusBarColor">@color/delta_primary_dark</item>
+        <!-- Design system (display only) -->
+        <item name="colorPrimaryVariant">@color/delta_primary_dark</item>
+        <item name="colorSecondaryVariant">@color/delta_accent_soft</item>
+        <item name="colorError">@color/delta_error</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="android:textColorHint">@color/delta_text_muted</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Delta.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Delta.Medium</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Delta.Large</item>
+        <item name="materialCardViewStyle">@style/Widget.Delta.Card</item>
+        <item name="materialButtonStyle">@style/Widget.Delta.Button</item>
+        <item name="android:windowLightNavigationBar">@bool/delta_light_nav_bar</item>
+        <item name="whiteOrTextPrimary">@color/delta_text</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.Delta.ActionBar</item>
+        <item name="tabTextColor">@color/delta_text_secondary</item>
+        <item name="tabSelectedTextColor">@color/delta_accent</item>
+        <item name="tabIndicatorColor">@color/delta_accent</item>
+        <item name="tabRippleColor">@color/delta_selected</item>
+        <item name="android:windowLightStatusBar">@bool/delta_light_status_bar</item>
+
     </style>
 
     <style name="Theme.SagerNet.Dialog.Delta">
@@ -206,7 +198,7 @@
         <item name="colorOnSurface">@color/delta_text</item>
         <item name="colorOnBackground">@color/delta_text</item>
         <item name="android:colorBackground">@color/delta_bg</item>
-        <item name="colorBackgroundFloating">@color/delta_surface</item>
+        <item name="colorBackgroundFloating">@color/delta_card</item>
         <item name="android:textColorPrimary">@color/delta_text</item>
         <item name="android:textColorSecondary">@color/delta_text_secondary</item>
         <item name="android:navigationBarColor">@color/delta_bg</item>
@@ -219,6 +211,26 @@
         <item name="accentOrTextPrimary">@color/delta_accent</item>
         <item name="primaryOrTextSecondary">@color/delta_accent</item>
         <item name="primaryOrTextPrimary">@color/delta_accent</item>
+        <!-- Design system (display only) -->
+        <item name="colorPrimaryVariant">@color/delta_primary_dark</item>
+        <item name="colorSecondaryVariant">@color/delta_accent_soft</item>
+        <item name="colorError">@color/delta_error</item>
+        <item name="colorOnError">@color/white</item>
+        <item name="android:textColorHint">@color/delta_text_muted</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Delta.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Delta.Medium</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Delta.Large</item>
+        <item name="materialCardViewStyle">@style/Widget.Delta.Card</item>
+        <item name="materialButtonStyle">@style/Widget.Delta.Button</item>
+        <item name="android:windowLightNavigationBar">@bool/delta_light_nav_bar</item>
+        <item name="whiteOrTextPrimary">@color/delta_text</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.Delta.ActionBar</item>
+        <item name="tabTextColor">@color/delta_text_secondary</item>
+        <item name="tabSelectedTextColor">@color/delta_accent</item>
+        <item name="tabIndicatorColor">@color/delta_accent</item>
+        <item name="tabRippleColor">@color/delta_selected</item>
+        <item name="android:windowLightStatusBar">@bool/delta_light_status_bar</item>
+
     </style>
 
     <style name="Theme.SagerNet.Pink_SSR">

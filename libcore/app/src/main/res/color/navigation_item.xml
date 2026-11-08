@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- DeltaBox v3: nav item fill — translucent brand tint when selected -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="?itemShapeFillColor" android:state_checked="true" />
+    <item android:color="@color/delta_nav_selected_bg" android:state_checked="true" />
     <item android:color="@android:color/transparent" android:state_checked="false" />
 </selector>

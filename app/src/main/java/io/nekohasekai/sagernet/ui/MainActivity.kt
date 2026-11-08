@@ -74,6 +74,10 @@ class MainActivity : ThemedActivity(),
             binding.drawerLayout.removeView(binding.navView)
         }
         navigation.setNavigationItemSelectedListener(this)
+        // DeltaBox v3: wire the split tools NavigationView
+        try {
+            binding.navViewTools.setNavigationItemSelectedListener(this)
+        } catch (_: Exception) {}
 
         if (savedInstanceState == null) {
             displayFragmentWithId(R.id.nav_configuration)
@@ -328,7 +332,6 @@ class MainActivity : ThemedActivity(),
     fun displayFragment(fragment: ToolbarFragment) {
         if (fragment is ConfigurationFragment) {
             binding.stats.allowShow = true
-            binding.stats.performShow()
             binding.fab.show()
         } else if (!DataStore.showBottomBar) {
             binding.stats.allowShow = false

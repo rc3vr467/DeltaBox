@@ -91,6 +91,7 @@ import io.nekohasekai.sagernet.ui.profile.TuicSettingsActivity
 import io.nekohasekai.sagernet.ui.profile.VMessSettingsActivity
 import io.nekohasekai.sagernet.ui.profile.WireGuardSettingsActivity
 import io.nekohasekai.sagernet.widget.QRCodeDialog
+import io.nekohasekai.sagernet.widget.PingStyle
 import io.nekohasekai.sagernet.widget.UndoSnackbarManager
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -177,8 +178,6 @@ class ConfigurationFragment @JvmOverloads constructor(
 
         if (!select) {
             toolbar.inflateMenu(R.menu.add_profile_menu)
-            // show the icons of overflow items (test servers menu) for a consistent look
-            (toolbar.menu as? androidx.appcompat.view.menu.MenuBuilder)?.setOptionalIconsVisible(true)
             toolbar.setOnMenuItemClickListener(this)
         } else {
             toolbar.setTitle(titleRes)
@@ -1499,7 +1498,11 @@ class ConfigurationFragment @JvmOverloads constructor(
                                 lastSelected = DataStore.selectedProxy
                                 DataStore.selectedProxy = proxyEntity.id
                                 onMainDispatcher {
-                                    selectedView.visibility = View.VISIBLE
+                                    if (selectedView.visibility != View.VISIBLE) {
+                                        selectedView.alpha = 0f
+                                        selectedView.visibility = View.VISIBLE
+                                        selectedView.animate().alpha(1f).setDuration(160L).start()
+                                    }
                                 }
                             }
 
@@ -1556,6 +1559,8 @@ class ConfigurationFragment @JvmOverloads constructor(
                 (trafficText.parent as View).isGone =
                     (!showTraffic || proxyEntity.status <= 0) && address.isBlank()
 
+                // Display only: same data as before (status / ping / error), now shown as a Ping badge.
+                PingStyle.clear(profileStatus)
                 if (proxyEntity.status <= 0) {
                     if (showTraffic) {
                         profileStatus.text = trafficText.text
@@ -1565,10 +1570,11 @@ class ConfigurationFragment @JvmOverloads constructor(
                         profileStatus.text = ""
                     }
                 } else if (proxyEntity.status == 1) {
-                    profileStatus.text = getString(R.string.available, proxyEntity.ping)
-                    profileStatus.setTextColor(requireContext().getColour(R.color.material_green_500))
+                    PingStyle.apply(
+                        profileStatus, proxyEntity.ping, getString(R.string.available, proxyEntity.ping)
+                    )
                 } else {
-                    profileStatus.setTextColor(requireContext().getColour(R.color.material_red_500))
+                    profileStatus.setTextColor(requireContext().getColour(R.color.delta_error))
                     if (proxyEntity.status == 2) {
                         profileStatus.text = proxyEntity.error
                     }
@@ -1617,6 +1623,10 @@ class ConfigurationFragment @JvmOverloads constructor(
                     onMainDispatcher {
                         editButton.isEnabled = !started
                         removeButton.isEnabled = !started
+                        // Disabled look (display only): the icon tint has no disabled state, so dim it.
+                        editButton.alpha = if (started) 0.38f else 1f
+                        removeButton.alpha = if (started) 0.38f else 1f
+                        selectedView.alpha = 1f
                         selectedView.visibility = if (selected) View.VISIBLE else View.INVISIBLE
                     }
 

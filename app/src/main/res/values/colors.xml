@@ -13,14 +13,12 @@
         <item>@color/material_cyan_500</item>
         <item>@color/material_teal_500</item>
         <item>@color/material_green_500</item>
-
         <item>@color/material_light_green_500</item>
         <item>@color/material_lime_500</item>
         <item>@color/material_yellow_500</item>
         <item>@color/material_amber_500</item>
         <item>@color/material_orange_500</item>
         <item>@color/material_deep_orange_500</item>
-
         <item>@color/material_brown_500</item>
         <item>@color/material_grey_500</item>
         <item>@color/material_blue_grey_500</item>
@@ -99,10 +97,6 @@
     <color name="material_deep_orange_700">#E64A19</color>
     <color name="material_deep_orange_800">#D84315</color>
     <color name="material_deep_orange_900">#BF360C</color>
-    <color name="material_deep_orange_accent_100">#FF9E80</color>
-    <color name="material_deep_orange_accent_200">#FF6E40</color>
-    <color name="material_deep_orange_accent_400">#FF3D00</color>
-    <color name="material_deep_orange_accent_700">#DD2C00</color>
     <color name="material_deep_purple_100">#D1C4E9</color>
     <color name="material_deep_purple_200">#B39DDB</color>
     <color name="material_deep_purple_300">#9575CD</color>
@@ -131,10 +125,16 @@
     <color name="material_green_accent_200">#69F0AE</color>
     <color name="material_green_accent_400">#00E676</color>
     <color name="material_green_accent_700">#00C853</color>
+    <color name="material_grey_100">#F5F5F5</color>
     <color name="material_grey_200">#EEEEEE</color>
+    <color name="material_grey_300">#E0E0E0</color>
     <color name="material_grey_400">#BDBDBD</color>
+    <color name="material_grey_50">#FAFAFA</color>
     <color name="material_grey_500">#9E9E9E</color>
+    <color name="material_grey_600">#757575</color>
     <color name="material_grey_700">#616161</color>
+    <color name="material_grey_800">#424242</color>
+    <color name="material_grey_900">#212121</color>
     <color name="material_indigo_100">#C5CAE9</color>
     <color name="material_indigo_200">#9FA8DA</color>
     <color name="material_indigo_300">#7986CB</color>
@@ -149,7 +149,7 @@
     <color name="material_indigo_accent_200">#536DFE</color>
     <color name="material_indigo_accent_400">#3D5AFE</color>
     <color name="material_indigo_accent_700">#304FFE</color>
-    <color name="material_light_black">#212121</color>
+    <color name="material_light_black">#FF212121</color>
     <color name="material_light_blue_100">#B3E5FC</color>
     <color name="material_light_blue_200">#81D4FA</color>
     <color name="material_light_blue_300">#4FC3F7</color>
@@ -178,7 +178,6 @@
     <color name="material_light_green_accent_200">#B2FF59</color>
     <color name="material_light_green_accent_400">#76FF03</color>
     <color name="material_light_green_accent_700">#64DD17</color>
-    <color name="material_light_white">#eeeeee</color>
     <color name="material_lime_100">#F0F4C3</color>
     <color name="material_lime_200">#E6EE9C</color>
     <color name="material_lime_300">#DCE775</color>
@@ -270,56 +269,103 @@
     <color name="material_yellow_50">#FFFDE7</color>
     <color name="material_yellow_500">#FFEB3B</color>
     <color name="material_yellow_600">#FDD835</color>
-    <color name="material_yellow_700">#FBC02D</color>
-    <color name="material_yellow_800">#F9A825</color>
-    <color name="material_yellow_900">#F57F17</color>
+    <color name="material_yellow_700">#F9A825</color>
+    <color name="material_yellow_800">#F57F17</color>
+    <color name="material_yellow_900">#E65100</color>
     <color name="material_yellow_accent_100">#FFFF8D</color>
     <color name="material_yellow_accent_200">#FFFF00</color>
     <color name="material_yellow_accent_400">#FFEA00</color>
     <color name="material_yellow_accent_700">#FFD600</color>
-
-    <color name="black">#FF000000</color>
+    <color name="color_pink_ssr">#FF4D7EBF</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="transparent">#00000000</color>
 
-    <color name="fab_color_progress">@color/material_light_black</color>
+    <!-- ════════════════════════════════════════════════════════
+         DeltaBox v3 — Premium Red × Emerald Design System
+         Light Mode (Day) colours — dark overrides in values-night/
+         ════════════════════════════════════════════════════════ -->
 
-    <color name="color_pink_ssr">#fb7299</color>
+    <!-- Brand identity -->
+    <color name="delta_brand">#16A34A</color>          <!-- Green for Light toolbar title -->
+    <color name="delta_brand_dark">#15803D</color>     <!-- Darker green button fill -->
 
-    <color name="color_ng_black_accent">#9E9E9E</color>
-    <color name="color_ng_black_primary">#2B2B2B</color>
+    <!-- VPN state colours — NEVER change, independent of brand -->
+    <color name="delta_state_off">#EF4444</color>
+    <color name="delta_state_connecting">#38BDF8</color>
+    <color name="delta_state_on">#22C55E</color>
 
-    <color name="preference_simple_menu_background">#EADCC8</color>
+    <!-- Surface system — Light Mode -->
+    <color name="delta_bg">#FFFFFF</color>
+    <color name="delta_surface">#F5F7F6</color>
+    <color name="delta_card">#FFFFFF</color>
+    <color name="delta_surface_variant">#EEF2EF</color>
+    <color name="delta_primary">#FFFFFF</color>
+    <color name="delta_primary_dark">#FFFFFF</color>
+    <color name="delta_on_primary">#171717</color>
 
+    <!-- Accent — Light uses green -->
+    <color name="delta_accent">#16A34A</color>
+    <color name="delta_accent_soft">#22C55E</color>
+    <color name="delta_fab">#171717</color>
 
-    <!-- DeltaBox light theme: cream #EADCC8 everywhere; the darker palette colors (#2A1E4D, #5A3B8C) read best on it -->
-    <color name="delta_bg">#EADCC8</color>
-    <color name="delta_surface">#EADCC8</color>
-    <color name="delta_primary">#5A3B8C</color>
-    <color name="delta_primary_dark">#2A1E4D</color>
-    <color name="delta_on_primary">#EADCC8</color>
-    <color name="delta_accent">#5A3B8C</color>
-    <color name="delta_fab">#5A3B8C</color>
-    <color name="delta_text">#000000</color>
-    <color name="delta_text_secondary">#A6000000</color>
-    <color name="delta_divider">#332A1E4D</color>
-    <color name="delta_selected">#335A3B8C</color>
+    <!-- Typography — Light -->
+    <color name="delta_text">#171717</color>
+    <color name="delta_text_secondary">#525D56</color>
+    <color name="delta_text_muted">#7A877F</color>
 
-    <!-- DeltaBox Dark Premium: glass dock, cat button and popup menu (same in light and dark) -->
-    <color name="delta_glass_top">#E6282046</color>
-    <color name="delta_glass_bottom">#F2150F26</color>
-    <color name="delta_glass_stroke">#3DFFFFFF</color>
-    <color name="delta_glass_stroke_connected">#80B65CFF</color>
-    <color name="delta_neon">#B65CFF</color>
-    <color name="delta_neon_soft">#E0A8FF</color>
-    <color name="delta_magenta">#E879F9</color>
-    <color name="delta_dock_text">#F5F3FF</color>
-    <color name="delta_dock_text_secondary">#B8B2CC</color>
-    <color name="delta_success">#5EDC9A</color>
-    <color name="delta_error">#FF6B86</color>
-    <color name="delta_idle">#8F86AD</color>
-    <color name="delta_cat_button">#17122A</color>
-    <color name="delta_cat_button_connected">#24173F</color>
-    <color name="delta_popup_bg">#F2181328</color>
-    <color name="delta_popup_stroke">#33FFFFFF</color>
-    <color name="delta_popup_icon">#C9A2FF</color>
+    <!-- Chrome — Light -->
+    <color name="delta_divider">#1A000000</color>
+    <color name="delta_selected">#1A16A34A</color>
+    <color name="delta_stroke">#E1E7E3</color>
+    <color name="delta_glow">#3316A34A</color>
+    <color name="delta_scrim">#66000000</color>
+
+    <!-- Semantic — Light -->
+    <color name="delta_success">#15803D</color>
+    <color name="delta_error">#DC2626</color>
+    <color name="delta_warning">#B45309</color>
+
+    <!-- VPN state text / panel — Light -->
+    <color name="delta_state_off_text">#B91C1C</color>
+    <color name="delta_state_connecting_text">#0369A1</color>
+    <color name="delta_state_on_text">#15803D</color>
+    <color name="delta_panel_off">#FFF5F5</color>
+    <color name="delta_panel_connecting">#F0F9FF</color>
+    <color name="delta_panel_on">#F0FDF4</color>
+
+    <!-- Ping badge tiers — Light -->
+    <color name="delta_ping_good">#15803D</color>
+    <color name="delta_ping_good_bg">#DCFCE7</color>
+    <color name="delta_ping_ok">#4D7C0F</color>
+    <color name="delta_ping_ok_bg">#ECFCCB</color>
+    <color name="delta_ping_warn">#C2410C</color>
+    <color name="delta_ping_warn_bg">#FFEDD5</color>
+    <color name="delta_ping_bad">#B91C1C</color>
+    <color name="delta_ping_bad_bg">#FEE2E2</color>
+    <color name="delta_ping_none">#4B5563</color>
+    <color name="delta_ping_none_bg">#F3F4F6</color>
+
+    <!-- Navigation Drawer v3 — Light -->
+    <color name="delta_nav_bg">#FFFFFF</color>
+    <color name="delta_nav_header_bg">#F5F7F6</color>
+    <color name="delta_nav_selected_bg">#1A16A34A</color>
+    <color name="delta_nav_selected_icon">#16A34A</color>
+    <color name="delta_nav_selected_text">#15803D</color>
+    <color name="delta_nav_unselected_icon">#525D56</color>
+    <color name="delta_nav_unselected_text">#171717</color>
+    <color name="delta_nav_divider">#E1E7E3</color>
+    <color name="delta_nav_footer_text">#7A877F</color>
+
+    <!-- Tools popup v3 — Light -->
+    <color name="delta_tools_bg">#FFFFFF</color>
+    <color name="delta_tools_header_text">#525D56</color>
+    <color name="delta_tools_icon_primary">#16A34A</color>
+    <color name="delta_tools_icon_danger">#DC2626</color>
+    <color name="delta_tools_divider">#E1E7E3</color>
+
+    <!-- Settings v3 group header — Light -->
+    <color name="delta_settings_group_text">#16A34A</color>
+    <color name="delta_settings_group_icon">#16A34A</color>
+
 </resources>

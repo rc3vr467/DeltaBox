@@ -1,35 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Drawer row: optional highlight when checked + thin divider at the bottom -->
+<!-- DeltaBox v3 — Drawer row highlight using brand-aware nav colors -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true">
-        <layer-list>
-            <item>
-                <shape android:shape="rectangle">
-                    <solid android:color="@color/delta_selected" />
-                </shape>
-            </item>
-            <item
-                android:left="24dp"
-                android:right="24dp"
-                android:gravity="bottom">
-                <shape android:shape="rectangle">
-                    <size android:height="1dp" />
-                    <solid android:color="@color/delta_divider" />
-                </shape>
-            </item>
-        </layer-list>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/delta_nav_selected_bg" />
+            <corners android:radius="12dp" />
+        </shape>
     </item>
     <item>
-        <layer-list>
-            <item
-                android:left="24dp"
-                android:right="24dp"
-                android:gravity="bottom">
-                <shape android:shape="rectangle">
-                    <size android:height="1dp" />
-                    <solid android:color="@color/delta_divider" />
-                </shape>
-            </item>
-        </layer-list>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <corners android:radius="12dp" />
+        </shape>
     </item>
 </selector>

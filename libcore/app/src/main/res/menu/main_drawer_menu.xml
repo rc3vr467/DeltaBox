@@ -13,9 +13,14 @@
             android:title="@string/menu_group" />
 
         <item
-            android:id="@+id/nav_route"
-            android:icon="@drawable/ic_maps_directions"
-            android:title="@string/menu_route" />
+            android:id="@+id/nav_assets"
+            android:icon="@drawable/ic_baseline_rule_folder_24"
+            android:title="@string/route_assets" />
+
+        <item
+            android:id="@+id/nav_split_tunnel"
+            android:icon="@drawable/ic_navigation_apps"
+            android:title="@string/menu_split_tunnel" />
 
         <item
             android:id="@+id/nav_settings"
@@ -38,6 +43,10 @@
             android:id="@+id/nav_tools"
             android:icon="@drawable/baseline_construction_24"
             android:title="@string/menu_tools" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_baseline_info_24"
+            android:title="@string/menu_about" />
     </group>
 
 

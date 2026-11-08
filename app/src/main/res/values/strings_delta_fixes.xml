@@ -1,7 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="auto_connect">Auto connect</string>
-    <string name="auto_connect_summary">Enable the proxy on startup/app update if it was running before</string>
-    <string name="service_mode_transproxy">Transparent proxy</string>
-    <string name="copy_toast_msg">Link copied to clipboard.</string>
-</resources>
+<!-- intentionally empty: these resources now live in colors.xml / strings.xml -->
+<resources />

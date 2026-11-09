@@ -46,6 +46,9 @@ object RawUpdater : GroupUpdater() {
     ) {
 
         val link = subscription.link
+        if (!link.startsWith("content://") && !link.startsWith("http://", true) && !link.startsWith("https://", true)) {
+            error("Unsupported subscription link")
+        }
         var proxies: List<AbstractBean>
         if (link.startsWith("content://")) {
             val contentText = app.contentResolver.openInputStream(link.toUri())
@@ -87,12 +90,18 @@ object RawUpdater : GroupUpdater() {
             }
         }
 
+        // An empty result (e.g. a 200 response that is not a subscription) must never be treated
+        // as "every server was removed": that would wipe the healthy servers already stored.
+        if (proxies.isEmpty()) {
+            error(app.getString(R.string.no_proxies_found_in_subscription))
+        }
+
         val proxiesMap = LinkedHashMap<String, AbstractBean>()
         for (proxy in proxies) {
             var index = 0
             var name = proxy.displayName()
             while (proxiesMap.containsKey(name)) {
-                println("Exists name: $name")
+                Logs.d("Exists name: $name")
                 index++
                 name = name.replace(" (${index - 1})", "")
                 name = "$name ($index)"
@@ -155,8 +164,12 @@ object RawUpdater : GroupUpdater() {
         val updated = mutableMapOf<String, String>()
         val deleted = toDelete.map { it.displayName() }
 
-        var userOrder = 1L
         var changed = toDelete.size
+
+        // All writes of one update share a single transaction: a crash or exception midway
+        // cannot leave the group half-updated (some servers deleted, others not yet added).
+        SagerDatabase.instance.runInTransaction(Runnable {
+        var userOrder = 1L
         for ((name, bean) in nameMap.entries) {
             if (toReplace.contains(name)) {
                 val entity = toReplace[name]!!
@@ -216,6 +229,8 @@ object RawUpdater : GroupUpdater() {
 
         subscription.lastUpdated = (System.currentTimeMillis() / 1000).toInt()
         SagerDatabase.groupDao.updateGroup(proxyGroup)
+        })
+
         finishUpdate(proxyGroup)
 
         userInterface?.onUpdateSuccess(

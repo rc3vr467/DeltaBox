@@ -98,15 +98,20 @@ object GroupManager {
     }
 
     suspend fun deleteGroup(groupId: Long) {
-        SagerDatabase.groupDao.deleteById(groupId)
-        SagerDatabase.proxyDao.deleteByGroup(groupId)
+        // Group row and its servers are removed together, never one without the other.
+        SagerDatabase.instance.runInTransaction(Runnable {
+            SagerDatabase.groupDao.deleteById(groupId)
+            SagerDatabase.proxyDao.deleteByGroup(groupId)
+        })
         iterator { groupRemoved(groupId) }
         SubscriptionUpdater.reconfigureUpdater()
     }
 
     suspend fun deleteGroup(group: List<ProxyGroup>) {
-        SagerDatabase.groupDao.deleteGroup(group)
-        SagerDatabase.proxyDao.deleteByGroup(group.map { it.id }.toLongArray())
+        SagerDatabase.instance.runInTransaction(Runnable {
+            SagerDatabase.groupDao.deleteGroup(group)
+            SagerDatabase.proxyDao.deleteByGroup(group.map { it.id }.toLongArray())
+        })
         for (proxyGroup in group) iterator { groupRemoved(proxyGroup.id) }
         SubscriptionUpdater.reconfigureUpdater()
     }

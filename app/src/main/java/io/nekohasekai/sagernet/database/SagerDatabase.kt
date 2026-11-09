@@ -37,7 +37,9 @@ abstract class SagerDatabase : RoomDatabase() {
                 .setJournalMode(JournalMode.TRUNCATE)
                 .allowMainThreadQueries()
                 .enableMultiInstanceInvalidation()
-                .fallbackToDestructiveMigration()
+                // Only the pre-v3 schemas may be dropped. Any other schema change without a
+                // migration fails loudly instead of silently wiping profiles and subscriptions.
+                .fallbackToDestructiveMigrationFrom(1, 2)
                 .setQueryExecutor { GlobalScope.launch { it.run() } }
                 .build()
         }

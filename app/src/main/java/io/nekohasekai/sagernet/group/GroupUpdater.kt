@@ -41,7 +41,6 @@ abstract class GroupUpdater {
     ) {
         val ipv6Mode = DataStore.ipv6Mode
         val lookupPool = newFixedThreadPoolContext(5, "DNS Lookup")
-        val lookupJobs = mutableListOf<Job>()
         val progress = Progress(profiles.size)
         if (groupId != null) {
             GroupUpdater.progress[groupId] = progress
@@ -49,44 +48,50 @@ abstract class GroupUpdater {
         }
         val ipv6First = ipv6Mode >= IPv6Mode.PREFER
 
-        for (profile in profiles) {
-            when (profile) {
-                // SNI rewrite unsupported
-                is NaiveBean -> continue
-            }
-
-            if (profile.serverAddress.isIpAddress()) continue
-
-            lookupJobs.add(GlobalScope.launch(lookupPool) {
-                try {
-                    val results = if (
-                        SagerNet.underlyingNetwork != null &&
-                        DataStore.enableFakeDns &&
-                        DataStore.serviceState.started &&
-                        DataStore.serviceMode == Key.MODE_VPN
-                    ) {
-                        // FakeDNS
-                        SagerNet.underlyingNetwork!!
-                            .getAllByName(profile.serverAddress)
-                            .filterNotNull()
-                    } else {
-                        // System DNS is enough (when VPN connected, it uses v2ray-core)
-                        InetAddress.getAllByName(profile.serverAddress).filterNotNull()
+        try {
+            // Lookups are children of this scope: cancelling the update cancels them too, and the
+            // pool is only closed once every lookup has finished (no leaked threads or jobs).
+            coroutineScope {
+                for (profile in profiles) {
+                    when (profile) {
+                        // SNI rewrite unsupported
+                        is NaiveBean -> continue
                     }
-                    if (results.isEmpty()) error("empty response")
-                    rewriteAddress(profile, results, ipv6First)
-                } catch (e: Exception) {
-                    Logs.d("Lookup ${profile.serverAddress} failed: ${e.readableMessage}", e)
-                }
-                if (groupId != null) {
-                    progress.progress++
-                    GroupManager.postReload(groupId)
-                }
-            })
-        }
 
-        lookupJobs.joinAll()
-        lookupPool.close()
+                    if (profile.serverAddress.isIpAddress()) continue
+
+                    launch(lookupPool) {
+                        try {
+                            val results = if (
+                                SagerNet.underlyingNetwork != null &&
+                                DataStore.enableFakeDns &&
+                                DataStore.serviceState.started &&
+                                DataStore.serviceMode == Key.MODE_VPN
+                            ) {
+                                // FakeDNS
+                                SagerNet.underlyingNetwork!!
+                                    .getAllByName(profile.serverAddress)
+                                    .filterNotNull()
+                            } else {
+                                // System DNS is enough (when VPN connected, it uses v2ray-core)
+                                InetAddress.getAllByName(profile.serverAddress).filterNotNull()
+                            }
+                            if (results.isEmpty()) error("empty response")
+                            rewriteAddress(profile, results, ipv6First)
+                        } catch (e: Exception) {
+                            Logs.d("Lookup ${profile.serverAddress} failed: ${e.readableMessage}", e)
+                        }
+                        if (groupId != null) {
+                            // Lookups run on 5 threads: the counter must be incremented atomically.
+                            synchronized(progress) { progress.progress++ }
+                            GroupManager.postReload(groupId)
+                        }
+                    }
+                }
+            }
+        } finally {
+            lookupPool.close()
+        }
     }
 
     protected fun rewriteAddress(
@@ -131,31 +136,34 @@ abstract class GroupUpdater {
         }
 
         suspend fun executeUpdate(proxyGroup: ProxyGroup, byUser: Boolean): Boolean {
-            return coroutineScope {
-                if (!updating.add(proxyGroup.id)) cancel()
-                GroupManager.postReload(proxyGroup.id)
+            // Only one update per subscription at a time (manual + scheduled + forced).
+            // Returning false, instead of cancelling the scope, keeps the periodic worker alive
+            // so it can still update the other subscriptions.
+            if (!updating.add(proxyGroup.id)) {
+                Logs.d("Subscription ${proxyGroup.id} is already updating, skipped")
+                return false
+            }
+            GroupManager.postReload(proxyGroup.id)
 
-                val subscription = proxyGroup.subscription!!
-                val connected = DataStore.serviceState.connected
-                val userInterface = GroupManager.userInterface
+            val subscription = proxyGroup.subscription!!
+            val connected = DataStore.serviceState.connected
+            val userInterface = GroupManager.userInterface
 
-                if (byUser && (subscription.link?.startsWith("http://") == true || subscription.updateWhenConnectedOnly) && !connected) {
-                    if (userInterface == null || !userInterface.confirm(app.getString(R.string.update_subscription_warning))) {
-                        finishUpdate(proxyGroup)
-                        cancel()
-                        return@coroutineScope true
-                    }
-                }
-
-                try {
-                    RawUpdater.doUpdate(proxyGroup, subscription, userInterface, byUser)
-                    true
-                } catch (e: Throwable) {
-                    Logs.w(e)
-                    userInterface?.onUpdateFailure(proxyGroup, e.readableMessage)
+            if (byUser && (subscription.link?.startsWith("http://") == true || subscription.updateWhenConnectedOnly) && !connected) {
+                if (userInterface == null || !userInterface.confirm(app.getString(R.string.update_subscription_warning))) {
                     finishUpdate(proxyGroup)
-                    false
+                    return true
                 }
+            }
+
+            return try {
+                RawUpdater.doUpdate(proxyGroup, subscription, userInterface, byUser)
+                true
+            } catch (e: Throwable) {
+                Logs.w(e)
+                userInterface?.onUpdateFailure(proxyGroup, e.readableMessage)
+                finishUpdate(proxyGroup)
+                false
             }
         }
 

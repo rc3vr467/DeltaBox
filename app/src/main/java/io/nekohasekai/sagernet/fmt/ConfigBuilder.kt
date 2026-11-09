@@ -2,6 +2,7 @@ package io.nekohasekai.sagernet.fmt
 
 import android.widget.Toast
 import io.nekohasekai.sagernet.*
+import io.nekohasekai.sagernet.bg.AdBlockEngine
 import io.nekohasekai.sagernet.bg.BlackWallEngine
 import io.nekohasekai.sagernet.bg.VpnService
 import io.nekohasekai.sagernet.database.DataStore
@@ -483,6 +484,16 @@ fun buildConfig(
         // build outbounds from route item
         extraProxies.forEach { (key, p) ->
             tagMap[key] = buildChain(key, p)
+        }
+
+        // AdBlock: one extra "reject" route rule (same mechanism as user block rules)
+        if (!forTest) {
+            AdBlockEngine.applyToRoute(
+                SagerNet.application, route,
+                (listOf(proxy) + extraProxies.values).mapNotNull {
+                    try { it.requireBean().serverAddress } catch (_: Exception) { null }
+                }
+            )
         }
 
         // apply user rules

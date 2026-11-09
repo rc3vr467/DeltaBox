@@ -610,4 +610,11 @@
     <string name="auto_connect_summary">Enable the proxy on startup/app update if it was running before</string>
     <string name="service_mode_transproxy">Transparent proxy</string>
     <string name="copy_toast_msg">Link copied to clipboard.</string>
+    <string name="ad_block" translatable="false">AdBlock</string>
+    <string name="ad_block_subtitle">Block ads &amp; trackers</string>
+    <string name="ad_block_update_lists">Update block lists</string>
+    <string name="ad_block_domains">%1$d domains blocked</string>
+    <string name="ad_block_updating">Updating lists…</string>
+    <string name="ad_block_update_failed">Could not download lists (offline?) — built-in list is used</string>
+    <string name="connection_test_tcp_test" translatable="false">TCP Test</string>
 </resources>

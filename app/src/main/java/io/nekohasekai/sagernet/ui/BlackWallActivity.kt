@@ -6,10 +6,15 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import io.nekohasekai.sagernet.ktx.runOnDefaultDispatcher
+import io.nekohasekai.sagernet.ktx.runOnMainDispatcher
 import androidx.core.graphics.ColorUtils
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.switchmaterial.SwitchMaterial
 import io.nekohasekai.sagernet.R
+import io.nekohasekai.sagernet.bg.AdBlockEngine
 import io.nekohasekai.sagernet.bg.BlackWallEngine
 import io.nekohasekai.sagernet.bg.BlackWallEngine.StealthLevel
 
@@ -33,6 +38,9 @@ class BlackWallActivity : ThemedActivity(R.layout.layout_black_wall) {
     private lateinit var rows: List<LevelRow>
     private lateinit var switchView: SwitchMaterial
     private lateinit var noticeView: TextView
+    private lateinit var adSwitch: SwitchMaterial
+    private lateinit var adStatus: TextView
+    private lateinit var adUpdate: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,33 +82,27 @@ class BlackWallActivity : ThemedActivity(R.layout.layout_black_wall) {
             }
         }
 
-        val blackWallAccent = MaterialColors.getColor(this, R.attr.blackWallAccent, 0)
-        val switchTrackUnchecked = MaterialColors.getColor(
-            this, com.google.android.material.R.attr.colorSurfaceVariant, 0
-        )
-        switchView.thumbTintList = ColorStateList(
-            arrayOf(
-                intArrayOf(android.R.attr.state_checked),
-                intArrayOf(-android.R.attr.state_checked)
-            ),
-            intArrayOf(blackWallAccent, switchTrackUnchecked)
-        )
-        switchView.trackTintList = ColorStateList(
-            arrayOf(
-                intArrayOf(android.R.attr.state_checked),
-                intArrayOf(-android.R.attr.state_checked)
-            ),
-            intArrayOf(
-                ColorUtils.setAlphaComponent(blackWallAccent, 120),
-                ColorUtils.setAlphaComponent(switchTrackUnchecked, 180)
-            )
-        )
+        styleSwitch(switchView)
 
         switchView.isChecked = BlackWallEngine.enabled
         switchView.setOnCheckedChangeListener { _, isChecked ->
             BlackWallEngine.enabled = isChecked
             refresh()
         }
+
+        // ---- AdBlock (independent of Black Wall; same live-on-next-connection behaviour) ----
+        adSwitch = findViewById(R.id.ad_block_switch)
+        adStatus = findViewById(R.id.ad_block_status)
+        adUpdate = findViewById(R.id.ad_block_update)
+        styleSwitch(adSwitch)
+        adSwitch.isChecked = AdBlockEngine.enabled
+        adSwitch.setOnCheckedChangeListener { _, isChecked ->
+            AdBlockEngine.enabled = isChecked
+            refreshAdBlock()
+            if (isChecked) updateAdLists(silent = true)
+        }
+        adUpdate.setOnClickListener { updateAdLists(silent = false) }
+        refreshAdBlock()
 
         // Black Wall starts at Ghost by default if no level was chosen yet.
         if (BlackWallEngine.level == StealthLevel.OFF) {
@@ -137,6 +139,54 @@ class BlackWallActivity : ThemedActivity(R.layout.layout_black_wall) {
             row.check.visibility = if (selected) View.VISIBLE else View.INVISIBLE
         }
 
-        noticeView.visibility = if (enabled) View.VISIBLE else View.GONE
+        noticeView.visibility =
+            if (enabled || AdBlockEngine.enabled) View.VISIBLE else View.GONE
+    }
+
+    private fun refreshAdBlock() {
+        val on = AdBlockEngine.enabled
+        adUpdate.visibility = if (on) View.VISIBLE else View.GONE
+        if (on) {
+            runOnDefaultDispatcher {
+                val n = AdBlockEngine.domainCount(this@BlackWallActivity)
+                runOnMainDispatcher {
+                    adStatus.text = getString(R.string.ad_block_domains, n)
+                }
+            }
+        } else {
+            adStatus.setText(R.string.ad_block_subtitle)
+        }
+        refresh()
+    }
+
+    private fun updateAdLists(silent: Boolean) {
+        adStatus.setText(R.string.ad_block_updating)
+        runOnDefaultDispatcher {
+            val n = AdBlockEngine.updateLists(this@BlackWallActivity)
+            runOnMainDispatcher {
+                if (n == 0 && !silent) {
+                    Toast.makeText(this@BlackWallActivity, R.string.ad_block_update_failed, Toast.LENGTH_LONG).show()
+                }
+                refreshAdBlock()
+            }
+        }
+    }
+
+    /**
+     * Switch colours: accent when on, plainly visible GRAY when off
+     * (the old off-state used the dark surface colour, which looked black / invisible).
+     */
+    private fun styleSwitch(sw: SwitchMaterial) {
+        val accent = MaterialColors.getColor(this, R.attr.blackWallAccent, 0)
+        val offThumb = ContextCompat.getColor(this, R.color.delta_switch_off_thumb)
+        val offTrack = ContextCompat.getColor(this, R.color.delta_switch_off_track)
+        val states = arrayOf(
+            intArrayOf(android.R.attr.state_checked),
+            intArrayOf(-android.R.attr.state_checked)
+        )
+        sw.thumbTintList = ColorStateList(states, intArrayOf(accent, offThumb))
+        sw.trackTintList = ColorStateList(
+            states, intArrayOf(ColorUtils.setAlphaComponent(accent, 120), offTrack)
+        )
     }
 }

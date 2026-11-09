@@ -382,4 +382,6 @@
     <color name="cat_blue_soft">#93C5FD</color>
     <color name="cat_green">#22C55E</color>
     <color name="cat_green_soft">#86EFAC</color>
+    <color name="delta_switch_off_thumb">#9E9E9E</color>
+    <color name="delta_switch_off_track">#C9CDCB</color>
 </resources>

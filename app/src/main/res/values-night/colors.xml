@@ -85,4 +85,6 @@
     <color name="delta_settings_group_text">#C4B5FD</color>
     <color name="delta_settings_group_icon">#C4B5FD</color>
 
+    <color name="delta_switch_off_thumb">#9AA0A6</color>
+    <color name="delta_switch_off_track">#4A4F55</color>
 </resources>

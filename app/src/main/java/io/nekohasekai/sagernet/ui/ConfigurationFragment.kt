@@ -527,6 +527,10 @@ class ConfigurationFragment @JvmOverloads constructor(
             R.id.action_connection_url_test -> {
                 urlTest()
             }
+
+            R.id.action_connection_tcp_test -> {
+                tcpTest()
+            }
         }
         return true
     }
@@ -626,8 +630,27 @@ class ConfigurationFragment @JvmOverloads constructor(
 
     }
 
+    /** TCP Test: plain TCP connect to each server (no core involved), measures connect time. */
+    fun tcpTest() = runConnectionTest { profile ->
+        val bean = profile.requireBean()
+        val host = bean.serverAddress
+        val port = bean.serverPort
+        if (host.isNullOrBlank() || port == null || port <= 0) {
+            throw IllegalStateException("No server address")
+        }
+        val start = SystemClock.elapsedRealtime()
+        java.net.Socket().use { socket ->
+            socket.connect(java.net.InetSocketAddress(host, port), 5000)
+        }
+        (SystemClock.elapsedRealtime() - start).toInt().coerceAtLeast(1)
+    }
+
+    fun urlTest() = runConnectionTest { profile ->
+        UrlTest().doTest(profile) // note: this is NOT in bg process
+    }
+
     @OptIn(DelicateCoroutinesApi::class)
-    fun urlTest() {
+    private fun runConnectionTest(doTest: suspend (ProxyEntity) -> Int) {
         if (DataStore.runningTest) return else DataStore.runningTest = true
         val test = TestDialog()
         val dialog = test.builder.show()
@@ -640,13 +663,12 @@ class ConfigurationFragment @JvmOverloads constructor(
             val profiles = ConcurrentLinkedQueue(profilesList)
             repeat(DataStore.connectionTestConcurrent) {
                 testJobs.add(launch(Dispatchers.IO) {
-                    val urlTest = UrlTest() // note: this is NOT in bg process
                     while (isActive) {
                         val profile = profiles.poll() ?: break
                         profile.status = 0
 
                         try {
-                            val result = urlTest.doTest(profile)
+                            val result = doTest(profile)
                             profile.status = 1
                             profile.ping = result
                         } catch (e: PluginManager.PluginNotFoundException) {

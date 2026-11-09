@@ -20,7 +20,7 @@
         android:pathData="M24,24 m-22.6,0 a22.6,22.6 0,1,1 45.2,0 a22.6,22.6 0,1,1 -45.2,0"
         android:strokeWidth="1.4"
         android:strokeColor="@color/cat_red"
-        android:strokeAlpha="0.55" />
+        android:strokeAlpha="0.0" />
 
     <group
         android:name="cat"

@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:max="1"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:indicatorColor="@color/delta_state_connecting"
             app:layout_anchor="@+id/fab"
             app:layout_anchorGravity="center"
@@ -41,12 +41,11 @@
             android:layout_height="wrap_content"
             android:elevation="8dp"
             android:nextFocusDown="@+id/stats"
-            android:foreground="@drawable/bg_connect_rings"
-            app:backgroundTint="@color/delta_connect_fill"
+            app:backgroundTint="?fabColorBackground"
             app:borderWidth="0dp"
-            app:fabCustomSize="104dp"
+            app:fabCustomSize="60dp"
             app:layout_anchor="@id/stats"
-            app:maxImageSize="80dp"
+            app:maxImageSize="60dp"
             app:pressedTranslationZ="8dp"
             app:rippleColor="@color/delta_glow"
             app:srcCompat="@drawable/ic_cat_base"
@@ -59,27 +58,27 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:nextFocusUp="@+id/fab"
-            app:backgroundTint="@color/delta_bar_off"
+            app:backgroundTint="@color/delta_card"
             app:contentInsetStart="0dp"
             app:elevation="8dp"
-            app:fabCradleMargin="8dp"
-            app:fabCradleRoundedCornerRadius="60dp"
-            app:fabCradleVerticalOffset="0dp"
+            app:fabCradleMargin="10dp"
+            app:fabCradleRoundedCornerRadius="34dp"
+            app:fabCradleVerticalOffset="4dp"
             app:hideOnScroll="true"
             app:layout_scrollFlags="enterAlways|scroll">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:minHeight="96dp"
+                android:minHeight="84dp"
                 android:orientation="horizontal"
-                android:paddingStart="16dp"
+                android:paddingStart="20dp"
                 android:paddingTop="12dp"
-                android:paddingEnd="16dp"
+                android:paddingEnd="20dp"
                 android:paddingBottom="12dp">
 
-                <!-- Left: exit country, connected server address, live ping -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -95,98 +94,55 @@
 
                         <View
                             android:id="@+id/statusDot"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
                             android:background="@drawable/bg_status_dot"
                             android:importantForAccessibility="no" />
-
-                        <TextView
-                            android:id="@+id/exitFlag"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:importantForAccessibility="no"
-                            android:textSize="16sp"
-                            android:visibility="gone"
-                            tools:text="🇹🇷" />
 
                         <TextView
                             android:id="@+id/status"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
+                            android:layout_marginStart="8dp"
                             android:layout_weight="1"
                             android:ellipsize="end"
-                            android:maxLines="1"
+                            android:gravity="start|center_vertical"
+                            android:maxLines="2"
                             android:textAppearance="@style/TextAppearance.Delta.StatsStatus"
-                            android:textColor="@color/delta_bar_text"
-                            android:textSize="14sp"
-                            tools:text="United Kingdom" />
+                            tools:text="@string/connection_test_available" />
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/serverAddr"
+                        android:id="@+id/exitIp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
                         android:layout_marginTop="2dp"
-                        android:ellipsize="end"
-                        android:fontFeatureSettings="tnum"
                         android:singleLine="true"
-                        android:textColor="@color/delta_bar_neon"
-                        android:textSize="12sp"
+                        android:textColor="@color/delta_state_on_text"
+                        android:textSize="13sp"
                         android:visibility="gone"
-                        tools:text="uk4.0a0.uk:51000" />
+                        tools:text="65.21.155.153" />
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/pingBadge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Ping"
-                            android:textColor="@color/delta_bar_text"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:id="@+id/pingValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:fontFeatureSettings="tnum"
-                            android:singleLine="true"
-                            android:textColor="@color/delta_bar_muted"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            tools:text="149 ms" />
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="10dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:background="@color/delta_bar_divider" />
-
-                        <TextView
-                            android:id="@+id/pingSignal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:importantForAccessibility="no"
-                            android:singleLine="true"
-                            android:textSize="12sp"
-                            tools:text="▁▃▅▇" />
-                    </LinearLayout>
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/bg_ping_badge"
+                        android:paddingStart="10dp"
+                        android:paddingTop="3dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="3dp"
+                        android:singleLine="true"
+                        android:textAppearance="@style/TextAppearance.Delta.PingBadge"
+                        tools:text="PING 45 ms" />
                 </LinearLayout>
 
-                <!-- Centre gap reserved for the floating connect button -->
                 <Space
-                    android:layout_width="116dp"
+                    android:layout_width="88dp"
                     android:layout_height="1dp" />
 
-                <!-- Right: live traffic -->
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -194,64 +150,24 @@
                     android:gravity="end"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:ellipsize="marquee"
+                        android:fontFeatureSettings="tnum"
+                        android:singleLine="true"
+                        android:textAppearance="@style/TextAppearance.Delta.StatsValue" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="▲  Upload"
-                            android:textColor="@color/delta_bar_text"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:id="@+id/tx"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:ellipsize="marquee"
-                            android:fontFeatureSettings="tnum"
-                            android:singleLine="true"
-                            android:textColor="@color/delta_bar_neon"
-                            android:textSize="12sp"
-                            tools:text="7.67 kB/s" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginBottom="6dp"
-                        android:background="@color/delta_bar_divider" />
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/rx"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="▼  Download"
-                            android:textColor="@color/delta_bar_text"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:id="@+id/rx"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:ellipsize="marquee"
-                            android:fontFeatureSettings="tnum"
-                            android:singleLine="true"
-                            android:textColor="@color/delta_bar_neon"
-                            android:textSize="12sp"
-                            tools:text="6.56 kB/s" />
-                    </LinearLayout>
+                        android:layout_marginTop="2dp"
+                        android:ellipsize="marquee"
+                        android:fontFeatureSettings="tnum"
+                        android:singleLine="true"
+                        android:textAppearance="@style/TextAppearance.Delta.StatsValue" />
                 </LinearLayout>
 
             </LinearLayout>

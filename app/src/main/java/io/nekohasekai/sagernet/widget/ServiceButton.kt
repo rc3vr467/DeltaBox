@@ -64,15 +64,14 @@ class ServiceButton @JvmOverloads constructor(
             hideProgress()
             delayedAnimation = (context as LifecycleOwner).lifecycleScope.launchWhenStarted {
                 delay(context.resources.getInteger(android.R.integer.config_mediumAnimTime) + 1000L)
-                isIndeterminate = true
-                show()
+                // blue progress ring intentionally removed
             }
         }
     }
     private val iconConnected by lazy {
         AnimatedState(R.drawable.ic_service_connected) {
             delayedAnimation?.cancel()
-            setProgressCompat(1, true)
+            // blue progress ring intentionally removed
         }
     }
     private val iconStopping by lazy { AnimatedState(R.drawable.ic_service_stopping) }
@@ -83,6 +82,7 @@ class ServiceButton @JvmOverloads constructor(
     private lateinit var progress: BaseProgressIndicator<*>
     fun initProgress(progress: BaseProgressIndicator<*>) {
         this.progress = progress
+        progress.visibility = View.GONE // blue ring around the button is disabled
         progress.progressDrawable?.addSpringAnimationEndListener(this)
     }
 

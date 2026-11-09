@@ -31,12 +31,9 @@ object SubscriptionUpdater {
         var minDelay =
             subscriptions.minByOrNull { it.subscription!!.autoUpdateDelay }!!.subscription!!.autoUpdateDelay.toLong()
         val now = System.currentTimeMillis() / 1000L
-        // Seconds until the most urgent subscription is due (<= 0 means it is already due).
-        var minInitDelay = subscriptions.minOf {
-            it.subscription!!.lastUpdated + it.subscription!!.autoUpdateDelay * 60L - now
-        }
+        var minInitDelay =
+            subscriptions.minOf { now - it.subscription!!.lastUpdated - (minDelay * 60) }
         if (minDelay < 15) minDelay = 15
-        if (minInitDelay < 0) minInitDelay = 0
         if (minInitDelay > 60) minInitDelay = 60
 
         // main process
@@ -88,12 +85,7 @@ object SubscriptionUpdater {
                 )
                 nm.notify(2, notification.build())
 
-                try {
-                    GroupUpdater.executeUpdate(profile, false)
-                } catch (e: Exception) {
-                    // One broken subscription must not stop the remaining ones from updating.
-                    Logs.w(e)
-                }
+                GroupUpdater.executeUpdate(profile, false)
             }
 
             nm.cancel(2)

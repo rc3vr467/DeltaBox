@@ -330,6 +330,7 @@
     <string name="standard">Standard</string>
     <string name="v2rayn" translatable="false">V2RayN</string>
     <string name="available" translatable="false">%dms</string>
+    <string name="profile_type_with_ip" translatable="false">%1$s · %2$s</string>
     <string name="unavailable">Unavailable</string>
     <string name="always_show_address">Always Show Address</string>
     <string name="always_show_address_sum">Always display the server address on the configuration

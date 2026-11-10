@@ -1320,7 +1320,12 @@ class ConfigurationFragment @JvmOverloads constructor(
                 }
 
                 profileName.text = proxyEntity.displayName()
-                profileType.text = proxyEntity.displayType()
+                // Always show the server's configured host:port right after the protocol
+                // name, e.g. "VLESS · 65.21.155.153:443" — this is the address/port the
+                // user entered for this server, not a live lookup.
+                profileType.text = view.context.getString(
+                    R.string.profile_type_with_ip, proxyEntity.displayType(), proxyEntity.displayAddress()
+                )
                 profileType.setTextColor(requireContext().getProtocolColor(proxyEntity.type))
 
                 var rx = proxyEntity.rx

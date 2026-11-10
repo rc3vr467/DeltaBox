@@ -1,204 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Connected: cat turns green, eyes glow fully. Ends in the green full-glow look. -->
+<!-- Connected: cat tweens blue -> green. Generated from the designer art. -->
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
     android:drawable="@drawable/ic_cat_base">
-    <target android:name="cat_ears">
+    <target android:name="aura_disc">
         <aapt:attr name="android:animation">
             <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="strokeColor"
-                        android:valueFrom="@color/cat_blue"
-                        android:valueTo="@color/cat_green"
-                        android:valueType="colorType" />
-            </set>
-        </aapt:attr>
-    </target>
-    <target android:name="cat_head">
-        <aapt:attr name="android:animation">
-            <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="strokeColor"
-                        android:valueFrom="@color/cat_blue"
-                        android:valueTo="@color/cat_green"
-                        android:valueType="colorType" />
-            </set>
-        </aapt:attr>
-    </target>
-    <target android:name="cat_mouth">
-        <aapt:attr name="android:animation">
-            <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="strokeColor"
-                        android:valueFrom="@color/cat_blue_soft"
-                        android:valueTo="@color/cat_green_soft"
-                        android:valueType="colorType" />
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_disc"
+                    android:valueTo="@color/cat_green_disc"
+                    android:valueType="colorType" />
             </set>
         </aapt:attr>
     </target>
     <target android:name="aura_ring">
         <aapt:attr name="android:animation">
             <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="strokeColor"
-                        android:valueFrom="@color/cat_blue"
-                        android:valueTo="@color/cat_green"
-                        android:valueType="colorType" />
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="strokeAlpha"
-                        android:valueFrom="0.0"
-                        android:valueTo="0.0"
-                        android:valueType="floatType" />
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="strokeColor"
+                    android:valueFrom="@color/cat_blue_ring"
+                    android:valueTo="@color/cat_green_ring"
+                    android:valueType="colorType" />
             </set>
         </aapt:attr>
     </target>
-    <target android:name="aura_disc">
+    <target android:name="cat_body">
         <aapt:attr name="android:animation">
             <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="fillColor"
-                        android:valueFrom="@color/cat_blue"
-                        android:valueTo="@color/cat_green"
-                        android:valueType="colorType" />
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="fillAlpha"
-                        android:valueFrom="0.10"
-                        android:valueTo="0.16"
-                        android:valueType="floatType" />
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_body"
+                    android:valueTo="@color/cat_green_body"
+                    android:valueType="colorType" />
             </set>
         </aapt:attr>
     </target>
-    <target android:name="eye_l_off">
+    <target android:name="cat_detail_0">
         <aapt:attr name="android:animation">
             <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="strokeColor"
-                        android:valueFrom="@color/cat_blue_soft"
-                        android:valueTo="@color/cat_green_soft"
-                        android:valueType="colorType" />
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="strokeAlpha"
-                        android:valueFrom="0"
-                        android:valueTo="0"
-                        android:valueType="floatType" />
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_body"
+                    android:valueTo="@color/cat_green_body"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="cat_detail_1">
+        <aapt:attr name="android:animation">
+            <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_body"
+                    android:valueTo="@color/cat_green_body"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="cat_detail_2">
+        <aapt:attr name="android:animation">
+            <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_body"
+                    android:valueTo="@color/cat_green_body"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="cat_detail_3">
+        <aapt:attr name="android:animation">
+            <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_body"
+                    android:valueTo="@color/cat_green_body"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="cat_detail_4">
+        <aapt:attr name="android:animation">
+            <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_body"
+                    android:valueTo="@color/cat_green_body"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="cat_detail_5">
+        <aapt:attr name="android:animation">
+            <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_body"
+                    android:valueTo="@color/cat_green_body"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="cat_detail_6">
+        <aapt:attr name="android:animation">
+            <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_body"
+                    android:valueTo="@color/cat_green_body"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="cat_detail_7">
+        <aapt:attr name="android:animation">
+            <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_body"
+                    android:valueTo="@color/cat_green_body"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="cat_detail_8">
+        <aapt:attr name="android:animation">
+            <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_body"
+                    android:valueTo="@color/cat_green_body"
+                    android:valueType="colorType" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="eye_l_closed">
+        <aapt:attr name="android:animation">
+            <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_body"
+                    android:valueTo="@color/cat_green_body"
+                    android:valueType="colorType" />
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillAlpha"
+                    android:valueFrom="1.0"
+                    android:valueTo="0.0" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="eye_r_closed">
+        <aapt:attr name="android:animation">
+            <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_body"
+                    android:valueTo="@color/cat_green_body"
+                    android:valueType="colorType" />
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillAlpha"
+                    android:valueFrom="0.0"
+                    android:valueTo="0.0" />
             </set>
         </aapt:attr>
     </target>
     <target android:name="eye_l_halo">
         <aapt:attr name="android:animation">
             <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="fillColor"
-                        android:valueFrom="@color/cat_blue"
-                        android:valueTo="@color/cat_green"
-                        android:valueType="colorType" />
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="fillAlpha"
-                        android:valueFrom="0.18"
-                        android:valueTo="0.5"
-                        android:valueType="floatType" />
-            </set>
-        </aapt:attr>
-    </target>
-    <target android:name="eye_l_core">
-        <aapt:attr name="android:animation">
-            <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="fillColor"
-                        android:valueFrom="@color/cat_blue_soft"
-                        android:valueTo="@color/cat_green_soft"
-                        android:valueType="colorType" />
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="fillAlpha"
-                        android:valueFrom="0.6"
-                        android:valueTo="1"
-                        android:valueType="floatType" />
-            </set>
-        </aapt:attr>
-    </target>
-    <target android:name="eye_r_off">
-        <aapt:attr name="android:animation">
-            <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="strokeColor"
-                        android:valueFrom="@color/cat_blue_soft"
-                        android:valueTo="@color/cat_green_soft"
-                        android:valueType="colorType" />
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="strokeAlpha"
-                        android:valueFrom="0"
-                        android:valueTo="0"
-                        android:valueType="floatType" />
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_eye"
+                    android:valueTo="@color/cat_green_eye"
+                    android:valueType="colorType" />
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillAlpha"
+                    android:valueFrom="0.0"
+                    android:valueTo="1.0" />
             </set>
         </aapt:attr>
     </target>
     <target android:name="eye_r_halo">
         <aapt:attr name="android:animation">
             <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="fillColor"
-                        android:valueFrom="@color/cat_blue"
-                        android:valueTo="@color/cat_green"
-                        android:valueType="colorType" />
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="fillAlpha"
-                        android:valueFrom="0.18"
-                        android:valueTo="0.5"
-                        android:valueType="floatType" />
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_eye"
+                    android:valueTo="@color/cat_green_eye"
+                    android:valueType="colorType" />
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillAlpha"
+                    android:valueFrom="1.0"
+                    android:valueTo="1.0" />
             </set>
         </aapt:attr>
     </target>
-    <target android:name="eye_r_core">
+    <target android:name="eye_l_pupil">
         <aapt:attr name="android:animation">
             <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="fillColor"
-                        android:valueFrom="@color/cat_blue_soft"
-                        android:valueTo="@color/cat_green_soft"
-                        android:valueType="colorType" />
-                    <objectAnimator
-                        android:duration="@android:integer/config_mediumAnimTime"
-                        android:interpolator="@android:interpolator/fast_out_slow_in"
-                        android:propertyName="fillAlpha"
-                        android:valueFrom="0.6"
-                        android:valueTo="1"
-                        android:valueType="floatType" />
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_body"
+                    android:valueTo="@color/cat_green_body"
+                    android:valueType="colorType" />
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillAlpha"
+                    android:valueFrom="0.0"
+                    android:valueTo="1.0" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="eye_r_pupil">
+        <aapt:attr name="android:animation">
+            <set xmlns:android="http://schemas.android.com/apk/res/android" android:ordering="together">
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillColor"
+                    android:valueFrom="@color/cat_blue_body"
+                    android:valueTo="@color/cat_green_body"
+                    android:valueType="colorType" />
+                <objectAnimator
+                    android:duration="@android:integer/config_mediumAnimTime"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"
+                    android:propertyName="fillAlpha"
+                    android:valueFrom="1.0"
+                    android:valueTo="1.0" />
             </set>
         </aapt:attr>
     </target>

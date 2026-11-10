@@ -200,11 +200,21 @@ class StatsBar @JvmOverloads constructor(
                 delay(1500L)
             }
             val result = info ?: return@launch
+
+            // The IP shown in the bar always comes from 2ip.io specifically
+            // (plain-text lookup, through the tunnel), per your request.
+            var plainIp: String? = null
+            for (attempt in 0 until 3) {
+                plainIp = ExitIpInfo.fetchPlainIp(DataStore.mixedPort)
+                if (plainIp != null) break
+                delay(1500L)
+            }
+
             onMainDispatcher {
                 if (DataStore.serviceState != BaseService.State.Connected) return@onMainDispatcher
                 exitInfo = result
                 setStatus(result.label)
-                exitIpText.text = result.ip
+                exitIpText.text = plainIp ?: result.ip
                 exitIpText.visibility = View.VISIBLE
             }
         }

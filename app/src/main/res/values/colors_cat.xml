@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cat colours from the designer art. Dark = body/eyes, ring = aura ring, disc = aura fill, eye = open-eye glow. -->
+<resources>
+    <color name="cat_red_body">#BE1E2D</color>
+    <color name="cat_red_disc">#FDE5DF</color>
+    <color name="cat_red_ring">#F2737C</color>
+    <color name="cat_red_eye">#F2737C</color>
+    <color name="cat_blue_body">#015CAB</color>
+    <color name="cat_blue_disc">#DFF3FD</color>
+    <color name="cat_blue_ring">#00ABE5</color>
+    <color name="cat_blue_eye">#78B6E4</color>
+    <color name="cat_green_body">#496F47</color>
+    <color name="cat_green_disc">#CEE8D2</color>
+    <color name="cat_green_ring">#80C67A</color>
+    <color name="cat_green_eye">#99C16C</color>
+</resources>

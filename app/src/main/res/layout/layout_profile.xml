@@ -14,7 +14,8 @@
     android:layout_marginEnd="4dp"
     android:layout_marginBottom="3dp"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:layoutDirection="ltr">
 
     <LinearLayout
         android:id="@+id/content_lin"

@@ -72,7 +72,6 @@
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:layoutDirection="ltr"
                 android:minHeight="84dp"
                 android:orientation="horizontal"
                 android:paddingStart="20dp"

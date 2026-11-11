@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">DeltaBox</string>
+    <string name="app_name_long" translatable="false">DeltaBox for Android</string>
     <string name="app_desc">مجموعه ابزار جامع پراکسی برای اندروید، نوشته‌شده با کاتلین.</string>
-    <string name="app_name_long">کلاینت دلتاباکس مخصوص گوشی</string>
-    <string name="about_developer">سازنده‌ها</string>
-    <string name="about_publisher">توسعه‌دهنده</string>
-    <string name="menu_update_group_sub">آپدیت ساب گروه فعلی</string>
-    <string name="menu_delete_invalid">حذف غیرفعال‌ها</string>
-    <string name="menu_reset_ping">بازگردانی پینگ‌ها</string>
-    <string name="menu_reset_data">بازگردانی دیتاها</string>
-    <string name="menu_sort_by_delay">چیدمان براساس پینگ</string>
-    <string name="connection_test_tcp_test">تست TCP</string>
-    <string name="menu_split_tunnel">تونل برنامه</string>
     <string name="project">پروژه</string>
     <string name="github">کد منبع</string>
     <string name="telegram">کانال دریافت نسخه‌های به‌روز در تلگرام</string>
@@ -326,7 +317,7 @@
     <string name="connection_test_tcp_ping_unavailable">TCPing در دسترس نیست</string>
     <string name="connection_test_icmp_ping" translatable="false">ICMPing</string>
     <string name="connection_test_icmp_ping_unavailable">ICMPing در دسترس نیست</string>
-    <string name="connection_test_url_test">تاخیر واقعی سرور</string>
+    <string name="connection_test_url_test" translatable="false">آزمایش اتصال به لینک</string>
     <string name="connection_test_domain_not_found">دامنه یافت نشد</string>
     <string name="connection_test_refused">اتصال رد شد</string>
     <string name="connection_test_unreachable">متصل نمی‌شود</string>
@@ -460,7 +451,6 @@
     <string name="tools_network">شبکه</string>
     <string name="mtu" translatable="false">MTU</string>
 
-    <string name="reset_settings">بازگردانی تنظیمات به پیش‌فرض</string>
     <string name="backup">پشتیبان‌گیری</string>
     <string name="backup_groups_and_configurations">گروه‌ها و پیکربندی‌ها</string>
     <string name="backup_rules">دستورالعمل‌های مسیریابی</string>

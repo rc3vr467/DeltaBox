@@ -13,4 +13,8 @@
     <color name="cat_green_disc">#CEE8D2</color>
     <color name="cat_green_ring">#80C67A</color>
     <color name="cat_green_eye">#99C16C</color>
+    <color name="cat_purple_body">#5B21B6</color>
+    <color name="cat_purple_disc">#E9D5FF</color>
+    <color name="cat_purple_ring">#8B5CF6</color>
+    <color name="cat_purple_eye">#A78BFA</color>
 </resources>

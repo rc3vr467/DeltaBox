@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">DeltaBox</string>
-    <string name="app_name_long" translatable="false">DeltaBox for Android</string>
     <string name="app_desc">مجموعه ابزار جامع پراکسی برای اندروید، نوشته‌شده با کاتلین.</string>
     <string name="app_name_long">کلاینت دلتاباکس مخصوص گوشی</string>
     <string name="about_developer">سازنده‌ها</string>

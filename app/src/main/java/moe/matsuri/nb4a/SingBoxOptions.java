@@ -113,21 +113,10 @@ public class SingBoxOptions {
 
         public List<SingBoxOption> outbounds;
 
-        // sing-box "endpoints" top-level array (used by types that are not
-        // wired as legacy outbounds, e.g. openvpn-client). Each entry is a
-        // SingBoxOption whose _hack_config_map carries its JSON fields
-        // ("type", "tag", and the endpoint-specific options).
-        public List<SingBoxOption> endpoints;
-
         public RouteOptions route;
 
         public ExperimentalOptions experimental;
 
-    }
-
-    // Generic holder for any sing-box object (outbound, endpoint, ...) that
-    // is built purely from a field map rather than from a generated class.
-    public static class GenericSingBoxOption extends SingBoxOption {
     }
 
     // paste generate output here

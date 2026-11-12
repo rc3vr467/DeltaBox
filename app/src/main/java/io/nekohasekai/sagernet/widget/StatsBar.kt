@@ -34,6 +34,8 @@ class StatsBar @JvmOverloads constructor(
     private lateinit var statusDot: View
     private lateinit var pingBadge: TextView
     private lateinit var exitIpText: TextView
+    private var chart: TrafficChartView? = null
+    private var totalsText: TextView? = null
     private var exitInfo: ExitIpInfo? = null
     private var exitJob: kotlinx.coroutines.Job? = null
     private lateinit var behavior: YourBehavior
@@ -88,6 +90,8 @@ class StatsBar @JvmOverloads constructor(
         statusDot = findViewById(R.id.statusDot)
         pingBadge = findViewById(R.id.pingBadge)
         exitIpText = findViewById(R.id.exitIp)
+        chart = findViewById(R.id.trafficChart)
+        totalsText = findViewById(R.id.trafficTotals)
         setPing(null)
         super.setOnClickListener(l)
     }
@@ -159,6 +163,7 @@ class StatsBar @JvmOverloads constructor(
             activity.whenStarted { what() }
         }
         applyStateStyle(state)
+        applyChartState(state)
         if (state != BaseService.State.Connected) {
             setPing(null)
             exitJob?.cancel()
@@ -220,8 +225,45 @@ class StatsBar @JvmOverloads constructor(
         }
     }
 
+    /**
+     * Chart follows the real service state. With speed statistics disabled (speedInterval == 0)
+     * the service sends no samples, so the chart is hidden instead of drawing a fake flat line.
+     */
+    private fun applyChartState(state: BaseService.State) {
+        val chartView = chart ?: return
+        if (DataStore.speedInterval > 0) chartView.sampleIntervalMs = DataStore.speedInterval.toLong()
+        when (state) {
+            BaseService.State.Connected -> chartView.setMode(TrafficChartView.Mode.ACTIVE)
+            BaseService.State.Connecting -> chartView.setMode(TrafficChartView.Mode.WAITING)
+            else -> chartView.setMode(TrafficChartView.Mode.IDLE)
+        }
+        val show = DataStore.speedInterval > 0 &&
+                (state == BaseService.State.Connected || state == BaseService.State.Connecting)
+        chartView.visibility = if (show) View.VISIBLE else View.GONE
+        if (state != BaseService.State.Connected) {
+            totalsText?.apply {
+                visibility = View.GONE
+                text = ""
+            }
+        }
+    }
+
+    /** Real per-session totals (bytes) from SpeedDisplayData; bypass traffic is not included. */
+    fun updateSpeed(txRate: Long, rxRate: Long, txTotal: Long, rxTotal: Long) {
+        updateSpeed(txRate, rxRate)
+        val view = totalsText ?: return
+        if (DataStore.speedInterval <= 0) return
+        view.text = context.getString(
+            R.string.delta_session_totals,
+            Formatter.formatFileSize(context, txTotal),
+            Formatter.formatFileSize(context, rxTotal)
+        )
+        view.visibility = View.VISIBLE
+    }
+
     @SuppressLint("SetTextI18n")
     fun updateSpeed(txRate: Long, rxRate: Long) {
+        chart?.addSample(txRate, rxRate)
         txText.text = "▲  ${
             context.getString(
                 R.string.speed, Formatter.formatFileSize(context, txRate)

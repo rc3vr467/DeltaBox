@@ -287,8 +287,8 @@
          ════════════════════════════════════════════════════════ -->
 
     <!-- Brand identity -->
-    <color name="delta_brand">#16A34A</color>          <!-- Green for Light toolbar title -->
-    <color name="delta_brand_dark">#15803D</color>     <!-- Darker green button fill -->
+    <color name="delta_brand">#7041CF</color>          <!-- Green for Light toolbar title -->
+    <color name="delta_brand_dark">#5B32B0</color>     <!-- Darker green button fill -->
 
     <!-- VPN state colours — NEVER change, independent of brand -->
     <color name="delta_state_off">#EF4444</color>
@@ -296,34 +296,34 @@
     <color name="delta_state_on">#22C55E</color>
 
     <!-- Surface system — Light Mode -->
-    <color name="delta_bg">#FFFFFF</color>
-    <color name="delta_surface">#F5F7F6</color>
+    <color name="delta_bg">#F5F6FA</color>
+    <color name="delta_surface">#FFFFFF</color>
     <color name="delta_card">#FFFFFF</color>
-    <color name="delta_surface_variant">#EEF2EF</color>
+    <color name="delta_surface_variant">#F0EFF6</color>
     <color name="delta_primary">#FFFFFF</color>
     <color name="delta_primary_dark">#FFFFFF</color>
-    <color name="delta_on_primary">#171717</color>
+    <color name="delta_on_primary">#17151F</color>
 
     <!-- Accent — Light uses green -->
-    <color name="delta_accent">#16A34A</color>
+    <color name="delta_accent">#7041CF</color>
     <!-- Black Wall screen only (light): dark purple instead of green, kept dark enough that white icon/text drawn on top of it (selected row) stays readable, but used here mainly for icon/title/checkmark on a light card, where it must be dark enough to read against white. -->
     <color name="delta_blackwall_accent">#5B21B6</color>
-    <color name="delta_accent_soft">#22C55E</color>
-    <color name="delta_fab">#171717</color>
+    <color name="delta_accent_soft">#8B5CF6</color>
+    <color name="delta_fab">#17151F</color>
 
     <!-- Typography — Light -->
-    <color name="delta_text">#171717</color>
-    <color name="delta_text_secondary">#525D56</color>
-    <color name="delta_text_muted">#7A877F</color>
+    <color name="delta_text">#17151F</color>
+    <color name="delta_text_secondary">#5E5A69</color>
+    <color name="delta_text_muted">#8A8696</color>
 
     <!-- Server type label (Shadowsocks / VLESS / ...) — Light: keep neutral, only Dark uses purple -->
-    <color name="delta_server_type_text">#525D56</color>
+    <color name="delta_server_type_text">#5E5A69</color>
 
     <!-- Chrome — Light -->
     <color name="delta_divider">#1A000000</color>
-    <color name="delta_selected">#1A16A34A</color>
-    <color name="delta_stroke">#E1E7E3</color>
-    <color name="delta_glow">#3316A34A</color>
+    <color name="delta_selected">#1A7041CF</color>
+    <color name="delta_stroke">#E5E3ED</color>
+    <color name="delta_glow">#337041CF</color>
     <color name="delta_scrim">#66000000</color>
 
     <!-- Semantic — Light -->
@@ -335,9 +335,9 @@
     <color name="delta_state_off_text">#B91C1C</color>
     <color name="delta_state_connecting_text">#0369A1</color>
     <color name="delta_state_on_text">#15803D</color>
-    <color name="delta_panel_off">#FFF5F5</color>
-    <color name="delta_panel_connecting">#F0F9FF</color>
-    <color name="delta_panel_on">#F0FDF4</color>
+    <color name="delta_panel_off">#FFFFFF</color>
+    <color name="delta_panel_connecting">#FFFFFF</color>
+    <color name="delta_panel_on">#FFFFFF</color>
 
     <!-- Ping badge tiers — Light -->
     <color name="delta_ping_good">#15803D</color>
@@ -349,29 +349,29 @@
     <color name="delta_ping_bad">#B91C1C</color>
     <color name="delta_ping_bad_bg">#FEE2E2</color>
     <color name="delta_ping_none">#4B5563</color>
-    <color name="delta_ping_none_bg">#F3F4F6</color>
+    <color name="delta_ping_none_bg">#F0EFF6</color>
 
     <!-- Navigation Drawer v3 — Light -->
     <color name="delta_nav_bg">#FFFFFF</color>
-    <color name="delta_nav_header_bg">#F5F7F6</color>
-    <color name="delta_nav_selected_bg">#1A16A34A</color>
-    <color name="delta_nav_selected_icon">#16A34A</color>
-    <color name="delta_nav_selected_text">#15803D</color>
-    <color name="delta_nav_unselected_icon">#525D56</color>
-    <color name="delta_nav_unselected_text">#171717</color>
-    <color name="delta_nav_divider">#E1E7E3</color>
-    <color name="delta_nav_footer_text">#7A877F</color>
+    <color name="delta_nav_header_bg">#F0EFF6</color>
+    <color name="delta_nav_selected_bg">#1F7041CF</color>
+    <color name="delta_nav_selected_icon">#7041CF</color>
+    <color name="delta_nav_selected_text">#5B32B0</color>
+    <color name="delta_nav_unselected_icon">#5E5A69</color>
+    <color name="delta_nav_unselected_text">#17151F</color>
+    <color name="delta_nav_divider">#E5E3ED</color>
+    <color name="delta_nav_footer_text">#8A8696</color>
 
     <!-- Tools popup v3 — Light -->
     <color name="delta_tools_bg">#FFFFFF</color>
-    <color name="delta_tools_header_text">#525D56</color>
-    <color name="delta_tools_icon_primary">#16A34A</color>
+    <color name="delta_tools_header_text">#5E5A69</color>
+    <color name="delta_tools_icon_primary">#7041CF</color>
     <color name="delta_tools_icon_danger">#DC2626</color>
-    <color name="delta_tools_divider">#E1E7E3</color>
+    <color name="delta_tools_divider">#E5E3ED</color>
 
     <!-- Settings v3 group header — Light -->
-    <color name="delta_settings_group_text">#16A34A</color>
-    <color name="delta_settings_group_icon">#16A34A</color>
+    <color name="delta_settings_group_text">#7041CF</color>
+    <color name="delta_settings_group_icon">#7041CF</color>
 
     <color name="material_deep_orange_accent_200">#FF9E80</color>
     <color name="color_ng_black_primary">#000000</color>

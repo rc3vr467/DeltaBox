@@ -18,8 +18,6 @@ import io.nekohasekai.sagernet.fmt.v2ray.VMessBean
 import io.nekohasekai.sagernet.fmt.v2ray.isTLS
 import io.nekohasekai.sagernet.fmt.v2ray.setTLS
 import io.nekohasekai.sagernet.fmt.wireguard.WireGuardBean
-import io.nekohasekai.sagernet.fmt.openvpn.looksLikeOvpnConfig
-import io.nekohasekai.sagernet.fmt.openvpn.parseOvpn
 import io.nekohasekai.sagernet.ktx.*
 import libcore.Libcore
 import moe.matsuri.nb4a.Protocols
@@ -229,22 +227,6 @@ object RawUpdater : GroupUpdater() {
     suspend fun parseRaw(text: String, fileName: String = ""): List<AbstractBean>? {
 
         val proxies = mutableListOf<AbstractBean>()
-
-        if (looksLikeOvpnConfig(text)) {
-            // OpenVPN client config (.ovpn): full multi-line directive file,
-            // must be parsed as a whole rather than falling through to the
-            // YAML/JSON/link parsers below.
-            try {
-                val bean = parseOvpn(text)
-                if (fileName.isNotBlank()) {
-                    bean.name = fileName.removeSuffix(".ovpn").removeSuffix(".conf")
-                }
-                proxies.add(bean)
-                return proxies
-            } catch (e: Exception) {
-                Logs.w(e)
-            }
-        }
 
         if (text.contains("proxies:")) {
 

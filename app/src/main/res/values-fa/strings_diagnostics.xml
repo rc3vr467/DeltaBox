@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delta_session_totals">این نشست  ▲ %1$s  ▼ %2$s</string>
+
+    <string name="delta_quality_title">کیفیت سرور</string>
+    <string name="delta_quality_no_data">هنوز نتیجه‌ای برای این سرور نیست. از منو تست TCP یا تست URL را اجرا کنید.</string>
+    <string name="delta_quality_kind_tcp">اتصال TCP (به خود سرور، بدون پروتکل پروکسی)</string>
+    <string name="delta_quality_kind_url">تأخیر URL (درخواست HTTP از طریق پروکسی)</string>
+    <string name="delta_health_unknown">نامشخص</string>
+    <string name="delta_health_testing">در حال تست</string>
+    <string name="delta_health_healthy">سالم</string>
+    <string name="delta_health_slow">کند</string>
+    <string name="delta_health_unreachable">در دسترس نیست</string>
+    <string name="delta_health_timeout">پایان مهلت</string>
+    <string name="delta_health_error">خطا</string>
+    <string name="delta_quality_status">وضعیت: %1$s</string>
+    <string name="delta_quality_samples">نمونه‌ها: %1$d (موفق: %2$d)</string>
+    <string name="delta_quality_latency">میانه %1$s · میانگین %2$s · نوسان %3$s</string>
+    <string name="delta_quality_rates">نرخ موفقیت %1$s · نرخ پایان مهلت %2$s</string>
+    <string name="delta_quality_last_success">آخرین موفقیت: %1$s</string>
+    <string name="delta_quality_score">امتیاز کیفیت: %1$d از ۱۰۰</string>
+    <string name="delta_quality_score_unknown">امتیاز کیفیت: نامشخص (حداقل %1$d نتیجه از همین تست لازم است)</string>
+    <string name="delta_quality_not_available">—</string>
+    <string name="delta_quality_note">این‌ها تست تأخیر هستند، نه سرعت دانلود. افت بسته و تست سرعت واقعی اندازه‌گیری نمی‌شوند. امتیاز یک ابزار داخلی است و «بهترین سرور» را انتخاب نمی‌کند.</string>
+</resources>

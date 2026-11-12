@@ -410,7 +410,9 @@ class MainActivity : ThemedActivity(),
     // may NOT called when app is in background
     // ONLY do UI update here, write DB in bg process
     override fun cbSpeedUpdate(stats: SpeedDisplayData) {
-        binding.stats.updateSpeed(stats.txRateProxy, stats.rxRateProxy)
+        binding.stats.updateSpeed(
+            stats.txRateProxy, stats.rxRateProxy, stats.txTotal, stats.rxTotal
+        )
     }
 
     override fun cbTrafficUpdate(data: TrafficData) {

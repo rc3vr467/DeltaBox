@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DeltaBox 1.0.15 design tokens (light). Values for the main palette live in colors.xml
+     (delta_* names); this file only adds tokens introduced by the traffic chart. -->
+<resources>
+    <color name="delta_chart_download">#7041CF</color>
+    <color name="delta_chart_upload">#0369A1</color>
+    <color name="delta_chart_baseline">#E5E3ED</color>
+    <color name="delta_chart_label">#5E5A69</color>
+</resources>

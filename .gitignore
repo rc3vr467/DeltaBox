@@ -18,3 +18,8 @@ jniLibs/
 
 # submodules
 /external
+
+# DeltaBox: signing keys must never be committed (see docs/SIGNING.md)
+/release.keystore
+/libcore/release.keystore
+*.jks

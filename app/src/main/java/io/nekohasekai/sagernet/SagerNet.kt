@@ -95,6 +95,8 @@ class SagerNet : Application(),
             runOnDefaultDispatcher {
                 DefaultNetworkListener.start(this) {
                     underlyingNetwork = it
+                    // older server test results belong to another network and must be re-tested
+                    io.nekohasekai.sagernet.diagnostics.ServerDiagnostics.onNetworkChanged()
                 }
 
                 updateNotificationChannels()

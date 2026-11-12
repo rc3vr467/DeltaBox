@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="delta_session_totals">Session  ▲ %1$s  ▼ %2$s</string>
+
+    <string name="delta_quality_title">Server quality</string>
+    <string name="delta_quality_no_data">No test results for this server yet. Run a TCP test or a URL test from the menu.</string>
+    <string name="delta_quality_kind_tcp">TCP connect (to the server, without the proxy protocol)</string>
+    <string name="delta_quality_kind_url">URL latency (HTTP request through the proxy)</string>
+    <string name="delta_health_unknown">Unknown</string>
+    <string name="delta_health_testing">Testing</string>
+    <string name="delta_health_healthy">Healthy</string>
+    <string name="delta_health_slow">Slow</string>
+    <string name="delta_health_unreachable">Unreachable</string>
+    <string name="delta_health_timeout">Timeout</string>
+    <string name="delta_health_error">Error</string>
+    <string name="delta_quality_status">Status: %1$s</string>
+    <string name="delta_quality_samples">Samples: %1$d (successful: %2$d)</string>
+    <string name="delta_quality_latency">Median %1$s · average %2$s · jitter %3$s</string>
+    <string name="delta_quality_rates">Success rate %1$s · timeout rate %2$s</string>
+    <string name="delta_quality_last_success">Last success: %1$s</string>
+    <string name="delta_quality_score">Quality score: %1$d / 100</string>
+    <string name="delta_quality_score_unknown">Quality score: unknown (needs at least %1$d results of this test)</string>
+    <string name="delta_quality_not_available">n/a</string>
+    <string name="delta_quality_note">These are latency tests, not download speed. Packet loss and a real throughput test are not measured. The score is an internal heuristic and does not pick a best server.</string>
+</resources>

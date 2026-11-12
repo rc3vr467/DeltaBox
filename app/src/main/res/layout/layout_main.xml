@@ -67,6 +67,12 @@
             app:hideOnScroll="true"
             app:layout_scrollFlags="enterAlways|scroll">
 
+            <!-- DeltaBox 1.0.15: status row (unchanged) + live traffic chart below it -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -169,6 +175,36 @@
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.Delta.StatsValue" />
                 </LinearLayout>
+
+            </LinearLayout>
+
+                <TextView
+                    android:id="@+id/trafficTotals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFeatureSettings="tnum"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.Delta.StatsValue"
+                    android:textColor="@color/delta_chart_label"
+                    android:textSize="11sp"
+                    android:visibility="gone"
+                    tools:text="Session  ▲ 1.2 MB  ▼ 8.4 MB"
+                    tools:visibility="visible" />
+
+                <io.nekohasekai.sagernet.widget.TrafficChartView
+                    android:id="@+id/trafficChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:importantForAccessibility="no"
+                    android:layoutDirection="ltr"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
 
             </LinearLayout>
 

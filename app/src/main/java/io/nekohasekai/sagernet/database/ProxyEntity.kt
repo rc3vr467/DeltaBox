@@ -16,7 +16,6 @@ import io.nekohasekai.sagernet.fmt.mieru.buildMieruConfig
 import io.nekohasekai.sagernet.fmt.naive.NaiveBean
 import io.nekohasekai.sagernet.fmt.naive.buildNaiveConfig
 import io.nekohasekai.sagernet.fmt.naive.toUri
-import io.nekohasekai.sagernet.fmt.openvpn.OpenVPNBean
 import io.nekohasekai.sagernet.fmt.shadowsocks.*
 import moe.matsuri.nb4a.proxy.shadowtls.ShadowTLSBean
 import io.nekohasekai.sagernet.fmt.socks.SOCKSBean
@@ -67,7 +66,6 @@ data class ProxyEntity(
     var tuicBean: TuicBean? = null,
     var sshBean: SSHBean? = null,
     var wgBean: WireGuardBean? = null,
-    var ovpnBean: OpenVPNBean? = null,
     var shadowTLSBean: ShadowTLSBean? = null,
     var anyTLSBean: AnyTLSBean? = null,
     var chainBean: ChainBean? = null,
@@ -92,7 +90,6 @@ data class ProxyEntity(
         const val TYPE_TUIC = 20
         const val TYPE_MIERU = 21
         const val TYPE_ANYTLS = 22
-        const val TYPE_OPENVPN = 23
 
         const val TYPE_CONFIG = 998
         const val TYPE_NEKO = 999
@@ -174,7 +171,6 @@ data class ProxyEntity(
             TYPE_HYSTERIA -> hysteriaBean = KryoConverters.hysteriaDeserialize(byteArray)
             TYPE_SSH -> sshBean = KryoConverters.sshDeserialize(byteArray)
             TYPE_WG -> wgBean = KryoConverters.wireguardDeserialize(byteArray)
-            TYPE_OPENVPN -> ovpnBean = KryoConverters.openvpnDeserialize(byteArray)
             TYPE_TUIC -> tuicBean = KryoConverters.tuicDeserialize(byteArray)
             TYPE_SHADOWTLS -> shadowTLSBean = KryoConverters.shadowTLSDeserialize(byteArray)
             TYPE_ANYTLS -> anyTLSBean = KryoConverters.anyTLSDeserialize(byteArray)
@@ -196,7 +192,6 @@ data class ProxyEntity(
         TYPE_HYSTERIA -> "Hysteria" + hysteriaBean!!.protocolVersion
         TYPE_SSH -> "SSH"
         TYPE_WG -> "WireGuard"
-        TYPE_OPENVPN -> "OpenVPN"
         TYPE_TUIC -> "TUIC"
         TYPE_SHADOWTLS -> "ShadowTLS"
         TYPE_ANYTLS -> "AnyTLS"
@@ -222,7 +217,6 @@ data class ProxyEntity(
             TYPE_HYSTERIA -> hysteriaBean
             TYPE_SSH -> sshBean
             TYPE_WG -> wgBean
-            TYPE_OPENVPN -> ovpnBean
             TYPE_TUIC -> tuicBean
             TYPE_SHADOWTLS -> shadowTLSBean
             TYPE_ANYTLS -> anyTLSBean
@@ -244,7 +238,6 @@ data class ProxyEntity(
         return when (requireBean()) {
             is SSHBean -> false
             is WireGuardBean -> false
-            is OpenVPNBean -> false
             is ShadowTLSBean -> false
             is NekoBean -> false
             is ConfigBean -> false
@@ -361,7 +354,6 @@ data class ProxyEntity(
         hysteriaBean = null
         sshBean = null
         wgBean = null
-        ovpnBean = null
         tuicBean = null
         shadowTLSBean = null
         anyTLSBean = null
@@ -425,11 +417,6 @@ data class ProxyEntity(
                 wgBean = bean
             }
 
-            is OpenVPNBean -> {
-                type = TYPE_OPENVPN
-                ovpnBean = bean
-            }
-
             is TuicBean -> {
                 type = TYPE_TUIC
                 tuicBean = bean
@@ -479,7 +466,6 @@ data class ProxyEntity(
                 TYPE_HYSTERIA -> HysteriaSettingsActivity::class.java
                 TYPE_SSH -> SSHSettingsActivity::class.java
                 TYPE_WG -> WireGuardSettingsActivity::class.java
-                TYPE_OPENVPN -> OpenVPNSettingsActivity::class.java
                 TYPE_TUIC -> TuicSettingsActivity::class.java
                 TYPE_SHADOWTLS -> ShadowTLSSettingsActivity::class.java
                 TYPE_ANYTLS -> AnyTLSSettingsActivity::class.java

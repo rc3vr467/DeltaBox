@@ -91,6 +91,10 @@ import io.nekohasekai.sagernet.ui.profile.TuicSettingsActivity
 import io.nekohasekai.sagernet.ui.profile.VMessSettingsActivity
 import io.nekohasekai.sagernet.ui.profile.WireGuardSettingsActivity
 import io.nekohasekai.sagernet.widget.QRCodeDialog
+import io.nekohasekai.sagernet.diagnostics.Outcome
+import io.nekohasekai.sagernet.diagnostics.ServerDiagnostics
+import io.nekohasekai.sagernet.diagnostics.ServerQualityDialog
+import io.nekohasekai.sagernet.diagnostics.TestKind
 import io.nekohasekai.sagernet.widget.PingStyle
 import io.nekohasekai.sagernet.widget.UndoSnackbarManager
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -631,7 +635,7 @@ class ConfigurationFragment @JvmOverloads constructor(
     }
 
     /** TCP Test: plain TCP connect to each server (no core involved), measures connect time. */
-    fun tcpTest() = runConnectionTest { profile ->
+    fun tcpTest() = runConnectionTest(TestKind.TCP_CONNECT) { profile ->
         val bean = profile.requireBean()
         val host = bean.serverAddress
         val port = bean.serverPort
@@ -645,12 +649,12 @@ class ConfigurationFragment @JvmOverloads constructor(
         (SystemClock.elapsedRealtime() - start).toInt().coerceAtLeast(1)
     }
 
-    fun urlTest() = runConnectionTest { profile ->
+    fun urlTest() = runConnectionTest(TestKind.URL_LATENCY) { profile ->
         UrlTest().doTest(profile) // note: this is NOT in bg process
     }
 
     @OptIn(DelicateCoroutinesApi::class)
-    private fun runConnectionTest(doTest: suspend (ProxyEntity) -> Int) {
+    private fun runConnectionTest(kind: TestKind, doTest: suspend (ProxyEntity) -> Int) {
         if (DataStore.runningTest) return else DataStore.runningTest = true
         val test = TestDialog()
         val dialog = test.builder.show()
@@ -666,17 +670,28 @@ class ConfigurationFragment @JvmOverloads constructor(
                     while (isActive) {
                         val profile = profiles.poll() ?: break
                         profile.status = 0
+                        ServerDiagnostics.markTesting(profile.id, kind)
 
                         try {
                             val result = doTest(profile)
                             profile.status = 1
                             profile.ping = result
+                            ServerDiagnostics.record(profile.id, kind, Outcome.SUCCESS, result)
                         } catch (e: PluginManager.PluginNotFoundException) {
                             profile.status = 2
                             profile.error = e.readableMessage
+                            ServerDiagnostics.record(profile.id, kind, Outcome.ERROR, 0)
                         } catch (e: Exception) {
                             profile.status = 3
                             profile.error = e.readableMessage
+                            if (e is kotlinx.coroutines.CancellationException) {
+                                // cancelled by the user: not a server failure, record nothing
+                                ServerDiagnostics.finish(profile.id, kind)
+                            } else {
+                                ServerDiagnostics.record(
+                                    profile.id, kind, ServerDiagnostics.classify(e), 0
+                                )
+                            }
                         }
 
                         test.update(profile)
@@ -1389,6 +1404,19 @@ class ConfigurationFragment @JvmOverloads constructor(
                     }
                 } else {
                     profileStatus.setOnClickListener(null)
+                }
+
+                // Long-press the ping badge: real quality data collected by the tests (read-only).
+                if (proxyEntity.status > 0) {
+                    profileStatus.setOnLongClickListener {
+                        ServerQualityDialog.show(
+                            it.context, proxyEntity.id, proxyEntity.displayName()
+                        )
+                        true
+                    }
+                } else {
+                    profileStatus.setOnLongClickListener(null)
+                    profileStatus.isLongClickable = false
                 }
 
                 editButton.setOnClickListener {

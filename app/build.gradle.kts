@@ -88,3 +88,30 @@ dependencies {
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 }
+
+// OpenVPN 3 native engine. Off by default so the standard build is unchanged.
+// Enable with: ./gradlew :app:assembleOssRelease -Pdeltabox.openvpn3=true
+// (requires the native dependencies from the openvpn3 core, see src/main/cpp/openvpn3/README-STATUS.md)
+val openvpn3Enabled = (findProperty("deltabox.openvpn3") as String?)?.toBoolean() ?: false
+if (openvpn3Enabled) {
+    android {
+        defaultConfig {
+            ndk {
+                abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86_64")
+            }
+            externalNativeBuild {
+                cmake {
+                    cppFlags += listOf("-std=c++20", "-fexceptions", "-frtti")
+                    val depsRoot = findProperty("deltabox.openvpn3.depsRoot") as String?
+                        ?: error("Set -Pdeltabox.openvpn3.depsRoot=<dir containing <abi>/ vcpkg installs>")
+                    arguments += listOf("-DOVPN3_DEPS_ROOT=$depsRoot")
+                }
+            }
+        }
+        externalNativeBuild {
+            cmake {
+                path = file("src/main/cpp/openvpn3/CMakeLists.txt")
+            }
+        }
+    }
+}

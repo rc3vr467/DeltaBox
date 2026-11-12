@@ -1,0 +1,131 @@
+name: OpenVPN 3 Native
+
+# Two jobs:
+#  * default-build: the standard OSS release build WITHOUT the OpenVPN 3 engine
+#    (regression check that the existing build still passes);
+#  * openvpn3-build: builds the vendored OpenVPN 3 core for every ABI through vcpkg +
+#    CMake, then the release APK with -Pdeltabox.openvpn3=true.
+#
+# Nothing here has been executed yet. Treat the first run as the verification; send the
+# logs back if a step fails.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  default-build:
+    name: Default OSS build (no OpenVPN 3)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Permissions
+        run: chmod +x run gradlew libcore/*.sh && find buildScript libcore/buildScript -name '*.sh' -exec chmod +x {} + || true
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '^1.25'
+      - name: Build libcore.aar
+        run: ./run lib core
+      - name: Prepare
+        run: |
+          echo "sdk.dir=${ANDROID_HOME}" > local.properties
+          echo "ndk.dir=${ANDROID_NDK_HOME}" >> local.properties
+          ./run init action gradle
+      - name: Resource linking, Kotlin, tests, assemble
+        run: |
+          ./gradlew clean
+          ./gradlew :app:processOssReleaseResources --stacktrace
+          ./gradlew :app:compileOssReleaseKotlin --stacktrace
+          ./gradlew :app:testOssReleaseUnitTest --stacktrace
+          ./gradlew :app:assembleOssRelease --stacktrace 2>&1 | tee build-default.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: default-build-logs
+          path: build-default.log
+          if-no-files-found: warn
+
+  openvpn3-build:
+    name: OpenVPN 3 native build
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env:
+      DEPS_ROOT: ${{ github.workspace }}/ovpn3-deps
+    steps:
+      - uses: actions/checkout@v4
+      - name: Permissions
+        run: chmod +x run gradlew libcore/*.sh && find buildScript libcore/buildScript -name '*.sh' -exec chmod +x {} + || true
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '^1.25'
+      - name: Install CMake 3.22.1 (Android SDK)
+        run: |
+          yes | "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --install "cmake;3.22.1" > cmake-install.log 2>&1 || { cat cmake-install.log; exit 1; }
+      - name: Verify vcpkg Android triplets exist
+        run: |
+          for t in arm64-android arm-neon-android x64-android; do
+            if [ ! -f "${VCPKG_INSTALLATION_ROOT}/triplets/${t}.cmake" ] && [ ! -f "${VCPKG_INSTALLATION_ROOT}/triplets/community/${t}.cmake" ]; then
+              echo "Missing vcpkg triplet: ${t}"; ls "${VCPKG_INSTALLATION_ROOT}/triplets" || true; exit 1
+            fi
+          done
+      - name: Install native dependencies per ABI
+        run: |
+          set -e
+          cd app/src/main/cpp/openvpn3
+          "${VCPKG_INSTALLATION_ROOT}/vcpkg" install --triplet arm64-android --x-manifest-root=. --x-install-root="${DEPS_ROOT}/arm64-v8a" --x-buildtrees-root="${RUNNER_TEMP}/bt-arm64"
+          "${VCPKG_INSTALLATION_ROOT}/vcpkg" install --triplet arm-neon-android --x-manifest-root=. --x-install-root="${DEPS_ROOT}/armeabi-v7a" --x-buildtrees-root="${RUNNER_TEMP}/bt-arm32"
+          "${VCPKG_INSTALLATION_ROOT}/vcpkg" install --triplet x64-android --x-manifest-root=. --x-install-root="${DEPS_ROOT}/x86_64" --x-buildtrees-root="${RUNNER_TEMP}/bt-x64"
+      - name: Build libcore.aar
+        run: ./run lib core
+      - name: Prepare
+        run: |
+          echo "sdk.dir=${ANDROID_HOME}" > local.properties
+          echo "ndk.dir=${ANDROID_NDK_HOME}" >> local.properties
+          ./run init action gradle
+      - name: Build native + APK (OpenVPN 3 enabled)
+        run: |
+          ./gradlew clean
+          ./gradlew :app:processOssReleaseResources --stacktrace \
+            -Pdeltabox.openvpn3=true -Pdeltabox.openvpn3.depsRoot="${DEPS_ROOT}" 2>&1 | tee build-ovpn3.log
+          ./gradlew :app:compileOssReleaseKotlin --stacktrace \
+            -Pdeltabox.openvpn3=true -Pdeltabox.openvpn3.depsRoot="${DEPS_ROOT}" 2>&1 | tee -a build-ovpn3.log
+          ./gradlew :app:testOssReleaseUnitTest --stacktrace \
+            -Pdeltabox.openvpn3=true -Pdeltabox.openvpn3.depsRoot="${DEPS_ROOT}" 2>&1 | tee -a build-ovpn3.log
+          ./gradlew :app:assembleOssRelease --stacktrace \
+            -Pdeltabox.openvpn3=true -Pdeltabox.openvpn3.depsRoot="${DEPS_ROOT}" 2>&1 | tee -a build-ovpn3.log
+      - name: Locate APK and verify the native engine is packaged
+        id: apk
+        run: |
+          set -e
+          APK=$(find app/build/outputs/apk -path '*oss*release*' -name '*.apk' ! -name '*unsigned*' | head -n 1)
+          test -n "$APK" || { echo "No OSS release APK found"; find app/build/outputs/apk -name '*.apk'; exit 1; }
+          # The build fails the job if the JNI library is missing for any ABI.
+          for abi in arm64-v8a armeabi-v7a x86_64; do
+            unzip -l "$APK" | grep -q "lib/${abi}/libovpn3_jni.so" \
+              || { echo "libovpn3_jni.so missing for ${abi}"; exit 1; }
+          done
+          echo "path=$APK" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: openvpn3-build-logs
+          path: |
+            build-ovpn3.log
+            cmake-install.log
+          if-no-files-found: warn
+      - uses: actions/upload-artifact@v4
+        with:
+          name: deltabox-openvpn3-apk
+          path: ${{ steps.apk.outputs.path }}
+          if-no-files-found: error

@@ -43,6 +43,9 @@ fun Project.requireLocalProperties(): Properties {
 fun Project.setupCommon() {
     android.apply {
         buildToolsVersion = "35.0.1"
+        // Match the NDK that CI exposes via ndk.dir (ANDROID_NDK_HOME), so AGP does not
+        // fall back to its default 27.0.12077973 and emit CXX1104.
+        ndkVersion = "27.3.13750724"
         compileSdk = 35
         defaultConfig {
             minSdk = 21

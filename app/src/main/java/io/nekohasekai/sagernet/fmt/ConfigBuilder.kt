@@ -13,6 +13,8 @@ import io.nekohasekai.sagernet.fmt.ConfigBuildResult.IndexEntity
 import io.nekohasekai.sagernet.fmt.hysteria.HysteriaBean
 import io.nekohasekai.sagernet.fmt.hysteria.buildSingBoxOutboundHysteriaBean
 import io.nekohasekai.sagernet.fmt.internal.ChainBean
+import io.nekohasekai.sagernet.fmt.openvpn.OpenVPNBean
+import io.nekohasekai.sagernet.fmt.openvpn.buildSingBoxEndpointOpenVPNBean
 import io.nekohasekai.sagernet.fmt.shadowsocks.ShadowsocksBean
 import io.nekohasekai.sagernet.fmt.shadowsocks.buildSingBoxOutboundShadowsocksBean
 import io.nekohasekai.sagernet.fmt.socks.SOCKSBean
@@ -238,6 +240,7 @@ fun buildConfig(
         }
 
         outbounds = mutableListOf()
+        endpoints = mutableListOf()
 
         // init routing object
         route = RouteOptions().apply {
@@ -300,6 +303,34 @@ fun buildConfig(
                     tagOut = selectorName(bean.displayName())
                 }
 
+
+                // OpenVPN is wired as a sing-box top-level "endpoint" (it manages
+                // its own virtual device internally), not as a chainable
+                // outbound. It cannot sit in the middle of, or be the tail of,
+                // a proxy chain — only as the sole / outermost profile.
+                if (bean is OpenVPNBean) {
+                    if (index > 0) {
+                        throw IllegalStateException("OpenVPN profiles cannot be used inside a proxy chain")
+                    }
+
+                    chainTagOut = tagOut
+
+                    if (needGlobal) {
+                        globalOutbounds[proxyEntity.id]?.let {
+                            chainTagOut = it
+                            return@forEachIndexed
+                        }
+                        globalOutbounds[proxyEntity.id] = tagOut
+                    }
+
+                    endpoints.add(buildSingBoxEndpointOpenVPNBean(bean, tagOut))
+
+                    bean.finalAddress = bean.serverAddress
+                    bean.finalPort = bean.serverPort
+
+                    pastEntity = proxyEntity
+                    return@forEachIndexed
+                }
 
                 // chain rules
                 if (index > 0) {

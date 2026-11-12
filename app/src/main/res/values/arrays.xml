@@ -546,4 +546,59 @@
         <item>@string/sniff_override</item>
     </string-array>
 
+    <string-array name="openvpn_protocol_entry" translatable="false">
+        <item>UDP</item>
+        <item>TCP</item>
+    </string-array>
+    <string-array name="openvpn_protocol_value" translatable="false">
+        <item>udp</item>
+        <item>tcp</item>
+    </string-array>
+
+    <string-array name="openvpn_mode_entry" translatable="false">
+        <item>TLS (certificate)</item>
+        <item>Static Key</item>
+    </string-array>
+    <string-array name="openvpn_mode_value" translatable="false">
+        <item>tls</item>
+        <item>static_key</item>
+    </string-array>
+
+    <string-array name="openvpn_control_wrap_entry" translatable="false">
+        <item>None</item>
+        <item>tls-auth</item>
+        <item>tls-crypt</item>
+        <item>tls-crypt-v2</item>
+    </string-array>
+    <string-array name="openvpn_control_wrap_value" translatable="false">
+        <item></item>
+        <item>tls_auth</item>
+        <item>tls_crypt</item>
+        <item>tls_crypt_v2</item>
+    </string-array>
+
+    <string-array name="openvpn_key_direction_entry" translatable="false">
+        <item>None</item>
+        <item>0 (server)</item>
+        <item>1 (client)</item>
+    </string-array>
+    <string-array name="openvpn_key_direction_value" translatable="false">
+        <item></item>
+        <item>server</item>
+        <item>client</item>
+    </string-array>
+
+    <string-array name="openvpn_compression_entry" translatable="false">
+        <item>None</item>
+        <item>LZ4</item>
+        <item>LZ4 v2</item>
+        <item>Stub v2</item>
+    </string-array>
+    <string-array name="openvpn_compression_value" translatable="false">
+        <item></item>
+        <item>lz4</item>
+        <item>lz4-v2</item>
+        <item>stub-v2</item>
+    </string-array>
+
 </resources>

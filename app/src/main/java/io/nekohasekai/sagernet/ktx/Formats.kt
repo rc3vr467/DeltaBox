@@ -7,6 +7,8 @@ import io.nekohasekai.sagernet.fmt.http.parseHttp
 import io.nekohasekai.sagernet.fmt.hysteria.parseHysteria1
 import io.nekohasekai.sagernet.fmt.hysteria.parseHysteria2
 import io.nekohasekai.sagernet.fmt.naive.parseNaive
+import io.nekohasekai.sagernet.fmt.openvpn.looksLikeOvpnConfig
+import io.nekohasekai.sagernet.fmt.openvpn.parseOvpn
 import io.nekohasekai.sagernet.fmt.parseUniversal
 import io.nekohasekai.sagernet.fmt.shadowsocks.parseShadowsocks
 import io.nekohasekai.sagernet.fmt.socks.parseSOCKS
@@ -104,6 +106,15 @@ fun String.decodeBase64UrlSafe(): String {
 class SubscriptionFoundException(val link: String) : RuntimeException()
 
 suspend fun parseProxies(text: String): List<AbstractBean> {
+    // A full OpenVPN client config (.ovpn) is a multi-line directive file,
+    // not a one-link-per-line format, so it must be parsed as a whole
+    // before falling through to the per-line/per-token link parser below.
+    if (looksLikeOvpnConfig(text)) {
+        return runCatching { listOf(parseOvpn(text)) }.onFailure {
+            Logs.w(it)
+        }.getOrDefault(emptyList())
+    }
+
     val links = text.split('\n').flatMap { it.trim().split(' ') }
     val linksByLine = text.split('\n').map { it.trim() }
 

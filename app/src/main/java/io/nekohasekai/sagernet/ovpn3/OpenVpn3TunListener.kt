@@ -34,14 +34,14 @@ class OpenVpn3TunListener(
     }
 
     override fun tunNew(): Boolean {
-        builder = VpnService.Builder()
+        builder = service.Builder()
         return true
     }
 
     override fun tunSetRemoteAddress(address: String, ipv6: Boolean): Boolean = true
 
     override fun tunAddAddress(address: String, prefixLength: Int, gateway: String, ipv6: Boolean, net30: Boolean): Boolean {
-        val b = builder ?: VpnService.Builder().also { builder = it }
+        val b = builder ?: service.Builder().also { builder = it }
         return try {
             b.addAddress(address, prefixLength)
             true
@@ -53,7 +53,7 @@ class OpenVpn3TunListener(
 
     override fun tunAddRoute(address: String, prefixLength: Int, metric: Int, ipv6: Boolean, exclude: Boolean): Boolean {
         if (exclude) return false
-        val b = builder ?: VpnService.Builder().also { builder = it }
+        val b = builder ?: service.Builder().also { builder = it }
         return try {
             b.addRoute(address, prefixLength)
             true
@@ -64,7 +64,7 @@ class OpenVpn3TunListener(
     }
 
     override fun tunSetMtu(mtu: Int): Boolean {
-        val b = builder ?: VpnService.Builder().also { builder = it }
+        val b = builder ?: service.Builder().also { builder = it }
         return try {
             b.setMtu(mtu)
             true
@@ -74,13 +74,13 @@ class OpenVpn3TunListener(
     }
 
     override fun tunSetSessionName(name: String): Boolean {
-        val b = builder ?: VpnService.Builder().also { builder = it }
+        val b = builder ?: service.Builder().also { builder = it }
         b.setSession(name)
         return true
     }
 
     override fun tunAddDnsServer(address: String): Boolean {
-        val b = builder ?: VpnService.Builder().also { builder = it }
+        val b = builder ?: service.Builder().also { builder = it }
         return try {
             b.addDnsServer(address)
             true
@@ -91,7 +91,7 @@ class OpenVpn3TunListener(
     }
 
     override fun tunAddSearchDomain(domain: String): Boolean {
-        val b = builder ?: VpnService.Builder().also { builder = it }
+        val b = builder ?: service.Builder().also { builder = it }
         return try {
             b.addSearchDomain(domain)
             true

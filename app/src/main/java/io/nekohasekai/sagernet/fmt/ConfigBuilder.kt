@@ -374,6 +374,22 @@ fun buildConfig(
                         throw Exception("OpenVPN profile \"${bean.displayName()}\" is not supported: ${e.message}")
                     }
                     endpoints.add(CustomSingBoxOption(endpointJson))
+
+                    // sing-box's implicit default routing only ever considers the
+                    // "outbounds" list (picking its first entry when nothing else
+                    // matches) - it never looks at "endpoints". Since this OpenVPN
+                    // profile lives only in "endpoints" (see comment above) and no
+                    // other rule here references its tag, without an explicit
+                    // catch-all rule all traffic would silently fall through to
+                    // whatever ends up first in "outbounds" (normally "direct"),
+                    // i.e. straight onto the real network instead of the tunnel.
+                    // Add a catch-all (no match conditions - matches everything)
+                    // rule sending unmatched traffic into this endpoint, so the
+                    // tunnel is actually used once it's connected.
+                    route.rules.add(Rule_DefaultOptions().apply {
+                        outbound = tagOut
+                    })
+
                     pastEntity = proxyEntity
                     return@forEachIndexed
                 }

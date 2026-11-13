@@ -2,130 +2,30 @@
 
     <EditTextPreference
         app:icon="@drawable/ic_social_emoji_symbols"
-        app:key="name"
+        app:key="profileName"
         app:title="@string/profile_name"
         app:useSimpleSummaryProvider="true" />
 
     <PreferenceCategory app:title="@string/proxy_cat">
-        <EditTextPreference
-            app:icon="@drawable/ic_hardware_router"
-            app:key="serverAddress"
-            app:title="@string/server_address"
-            app:useSimpleSummaryProvider="true" />
-        <EditTextPreference
-            app:icon="@drawable/ic_maps_directions_boat"
-            app:key="serverPort"
-            app:title="@string/server_port"
-            app:useSimpleSummaryProvider="true" />
-        <ListPreference
-            app:defaultValue="udp"
-            app:entries="@array/openvpn_protocol_entry"
-            app:entryValues="@array/openvpn_protocol_value"
-            app:icon="@drawable/baseline_public_24"
-            app:key="protocol"
-            app:title="@string/openvpn_protocol"
-            app:useSimpleSummaryProvider="true" />
-        <ListPreference
-            app:defaultValue="tls"
-            app:entries="@array/openvpn_mode_entry"
-            app:entryValues="@array/openvpn_mode_value"
-            app:icon="@drawable/ic_baseline_vpn_key_24"
-            app:key="mode"
-            app:title="@string/openvpn_mode"
-            app:useSimpleSummaryProvider="true" />
-        <EditTextPreference
-            app:defaultValue="1500"
-            app:icon="@drawable/baseline_public_24"
-            app:key="mtu"
-            app:title="@string/mtu"
-            app:useSimpleSummaryProvider="true" />
-    </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/openvpn_mode">
-        <EditTextPreference
-            app:icon="@drawable/ic_action_copyright"
-            app:key="ca"
-            app:title="@string/openvpn_ca" />
-        <EditTextPreference
-            app:icon="@drawable/ic_action_copyright"
-            app:key="cert"
-            app:title="@string/openvpn_cert" />
-        <EditTextPreference
-            app:dialogLayout="@layout/layout_password_dialog"
-            app:icon="@drawable/ic_baseline_vpn_key_24"
-            app:key="key"
-            app:title="@string/openvpn_key" />
-        <EditTextPreference
-            app:icon="@drawable/ic_baseline_fingerprint_24"
-            app:key="staticKey"
-            app:title="@string/openvpn_static_key" />
-    </PreferenceCategory>
+        <moe.matsuri.nb4a.ui.EditConfigPreference
+            app:icon="@drawable/ic_baseline_layers_24"
+            app:key="serverConfig"
+            app:title="@string/openvpn_config"
+            app:useSimpleSummaryProvider="true" />
 
-    <PreferenceCategory app:title="@string/openvpn_control_wrap_type">
-        <ListPreference
-            app:defaultValue=""
-            app:entries="@array/openvpn_control_wrap_entry"
-            app:entryValues="@array/openvpn_control_wrap_value"
-            app:icon="@drawable/ic_baseline_fingerprint_24"
-            app:key="controlWrapType"
-            app:title="@string/openvpn_control_wrap_type"
-            app:useSimpleSummaryProvider="true" />
         <EditTextPreference
-            app:icon="@drawable/ic_baseline_fingerprint_24"
-            app:key="controlWrapKey"
-            app:title="@string/openvpn_control_wrap_key" />
-        <ListPreference
-            app:defaultValue=""
-            app:entries="@array/openvpn_key_direction_entry"
-            app:entryValues="@array/openvpn_key_direction_value"
-            app:icon="@drawable/ic_baseline_fingerprint_24"
-            app:key="keyDirection"
-            app:title="@string/openvpn_key_direction"
-            app:useSimpleSummaryProvider="true" />
-    </PreferenceCategory>
+            app:icon="@drawable/ic_baseline_person_24"
+            app:key="serverUsername"
+            app:title="@string/username"
+            app:useSimpleSummaryProvider="false" />
 
-    <PreferenceCategory app:title="@string/openvpn_username">
-        <EditTextPreference
-            app:icon="@drawable/ic_social_person"
-            app:key="username"
-            app:title="@string/openvpn_username"
-            app:useSimpleSummaryProvider="true" />
         <EditTextPreference
             app:dialogLayout="@layout/layout_password_dialog"
             app:icon="@drawable/ic_settings_password"
-            app:key="password"
-            app:title="@string/openvpn_password" />
-    </PreferenceCategory>
+            app:key="serverPassword"
+            app:title="@string/password" />
 
-    <PreferenceCategory app:title="@string/openvpn_cipher">
-        <EditTextPreference
-            app:icon="@drawable/ic_baseline_fingerprint_24"
-            app:key="cipher"
-            app:title="@string/openvpn_cipher"
-            app:useSimpleSummaryProvider="true" />
-        <EditTextPreference
-            app:icon="@drawable/ic_baseline_fingerprint_24"
-            app:key="auth"
-            app:title="@string/openvpn_auth"
-            app:useSimpleSummaryProvider="true" />
-        <ListPreference
-            app:defaultValue=""
-            app:entries="@array/openvpn_compression_entry"
-            app:entryValues="@array/openvpn_compression_value"
-            app:icon="@drawable/baseline_public_24"
-            app:key="compression"
-            app:title="@string/openvpn_compression"
-            app:useSimpleSummaryProvider="true" />
-        <SwitchPreference
-            app:defaultValue="true"
-            app:icon="@drawable/baseline_public_24"
-            app:key="redirectGateway"
-            app:title="@string/openvpn_redirect_gateway" />
-        <SwitchPreference
-            app:defaultValue="false"
-            app:icon="@drawable/baseline_public_24"
-            app:key="blockIPv6"
-            app:title="@string/openvpn_block_ipv6" />
     </PreferenceCategory>
 
 </PreferenceScreen>

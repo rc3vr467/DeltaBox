@@ -17,6 +17,8 @@ import io.nekohasekai.sagernet.fmt.shadowsocks.ShadowsocksBean
 import io.nekohasekai.sagernet.fmt.shadowsocks.buildSingBoxOutboundShadowsocksBean
 import io.nekohasekai.sagernet.fmt.socks.SOCKSBean
 import io.nekohasekai.sagernet.fmt.socks.buildSingBoxOutboundSocksBean
+import io.nekohasekai.sagernet.fmt.openvpn.OpenVPNBean
+import io.nekohasekai.sagernet.fmt.openvpn.OpenVpnFmt
 import io.nekohasekai.sagernet.fmt.ssh.SSHBean
 import io.nekohasekai.sagernet.fmt.ssh.buildSingBoxOutboundSSHBean
 import io.nekohasekai.sagernet.fmt.tuic.TuicBean
@@ -238,6 +240,7 @@ fun buildConfig(
         }
 
         outbounds = mutableListOf()
+        endpoints = mutableListOf()
 
         // init routing object
         route = RouteOptions().apply {
@@ -324,6 +327,55 @@ fun buildConfig(
                         return@forEachIndexed
                     }
                     globalOutbounds[proxyEntity.id] = tagOut
+                }
+
+                if (bean is OpenVPNBean) {
+                    // OpenVPN runs as a sing-box "endpoint" (like WireGuard-as-endpoint,
+                    // Tailscale, etc.), not as a regular outbound, and endpoints are
+                    // fundamentally more restricted than outbounds in sing-box:
+                    //  - An endpoint has no "detour" field at all (see upstream
+                    //    option/openvpn.go: Options is unmarshalled strictly and
+                    //    silently drops any unrecognized key), so it can never be
+                    //    the *source* of a chain hop - it cannot push traffic
+                    //    forward into the next proxy.
+                    //  - Routing a *previous* outbound's traffic into this endpoint
+                    //    also can't reuse that same "detour" trick (for the same
+                    //    reason) and sing-box's route.rules[].inbound only matches
+                    //    actual inbound listeners, not an arbitrary outbound/endpoint
+                    //    tag - so there is no existing mechanism here to say "send
+                    //    whatever came out of outbound A into endpoint B" without
+                    //    building a brand-new intermediary inbound for every such
+                    //    hop (the way needExternal() profiles do for things like
+                    //    Hysteria). That infrastructure does not exist for OpenVPN.
+                    // So, for now, OpenVPN is only supported as a standalone proxy,
+                    // never chained with anything else in front of or behind it.
+                    if (profileList.size > 1) {
+                        throw Exception("OpenVPN profile \"${bean.displayName()}\" cannot be used in a chain; it can only be selected on its own.")
+                    }
+                    if (buildSelector) {
+                        // A selector group's outbound selection list
+                        // (Outbound_SelectorOptions.outbounds below) is resolved
+                        // by sing-box purely through its OutboundManager (see
+                        // upstream protocol/selector/outbound.go), which never
+                        // looks at endpoints. Listing this OpenVPN endpoint's tag
+                        // there would fail at runtime with "outbound not found",
+                        // so a group containing an OpenVPN profile can't be built
+                        // as a selector.
+                        throw Exception("OpenVPN profile \"${bean.displayName()}\" cannot be part of a selector group; move it to its own group or disable \"selector\" for this group.")
+                    }
+                    val endpointJson = try {
+                        OpenVpnFmt.toSingBoxEndpoint(
+                            bean.config,
+                            tagOut,
+                            bean.username.ifBlank { null },
+                            bean.password.ifBlank { null },
+                        ).toString()
+                    } catch (e: OpenVpnFmt.UnsupportedException) {
+                        throw Exception("OpenVPN profile \"${bean.displayName()}\" is not supported: ${e.message}")
+                    }
+                    endpoints.add(CustomSingBoxOption(endpointJson))
+                    pastEntity = proxyEntity
+                    return@forEachIndexed
                 }
 
                 if (proxyEntity.needExternal()) { // externel outbound

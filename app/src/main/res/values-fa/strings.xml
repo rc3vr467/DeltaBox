@@ -223,6 +223,7 @@
     <string name="action_tuic" translatable="false">TUIC</string>
     <string name="proxy_chain">زنجیره پراکسی</string>
     <string name="custom_config">پیکربندی اختصاصی</string>
+    <string name="openvpn_config">پیکربندی OpenVPN (.ovpn)</string>
     <string name="balancer">برابرکننده</string>
     <string name="balancer_settings">تنظیمات برابرکننده</string>
     <string name="balancer_type">نوع</string>

@@ -9,123 +9,93 @@ import org.jetbrains.annotations.NotNull;
 
 import io.nekohasekai.sagernet.fmt.AbstractBean;
 import io.nekohasekai.sagernet.fmt.KryoConverters;
+import moe.matsuri.nb4a.utils.JavaUtil;
 
+/**
+ * Stores an imported .ovpn profile as-is. serverAddress/serverPort (from
+ * AbstractBean) are kept in sync with the profile's first "remote" so that
+ * TCPing / connectivity checks and the profile list UI have something to
+ * show without having to re-parse the config.
+ *
+ * The actual sing-box "openvpn-client" endpoint JSON is produced on demand
+ * by OpenVpnFmt.toSingBoxEndpoint(config, ...) - see BoxInstance.kt /
+ * OpenVpn3Instance wiring.
+ */
 public class OpenVPNBean extends AbstractBean {
 
-    // mode: "tls" or "static_key"
-    public String mode;
+    /**
+     * Raw .ovpn profile text, exactly as imported (inline ca/cert/key/
+     * tls-auth/tls-crypt/secret blocks included).
+     */
+    public String config;
 
-    // transport
-    public String protocol; // udp, udp4, udp6, tcp, tcp4, tcp6
-
-    // tls auth material (PEM text, inline, newline separated with \n escaped as real newlines)
-    public String ca;
-    public String cert;
-    public String key;
-
-    // control channel wrapping: tls-auth / tls-crypt / tls-crypt-v2
-    public String controlWrapType; // "", "tls_auth", "tls_crypt", "tls_crypt_v2"
-    public String controlWrapKey;
-    public String keyDirection; // "", "server", "client"
-
-    // static key mode (pre-shared static key, no TLS handshake)
-    public String staticKey;
-
-    // user/pass auth (auth-user-pass)
+    /**
+     * Optional override credentials, used when the profile needs
+     * auth-user-pass but has no inline username/password block.
+     */
     public String username;
     public String password;
 
-    public String cipher;
-    public String auth;
-    public String compression; // "", "lz4", "lz4-v2", "stub", "stub-v2"
-
-    public Boolean redirectGateway;
-    public Boolean blockIPv6;
-
-    public Integer mtu;
-
     @Override
     public void initializeDefaultValues() {
-        super.initializeDefaultValues();
-        if (mode == null) mode = "tls";
-        if (protocol == null) protocol = "udp";
-        if (ca == null) ca = "";
-        if (cert == null) cert = "";
-        if (key == null) key = "";
-        if (controlWrapType == null) controlWrapType = "";
-        if (controlWrapKey == null) controlWrapKey = "";
-        if (keyDirection == null) keyDirection = "";
-        if (staticKey == null) staticKey = "";
+        if (config == null) config = "";
         if (username == null) username = "";
         if (password == null) password = "";
-        if (cipher == null) cipher = "";
-        if (auth == null) auth = "";
-        if (compression == null) compression = "";
-        if (redirectGateway == null) redirectGateway = true;
-        if (blockIPv6 == null) blockIPv6 = false;
-        if (mtu == null) mtu = 1500;
+
+        try {
+            OpenVpnFmt.Info info = OpenVpnFmt.inspect(config);
+            serverAddress = info.getHost();
+            serverPort = info.getPort();
+        } catch (Exception ignored) {
+            // leave serverAddress/serverPort as whatever AbstractBean defaults to;
+            // the config is likely empty/invalid (e.g. a freshly created profile).
+        }
+
+        super.initializeDefaultValues();
     }
 
     @Override
     public void serialize(ByteBufferOutput output) {
-        output.writeInt(1);
+        output.writeInt(0); // version
         super.serialize(output);
-        output.writeString(mode);
-        output.writeString(protocol);
-        output.writeString(ca);
-        output.writeString(cert);
-        output.writeString(key);
-        output.writeString(controlWrapType);
-        output.writeString(controlWrapKey);
-        output.writeString(keyDirection);
-        output.writeString(staticKey);
+        output.writeString(config);
         output.writeString(username);
         output.writeString(password);
-        output.writeString(cipher);
-        output.writeString(auth);
-        output.writeString(compression);
-        output.writeBoolean(redirectGateway);
-        output.writeBoolean(blockIPv6);
-        output.writeInt(mtu);
     }
 
     @Override
     public void deserialize(ByteBufferInput input) {
         int version = input.readInt();
         super.deserialize(input);
-        mode = input.readString();
-        protocol = input.readString();
-        ca = input.readString();
-        cert = input.readString();
-        key = input.readString();
-        controlWrapType = input.readString();
-        controlWrapKey = input.readString();
-        keyDirection = input.readString();
-        staticKey = input.readString();
+        config = input.readString();
         username = input.readString();
         password = input.readString();
-        cipher = input.readString();
-        auth = input.readString();
-        compression = input.readString();
-        redirectGateway = input.readBoolean();
-        blockIPv6 = input.readBoolean();
-        mtu = input.readInt();
-    }
-
-    @Override
-    public boolean canTCPing() {
-        return false;
-    }
-
-    @Override
-    public boolean canMapping() {
-        return false;
     }
 
     @NotNull
     @Override
     public OpenVPNBean clone() {
         return KryoConverters.deserialize(new OpenVPNBean(), KryoConverters.serialize(this));
+    }
+
+    @Override
+    public String displayName() {
+        if (JavaUtil.isNotBlank(name)) return name;
+        try {
+            return OpenVpnFmt.inspect(config).getName();
+        } catch (Exception ignored) {
+            return "OpenVPN";
+        }
+    }
+
+    @Override
+    public String displayAddress() {
+        try {
+            OpenVpnFmt.Info info = OpenVpnFmt.inspect(config);
+            return info.getHost() + ":" + info.getPort();
+        } catch (Exception ignored) {
+            return super.displayAddress();
+        }
     }
 
     public static final Creator<OpenVPNBean> CREATOR = new CREATOR<OpenVPNBean>() {
@@ -140,4 +110,5 @@ public class OpenVPNBean extends AbstractBean {
             return new OpenVPNBean[size];
         }
     };
+
 }

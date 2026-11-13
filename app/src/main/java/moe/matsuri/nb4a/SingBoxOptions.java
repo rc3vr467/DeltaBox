@@ -113,6 +113,13 @@ public class SingBoxOptions {
 
         public List<SingBoxOption> outbounds;
 
+        // DeltaBox addition: sing-box "endpoints" top-level array, used by
+        // protocols that are modeled as Endpoint rather than Outbound in the
+        // vendored sing-box core (currently: OpenVPN; requires sing-box built
+        // with the `with_openvpn` Go build tag). Left null/empty for configs
+        // that don't use any endpoint-based proxy.
+        public List<SingBoxOption> endpoints;
+
         public RouteOptions route;
 
         public ExperimentalOptions experimental;

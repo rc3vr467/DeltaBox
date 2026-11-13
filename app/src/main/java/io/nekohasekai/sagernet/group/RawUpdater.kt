@@ -17,6 +17,8 @@ import io.nekohasekai.sagernet.fmt.v2ray.StandardV2RayBean
 import io.nekohasekai.sagernet.fmt.v2ray.VMessBean
 import io.nekohasekai.sagernet.fmt.v2ray.isTLS
 import io.nekohasekai.sagernet.fmt.v2ray.setTLS
+import io.nekohasekai.sagernet.fmt.openvpn.OpenVPNBean
+import io.nekohasekai.sagernet.fmt.openvpn.OpenVpnFmt
 import io.nekohasekai.sagernet.fmt.wireguard.WireGuardBean
 import io.nekohasekai.sagernet.ktx.*
 import libcore.Libcore
@@ -682,6 +684,23 @@ object RawUpdater : GroupUpdater() {
                 proxies.addAll(parseWireGuard(text).map {
                     if (fileName.isNotBlank()) it.name = fileName.removeSuffix(".conf")
                     it
+                })
+                return proxies
+            } catch (e: Exception) {
+                Logs.w(e)
+            }
+        } else if (OpenVpnFmt.looksLikeOvpn(text)) {
+            // .ovpn profile (runs as a sing-box "openvpn-client" endpoint)
+            try {
+                proxies.add(OpenVPNBean().apply {
+                    config = text
+                    name = fileName.removeSuffix(".ovpn").ifBlank {
+                        try {
+                            OpenVpnFmt.inspect(text).name
+                        } catch (e: Exception) {
+                            ""
+                        }
+                    }
                 })
                 return proxies
             } catch (e: Exception) {

@@ -16,6 +16,7 @@ import io.nekohasekai.sagernet.fmt.mieru.buildMieruConfig
 import io.nekohasekai.sagernet.fmt.naive.NaiveBean
 import io.nekohasekai.sagernet.fmt.naive.buildNaiveConfig
 import io.nekohasekai.sagernet.fmt.naive.toUri
+import io.nekohasekai.sagernet.fmt.openvpn.OpenVPNBean
 import io.nekohasekai.sagernet.fmt.shadowsocks.*
 import moe.matsuri.nb4a.proxy.shadowtls.ShadowTLSBean
 import io.nekohasekai.sagernet.fmt.socks.SOCKSBean
@@ -71,6 +72,7 @@ data class ProxyEntity(
     var chainBean: ChainBean? = null,
     var nekoBean: NekoBean? = null,
     var configBean: ConfigBean? = null,
+    var openVPNBean: OpenVPNBean? = null,
 ) : Serializable() {
 
     companion object {
@@ -90,6 +92,7 @@ data class ProxyEntity(
         const val TYPE_TUIC = 20
         const val TYPE_MIERU = 21
         const val TYPE_ANYTLS = 22
+        const val TYPE_OPENVPN = 23
 
         const val TYPE_CONFIG = 998
         const val TYPE_NEKO = 999
@@ -177,6 +180,7 @@ data class ProxyEntity(
             TYPE_CHAIN -> chainBean = KryoConverters.chainDeserialize(byteArray)
             TYPE_NEKO -> nekoBean = KryoConverters.nekoDeserialize(byteArray)
             TYPE_CONFIG -> configBean = KryoConverters.configDeserialize(byteArray)
+            TYPE_OPENVPN -> openVPNBean = KryoConverters.openVPNDeserialize(byteArray)
         }
     }
 
@@ -198,6 +202,7 @@ data class ProxyEntity(
         TYPE_CHAIN -> chainName
         TYPE_NEKO -> nekoBean!!.displayType()
         TYPE_CONFIG -> configBean!!.displayType()
+        TYPE_OPENVPN -> "OpenVPN"
         else -> "Undefined type $type"
     }
 
@@ -223,6 +228,7 @@ data class ProxyEntity(
             TYPE_CHAIN -> chainBean
             TYPE_NEKO -> nekoBean
             TYPE_CONFIG -> configBean
+            TYPE_OPENVPN -> openVPNBean
             else -> error("Undefined type $type")
         } ?: error("Null ${displayType()} profile")
     }
@@ -241,6 +247,7 @@ data class ProxyEntity(
             is ShadowTLSBean -> false
             is NekoBean -> false
             is ConfigBean -> false
+            is OpenVPNBean -> false
             else -> true
         }
     }
@@ -360,6 +367,7 @@ data class ProxyEntity(
         chainBean = null
         configBean = null
         nekoBean = null
+        openVPNBean = null
 
         when (bean) {
             is SOCKSBean -> {
@@ -447,6 +455,11 @@ data class ProxyEntity(
                 configBean = bean
             }
 
+            is OpenVPNBean -> {
+                type = TYPE_OPENVPN
+                openVPNBean = bean
+            }
+
             else -> error("Undefined type $type")
         }
         return this
@@ -471,6 +484,7 @@ data class ProxyEntity(
                 TYPE_ANYTLS -> AnyTLSSettingsActivity::class.java
                 TYPE_CHAIN -> ChainSettingsActivity::class.java
                 TYPE_CONFIG -> ConfigSettingActivity::class.java
+                TYPE_OPENVPN -> OpenVPNSettingsActivity::class.java
                 else -> throw IllegalArgumentException()
             }
         ).apply {

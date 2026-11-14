@@ -91,18 +91,9 @@ class MainActivity : ThemedActivity(),
         }
 
         binding.fab.setOnClickListener {
-            if (DataStore.serviceState.canStop) {
-                SagerNet.stopService()
-            } else {
-                val profile = ProfileManager.getProfile(DataStore.selectedProxy)
-                if (profile == null) {
-                    connect.launch(null)
-                } else {
-                    OpenVpnCredentialsDialog.maybeShow(this, profile) {
-                        connect.launch(null)
-                    }
-                }
-            }
+            if (DataStore.serviceState.canStop) SagerNet.stopService() else connect.launch(
+                null
+            )
         }
         binding.stats.setOnClickListener { if (DataStore.serviceState.connected) binding.stats.testConnection() }
 

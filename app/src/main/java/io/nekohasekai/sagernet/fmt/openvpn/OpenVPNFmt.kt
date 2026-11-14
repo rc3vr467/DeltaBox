@@ -135,21 +135,26 @@ object OpenVpnFmt {
             }
 
             val legacyCipher = directives.first("cipher")?.firstOrNull()
-            var ciphers = directives.first("data-ciphers")?.firstOrNull()
+            val ciphers = directives.first("data-ciphers")?.firstOrNull()
                 ?.split(':')?.filter { it.isNotBlank() }
                 .orEmpty()
-            if (ciphers.isEmpty() && legacyCipher != null) {
-                // Old-style config: only "cipher X" is set, no "data-ciphers".
-                // A real OpenVPN client treats this as the one and only data
-                // cipher it will negotiate - it does NOT also offer the modern
-                // AES-GCM/CHACHA20-POLY1305 defaults. If we leave data_ciphers
-                // empty here, sing-box falls back to its own default cipher
-                // list and proposes those during NCP, which a legacy server
-                // configured for a single classic cipher (e.g. AES-256-CBC)
-                // doesn't understand - it then drops the TCP connection
-                // immediately, and the client just keeps retrying forever.
-                ciphers = listOf(legacyCipher)
-            }
+            // A bare "cipher X" with no "data-ciphers" is NOT the same as
+            // "only negotiate X". Per OpenVPN's own NCP rules, a legacy
+            // "cipher" directive (with no data-ciphers) is a *fallback* for
+            // servers that don't support NCP at all - real OpenVPN 2.5+
+            // clients still propose their normal modern default list
+            // (AES-256-GCM:AES-128-GCM[:CHACHA20-POLY1305]) during NCP, and
+            // only use the configured cipher if the server never negotiates
+            // one. Forcing data_ciphers down to just the legacy cipher (as
+            // this used to do) breaks any modern server that merely lists
+            // "cipher AES-256-CBC" for backward compatibility but actually
+            // negotiates an AEAD cipher via NCP - the server has no shared
+            // cipher with that single-entry proposal and kills the data
+            // channel with "Data channel cipher negotiation failed (no
+            // shared cipher)". So: leave data_ciphers alone (empty = sing-box
+            // proposes its own sane modern defaults for NCP) and only ever
+            // use the legacy cipher as data_ciphers_fallback, exactly like a
+            // real client does.
             if (ciphers.isNotEmpty()) endpoint.put("data_ciphers", JSONArray(ciphers))
 
             val fallback = directives.first("data-ciphers-fallback")?.firstOrNull()

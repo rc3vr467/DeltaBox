@@ -134,13 +134,26 @@ object OpenVpnFmt {
                 if (args.getOrNull(1) == "1") endpoint.put("static_challenge_echo", true)
             }
 
-            val ciphers = directives.first("data-ciphers")?.firstOrNull()
+            val legacyCipher = directives.first("cipher")?.firstOrNull()
+            var ciphers = directives.first("data-ciphers")?.firstOrNull()
                 ?.split(':')?.filter { it.isNotBlank() }
                 .orEmpty()
+            if (ciphers.isEmpty() && legacyCipher != null) {
+                // Old-style config: only "cipher X" is set, no "data-ciphers".
+                // A real OpenVPN client treats this as the one and only data
+                // cipher it will negotiate - it does NOT also offer the modern
+                // AES-GCM/CHACHA20-POLY1305 defaults. If we leave data_ciphers
+                // empty here, sing-box falls back to its own default cipher
+                // list and proposes those during NCP, which a legacy server
+                // configured for a single classic cipher (e.g. AES-256-CBC)
+                // doesn't understand - it then drops the TCP connection
+                // immediately, and the client just keeps retrying forever.
+                ciphers = listOf(legacyCipher)
+            }
             if (ciphers.isNotEmpty()) endpoint.put("data_ciphers", JSONArray(ciphers))
 
             val fallback = directives.first("data-ciphers-fallback")?.firstOrNull()
-                ?: directives.first("cipher")?.firstOrNull()
+                ?: legacyCipher
             fallback?.let { endpoint.put("data_ciphers_fallback", it) }
 
             directives.number("reneg-sec")?.let {

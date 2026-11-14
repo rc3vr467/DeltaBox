@@ -14,15 +14,25 @@ get_latest_release() {
 }
 
 ####
-VERSION_GEOIP=`get_latest_release "SagerNet/sing-geoip"`
+# SagerNet/sing-geoip is gone; soffchen/sing-geoip is the maintained fork.
+VERSION_GEOIP=`get_latest_release "soffchen/sing-geoip"`
+if [ -z "$VERSION_GEOIP" ]; then
+  echo "ERROR: could not resolve latest release for soffchen/sing-geoip" >&2
+  exit 1
+fi
 echo VERSION_GEOIP=$VERSION_GEOIP
 echo -n $VERSION_GEOIP > geoip.version.txt
-curl -fLSsO https://github.com/SagerNet/sing-geoip/releases/download/$VERSION_GEOIP/geoip.db
+curl -fLSsO https://github.com/soffchen/sing-geoip/releases/download/$VERSION_GEOIP/geoip.db
 xz -9 geoip.db
 
 ####
-VERSION_GEOSITE=`get_latest_release "SagerNet/sing-geosite"`
+# SagerNet/sing-geosite is gone; soffchen/sing-geosite is the maintained fork.
+VERSION_GEOSITE=`get_latest_release "soffchen/sing-geosite"`
+if [ -z "$VERSION_GEOSITE" ]; then
+  echo "ERROR: could not resolve latest release for soffchen/sing-geosite" >&2
+  exit 1
+fi
 echo VERSION_GEOSITE=$VERSION_GEOSITE
 echo -n $VERSION_GEOSITE > geosite.version.txt
-curl -fLSsO https://github.com/SagerNet/sing-geosite/releases/download/$VERSION_GEOSITE/geosite.db
+curl -fLSsO https://github.com/soffchen/sing-geosite/releases/download/$VERSION_GEOSITE/geosite.db
 xz -9 geosite.db

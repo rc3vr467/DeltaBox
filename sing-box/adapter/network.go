@@ -33,6 +33,7 @@ type NetworkManager interface {
 	NetworkMonitor() tun.NetworkUpdateMonitor
 	InterfaceMonitor() tun.DefaultInterfaceMonitor
 	PackageManager() tun.PackageManager
+	HostPort() tun.Port
 	NeedWIFIState() bool
 	WIFIState() WIFIState
 	UpdateWIFIState(ctx context.Context)

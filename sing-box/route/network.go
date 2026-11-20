@@ -425,6 +425,10 @@ func (r *NetworkManager) InterfaceMonitor() tun.DefaultInterfaceMonitor {
 	return r.interfaceMonitor
 }
 
+func (r *NetworkManager) HostPort() tun.Port {
+	return nil
+}
+
 func (r *NetworkManager) PackageManager() tun.PackageManager {
 	return r.packageManager
 }

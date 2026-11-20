@@ -8,9 +8,16 @@ mkdir -p $DIR
 cd $DIR
 
 get_latest_release() {
-  curl --silent "https://api.github.com/repos/$1/releases/latest" | # Get latest release from GitHub api
-    grep '"tag_name":' |                                            # Get tag line
-    sed -E 's/.*"([^"]+)".*/\1/'                                    # Pluck JSON value
+  # Resolve the latest tag from the releases/latest redirect instead of the REST API.
+  # The API is rate-limited on CI runners and returned an empty tag (-> 404 on download).
+  local url tag
+  url=$(curl -fsSL -o /dev/null -w '%{url_effective}' "https://github.com/$1/releases/latest") || true
+  tag=${url##*/tag/}
+  if [ -z "$tag" ] || [ "$tag" = "$url" ]; then
+    echo "ERROR: could not resolve latest release for $1" >&2
+    return 1
+  fi
+  echo "$tag"
 }
 
 ####

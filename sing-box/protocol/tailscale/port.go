@@ -46,10 +46,7 @@ func (t *Endpoint) UpstreamPort() any {
 func (t *Endpoint) JudgeFlow(network uint8, source netip.AddrPort, destination netip.AddrPort, firstPacket []byte) tun.FlowVerdict {
 	inet4Address, inet6Address := t.PortAddresses()
 	if destination.Addr() == inet4Address || destination.Addr() == inet6Address {
-		if t.systemInterface {
-			return tun.FlowVerdict{Action: tun.ActionAccept}
-		}
-		return adapter.JudgeHostFlow(t.ctx, t.network, t.logger, network, source, destination)
+		return tun.FlowVerdict{Action: tun.ActionAccept}
 	}
 	if t.started.Load() {
 		tsFilter := t.wgEngine.GetFilter()

@@ -30,8 +30,6 @@ type NetworkManager interface {
 	AutoRedirectOutputMarkFunc() control.Func
 	RegisterBridgeInterface(interfaceName string)
 	BridgeInterfaces() []string
-	RegisterHostPort(port tun.RoutedPort)
-	HostPort() tun.RoutedPort
 	NetworkMonitor() tun.NetworkUpdateMonitor
 	InterfaceMonitor() tun.DefaultInterfaceMonitor
 	PackageManager() tun.PackageManager

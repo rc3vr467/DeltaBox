@@ -107,7 +107,7 @@ func (p *platformTransport) Exchange(ctx context.Context, message *mDNS.Msg) (*m
 		context: ctx,
 	}
 	if p.iif.Raw() {
-		messageBytes, err := message.Copy().Pack()
+		messageBytes, err := message.Pack()
 		if err != nil {
 			return nil, err
 		}

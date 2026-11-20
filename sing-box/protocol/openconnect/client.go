@@ -111,8 +111,6 @@ func NewEndpoint(ctx context.Context, router adapter.Router, logger log.ContextL
 			Adapter: endpoint.NewAdapterWithDialerOptions(C.TypeOpenConnect, tag, []string{N.NetworkTCP, N.NetworkUDP, N.NetworkICMP}, options.DialerOptions),
 			router:  router,
 			logger:  logger,
-			system:  options.System,
-			network: service.FromContext[adapter.NetworkManager](ctx),
 		},
 		loopContext:   loopContext,
 		cancelLoop:    cancelLoop,
@@ -571,7 +569,7 @@ func (e *Endpoint) DetachReturn(returnPath tun.Return) error {
 }
 
 func (e *Endpoint) JudgeFlow(network uint8, source netip.AddrPort, destination netip.AddrPort, firstPacket []byte) tun.FlowVerdict {
-	return e.judgeFlow(e.loopContext, e, e.state.Load().localAddresses, network, source, destination, firstPacket)
+	return judgeOpenConnectFlow(e.router, e.Tag(), e.Type(), e.state.Load().localAddresses, network, source, destination, firstPacket)
 }
 
 func (e *Endpoint) NewDNSPacket(payload []byte, source M.Socksaddr, destination M.Socksaddr, writer N.PacketWriter) {

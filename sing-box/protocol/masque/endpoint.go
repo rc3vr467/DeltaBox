@@ -28,10 +28,8 @@ func RegisterEndpoint(registry *endpoint.Registry) {
 
 type endpointBase struct {
 	endpoint.Adapter
-	router  adapter.Router
-	logger  log.ContextLogger
-	system  bool
-	network adapter.NetworkManager
+	router adapter.Router
+	logger log.ContextLogger
 }
 
 func newDeviceOptions(ctx context.Context, logger log.ContextLogger, handler tun.Handler, options option.MASQUEEndpointOptions, udpTimeout time.Duration, address []netip.Prefix) *device.Options {
@@ -103,12 +101,9 @@ func (e *endpointBase) newDNSPacket(ctx context.Context, endpoint adapter.Endpoi
 	e.router.HijackDNSPacket(ctx, payload, writer, metadata)
 }
 
-func (e *endpointBase) judgeFlow(ctx context.Context, endpoint adapter.Endpoint, localAddresses []netip.Prefix, network uint8, source netip.AddrPort, destination netip.AddrPort, firstPacket []byte) tun.FlowVerdict {
+func (e *endpointBase) judgeFlow(endpoint adapter.Endpoint, localAddresses []netip.Prefix, network uint8, source netip.AddrPort, destination netip.AddrPort, firstPacket []byte) tun.FlowVerdict {
 	if isLocalAddress(localAddresses, destination.Addr()) {
-		if e.system {
-			return tun.FlowVerdict{Action: tun.ActionAccept}
-		}
-		return adapter.JudgeHostFlow(ctx, e.network, e.logger, network, source, destination)
+		return tun.FlowVerdict{Action: tun.ActionAccept}
 	}
 	return adapter.JudgeFlow(e.router, adapter.InboundContext{Inbound: endpoint.Tag(), InboundType: endpoint.Type()}, network, source, destination, firstPacket)
 }

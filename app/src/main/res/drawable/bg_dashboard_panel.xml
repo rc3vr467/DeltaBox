@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dashboard status panel background: card colour with the decorative dot map centred behind the content -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/delta_card" />
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/ic_delta_dotmap"
+        android:gravity="center"
+        android:height="130dp"
+        android:width="360dp" />
+</layer-list>

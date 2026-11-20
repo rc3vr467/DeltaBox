@@ -24,13 +24,15 @@
     </style>
 
     <!-- Toolbar overlay -->
-    <style name="ThemeOverlay.Delta.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar" />
+    <style name="ThemeOverlay.Delta.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/delta_brand</item>
+    </style>
 
     <!-- ── Cards ── -->
     <style name="Widget.Delta.Card" parent="Widget.MaterialComponents.CardView">
         <item name="cardBackgroundColor">@color/delta_card</item>
         <item name="cardCornerRadius">14dp</item>
-        <item name="cardElevation">@dimen/delta_card_elevation</item>
+        <item name="cardElevation">0dp</item>
         <item name="cardPreventCornerOverlap">true</item>
         <item name="strokeColor">@color/delta_stroke</item>
         <item name="strokeWidth">1dp</item>
@@ -71,14 +73,14 @@
     </style>
 
     <style name="TextAppearance.Delta.StatsStatus" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/delta_text</item>
         <item name="android:letterSpacing">0</item>
     </style>
 
     <style name="TextAppearance.Delta.CardTitle" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/delta_text</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:letterSpacing">0</item>
@@ -86,8 +88,8 @@
 
     <style name="TextAppearance.Delta.CardMeta" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/delta_text_muted</item>
-        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textColor">@color/delta_text_secondary</item>
+        <item name="android:letterSpacing">0</item>
     </style>
 
     <style name="TextAppearance.Delta.PingBadge" parent="TextAppearance.MaterialComponents.Caption">
@@ -114,10 +116,45 @@
 
     <!-- ── Tools popup group label ── -->
     <style name="TextAppearance.Delta.ToolsGroup" parent="TextAppearance.MaterialComponents.Caption">
-        <item name="android:textSize">11sp</item>
+        <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/delta_tools_header_text</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:letterSpacing">0.12</item>
     </style>
 
+
+    <!-- ── Popup / overflow menus: tokens instead of the generic DayNight overlay ── -->
+    <style name="Widget.Delta.PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/bg_delta_popup</item>
+        <item name="android:popupElevation">8dp</item>
+    </style>
+
+    <style name="ThemeOverlay.Delta.Popup" parent="ThemeOverlay.AppCompat.DayNight">
+        <item name="android:colorBackground">@color/delta_popup_bg</item>
+        <item name="colorBackgroundFloating">@color/delta_popup_bg</item>
+        <item name="android:textColorPrimary">@color/delta_text</item>
+        <item name="android:textColorSecondary">@color/delta_text_secondary</item>
+        <item name="colorControlNormal">@color/delta_text_secondary</item>
+        <item name="popupMenuStyle">@style/Widget.Delta.PopupMenu</item>
+    </style>
+
+    <!-- Dashboard quick-settings chip -->
+    <style name="Widget.Delta.QuickChip">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginEnd">6dp</item>
+        <item name="android:background">@drawable/bg_quick_chip</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:textColor">@color/delta_text_secondary</item>
+        <item name="android:textSize">11sp</item>
+    </style>
 </resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Trailing chevron for drawer rows (menu actionLayout, visual only; auto-mirrors for RTL) -->
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="20dp"
+    android:layout_height="20dp"
+    android:importantForAccessibility="no"
+    android:src="@drawable/ic_pref_chevron"
+    android:tint="@color/delta_text_muted" />

@@ -14,8 +14,8 @@
 
     <!-- Cat logo icon -->
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
         android:src="@drawable/ic_cat_base"
         android:scaleType="centerCrop"
         android:importantForAccessibility="no" />
@@ -27,14 +27,28 @@
         android:orientation="vertical"
         android:layout_marginStart="12dp">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DeltaBox"
-            android:textColor="@color/delta_brand"
-            android:textSize="20sp"
-            android:fontFamily="sans-serif-medium"
-            android:letterSpacing="0.01" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delta"
+                android:textColor="@color/delta_text"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="Box"
+                android:textColor="@color/delta_brand"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-medium" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"

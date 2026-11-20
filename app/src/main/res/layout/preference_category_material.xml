@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- DeltaBox v3 — Settings preference category header -->
+<!-- DeltaBox 1.0.21 — Settings preference category header -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:gravity="center_vertical"
+    android:orientation="horizontal"
     android:paddingStart="16dp"
+    android:paddingTop="24dp"
     android:paddingEnd="16dp"
-    android:paddingTop="20dp"
-    android:paddingBottom="6dp">
+    android:paddingBottom="8dp">
 
     <TextView
         android:id="@android:id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.Delta.SettingsGroup"
-        android:textAllCaps="true" />
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.Delta.SettingsGroup" />
 
 </LinearLayout>

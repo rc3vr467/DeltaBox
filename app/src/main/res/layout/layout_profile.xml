@@ -10,9 +10,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="4dp"
-    android:layout_marginTop="4dp"
+    android:layout_marginTop="3dp"
     android:layout_marginEnd="4dp"
-    android:layout_marginBottom="4dp"
+    android:layout_marginBottom="3dp"
     android:clickable="true"
     android:focusable="true">
 
@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:minHeight="44dp"
+                android:minHeight="40dp"
                 android:orientation="horizontal"
                 android:paddingEnd="4dp">
 
@@ -56,7 +56,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:paddingStart="16dp"
+                    android:paddingStart="12dp"
                     android:paddingEnd="4dp">
 
                     <TextView
@@ -126,9 +126,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="4dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="2dp"
                 android:visibility="gone"
                 tools:visibility="visible">
 
@@ -161,9 +161,9 @@
                 android:gravity="center_vertical"
                 android:minHeight="22dp"
                 android:orientation="horizontal"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="12dp">
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="8dp">
 
                 <TextView
                     android:id="@+id/profile_type"

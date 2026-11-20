@@ -23,5 +23,9 @@ class AboutFragment : ToolbarFragment(R.layout.layout_about) {
         view.findViewById<View>(R.id.about_row_telegram).setOnClickListener {
             it.context.launchCustomTab("https://t.me/v2ray_DA")
         }
+
+        view.findViewById<View>(R.id.about_row_github).setOnClickListener {
+            it.context.launchCustomTab("https://github.com/rc3vr467/DeltaBox")
+        }
     }
 }

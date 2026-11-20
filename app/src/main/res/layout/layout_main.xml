@@ -34,6 +34,17 @@
             app:trackCornerRadius="@dimen/mtrl_progress_track_thickness"
             app:trackThickness="8dp" />
 
+        <!-- Decorative gradient ring behind the connect button (visual only) -->
+        <View
+            android:id="@+id/fabRing"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/bg_connect_ring"
+            android:elevation="6dp"
+            android:importantForAccessibility="no"
+            app:layout_anchor="@id/fab"
+            app:layout_anchorGravity="center" />
+
         <!-- Connect button -->
         <io.nekohasekai.sagernet.widget.ServiceButton
             android:id="@+id/fab"
@@ -43,9 +54,9 @@
             android:nextFocusDown="@+id/stats"
             app:backgroundTint="?fabColorBackground"
             app:borderWidth="0dp"
-            app:fabCustomSize="60dp"
+            app:fabCustomSize="68dp"
             app:layout_anchor="@id/stats"
-            app:maxImageSize="60dp"
+            app:maxImageSize="68dp"
             app:pressedTranslationZ="8dp"
             app:rippleColor="@color/delta_glow"
             app:srcCompat="@drawable/ic_cat_base"
@@ -61,18 +72,25 @@
             app:backgroundTint="@color/delta_card"
             app:contentInsetStart="0dp"
             app:elevation="8dp"
-            app:fabCradleMargin="10dp"
-            app:fabCradleRoundedCornerRadius="34dp"
+            app:fabCradleMargin="8dp"
+            app:fabCradleRoundedCornerRadius="40dp"
             app:fabCradleVerticalOffset="4dp"
             app:hideOnScroll="true"
             app:layout_scrollFlags="enterAlways|scroll">
+
+            <!-- DeltaBox 1.0.15: status row (unchanged) + live traffic chart below it -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_dashboard_panel"
+                android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:minHeight="88dp"
+                android:minHeight="84dp"
                 android:orientation="horizontal"
                 android:paddingStart="20dp"
                 android:paddingTop="12dp"
@@ -130,17 +148,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/bg_ping_badge"
-                        android:paddingStart="12dp"
-                        android:paddingTop="4dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="4dp"
+                        android:paddingStart="10dp"
+                        android:paddingTop="3dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="3dp"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.Delta.PingBadge"
                         tools:text="PING 45 ms" />
                 </LinearLayout>
 
                 <Space
-                    android:layout_width="88dp"
+                    android:layout_width="96dp"
                     android:layout_height="1dp" />
 
                 <LinearLayout
@@ -169,6 +187,8 @@
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.Delta.StatsValue" />
                 </LinearLayout>
+
+            </LinearLayout>
 
             </LinearLayout>
 
@@ -222,7 +242,7 @@
                     android:layout_height="wrap_content"
                     android:text="MANAGE"
                     android:textColor="@color/delta_nav_footer_text"
-                    android:textSize="11sp"
+                    android:textSize="10sp"
                     android:fontFamily="sans-serif-medium"
                     android:letterSpacing="0.12"
                     android:paddingStart="28dp"
@@ -250,7 +270,7 @@
                     app:itemShapeInsetStart="8dp"
                     app:itemShapeInsetTop="2dp"
                     app:itemTextAppearance="@style/TextAppearance.Delta.Nav"
-                    app:itemTextColor="@color/navigation_icon"
+                    app:itemTextColor="@color/navigation_text"
                     app:itemVerticalPadding="12dp"
                     app:menu="@menu/main_drawer_menu_primary" />
 
@@ -270,7 +290,7 @@
                     android:layout_height="wrap_content"
                     android:text="TOOLS"
                     android:textColor="@color/delta_nav_footer_text"
-                    android:textSize="11sp"
+                    android:textSize="10sp"
                     android:fontFamily="sans-serif-medium"
                     android:letterSpacing="0.12"
                     android:paddingStart="28dp"
@@ -297,7 +317,7 @@
                     app:itemShapeInsetStart="8dp"
                     app:itemShapeInsetTop="2dp"
                     app:itemTextAppearance="@style/TextAppearance.Delta.Nav"
-                    app:itemTextColor="@color/navigation_icon"
+                    app:itemTextColor="@color/navigation_text"
                     app:itemVerticalPadding="12dp"
                     app:menu="@menu/main_drawer_menu_tools" />
 
@@ -324,7 +344,7 @@
         app:itemShapeInsetStart="8dp"
         app:itemShapeInsetTop="2dp"
         app:itemTextAppearance="@style/TextAppearance.Delta.Nav"
-        app:itemTextColor="@color/navigation_icon"
+        app:itemTextColor="@color/navigation_text"
         app:itemVerticalPadding="12dp"
         app:menu="@menu/main_drawer_menu" />
 

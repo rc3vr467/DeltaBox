@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Floating connection status bar (dark panel, independent of light/dark app theme).
+     Kept separate from colors.xml so server list and other screens keep their colours. -->
+<resources>
+    <!-- Panel backgrounds: very dark green-black per state -->
+    <color name="delta_bar_on">#FF06170E</color>
+    <color name="delta_bar_connecting">#FF06141F</color>
+    <color name="delta_bar_off">#FF120A0C</color>
+
+    <!-- Neon accents -->
+    <color name="delta_bar_neon">#FF39E58C</color>
+    <color name="delta_bar_blue">#FF2F8CFF</color>
+
+    <!-- Text on the dark panel -->
+    <color name="delta_bar_text">#FFFFFFFF</color>
+    <color name="delta_bar_muted">#FF9CB3A6</color>
+    <color name="delta_bar_divider">#331F3B2C</color>
+
+    <!-- Ping colour rules: <=80 ms, <=150 ms, <=250 ms, >250 ms -->
+    <color name="delta_bar_ping_fast">#FF39E58C</color>
+    <color name="delta_bar_ping_ok">#FFA3E635</color>
+    <color name="delta_bar_ping_slow">#FFFACC15</color>
+    <color name="delta_bar_ping_bad">#FFF87171</color>
+
+    <!-- Connect button fill (dark green) -->
+    <color name="delta_connect_fill">#FF06170D</color>
+</resources>

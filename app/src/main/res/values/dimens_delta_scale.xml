@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DeltaBox design scale (Refactoring UI: "establish a spacing and sizing system").
+     Additive only: no existing dimen is renamed or removed. Base unit 4dp; steps are
+     deliberately uneven so a value can be picked without agonising between 14 and 15. -->
+<resources>
+    <dimen name="delta_space_1">4dp</dimen>
+    <dimen name="delta_space_2">8dp</dimen>
+    <dimen name="delta_space_3">12dp</dimen>
+    <dimen name="delta_space_4">16dp</dimen>
+    <dimen name="delta_space_5">24dp</dimen>
+    <dimen name="delta_space_6">32dp</dimen>
+    <dimen name="delta_space_7">48dp</dimen>
+    <dimen name="delta_space_8">64dp</dimen>
+    <!-- Raised cards: a 1dp shadow in Light; Dark separates surfaces with a lighter fill + hairline instead. -->
+    <dimen name="delta_card_elevation">1dp</dimen>
+</resources>

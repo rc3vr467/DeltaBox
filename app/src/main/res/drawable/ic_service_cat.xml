@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  DeltaBox cat logo: 2D line-art, symmetric, 48x48 grid.
+  Default (= disconnected) look: simple outline eyes, no glow.
+  The paths named eye_fill_* / eye_glow_* / ring are animated by ic_service_*.xml
+  (alpha 0 here, neon purple when the VPN is really connected).
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- outer ring -->
+    <path
+        android:name="ring"
+        android:pathData="M24,0.8 A23.2,23.2 0 1,1 24,47.2 A23.2,23.2 0 1,1 24,0.8 Z"
+        android:strokeColor="#B65CFF"
+        android:strokeAlpha="0.25"
+        android:strokeWidth="1.2" />
+
+    <group
+        android:pivotX="24"
+        android:pivotY="24"
+        android:scaleX="0.8"
+        android:scaleY="0.8">
+
+        <!-- eye glow (soft halo) -->
+        <path
+            android:name="eye_glow_l"
+            android:fillAlpha="0"
+            android:fillColor="#B65CFF"
+            android:pathData="M11.8,23.5 a5.7,5.7 0 1,0 11.4,0 a5.7,5.7 0 1,0 -11.4,0 Z" />
+        <path
+            android:name="eye_glow_r"
+            android:fillAlpha="0"
+            android:fillColor="#B65CFF"
+            android:pathData="M24.8,23.5 a5.7,5.7 0 1,0 11.4,0 a5.7,5.7 0 1,0 -11.4,0 Z" />
+
+        <!-- head + ears -->
+        <path
+            android:pathData="M8,21 L9,7 L17,13.4 C20.5,12.2 27.5,12.2 31,13.4 L39,7 L40,21 C40.6,31.5 33.5,40 24,40 C14.5,40 7.4,31.5 8,21 Z"
+            android:strokeColor="#F1EAFF"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:strokeWidth="2.2" />
+
+        <!-- eyes: outline (always) + neon fill (connected only) -->
+        <path
+            android:pathData="M14,23.5 Q17.5,19.5 21,23.5 Q17.5,27.3 14,23.5 Z"
+            android:strokeColor="#F1EAFF"
+            android:strokeLineJoin="round"
+            android:strokeWidth="1.6" />
+        <path
+            android:pathData="M27,23.5 Q30.5,19.5 34,23.5 Q30.5,27.3 27,23.5 Z"
+            android:strokeColor="#F1EAFF"
+            android:strokeLineJoin="round"
+            android:strokeWidth="1.6" />
+        <path
+            android:name="eye_fill_l"
+            android:fillAlpha="0"
+            android:fillColor="#C98BFF"
+            android:pathData="M14.6,23.5 Q17.5,20.4 20.4,23.5 Q17.5,26.5 14.6,23.5 Z" />
+        <path
+            android:name="eye_fill_r"
+            android:fillAlpha="0"
+            android:fillColor="#C98BFF"
+            android:pathData="M27.6,23.5 Q30.5,20.4 33.4,23.5 Q30.5,26.5 27.6,23.5 Z" />
+
+        <!-- nose + mouth -->
+        <path
+            android:fillColor="#F1EAFF"
+            android:pathData="M22.3,29.4 L25.7,29.4 L24,31.4 Z"
+            android:strokeColor="#F1EAFF"
+            android:strokeLineJoin="round"
+            android:strokeWidth="1" />
+        <path
+            android:pathData="M24,31.4 L24,33.2 M24,33.2 Q22,35.2 20.2,33.8 M24,33.2 Q26,35.2 27.8,33.8"
+            android:strokeColor="#F1EAFF"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:strokeWidth="1.6" />
+
+        <!-- whiskers -->
+        <path
+            android:pathData="M3.6,28 L10.4,29.6 M3.6,33 L10.4,32 M44.4,28 L37.6,29.6 M44.4,33 L37.6,32"
+            android:strokeColor="#F1EAFF"
+            android:strokeLineCap="round"
+            android:strokeWidth="1.6" />
+    </group>
+</vector>

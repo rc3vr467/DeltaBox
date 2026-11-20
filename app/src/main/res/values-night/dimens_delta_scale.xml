@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark mode: shadows are invisible on near-black, so depth comes from surface lightness + stroke. -->
+<resources>
+    <dimen name="delta_card_elevation">0dp</dimen>
+</resources>

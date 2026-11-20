@@ -1,0 +1,408 @@
+diff -ruN --strip-trailing-cr a/app/src/main/res/layout/layout_main.xml b/app/src/main/res/layout/layout_main.xml
+--- a/app/src/main/res/layout/layout_main.xml	2026-11-09 19:18:48.000000000 +0000
++++ b/app/src/main/res/layout/layout_main.xml	2026-11-18 13:01:14.568665542 +0000
+@@ -72,7 +72,7 @@
+                 android:layout_height="wrap_content"
+                 android:background="?android:attr/selectableItemBackground"
+                 android:gravity="center_vertical"
+-                android:minHeight="84dp"
++                android:minHeight="88dp"
+                 android:orientation="horizontal"
+                 android:paddingStart="20dp"
+                 android:paddingTop="12dp"
+@@ -130,10 +130,10 @@
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="8dp"
+                         android:background="@drawable/bg_ping_badge"
+-                        android:paddingStart="10dp"
+-                        android:paddingTop="3dp"
+-                        android:paddingEnd="10dp"
+-                        android:paddingBottom="3dp"
++                        android:paddingStart="12dp"
++                        android:paddingTop="4dp"
++                        android:paddingEnd="12dp"
++                        android:paddingBottom="4dp"
+                         android:singleLine="true"
+                         android:textAppearance="@style/TextAppearance.Delta.PingBadge"
+                         tools:text="PING 45 ms" />
+@@ -222,7 +222,7 @@
+                     android:layout_height="wrap_content"
+                     android:text="MANAGE"
+                     android:textColor="@color/delta_nav_footer_text"
+-                    android:textSize="10sp"
++                    android:textSize="11sp"
+                     android:fontFamily="sans-serif-medium"
+                     android:letterSpacing="0.12"
+                     android:paddingStart="28dp"
+@@ -270,7 +270,7 @@
+                     android:layout_height="wrap_content"
+                     android:text="TOOLS"
+                     android:textColor="@color/delta_nav_footer_text"
+-                    android:textSize="10sp"
++                    android:textSize="11sp"
+                     android:fontFamily="sans-serif-medium"
+                     android:letterSpacing="0.12"
+                     android:paddingStart="28dp"
+diff -ruN --strip-trailing-cr a/app/src/main/res/layout/layout_profile.xml b/app/src/main/res/layout/layout_profile.xml
+--- a/app/src/main/res/layout/layout_profile.xml	2026-11-09 11:52:42.000000000 +0000
++++ b/app/src/main/res/layout/layout_profile.xml	2026-11-18 13:01:14.567878843 +0000
+@@ -10,9 +10,9 @@
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginStart="4dp"
+-    android:layout_marginTop="3dp"
++    android:layout_marginTop="4dp"
+     android:layout_marginEnd="4dp"
+-    android:layout_marginBottom="3dp"
++    android:layout_marginBottom="4dp"
+     android:clickable="true"
+     android:focusable="true">
+ 
+@@ -46,7 +46,7 @@
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center_vertical"
+-                android:minHeight="40dp"
++                android:minHeight="44dp"
+                 android:orientation="horizontal"
+                 android:paddingEnd="4dp">
+ 
+@@ -56,7 +56,7 @@
+                     android:layout_gravity="center_vertical"
+                     android:layout_weight="1"
+                     android:gravity="center_vertical"
+-                    android:paddingStart="12dp"
++                    android:paddingStart="16dp"
+                     android:paddingEnd="4dp">
+ 
+                     <TextView
+@@ -126,9 +126,9 @@
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal"
+-                android:paddingStart="12dp"
+-                android:paddingEnd="12dp"
+-                android:paddingBottom="2dp"
++                android:paddingStart="16dp"
++                android:paddingEnd="16dp"
++                android:paddingBottom="4dp"
+                 android:visibility="gone"
+                 tools:visibility="visible">
+ 
+@@ -161,9 +161,9 @@
+                 android:gravity="center_vertical"
+                 android:minHeight="22dp"
+                 android:orientation="horizontal"
+-                android:paddingStart="12dp"
+-                android:paddingEnd="12dp"
+-                android:paddingBottom="8dp">
++                android:paddingStart="16dp"
++                android:paddingEnd="16dp"
++                android:paddingBottom="12dp">
+ 
+                 <TextView
+                     android:id="@+id/profile_type"
+diff -ruN --strip-trailing-cr a/app/src/main/res/values/colors.xml b/app/src/main/res/values/colors.xml
+--- a/app/src/main/res/values/colors.xml	2026-11-10 16:01:02.000000000 +0000
++++ b/app/src/main/res/values/colors.xml	2026-11-18 13:00:34.998696318 +0000
+@@ -287,8 +287,8 @@
+          ════════════════════════════════════════════════════════ -->
+ 
+     <!-- Brand identity -->
+-    <color name="delta_brand">#16A34A</color>          <!-- Green for Light toolbar title -->
+-    <color name="delta_brand_dark">#15803D</color>     <!-- Darker green button fill -->
++    <color name="delta_brand">#4350D0</color>          <!-- Green for Light toolbar title -->
++    <color name="delta_brand_dark">#3A46BF</color>     <!-- Darker green button fill -->
+ 
+     <!-- VPN state colours — NEVER change, independent of brand -->
+     <color name="delta_state_off">#EF4444</color>
+@@ -296,34 +296,34 @@
+     <color name="delta_state_on">#22C55E</color>
+ 
+     <!-- Surface system — Light Mode -->
+-    <color name="delta_bg">#FFFFFF</color>
+-    <color name="delta_surface">#F5F7F6</color>
++    <color name="delta_bg">#F3F4FA</color>
++    <color name="delta_surface">#FFFFFF</color>
+     <color name="delta_card">#FFFFFF</color>
+-    <color name="delta_surface_variant">#EEF2EF</color>
+-    <color name="delta_primary">#FFFFFF</color>
+-    <color name="delta_primary_dark">#FFFFFF</color>
+-    <color name="delta_on_primary">#171717</color>
++    <color name="delta_surface_variant">#E9ECF6</color>
++    <color name="delta_primary">#F3F4FA</color>
++    <color name="delta_primary_dark">#F3F4FA</color>
++    <color name="delta_on_primary">#1A1D2E</color>
+ 
+     <!-- Accent — Light uses green -->
+-    <color name="delta_accent">#16A34A</color>
++    <color name="delta_accent">#4350D0</color>
+     <!-- Black Wall screen only (light): dark purple instead of green, kept dark enough that white icon/text drawn on top of it (selected row) stays readable, but used here mainly for icon/title/checkmark on a light card, where it must be dark enough to read against white. -->
+     <color name="delta_blackwall_accent">#5B21B6</color>
+-    <color name="delta_accent_soft">#22C55E</color>
++    <color name="delta_accent_soft">#6A77E6</color>
+     <color name="delta_fab">#171717</color>
+ 
+     <!-- Typography — Light -->
+-    <color name="delta_text">#171717</color>
+-    <color name="delta_text_secondary">#525D56</color>
+-    <color name="delta_text_muted">#7A877F</color>
++    <color name="delta_text">#1A1D2E</color>
++    <color name="delta_text_secondary">#444B68</color>
++    <color name="delta_text_muted">#656C8C</color>
+ 
+     <!-- Server type label (Shadowsocks / VLESS / ...) — Light: keep neutral, only Dark uses purple -->
+-    <color name="delta_server_type_text">#525D56</color>
++    <color name="delta_server_type_text">#444B68</color>
+ 
+     <!-- Chrome — Light -->
+-    <color name="delta_divider">#1A000000</color>
+-    <color name="delta_selected">#1A16A34A</color>
+-    <color name="delta_stroke">#E1E7E3</color>
+-    <color name="delta_glow">#3316A34A</color>
++    <color name="delta_divider">#141A1D2E</color>
++    <color name="delta_selected">#1A4350D0</color>
++    <color name="delta_stroke">#E2E5F1</color>
++    <color name="delta_glow">#334350D0</color>
+     <color name="delta_scrim">#66000000</color>
+ 
+     <!-- Semantic — Light -->
+@@ -353,29 +353,29 @@
+ 
+     <!-- Navigation Drawer v3 — Light -->
+     <color name="delta_nav_bg">#FFFFFF</color>
+-    <color name="delta_nav_header_bg">#F5F7F6</color>
+-    <color name="delta_nav_selected_bg">#1A16A34A</color>
+-    <color name="delta_nav_selected_icon">#16A34A</color>
+-    <color name="delta_nav_selected_text">#15803D</color>
+-    <color name="delta_nav_unselected_icon">#525D56</color>
+-    <color name="delta_nav_unselected_text">#171717</color>
+-    <color name="delta_nav_divider">#E1E7E3</color>
+-    <color name="delta_nav_footer_text">#7A877F</color>
++    <color name="delta_nav_header_bg">#F3F4FA</color>
++    <color name="delta_nav_selected_bg">#1A4350D0</color>
++    <color name="delta_nav_selected_icon">#4350D0</color>
++    <color name="delta_nav_selected_text">#3A46BF</color>
++    <color name="delta_nav_unselected_icon">#444B68</color>
++    <color name="delta_nav_unselected_text">#1A1D2E</color>
++    <color name="delta_nav_divider">#E2E5F1</color>
++    <color name="delta_nav_footer_text">#656C8C</color>
+ 
+     <!-- Tools popup v3 — Light -->
+     <color name="delta_tools_bg">#FFFFFF</color>
+-    <color name="delta_tools_header_text">#525D56</color>
+-    <color name="delta_tools_icon_primary">#16A34A</color>
++    <color name="delta_tools_header_text">#444B68</color>
++    <color name="delta_tools_icon_primary">#4350D0</color>
+     <color name="delta_tools_icon_danger">#DC2626</color>
+-    <color name="delta_tools_divider">#E1E7E3</color>
++    <color name="delta_tools_divider">#E2E5F1</color>
+ 
+     <!-- Settings v3 group header — Light -->
+-    <color name="delta_settings_group_text">#16A34A</color>
+-    <color name="delta_settings_group_icon">#16A34A</color>
++    <color name="delta_settings_group_text">#4350D0</color>
++    <color name="delta_settings_group_icon">#4350D0</color>
+ 
+     <color name="material_deep_orange_accent_200">#FF9E80</color>
+     <color name="color_ng_black_primary">#000000</color>
+     <color name="color_ng_black_accent">#BDBDBD</color>
+     <color name="delta_switch_off_thumb">#9E9E9E</color>
+-    <color name="delta_switch_off_track">#C9CDCB</color>
++    <color name="delta_switch_off_track">#CBCFE0</color>
+ </resources>
+diff -ruN --strip-trailing-cr a/app/src/main/res/values/colors_delta_glass.xml b/app/src/main/res/values/colors_delta_glass.xml
+--- a/app/src/main/res/values/colors_delta_glass.xml	2026-11-09 11:52:42.000000000 +0000
++++ b/app/src/main/res/values/colors_delta_glass.xml	2026-11-18 13:00:35.000184529 +0000
+@@ -1,10 +1,10 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+     <color name="delta_glass_top">#F2FFFFFF</color>
+-    <color name="delta_glass_bottom">#E6F5F7F6</color>
+-    <color name="delta_glass_stroke">#E1E7E3</color>
++    <color name="delta_glass_bottom">#E6F1F3FB</color>
++    <color name="delta_glass_stroke">#E2E5F1</color>
+     <color name="delta_popup_bg">#FFFFFF</color>
+-    <color name="delta_popup_stroke">#E1E7E3</color>
++    <color name="delta_popup_stroke">#E2E5F1</color>
+     <color name="delta_cat_button">#16A34A</color>
+     <color name="delta_cat_button_connected">#15803D</color>
+ </resources>
+diff -ruN --strip-trailing-cr a/app/src/main/res/values/dimens.xml b/app/src/main/res/values/dimens.xml
+--- a/app/src/main/res/values/dimens.xml	2026-11-09 11:52:42.000000000 +0000
++++ b/app/src/main/res/values/dimens.xml	2026-11-18 13:01:30.387892473 +0000
+@@ -1,6 +1,6 @@
+ <resources>
+     <dimen name="qrcode_size">264dp</dimen>
+-    <dimen name="main_list_padding_bottom">88dp</dimen>
++    <dimen name="main_list_padding_bottom">96dp</dimen>
+     <dimen name="bottom_sheet_padding">8dp</dimen>
+     <!-- DeltaBox v3 -->
+     <dimen name="delta_nav_drawer_width">288dp</dimen>
+diff -ruN --strip-trailing-cr a/app/src/main/res/values/dimens_delta_scale.xml b/app/src/main/res/values/dimens_delta_scale.xml
+--- a/app/src/main/res/values/dimens_delta_scale.xml	1970-01-01 00:00:00.000000000 +0000
++++ b/app/src/main/res/values/dimens_delta_scale.xml	2026-11-18 13:00:57.562561790 +0000
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- DeltaBox design scale (Refactoring UI: "establish a spacing and sizing system").
++     Additive only: no existing dimen is renamed or removed. Base unit 4dp; steps are
++     deliberately uneven so a value can be picked without agonising between 14 and 15. -->
++<resources>
++    <dimen name="delta_space_1">4dp</dimen>
++    <dimen name="delta_space_2">8dp</dimen>
++    <dimen name="delta_space_3">12dp</dimen>
++    <dimen name="delta_space_4">16dp</dimen>
++    <dimen name="delta_space_5">24dp</dimen>
++    <dimen name="delta_space_6">32dp</dimen>
++    <dimen name="delta_space_7">48dp</dimen>
++    <dimen name="delta_space_8">64dp</dimen>
++    <!-- Raised cards: a 1dp shadow in Light; Dark separates surfaces with a lighter fill + hairline instead. -->
++    <dimen name="delta_card_elevation">1dp</dimen>
++</resources>
+diff -ruN --strip-trailing-cr a/app/src/main/res/values/styles_delta.xml b/app/src/main/res/values/styles_delta.xml
+--- a/app/src/main/res/values/styles_delta.xml	2026-11-09 11:52:42.000000000 +0000
++++ b/app/src/main/res/values/styles_delta.xml	2026-11-18 13:01:07.949199760 +0000
+@@ -30,7 +30,7 @@
+     <style name="Widget.Delta.Card" parent="Widget.MaterialComponents.CardView">
+         <item name="cardBackgroundColor">@color/delta_card</item>
+         <item name="cardCornerRadius">14dp</item>
+-        <item name="cardElevation">0dp</item>
++        <item name="cardElevation">@dimen/delta_card_elevation</item>
+         <item name="cardPreventCornerOverlap">true</item>
+         <item name="strokeColor">@color/delta_stroke</item>
+         <item name="strokeWidth">1dp</item>
+@@ -71,14 +71,14 @@
+     </style>
+ 
+     <style name="TextAppearance.Delta.StatsStatus" parent="TextAppearance.MaterialComponents.Subtitle1">
+-        <item name="android:textSize">15sp</item>
++        <item name="android:textSize">16sp</item>
+         <item name="android:textStyle">bold</item>
+         <item name="android:textColor">@color/delta_text</item>
+         <item name="android:letterSpacing">0</item>
+     </style>
+ 
+     <style name="TextAppearance.Delta.CardTitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+-        <item name="android:textSize">15sp</item>
++        <item name="android:textSize">16sp</item>
+         <item name="android:textColor">@color/delta_text</item>
+         <item name="android:fontFamily">sans-serif-medium</item>
+         <item name="android:letterSpacing">0</item>
+@@ -86,8 +86,8 @@
+ 
+     <style name="TextAppearance.Delta.CardMeta" parent="TextAppearance.MaterialComponents.Caption">
+         <item name="android:textSize">12sp</item>
+-        <item name="android:textColor">@color/delta_text_secondary</item>
+-        <item name="android:letterSpacing">0</item>
++        <item name="android:textColor">@color/delta_text_muted</item>
++        <item name="android:letterSpacing">0.01</item>
+     </style>
+ 
+     <style name="TextAppearance.Delta.PingBadge" parent="TextAppearance.MaterialComponents.Caption">
+@@ -114,7 +114,7 @@
+ 
+     <!-- ── Tools popup group label ── -->
+     <style name="TextAppearance.Delta.ToolsGroup" parent="TextAppearance.MaterialComponents.Caption">
+-        <item name="android:textSize">10sp</item>
++        <item name="android:textSize">11sp</item>
+         <item name="android:textColor">@color/delta_tools_header_text</item>
+         <item name="android:fontFamily">sans-serif-medium</item>
+         <item name="android:letterSpacing">0.12</item>
+diff -ruN --strip-trailing-cr a/app/src/main/res/values-night/colors.xml b/app/src/main/res/values-night/colors.xml
+--- a/app/src/main/res/values-night/colors.xml	2026-11-09 11:53:26.000000000 +0000
++++ b/app/src/main/res/values-night/colors.xml	2026-11-18 13:00:34.999479647 +0000
+@@ -7,12 +7,12 @@
+     <color name="delta_brand_dark">#7C3AED</color>
+ 
+     <!-- Surface system — Dark: matte black everywhere, cards one step lighter -->
+-    <color name="delta_bg">#050507</color>
+-    <color name="delta_surface">#0C0C10</color>
+-    <color name="delta_card">#141418</color>
+-    <color name="delta_surface_variant">#17171C</color>
+-    <color name="delta_primary">#050507</color>
+-    <color name="delta_primary_dark">#050507</color>
++    <color name="delta_bg">#08080C</color>
++    <color name="delta_surface">#0F0F15</color>
++    <color name="delta_card">#15151D</color>
++    <color name="delta_surface_variant">#1C1C26</color>
++    <color name="delta_primary">#08080C</color>
++    <color name="delta_primary_dark">#08080C</color>
+     <color name="delta_on_primary">#FFFFFF</color>
+ 
+     <!-- Accent — Dark uses light purple (bright enough to read, not so light it washes out white text) -->
+@@ -25,16 +25,16 @@
+ 
+     <!-- Typography — Dark (left as white, per request: fonts/icons stay white and visible) -->
+     <color name="delta_text">#FFFFFF</color>
+-    <color name="delta_text_secondary">#C0C0CE</color>
+-    <color name="delta_text_muted">#8888A0</color>
++    <color name="delta_text_secondary">#C2C4D8</color>
++    <color name="delta_text_muted">#9094AE</color>
+ 
+     <!-- Server type label (Shadowsocks / VLESS / ...) — light purple -->
+     <color name="delta_server_type_text">#C4B5FD</color>
+ 
+     <!-- Chrome — Dark -->
+-    <color name="delta_divider">#22FFFFFF</color>
++    <color name="delta_divider">#1FFFFFFF</color>
+     <color name="delta_selected">#332E1065</color>
+-    <color name="delta_stroke">#2A2A33</color>
++    <color name="delta_stroke">#2A2A38</color>
+     <color name="delta_glow">#44A78BFA</color>
+     <color name="delta_scrim">#99000000</color>
+ 
+@@ -64,22 +64,22 @@
+     <color name="delta_ping_none_bg">#2E2E3A</color>
+ 
+     <!-- Navigation Drawer v3 — Dark: matte black, light-purple selection -->
+-    <color name="delta_nav_bg">#000000</color>
+-    <color name="delta_nav_header_bg">#000000</color>
++    <color name="delta_nav_bg">#060609</color>
++    <color name="delta_nav_header_bg">#060609</color>
+     <color name="delta_nav_selected_bg">#332E1065</color>
+     <color name="delta_nav_selected_icon">#C4B5FD</color>
+     <color name="delta_nav_selected_text">#DDD3FC</color>
+     <color name="delta_nav_unselected_icon">#FFFFFF</color>
+     <color name="delta_nav_unselected_text">#FFFFFF</color>
+-    <color name="delta_nav_divider">#28FFFFFF</color>
+-    <color name="delta_nav_footer_text">#8888A0</color>
++    <color name="delta_nav_divider">#24FFFFFF</color>
++    <color name="delta_nav_footer_text">#9094AE</color>
+ 
+     <!-- Tools popup v3 — Dark: matte black -->
+-    <color name="delta_tools_bg">#000000</color>
+-    <color name="delta_tools_header_text">#C0C0CE</color>
++    <color name="delta_tools_bg">#101017</color>
++    <color name="delta_tools_header_text">#C2C4D8</color>
+     <color name="delta_tools_icon_primary">#C4B5FD</color>
+     <color name="delta_tools_icon_danger">#F87171</color>
+-    <color name="delta_tools_divider">#28FFFFFF</color>
++    <color name="delta_tools_divider">#24FFFFFF</color>
+ 
+     <!-- Settings v3 group header — Dark: light purple -->
+     <color name="delta_settings_group_text">#C4B5FD</color>
+diff -ruN --strip-trailing-cr a/app/src/main/res/values-night/colors_delta_glass.xml b/app/src/main/res/values-night/colors_delta_glass.xml
+--- a/app/src/main/res/values-night/colors_delta_glass.xml	2026-11-09 11:52:42.000000000 +0000
++++ b/app/src/main/res/values-night/colors_delta_glass.xml	2026-11-18 13:00:35.000678352 +0000
+@@ -1,9 +1,9 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+-    <color name="delta_glass_top">#F2242431</color>
+-    <color name="delta_glass_bottom">#E6191923</color>
++    <color name="delta_glass_top">#F21B1B25</color>
++    <color name="delta_glass_bottom">#E6121219</color>
+     <color name="delta_glass_stroke">#33FFFFFF</color>
+-    <color name="delta_popup_bg">#242431</color>
++    <color name="delta_popup_bg">#1C1C26</color>
+     <color name="delta_popup_stroke">#33FFFFFF</color>
+     <color name="delta_cat_button">#FF4545</color>
+     <color name="delta_cat_button_connected">#22C55E</color>
+diff -ruN --strip-trailing-cr a/app/src/main/res/values-night/dimens_delta_scale.xml b/app/src/main/res/values-night/dimens_delta_scale.xml
+--- a/app/src/main/res/values-night/dimens_delta_scale.xml	1970-01-01 00:00:00.000000000 +0000
++++ b/app/src/main/res/values-night/dimens_delta_scale.xml	2026-11-18 13:00:57.563375178 +0000
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Dark mode: shadows are invisible on near-black, so depth comes from surface lightness + stroke. -->
++<resources>
++    <dimen name="delta_card_elevation">0dp</dimen>
++</resources>

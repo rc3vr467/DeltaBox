@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Foreground rings of the connect button: electric-blue outer ring and neon-green inner ring.
+     The dark green fill comes from the button's backgroundTint; the cat logo stays untouched. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent" />
+            <stroke android:width="3dp" android:color="@color/delta_bar_blue" />
+        </shape>
+    </item>
+    <item
+        android:bottom="10dp"
+        android:left="10dp"
+        android:right="10dp"
+        android:top="10dp">
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent" />
+            <stroke android:width="2dp" android:color="@color/delta_bar_neon" />
+        </shape>
+    </item>
+</layer-list>

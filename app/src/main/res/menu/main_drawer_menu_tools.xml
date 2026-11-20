@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DeltaBox v3 — Tools drawer nav items (Tools group) -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logcat"
+            android:icon="@drawable/ic_baseline_bug_report_24"
+            android:title="@string/menu_log" />
+        <item
+            android:id="@+id/nav_tools"
+            android:icon="@drawable/baseline_construction_24"
+            android:title="@string/menu_tools" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_baseline_info_24"
+            android:title="@string/menu_about" />
+    </group>
+</menu>

@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.RemoteException
 import android.view.KeyEvent
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.addCallback
 import androidx.annotation.IdRes
 import androidx.core.app.ActivityCompat
@@ -327,13 +328,17 @@ class MainActivity : ThemedActivity(),
 
     @SuppressLint("CommitTransaction")
     fun displayFragment(fragment: ToolbarFragment) {
+        // fabRing is a decorative ring behind the connect button; it must follow the button's
+        // visibility, otherwise it stays on screen over pages (e.g. Settings) where the button is hidden.
         if (fragment is ConfigurationFragment) {
             binding.stats.allowShow = true
             binding.fab.show()
+            binding.fabRing.visibility = View.VISIBLE
         } else if (!DataStore.showBottomBar) {
             binding.stats.allowShow = false
             binding.stats.performHide()
             binding.fab.hide()
+            binding.fabRing.visibility = View.GONE
         }
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_holder, fragment)

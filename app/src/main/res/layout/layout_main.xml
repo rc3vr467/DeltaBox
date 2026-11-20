@@ -157,8 +157,9 @@
                         tools:text="PING 45 ms" />
                 </LinearLayout>
 
+                <!-- Reserve a little extra breathing room for the centered cat button/ring. -->
                 <Space
-                    android:layout_width="96dp"
+                    android:layout_width="104dp"
                     android:layout_height="1dp" />
 
                 <LinearLayout

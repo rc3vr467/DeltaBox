@@ -12,7 +12,7 @@ jobs:
       - name: Fix permissions
         run: chmod +x run gradlew libcore/*.sh && find buildScript -name '*.sh' -exec chmod +x {} +
       - name: Golang Status
-        run: find buildScript libcore/*.sh | xargs cat | sha1sum > golang_status
+        run: find buildScript libcore/*.sh | sort | xargs cat | sha1sum > golang_status
       - name: Libcore Status
         run: git ls-files libcore | xargs cat | sha1sum > libcore_status
       - name: LibCore Cache
@@ -41,7 +41,7 @@ jobs:
       - name: Fix permissions
         run: chmod +x run gradlew libcore/*.sh && find buildScript -name '*.sh' -exec chmod +x {} +
       - name: Golang Status
-        run: find buildScript libcore/*.sh | xargs cat | sha1sum > golang_status
+        run: find buildScript libcore/*.sh | sort | xargs cat | sha1sum > golang_status
       - name: Libcore Status
         run: git ls-files libcore | xargs cat | sha1sum > libcore_status
       - name: LibCore Cache

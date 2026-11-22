@@ -288,7 +288,16 @@ class ConfigurationFragment @JvmOverloads constructor(
                         while (true) {
                             val entry = zip.nextEntry ?: break
                             if (entry.isDirectory) continue
-                            val fileText = zip.bufferedReader().readText()
+                            // Read exactly this entry's bytes directly from the
+                            // ZipInputStream. Do NOT wrap `zip` in a new
+                            // bufferedReader()/reader() per entry: a Reader is
+                            // free to read ahead into its own internal buffer
+                            // past the current entry's end, so later entries
+                            // would start mid-stream (or come back empty/wrong),
+                            // which made every imported profile collapse onto
+                            // the same (first) entry's endpoint/IP.
+                            val fileBytes = zip.readBytes()
+                            val fileText = fileBytes.toString(Charsets.UTF_8)
                             RawUpdater.parseRaw(fileText, entry.name)
                                 ?.let { pl -> proxies.addAll(pl) }
                             zip.closeEntry()

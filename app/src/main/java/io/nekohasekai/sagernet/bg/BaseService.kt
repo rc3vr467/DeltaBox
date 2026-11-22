@@ -313,6 +313,26 @@ class BaseService {
                     }
                 }
             }
+            // DefaultNetworkListener.start() above only *registers* a callback; on a cold
+            // start of the :bg process, Android's ConnectivityManager callback can fire tens
+            // of milliseconds AFTER this function returns. If we let the caller proceed
+            // straight to building the TUN interface and starting the core (step [4/5]),
+            // the VPN interface gets establish()'d and the proxy (e.g. WireGuard) starts
+            // sending UDP packets before SagerNet.underlyingNetwork/setUnderlyingNetworks()
+            // has ever been applied, which on some devices makes the very first outbound
+            // packets fail with "sendmsg: input/output error" (handshake can still succeed
+            // because it races in before this is checked, but then no data flows).
+            // DefaultNetworkListener.get() awaits the first known network (or returns
+            // immediately if one is already cached), so block briefly on it here. A short
+            // timeout keeps a genuinely offline device from hanging the connect flow.
+            withTimeoutOrNull(1500) {
+                try {
+                    DefaultNetworkListener.get()
+                } catch (_: UnknownHostException) {
+                    // no network at all yet; fall through and let core.start() fail/retry
+                    // the normal way instead of blocking the whole timeout window.
+                }
+            }
         }
 
         var wakeLock: PowerManager.WakeLock?

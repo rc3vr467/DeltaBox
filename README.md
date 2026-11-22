@@ -32,20 +32,14 @@ every core update (geosite/geoip rule-set paths, selector hooks, connection-clos
 
 ## Protocols
 
-| Protocol | Notes |
+| | |
 |---|---|
-| VMess / VLESS | including Reality |
-| Trojan / Trojan-Go | |
-| Shadowsocks | |
-| Hysteria | |
-| NaïveProxy | |
-| ShadowTLS | |
-| TUIC | |
-| Mieru | |
-| AnyTLS | |
-| WireGuard | |
-| SSH | |
-| SOCKS / HTTP | as outbound or chain link |
+| VMess / VLESS *(including Reality)* | Trojan / Trojan-Go |
+| Shadowsocks | Hysteria |
+| NaïveProxy | ShadowTLS |
+| TUIC | Mieru |
+| AnyTLS | WireGuard |
+| SSH | SOCKS / HTTP *(outbound or chain link)* |
 
 Configs can be imported from share links, subscriptions, QR codes, or raw sing-box JSON. Proxies can
 also be chained through one another.
@@ -73,30 +67,15 @@ APK for your device from [Releases](https://github.com/rc3vr467/DeltaBox/release
 (`arm64-v8a` for almost every phone, `armeabi-v7a` for older ones, `x86` and `x86_64` for Intel
 tablets and emulators).
 
-## Building
-
-```sh
-./gradlew :app:assembleOssRelease
-```
-
-CI builds and signs the release APK from the `SIGNING_*` repository secrets; see
-`.github/workflows/release.yml` and `.github/actions/android-build/action.yml`.
-
-## Roadmap
-
-Planned additions:
-
-- OpenVPN support via Flutter
-- Amnezia WireGuard (AmneziaWG)
-- AdBlock list and engine updates
-- Black Wall engine updates
-
 ## Credits
 
 DeltaBox is a fork of [NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid), itself
 built on [SagerNet](https://github.com/SagerNet/SagerNet). It stands on
 [sing-box](https://github.com/SagerNet/sing-box). The Black Wall engine is ported from
-ChimeraWire's anti-DPI engine, adapted to sing-box's config builder in place of Xray JSON.
+[ChimeraWire](https://github.com/inferno1978/Chimera-Project)'s anti-DPI engine, adapted to
+sing-box's config builder in place of Xray JSON. Ad and tracker blocking uses
+[AdAway](https://github.com/adaway/adaway) and [MahsaNG](https://github.com/GFW-knocker/MahsaNG)
+block lists.
 
 ## License
 

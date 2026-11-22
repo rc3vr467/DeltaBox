@@ -33,20 +33,14 @@
 
 ## پروتکل‌های پشتیبانی‌شده
 
-| پروتکل | توضیحات |
+| | |
 |---|---|
-| VMess / VLESS | شامل Reality |
-| Trojan / Trojan-Go | |
-| Shadowsocks | |
-| Hysteria | |
-| NaïveProxy | |
-| ShadowTLS | |
-| TUIC | |
-| Mieru | |
-| AnyTLS | |
-| WireGuard | |
-| SSH | |
-| SOCKS / HTTP | به‌عنوان خروجی یا حلقه‌ی زنجیره |
+| VMess / VLESS *(شامل Reality)* | Trojan / Trojan-Go |
+| Shadowsocks | Hysteria |
+| NaïveProxy | ShadowTLS |
+| TUIC | Mieru |
+| AnyTLS | WireGuard |
+| SSH | SOCKS / HTTP *(به‌عنوان خروجی یا حلقه‌ی زنجیره)* |
 
 تنظیمات را می‌توان از طریق لینک اشتراک‌گذاری، سابسکریپشن، کد QR یا فایل JSON خام sing-box وارد کرد.
 همچنین امکان زنجیره کردن پروکسی‌ها از طریق یکدیگر وجود دارد.
@@ -74,31 +68,15 @@
 دانلود کنید (`arm64-v8a` برای تقریباً همه‌ی گوشی‌ها، `armeabi-v7a` برای گوشی‌های قدیمی‌تر، `x86` و
 `x86_64` برای تبلت‌های اینتلی و شبیه‌سازها).
 
-## ساخت از سورس
-
-```sh
-./gradlew :app:assembleOssRelease
-```
-
-گردش‌کار CI، نسخه‌ی ریلیز APK را با استفاده از سکرت‌های مخزن (`SIGNING_*`) می‌سازد و امضا می‌کند؛
-به `.github/workflows/release.yml` و `.github/actions/android-build/action.yml` مراجعه کنید.
-
-## نقشه‌ی راه
-
-افزودنی‌های برنامه‌ریزی‌شده:
-
-- پشتیبانی از OpenVPN از طریق Flutter
-- Amnezia WireGuard (AmneziaWG)
-- به‌روزرسانی لیست و موتور AdBlock
-- به‌روزرسانی موتور دیوار سیاه (Black Wall)
-
 ## قدردانی
 
 دلتاباکس فورکی از [NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid) است، که
 خودش بر پایه‌ی [SagerNet](https://github.com/SagerNet/SagerNet) ساخته شده. این پروژه بر پایه‌ی
 [sing-box](https://github.com/SagerNet/sing-box) استوار است. موتور دیوار سیاه برگرفته از موتور
-ضد-DPI پروژه‌ی ChimeraWire است که برای کار با کانفیگ‌ساز sing-box (به‌جای JSON مخصوص Xray) تطبیق
-داده شده.
+ضد-DPI پروژه‌ی [ChimeraWire](https://github.com/inferno1978/Chimera-Project) است که برای کار با
+کانفیگ‌ساز sing-box (به‌جای JSON مخصوص Xray) تطبیق داده شده. مسدودسازی تبلیغات و ردیاب‌ها با
+استفاده از لیست‌های [AdAway](https://github.com/adaway/adaway) و
+[MahsaNG](https://github.com/GFW-knocker/MahsaNG) انجام می‌شود.
 
 ## مجوز
 

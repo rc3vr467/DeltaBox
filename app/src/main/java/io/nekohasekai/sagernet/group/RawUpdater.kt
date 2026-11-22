@@ -728,6 +728,22 @@ object RawUpdater : GroupUpdater() {
         bean.localAddress = localAddresses.flatMap { it.split(",") }.joinToString("\n")
         bean.privateKey = iface["PrivateKey"]
         bean.mtu = iface["MTU"]?.toIntOrNull()
+        // AmneziaWG obfuscation fields, read from the standard [Interface]
+        // keys used by Amnezia's own clients (Jc/Jmin/Jmax, S1-S4, H1-H4).
+        // Left at WireGuardBean's defaults (0 / "") when absent, which
+        // produces an ordinary, unobfuscated WireGuard outbound.
+        iface["Jc"]?.toIntOrNull()?.let { bean.jc = it }
+        iface["Jmin"]?.toIntOrNull()?.let { bean.jmin = it }
+        iface["Jmax"]?.toIntOrNull()?.let { bean.jmax = it }
+        iface["S1"]?.toIntOrNull()?.let { bean.s1 = it }
+        iface["S2"]?.toIntOrNull()?.let { bean.s2 = it }
+        iface["S3"]?.toIntOrNull()?.let { bean.s3 = it }
+        iface["S4"]?.toIntOrNull()?.let { bean.s4 = it }
+        iface["H1"]?.let { bean.h1 = it }
+        iface["H2"]?.let { bean.h2 = it }
+        iface["H3"]?.let { bean.h3 = it }
+        iface["H4"]?.let { bean.h4 = it }
+        iface["HeaderProtectionKey"]?.let { bean.headerProtectionKey = it }
         val peers = ini.getAll("Peer")
         if (peers.isNullOrEmpty()) error("Missing 'Peer' selections")
         val beans = mutableListOf<WireGuardBean>()

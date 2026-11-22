@@ -20,6 +20,26 @@ type WireGuardEndpointOptions struct {
 	UDPNATMax    uint32                           `json:"udp_nat_max,omitempty"`
 	Workers      int                              `json:"workers,omitempty"`
 	OnDemand     bool                             `json:"on_demand,omitempty"`
+
+	// AmneziaWG obfuscation (optional; all omitempty, so an ordinary
+	// WireGuard config without these fields behaves byte-for-byte as
+	// before). These are interface-level (not per-peer) settings, matching
+	// the AmneziaWG [Interface] config-file section and the jc/jmin/jmax/
+	// s1-s4/h1-h4/header_protection_key UAPI keys merged into
+	// sagernet/wireguard-go (see transport/wireguard/endpoint.go).
+	JunkPacketCount            int    `json:"jc,omitempty"`
+	JunkPacketMinSize          int    `json:"jmin,omitempty"`
+	JunkPacketMaxSize          int    `json:"jmax,omitempty"`
+	InitPacketJunkSize         int    `json:"s1,omitempty"`
+	ResponsePacketJunkSize     int    `json:"s2,omitempty"`
+	CookiePacketJunkSize       int    `json:"s3,omitempty"`
+	TransportPacketJunkSize    int    `json:"s4,omitempty"`
+	InitPacketMagicHeader      string `json:"h1,omitempty"`
+	ResponsePacketMagicHeader  string `json:"h2,omitempty"`
+	CookiePacketMagicHeader    string `json:"h3,omitempty"`
+	TransportPacketMagicHeader string `json:"h4,omitempty"`
+	HeaderProtectionKey        string `json:"header_protection_key,omitempty"`
+
 	DialerOptions
 }
 

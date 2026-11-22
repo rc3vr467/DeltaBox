@@ -58,6 +58,53 @@ func NewEndpoint(options EndpointOptions) (*Endpoint, error) {
 	if options.ListenPort != 0 {
 		ipcConf += "\nlisten_port=" + F.ToString(options.ListenPort)
 	}
+	// AmneziaWG obfuscation IPC lines. Each is omitted (the UAPI default is
+	// then used, i.e. "no obfuscation") unless the user's config actually
+	// set the corresponding field, so an ordinary WireGuard config produces
+	// the exact same ipcConf as before this merge.
+	if options.JunkPacketCount != 0 {
+		ipcConf += "\njc=" + F.ToString(options.JunkPacketCount)
+	}
+	if options.JunkPacketMinSize != 0 {
+		ipcConf += "\njmin=" + F.ToString(options.JunkPacketMinSize)
+	}
+	if options.JunkPacketMaxSize != 0 {
+		ipcConf += "\njmax=" + F.ToString(options.JunkPacketMaxSize)
+	}
+	if options.InitPacketJunkSize != 0 {
+		ipcConf += "\ns1=" + F.ToString(options.InitPacketJunkSize)
+	}
+	if options.ResponsePacketJunkSize != 0 {
+		ipcConf += "\ns2=" + F.ToString(options.ResponsePacketJunkSize)
+	}
+	if options.CookiePacketJunkSize != 0 {
+		ipcConf += "\ns3=" + F.ToString(options.CookiePacketJunkSize)
+	}
+	if options.TransportPacketJunkSize != 0 {
+		ipcConf += "\ns4=" + F.ToString(options.TransportPacketJunkSize)
+	}
+	if options.InitPacketMagicHeader != "" {
+		ipcConf += "\nh1=" + options.InitPacketMagicHeader
+	}
+	if options.ResponsePacketMagicHeader != "" {
+		ipcConf += "\nh2=" + options.ResponsePacketMagicHeader
+	}
+	if options.CookiePacketMagicHeader != "" {
+		ipcConf += "\nh3=" + options.CookiePacketMagicHeader
+	}
+	if options.TransportPacketMagicHeader != "" {
+		ipcConf += "\nh4=" + options.TransportPacketMagicHeader
+	}
+	if options.HeaderProtectionKey != "" {
+		headerProtectionKeyBytes, err := base64.StdEncoding.DecodeString(options.HeaderProtectionKey)
+		if err != nil {
+			return nil, E.Cause(err, "decode header protection key")
+		}
+		if len(headerProtectionKeyBytes) != device.HeaderCipherKeySize {
+			return nil, E.New("invalid header protection key, required ", device.HeaderCipherKeySize, " bytes, got ", len(headerProtectionKeyBytes))
+		}
+		ipcConf += "\nheader_protection_key=" + hex.EncodeToString(headerProtectionKeyBytes)
+	}
 	var peers []peerConfig
 	for peerIndex, rawPeer := range options.Peers {
 		peer := peerConfig{

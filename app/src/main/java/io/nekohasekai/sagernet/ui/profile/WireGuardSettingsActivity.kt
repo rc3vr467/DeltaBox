@@ -25,6 +25,22 @@ class WireGuardSettingsActivity : ProfileSettingsActivity<WireGuardBean>() {
     private val mtu = pbm.add(PreferenceBinding(Type.TextToInt, "mtu"))
     private val reserved = pbm.add(PreferenceBinding(Type.Text, "reserved"))
 
+    // AmneziaWG obfuscation (optional). Left at their WireGuardBean defaults
+    // (0 / "") when the person never touches these fields, which produces an
+    // ordinary, unobfuscated WireGuard outbound.
+    private val jc = pbm.add(PreferenceBinding(Type.TextToInt, "jc"))
+    private val jmin = pbm.add(PreferenceBinding(Type.TextToInt, "jmin"))
+    private val jmax = pbm.add(PreferenceBinding(Type.TextToInt, "jmax"))
+    private val s1 = pbm.add(PreferenceBinding(Type.TextToInt, "s1"))
+    private val s2 = pbm.add(PreferenceBinding(Type.TextToInt, "s2"))
+    private val s3 = pbm.add(PreferenceBinding(Type.TextToInt, "s3"))
+    private val s4 = pbm.add(PreferenceBinding(Type.TextToInt, "s4"))
+    private val h1 = pbm.add(PreferenceBinding(Type.Text, "h1"))
+    private val h2 = pbm.add(PreferenceBinding(Type.Text, "h2"))
+    private val h3 = pbm.add(PreferenceBinding(Type.Text, "h3"))
+    private val h4 = pbm.add(PreferenceBinding(Type.Text, "h4"))
+    private val headerProtectionKey = pbm.add(PreferenceBinding(Type.Text, "headerProtectionKey"))
+
     override fun WireGuardBean.init() {
         pbm.writeToCacheAll(this)
     }

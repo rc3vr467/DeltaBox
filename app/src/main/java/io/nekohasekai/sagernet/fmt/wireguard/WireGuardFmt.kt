@@ -37,5 +37,22 @@ fun buildSingBoxOutboundWireguardBean(bean: WireGuardBean): SingBoxOptions.Outbo
         pre_shared_key = bean.peerPreSharedKey
         mtu = bean.mtu
         if (bean.reserved.isNotBlank()) reserved = genReserved(bean.reserved)
+
+        // AmneziaWG obfuscation. Only emitted when actually set (non-zero /
+        // non-blank), so an ordinary WireGuard bean produces the exact same
+        // outbound JSON as before this feature existed (sing-box's
+        // option.WireGuardEndpointOptions fields are all `omitempty`).
+        if (bean.jc != 0) jc = bean.jc
+        if (bean.jmin != 0) jmin = bean.jmin
+        if (bean.jmax != 0) jmax = bean.jmax
+        if (bean.s1 != 0) s1 = bean.s1
+        if (bean.s2 != 0) s2 = bean.s2
+        if (bean.s3 != 0) s3 = bean.s3
+        if (bean.s4 != 0) s4 = bean.s4
+        if (bean.h1.isNotBlank()) h1 = bean.h1
+        if (bean.h2.isNotBlank()) h2 = bean.h2
+        if (bean.h3.isNotBlank()) h3 = bean.h3
+        if (bean.h4.isNotBlank()) h4 = bean.h4
+        if (bean.headerProtectionKey.isNotBlank()) header_protection_key = bean.headerProtectionKey
     }
 }

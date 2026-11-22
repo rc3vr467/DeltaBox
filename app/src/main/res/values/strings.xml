@@ -1,24 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">DeltaBox</string>
-    <string name="app_name_long" translatable="false">DeltaBox for Android</string>
+    <string name="app_name" translatable="false">Delta</string>
+    <string name="app_name_long" translatable="false">Delta for Android</string>
     <string name="app_desc">The universal proxy toolchain for Android, written in Kotlin.</string>
     <string name="project">Project</string>
     <string name="github">Source code</string>
     <string name="telegram">Telegram update channel</string>
-    <string name="about_telegram">Telegram</string>
-    <string name="about_telegram_handle" translatable="false">@v2ray_DA</string>
-    <string name="about_github">Github</string>
-    <string name="about_github_handle" translatable="false">rc3vr467/DeltaBox</string>
-    <string name="about_developer">Developer</string>
-    <string name="about_publisher">Publisher</string>
-    <string name="developer_name" translatable="false">Pedram &amp; Daniel</string>
-    <string name="publisher_name" translatable="false">Pedram</string>
-    <string name="menu_update_group_sub" translatable="false">Update Current Group\'s Sub</string>
-    <string name="menu_delete_invalid" translatable="false">Delete Invalid</string>
-    <string name="menu_reset_ping" translatable="false">Reset Ping</string>
-    <string name="menu_reset_data" translatable="false">Reset Data</string>
-    <string name="menu_sort_by_delay" translatable="false">Sort By Delay</string>
     <string name="oss_licenses">Open source licenses</string>
     <string name="app_version">Version</string>
     <string name="version_x">Version (%s)</string>
@@ -186,10 +173,6 @@
     <string name="mux_concurrency">Mux Concurrent Connections</string>
     <string name="tcp_keep_alive_interval">TCP keep active packet delivery interval</string>
     <string name="proxied_apps">Apps VPN mode</string>
-    <string name="menu_split_tunnel" translatable="false">SplitTunnel</string>
-    <string name="language">Language</string>
-    <string name="theme_dark">Dark</string>
-    <string name="theme_light">Light</string>
     <string name="proxied_apps_summary">Configure VPN mode for selected apps</string>
     <string name="on">On</string>
     <string name="off">Off</string>
@@ -199,6 +182,8 @@
     <string name="clear_selections">Clear selections</string>
     <string name="bypass_apps">Bypass</string>
     <string name="show_system_apps">Show system apps</string>
+    <string name="auto_connect">Auto Connect</string>
+    <string name="auto_connect_summary">Enable proxy on startup/app update if it was running before</string>
     <string name="direct_boot_aware">Allow Toggling in Lock Screen</string>
     <string name="direct_boot_aware_summary">Your selected profile information will be less
         protected</string>
@@ -334,7 +319,6 @@
     <string name="standard">Standard</string>
     <string name="v2rayn" translatable="false">V2RayN</string>
     <string name="available" translatable="false">%dms</string>
-    <string name="profile_type_with_ip" translatable="false">%1$s · %2$s</string>
     <string name="unavailable">Unavailable</string>
     <string name="always_show_address">Always Show Address</string>
     <string name="always_show_address_sum">Always display the server address on the configuration
@@ -416,7 +400,7 @@
     <string name="hysteria_stream_receive_window">QUIC Stream Receive Window</string>
     <string name="hysteria_connection_receive_window">QUIC Connection Receive Window</string>
     <string name="hysteria_disable_mtu_discovery">Disable Path MTU Discovery</string>
-    <string name="group_order">Sort</string>
+    <string name="group_order">Order</string>
     <string name="group_order_origin">Origin</string>
     <string name="group_order_by_name">By Name</string>
     <string name="group_order_by_delay">By Delay</string>
@@ -467,6 +451,19 @@
     <string name="wireguard_local_address">Local Address</string>
     <string name="wireguard_public_key">Peer Public Key</string>
     <string name="wireguard_psk">Peer Pre-Shared Key</string>
+    <string name="wireguard_amnezia_cat">AmneziaWG Obfuscation (optional)</string>
+    <string name="wireguard_jc">Junk Packet Count (Jc)</string>
+    <string name="wireguard_jmin">Junk Packet Min Size (Jmin)</string>
+    <string name="wireguard_jmax">Junk Packet Max Size (Jmax)</string>
+    <string name="wireguard_s1">Init Packet Junk Size (S1)</string>
+    <string name="wireguard_s2">Response Packet Junk Size (S2)</string>
+    <string name="wireguard_s3">Cookie Packet Junk Size (S3)</string>
+    <string name="wireguard_s4">Transport Packet Junk Size (S4)</string>
+    <string name="wireguard_h1">Init Packet Magic Header (H1)</string>
+    <string name="wireguard_h2">Response Packet Magic Header (H2)</string>
+    <string name="wireguard_h3">Cookie Packet Magic Header (H3)</string>
+    <string name="wireguard_h4">Transport Packet Magic Header (H4)</string>
+    <string name="wireguard_header_protection_key">Header Protection Key</string>
 
     <string name="cloudflare_wrap" translatable="false">Cloudflare Warp</string>
     <string name="warp_license">CloudFlare Warp is a free WireGuard VPN provider. By using it, you
@@ -556,7 +553,7 @@
     <string name="protocol_version">Protocol Version</string>
     <string name="share_subscription">Share Subscription</string>
     <string name="show_group_in_notification">Show group name in notification</string>
-    <string name="reset_connections">Reset</string>
+    <string name="reset_connections">Reset Connections</string>
     <string name="remove_duplicate">Remove duplicate servers</string>
     <string name="mtu_help">Long press the preference to set custom MTU.</string>
     <string name="log_level_help">Long press the preference to set the buffer size.</string>
@@ -595,31 +592,4 @@
     <string name="minimize">Minimize</string>
     <string name="app_list_permission_denied">Unable to read installed apps.\nThis is usually because the system has restricted app read permissions.\nPlease grant permissions in the system settings.</string>
     <string name="open_app_settings">Open System Settings</string>
-
-    <string name="black_wall">Black Wall</string>
-    <string name="black_wall_subtitle">Anti-DPI Stealth Engine</string>
-    <string name="black_wall_protection_level">Protection level</string>
-    <string name="black_wall_level_ghost">Ghost</string>
-    <string name="black_wall_level_ghost_desc">SNI masking</string>
-    <string name="black_wall_level_phantom">Phantom</string>
-    <string name="black_wall_level_phantom_desc">Ghost + TLS fingerprint randomization (uTLS)</string>
-    <string name="black_wall_level_wraith">Wraith</string>
-    <string name="black_wall_level_wraith_desc">Phantom + noise traffic</string>
-    <string name="black_wall_how_it_works">How it works</string>
-    <string name="black_wall_how_ghost">Ghost — hides the real destination by replacing the TLS SNI with a trusted, whitelisted CDN domain so the handshake looks like ordinary traffic to a popular site.</string>
-    <string name="black_wall_how_phantom">Phantom — adds a randomized browser TLS fingerprint (uTLS) on top of Ghost, protecting against signature-based DPI analysis.</string>
-    <string name="black_wall_how_wraith">Wraith — maximum masking: periodic noise HTTPS requests to legitimate domains run alongside the tunnel, making the traffic pattern look like normal browsing.</string>
-    <string name="black_wall_reality_notice">Note: servers using REALITY already provide their own camouflage. Black Wall leaves REALITY outbounds untouched to avoid breaking the handshake.</string>
-    <string name="black_wall_applies_next_connection">Changes apply on the next connection.</string>
-    <string name="auto_connect">Auto connect</string>
-    <string name="auto_connect_summary">Enable the proxy on startup/app update if it was running before</string>
-    <string name="service_mode_transproxy">Transparent proxy</string>
-    <string name="copy_toast_msg">Link copied to clipboard.</string>
-    <string name="ad_block" translatable="false">AdBlock</string>
-    <string name="ad_block_subtitle">Block ads &amp; trackers</string>
-    <string name="ad_block_update_lists">Update block lists</string>
-    <string name="ad_block_domains">%1$d domains blocked</string>
-    <string name="ad_block_updating">Updating lists…</string>
-    <string name="ad_block_update_failed">Could not download lists (offline?) — built-in list is used</string>
-    <string name="connection_test_tcp_test" translatable="false">TCP Test</string>
 </resources>

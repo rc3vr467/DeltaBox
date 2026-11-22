@@ -36,6 +36,21 @@ type EndpointOptions struct {
 	ResolvePeer       func(domain string) ([]netip.Addr, error)
 	Peers             []PeerOptions
 	Workers           int
+
+	// AmneziaWG obfuscation (optional, see option.WireGuardEndpointOptions
+	// for the corresponding JSON config fields).
+	JunkPacketCount            int
+	JunkPacketMinSize          int
+	JunkPacketMaxSize          int
+	InitPacketJunkSize         int
+	ResponsePacketJunkSize     int
+	CookiePacketJunkSize       int
+	TransportPacketJunkSize    int
+	InitPacketMagicHeader      string
+	ResponsePacketMagicHeader  string
+	CookiePacketMagicHeader    string
+	TransportPacketMagicHeader string
+	HeaderProtectionKey        string
 }
 
 type PeerOptions struct {

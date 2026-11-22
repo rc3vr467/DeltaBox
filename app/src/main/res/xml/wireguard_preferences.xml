@@ -50,4 +50,74 @@
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/wireguard_amnezia_cat">
+        <EditTextPreference
+            app:defaultValue="0"
+            app:icon="@drawable/ic_baseline_shuffle_24"
+            app:key="jc"
+            app:title="@string/wireguard_jc"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:defaultValue="0"
+            app:icon="@drawable/ic_baseline_shuffle_24"
+            app:key="jmin"
+            app:title="@string/wireguard_jmin"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:defaultValue="0"
+            app:icon="@drawable/ic_baseline_shuffle_24"
+            app:key="jmax"
+            app:title="@string/wireguard_jmax"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:defaultValue="0"
+            app:icon="@drawable/ic_baseline_format_align_left_24"
+            app:key="s1"
+            app:title="@string/wireguard_s1"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:defaultValue="0"
+            app:icon="@drawable/ic_baseline_format_align_left_24"
+            app:key="s2"
+            app:title="@string/wireguard_s2"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:defaultValue="0"
+            app:icon="@drawable/ic_baseline_format_align_left_24"
+            app:key="s3"
+            app:title="@string/wireguard_s3"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:defaultValue="0"
+            app:icon="@drawable/ic_baseline_format_align_left_24"
+            app:key="s4"
+            app:title="@string/wireguard_s4"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:icon="@drawable/ic_action_copyright"
+            app:key="h1"
+            app:title="@string/wireguard_h1"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:icon="@drawable/ic_action_copyright"
+            app:key="h2"
+            app:title="@string/wireguard_h2"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:icon="@drawable/ic_action_copyright"
+            app:key="h3"
+            app:title="@string/wireguard_h3"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:icon="@drawable/ic_action_copyright"
+            app:key="h4"
+            app:title="@string/wireguard_h4"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:dialogLayout="@layout/layout_password_dialog"
+            app:icon="@drawable/ic_settings_password"
+            app:key="headerProtectionKey"
+            app:title="@string/wireguard_header_protection_key" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

@@ -116,6 +116,23 @@ func NewEndpoint(ctx context.Context, router adapter.Router, logger log.ContextL
 		Address:    options.Address,
 		PrivateKey: options.PrivateKey,
 		ListenPort: options.ListenPort,
+
+		// AmneziaWG obfuscation passthrough; all zero-value/empty when the
+		// user's config never set jc/jmin/jmax/s1-s4/h1-h4/header_protection_key,
+		// which keeps ordinary WireGuard configs unaffected.
+		JunkPacketCount:            options.JunkPacketCount,
+		JunkPacketMinSize:          options.JunkPacketMinSize,
+		JunkPacketMaxSize:          options.JunkPacketMaxSize,
+		InitPacketJunkSize:         options.InitPacketJunkSize,
+		ResponsePacketJunkSize:     options.ResponsePacketJunkSize,
+		CookiePacketJunkSize:       options.CookiePacketJunkSize,
+		TransportPacketJunkSize:    options.TransportPacketJunkSize,
+		InitPacketMagicHeader:      options.InitPacketMagicHeader,
+		ResponsePacketMagicHeader:  options.ResponsePacketMagicHeader,
+		CookiePacketMagicHeader:    options.CookiePacketMagicHeader,
+		TransportPacketMagicHeader: options.TransportPacketMagicHeader,
+		HeaderProtectionKey:        options.HeaderProtectionKey,
+
 		ResolvePeer: func(domain string) ([]netip.Addr, error) {
 			return ep.dnsRouter.Lookup(ctx, domain, outboundDialer.(dialer.ResolveDialer).QueryOptions())
 		},

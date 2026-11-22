@@ -3914,6 +3914,34 @@ public class SingBoxOptions {
 
         public String network;
 
+        // AmneziaWG obfuscation (optional; null/absent fields are omitted
+        // from the JSON, matching option.WireGuardEndpointOptions'
+        // `omitempty` json tags in sing-box, so an ordinary WireGuard
+        // profile that never touches these fields is unaffected).
+        public Integer jc;
+
+        public Integer jmin;
+
+        public Integer jmax;
+
+        public Integer s1;
+
+        public Integer s2;
+
+        public Integer s3;
+
+        public Integer s4;
+
+        public String h1;
+
+        public String h2;
+
+        public String h3;
+
+        public String h4;
+
+        public String header_protection_key;
+
     }
 
     public static class Outbound_HysteriaOptions extends Outbound {
@@ -4585,6 +4613,16 @@ public class SingBoxOptions {
 
         public String path;
 
+
+    }
+
+    public static class V2RayTransportOptions_XHTTPOptions extends V2RayTransportOptions {
+
+        public String host;
+
+        public String path;
+
+        public String mode;
 
     }
 

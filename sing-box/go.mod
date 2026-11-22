@@ -59,7 +59,7 @@ require (
 	github.com/sagernet/sing-vmess v0.2.9-0.20261019223527-a0c58542bd9d
 	github.com/sagernet/smux v1.5.50-sing-box-mod.1
 	github.com/sagernet/tailscale v1.102.1-sing-box-1.14-mod.5.0.20261022222424-1688b52f8204
-	github.com/sagernet/wireguard-go v0.0.8-0.20261022215849-fdf0ad046586
+	github.com/sagernet/wireguard-go v0.0.8-0.20261022215849-fdf0ad046586 // replaced: local AmneziaWG-merged fork
 	github.com/sagernet/ws v0.0.0-20231204124109-acfe8907c854
 	github.com/spf13/cobra v1.10.2
 	github.com/stretchr/testify v1.12.0
@@ -198,3 +198,9 @@ require (
 	lukechampine.com/blake3 v1.3.0 // indirect
 	zombiezen.com/go/capnproto2 v2.18.2+incompatible // indirect
 )
+
+// AmneziaWG obfuscation support (jc/jmin/jmax, s1-s4, h1-h4, header_protection_key),
+// manually merged into sagernet/wireguard-go's fork of upstream wireguard-go.
+// See transport/wireguard/endpoint_options.go and endpoint.go for the sing-box
+// side of this integration.
+replace github.com/sagernet/wireguard-go => ../amneziawg-sagernet-fork

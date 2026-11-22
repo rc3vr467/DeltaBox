@@ -19,6 +19,23 @@ public class WireGuardBean extends AbstractBean {
     public Integer mtu;
     public String reserved;
 
+    // AmneziaWG obfuscation (added in version 3). Empty string / 0 means
+    // "not set", matching sing-box's option.WireGuardEndpointOptions
+    // `omitempty` behavior, so a bean with these left at their defaults
+    // produces an outbound JSON identical to before this feature existed.
+    public Integer jc;
+    public Integer jmin;
+    public Integer jmax;
+    public Integer s1;
+    public Integer s2;
+    public Integer s3;
+    public Integer s4;
+    public String h1;
+    public String h2;
+    public String h3;
+    public String h4;
+    public String headerProtectionKey;
+
     @Override
     public void initializeDefaultValues() {
         super.initializeDefaultValues();
@@ -28,11 +45,23 @@ public class WireGuardBean extends AbstractBean {
         if (peerPreSharedKey == null) peerPreSharedKey = "";
         if (mtu == null) mtu = 1420;
         if (reserved == null) reserved = "";
+        if (jc == null) jc = 0;
+        if (jmin == null) jmin = 0;
+        if (jmax == null) jmax = 0;
+        if (s1 == null) s1 = 0;
+        if (s2 == null) s2 = 0;
+        if (s3 == null) s3 = 0;
+        if (s4 == null) s4 = 0;
+        if (h1 == null) h1 = "";
+        if (h2 == null) h2 = "";
+        if (h3 == null) h3 = "";
+        if (h4 == null) h4 = "";
+        if (headerProtectionKey == null) headerProtectionKey = "";
     }
 
     @Override
     public void serialize(ByteBufferOutput output) {
-        output.writeInt(2);
+        output.writeInt(3);
         super.serialize(output);
         output.writeString(localAddress);
         output.writeString(privateKey);
@@ -40,6 +69,18 @@ public class WireGuardBean extends AbstractBean {
         output.writeString(peerPreSharedKey);
         output.writeInt(mtu);
         output.writeString(reserved);
+        output.writeInt(jc);
+        output.writeInt(jmin);
+        output.writeInt(jmax);
+        output.writeInt(s1);
+        output.writeInt(s2);
+        output.writeInt(s3);
+        output.writeInt(s4);
+        output.writeString(h1);
+        output.writeString(h2);
+        output.writeString(h3);
+        output.writeString(h4);
+        output.writeString(headerProtectionKey);
     }
 
     @Override
@@ -52,6 +93,20 @@ public class WireGuardBean extends AbstractBean {
         peerPreSharedKey = input.readString();
         mtu = input.readInt();
         reserved = input.readString();
+        if (version >= 3) {
+            jc = input.readInt();
+            jmin = input.readInt();
+            jmax = input.readInt();
+            s1 = input.readInt();
+            s2 = input.readInt();
+            s3 = input.readInt();
+            s4 = input.readInt();
+            h1 = input.readString();
+            h2 = input.readString();
+            h3 = input.readString();
+            h4 = input.readString();
+            headerProtectionKey = input.readString();
+        }
     }
 
     @Override

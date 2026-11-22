@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Decorative neon ring behind the connect button. Purely visual; sits behind the (untouched) ServiceButton. -->
+<!-- Decorative ring behind the connect button: brand -> success gradient with a card-coloured gap.
+     Purely visual; sits behind the (untouched) ServiceButton and its cat logo. -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="oval">
             <gradient
                 android:angle="315"
-                android:startColor="@color/delta_stats_neon"
-                android:endColor="@color/delta_stats_neon_2" />
+                android:startColor="@color/delta_brand"
+                android:endColor="@color/delta_success" />
         </shape>
     </item>
     <item
@@ -15,7 +16,7 @@
         android:right="3dp"
         android:top="3dp">
         <shape android:shape="oval">
-            <solid android:color="@color/delta_stats_glass" />
+            <solid android:color="@color/delta_card" />
         </shape>
     </item>
 </layer-list>

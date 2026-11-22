@@ -317,7 +317,6 @@
     <string name="connection_test_tcp_ping_unavailable">TCPing در دسترس نیست</string>
     <string name="connection_test_icmp_ping" translatable="false">ICMPing</string>
     <string name="connection_test_icmp_ping_unavailable">ICMPing در دسترس نیست</string>
-    <string name="connection_test_url_test" translatable="false">آزمایش اتصال به لینک</string>
     <string name="connection_test_domain_not_found">دامنه یافت نشد</string>
     <string name="connection_test_refused">اتصال رد شد</string>
     <string name="connection_test_unreachable">متصل نمی‌شود</string>
@@ -532,4 +531,13 @@
     <string name="language">زبان</string>
     <string name="theme_dark">تیره</string>
     <string name="theme_light">روشن</string>
+    <string name="reset_settings">ریست تنظیمات به پیش فرض</string>
+    <string name="menu_split_tunnel">تفکیک مسیر تونل</string>
+    <string name="menu_update_group_sub">آپدیت ساب فعلی</string>
+    <string name="connection_test_url_test">تست تاخیر</string>
+    <string name="connection_test_tcp_test">تست Tcp</string>
+    <string name="menu_reset_ping">ریست پینگ</string>
+    <string name="menu_reset_data">ریست دیتا</string>
+    <string name="menu_delete_invalid">حذف غیرفعال</string>
+    <string name="menu_sort_by_delay">چیدمان براساس پینگ</string>
 </resources>

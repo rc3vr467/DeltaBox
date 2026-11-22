@@ -188,7 +188,7 @@ class StatsBar @JvmOverloads constructor(
         }
     }
 
-    /** Shows "🇫🇮 Finland" + the real exit IP instead of the server's profile name. */
+    /** Shows "🇫🇮 Finland" instead of the server's profile name. The real exit IP is no longer shown. */
     private fun loadExitInfo() {
         exitJob?.cancel()
         exitJob = (context as MainActivity).lifecycleScope.launch(Dispatchers.IO) {
@@ -201,21 +201,10 @@ class StatsBar @JvmOverloads constructor(
             }
             val result = info ?: return@launch
 
-            // The IP shown in the bar always comes from 2ip.io specifically
-            // (plain-text lookup, through the tunnel), per your request.
-            var plainIp: String? = null
-            for (attempt in 0 until 3) {
-                plainIp = ExitIpInfo.fetchPlainIp(DataStore.mixedPort)
-                if (plainIp != null) break
-                delay(1500L)
-            }
-
             onMainDispatcher {
                 if (DataStore.serviceState != BaseService.State.Connected) return@onMainDispatcher
                 exitInfo = result
                 setStatus(result.label)
-                exitIpText.text = plainIp ?: result.ip
-                exitIpText.visibility = View.VISIBLE
             }
         }
     }

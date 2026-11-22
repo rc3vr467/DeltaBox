@@ -90,12 +90,12 @@
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:minHeight="84dp"
+                android:minHeight="64dp"
                 android:orientation="horizontal"
                 android:paddingStart="20dp"
-                android:paddingTop="12dp"
+                android:paddingTop="10dp"
                 android:paddingEnd="20dp"
-                android:paddingBottom="12dp">
+                android:paddingBottom="10dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -133,9 +133,7 @@
                     <TextView
                         android:id="@+id/exitIp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="18dp"
-                        android:layout_marginTop="2dp"
+                        android:layout_height="0dp"
                         android:singleLine="true"
                         android:textColor="@color/delta_state_on_text"
                         android:textSize="13sp"
@@ -146,7 +144,7 @@
                         android:id="@+id/pingBadge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="6dp"
                         android:background="@drawable/bg_ping_badge"
                         android:paddingStart="10dp"
                         android:paddingTop="3dp"

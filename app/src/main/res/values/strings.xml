@@ -24,6 +24,25 @@
     <string name="menu_reset_data">Reset Data</string>
     <string name="menu_delete_invalid">Delete Invalid</string>
     <string name="menu_sort_by_delay">Sort by Delay</string>
+    <string name="about_developer">Developer</string>
+    <string name="developer_name" translatable="false">rc3vr467</string>
+    <string name="about_telegram" translatable="false">Telegram</string>
+    <string name="about_telegram_handle" translatable="false">@v2ray_DA</string>
+    <string name="about_github" translatable="false">GitHub</string>
+    <string name="about_github_handle" translatable="false">rc3vr467/DeltaBox</string>
+    <string name="black_wall" translatable="false">Black Wall</string>
+    <string name="black_wall_subtitle">Anti-DPI stealth engine</string>
+    <string name="black_wall_protection_level">Protection level</string>
+    <string name="black_wall_level_ghost" translatable="false">Ghost</string>
+    <string name="black_wall_level_ghost_desc">TLS SNI camouflage against a whitelisted, never-blocked CDN domain</string>
+    <string name="black_wall_level_phantom" translatable="false">Phantom</string>
+    <string name="black_wall_level_phantom_desc">Ghost plus randomized uTLS browser fingerprinting</string>
+    <string name="black_wall_level_wraith" translatable="false">Wraith</string>
+    <string name="black_wall_level_wraith_desc">Phantom plus periodic decoy HTTPS traffic alongside the tunnel</string>
+    <string name="black_wall_applies_next_connection">Changes apply on the next connection</string>
+    <string name="ad_block">AdBlock</string>
+    <string name="ad_block_subtitle">Block ad and tracker domains</string>
+    <string name="ad_block_update_lists">Update block lists</string>
     <string name="document">Document</string>
     <string name="group_default">Ungrouped</string>
     <string name="quick_toggle">Toggle</string>

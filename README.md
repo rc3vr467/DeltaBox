@@ -63,7 +63,7 @@ also be chained through one another.
 
 ## Download
 
-APK for your device from [Releases](https://github.com/rc3vr467/DeltaBox/releases/latest)
+APK for your device from [Releases](https://github.com/rc3vr467/DeltaBox/releases)
 (`arm64-v8a` for almost every phone, `armeabi-v7a` for older ones, `x86` and `x86_64` for Intel
 tablets and emulators).
 
@@ -72,7 +72,7 @@ tablets and emulators).
 DeltaBox is a fork of [NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid), itself
 built on [SagerNet](https://github.com/SagerNet/SagerNet). It stands on
 [sing-box](https://github.com/SagerNet/sing-box). The Black Wall engine is ported from
-[ChimeraWire](https://github.com/inferno1978/Chimera-Project)'s anti-DPI engine, adapted to
+[ChimeraWire's anti-DPI engine](https://github.com/inferno1978/Chimera-Project), adapted to
 sing-box's config builder in place of Xray JSON. Ad and tracker blocking uses
 [AdAway](https://github.com/adaway/adaway) and [MahsaNG](https://github.com/GFW-knocker/MahsaNG)
 block lists.

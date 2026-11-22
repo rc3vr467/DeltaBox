@@ -64,7 +64,7 @@
 
 ## دانلود
 
-فایل APK متناسب با دستگاهتان را از [Releases](https://github.com/rc3vr467/DeltaBox/releases/latest)
+فایل APK متناسب با دستگاهتان را از [Releases](https://github.com/rc3vr467/DeltaBox/releases)
 دانلود کنید (`arm64-v8a` برای تقریباً همه‌ی گوشی‌ها، `armeabi-v7a` برای گوشی‌های قدیمی‌تر، `x86` و
 `x86_64` برای تبلت‌های اینتلی و شبیه‌سازها).
 
@@ -73,7 +73,7 @@
 دلتاباکس فورکی از [NekoBoxForAndroid](https://github.com/MatsuriDayo/NekoBoxForAndroid) است، که
 خودش بر پایه‌ی [SagerNet](https://github.com/SagerNet/SagerNet) ساخته شده. این پروژه بر پایه‌ی
 [sing-box](https://github.com/SagerNet/sing-box) استوار است. موتور دیوار سیاه برگرفته از موتور
-ضد-DPI پروژه‌ی [ChimeraWire](https://github.com/inferno1978/Chimera-Project) است که برای کار با
+[ضد-DPI پروژه‌ی ChimeraWire](https://github.com/inferno1978/Chimera-Project) است که برای کار با
 کانفیگ‌ساز sing-box (به‌جای JSON مخصوص Xray) تطبیق داده شده. مسدودسازی تبلیغات و ردیاب‌ها با
 استفاده از لیست‌های [AdAway](https://github.com/adaway/adaway) و
 [MahsaNG](https://github.com/GFW-knocker/MahsaNG) انجام می‌شود.

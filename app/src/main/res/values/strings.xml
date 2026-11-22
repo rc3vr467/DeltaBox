@@ -43,6 +43,12 @@
     <string name="ad_block">AdBlock</string>
     <string name="ad_block_subtitle">Block ad and tracker domains</string>
     <string name="ad_block_update_lists">Update block lists</string>
+    <string name="ad_block_domains">%d domains blocked</string>
+    <string name="ad_block_updating">Updating block lists…</string>
+    <string name="ad_block_update_failed">Failed to update block lists</string>
+    <string name="profile_type_with_ip">%1$s · %2$s</string>
+    <string name="abc_shareactionprovider_share_with">Share with</string>
+    <string name="copy_toast_msg">Link copied to clipboard.</string>
     <string name="document">Document</string>
     <string name="group_default">Ungrouped</string>
     <string name="quick_toggle">Toggle</string>

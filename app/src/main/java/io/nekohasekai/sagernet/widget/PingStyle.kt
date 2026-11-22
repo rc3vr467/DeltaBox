@@ -15,14 +15,15 @@ import io.nekohasekai.sagernet.R
  */
 object PingStyle {
 
-    private enum class Level(val text: Int, val bg: Int) {
+    enum class Level(val text: Int, val bg: Int) {
         GOOD(R.color.delta_ping_good, R.color.delta_ping_good_bg),
         WARN(R.color.delta_ping_warn, R.color.delta_ping_warn_bg),
         BAD(R.color.delta_ping_bad, R.color.delta_ping_bad_bg),
         NONE(R.color.delta_ping_none, R.color.delta_ping_none_bg)
     }
 
-    private fun levelOf(ms: Int?): Level = when {
+    /** Same thresholds as [apply]; exposed so the status panel can reuse them on its dark palette. */
+    fun levelOf(ms: Int?): Level = when {
         ms == null || ms < 0 -> Level.NONE
         ms <= 500 -> Level.GOOD
         ms <= 1600 -> Level.WARN

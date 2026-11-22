@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bottom status panel (dark glass + neon green). Used only by layout_main.xml / StatsBar. -->
+<resources>
+    <color name="delta_stats_glass">#E6071D17</color>
+    <color name="delta_stats_glass_on">#E6082A20</color>
+    <color name="delta_stats_neon">#00E887</color>
+    <color name="delta_stats_neon_2">#00B96B</color>
+    <color name="delta_stats_text">#F4FFF9</color>
+    <color name="delta_stats_text_2">#A7BDB2</color>
+    <color name="delta_stats_divider">#29483B</color>
+    <color name="delta_stats_idle">#5C6F66</color>
+    <color name="delta_stats_connecting">#FFC857</color>
+    <color name="delta_stats_good">#00E887</color>
+    <color name="delta_stats_medium">#FFC857</color>
+    <color name="delta_stats_weak">#FF6B6B</color>
+    <color name="delta_stats_unknown">#A7BDB2</color>
+</resources>

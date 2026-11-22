@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One bar of the connection-quality signal icon. Colour is applied in code (backgroundTint). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="1.5dp" />
+    <solid android:color="@color/delta_stats_unknown" />
+</shape>

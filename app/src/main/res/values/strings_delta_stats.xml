@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stats_ping_none">Ping —</string>
+    <string name="stats_ping_value">Ping %1$d ms</string>
+    <string name="stats_upload">Upload</string>
+    <string name="stats_quality_good">Good</string>
+    <string name="stats_quality_medium">Medium</string>
+    <string name="stats_quality_weak">Weak</string>
+</resources>

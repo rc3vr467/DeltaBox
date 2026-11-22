@@ -3942,6 +3942,17 @@ public class SingBoxOptions {
 
         public String header_protection_key;
 
+        // AmneziaWG i1-i5 (see option.WireGuardEndpointOptions in sing-box).
+        public String i1;
+
+        public String i2;
+
+        public String i3;
+
+        public String i4;
+
+        public String i5;
+
     }
 
     public static class Outbound_HysteriaOptions extends Outbound {

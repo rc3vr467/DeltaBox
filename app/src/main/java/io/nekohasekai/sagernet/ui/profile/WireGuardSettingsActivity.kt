@@ -40,6 +40,11 @@ class WireGuardSettingsActivity : ProfileSettingsActivity<WireGuardBean>() {
     private val h3 = pbm.add(PreferenceBinding(Type.Text, "h3"))
     private val h4 = pbm.add(PreferenceBinding(Type.Text, "h4"))
     private val headerProtectionKey = pbm.add(PreferenceBinding(Type.Text, "headerProtectionKey"))
+    private val i1 = pbm.add(PreferenceBinding(Type.Text, "i1"))
+    private val i2 = pbm.add(PreferenceBinding(Type.Text, "i2"))
+    private val i3 = pbm.add(PreferenceBinding(Type.Text, "i3"))
+    private val i4 = pbm.add(PreferenceBinding(Type.Text, "i4"))
+    private val i5 = pbm.add(PreferenceBinding(Type.Text, "i5"))
 
     override fun WireGuardBean.init() {
         pbm.writeToCacheAll(this)

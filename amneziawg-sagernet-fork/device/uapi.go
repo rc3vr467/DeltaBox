@@ -382,6 +382,46 @@ func (device *Device) handleDeviceLine(key, value string) error {
 		device.headerProtection.key = key
 		device.headerProtection.Unlock()
 
+	case "i1":
+		chain, err := newObfChain(value)
+		if err != nil {
+			return ipcErrorf(ipc.IpcErrorInvalid, "failed to parse i1: %w", err)
+		}
+		device.log.Verbosef("UAPI: Updating special junk packet 1")
+		device.ipackets[0].Store(chain)
+
+	case "i2":
+		chain, err := newObfChain(value)
+		if err != nil {
+			return ipcErrorf(ipc.IpcErrorInvalid, "failed to parse i2: %w", err)
+		}
+		device.log.Verbosef("UAPI: Updating special junk packet 2")
+		device.ipackets[1].Store(chain)
+
+	case "i3":
+		chain, err := newObfChain(value)
+		if err != nil {
+			return ipcErrorf(ipc.IpcErrorInvalid, "failed to parse i3: %w", err)
+		}
+		device.log.Verbosef("UAPI: Updating special junk packet 3")
+		device.ipackets[2].Store(chain)
+
+	case "i4":
+		chain, err := newObfChain(value)
+		if err != nil {
+			return ipcErrorf(ipc.IpcErrorInvalid, "failed to parse i4: %w", err)
+		}
+		device.log.Verbosef("UAPI: Updating special junk packet 4")
+		device.ipackets[3].Store(chain)
+
+	case "i5":
+		chain, err := newObfChain(value)
+		if err != nil {
+			return ipcErrorf(ipc.IpcErrorInvalid, "failed to parse i5: %w", err)
+		}
+		device.log.Verbosef("UAPI: Updating special junk packet 5")
+		device.ipackets[4].Store(chain)
+
 	default:
 		return ipcErrorf(ipc.IpcErrorInvalid, "invalid UAPI device key: %v", key)
 	}

@@ -40,6 +40,18 @@ type WireGuardEndpointOptions struct {
 	TransportPacketMagicHeader string `json:"h4,omitempty"`
 	HeaderProtectionKey        string `json:"header_protection_key,omitempty"`
 
+	// AmneziaWG i1-i5: up to five fixed obfuscated packets sent once,
+	// immediately before the real handshake initiation. Each value is an
+	// obfChain tag spec (e.g. "<b 0xDEADBEEF>"), matching the AmneziaWG
+	// [Interface] config-file I1/.../I5 keys and the i1/.../i5 UAPI keys
+	// (see transport/wireguard/endpoint.go and amneziawg-sagernet-fork's
+	// device/obf.go). Omitted/empty means "not set": no extra packet sent.
+	SpecialJunkPacket1 string `json:"i1,omitempty"`
+	SpecialJunkPacket2 string `json:"i2,omitempty"`
+	SpecialJunkPacket3 string `json:"i3,omitempty"`
+	SpecialJunkPacket4 string `json:"i4,omitempty"`
+	SpecialJunkPacket5 string `json:"i5,omitempty"`
+
 	DialerOptions
 }
 

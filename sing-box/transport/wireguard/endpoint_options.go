@@ -51,6 +51,13 @@ type EndpointOptions struct {
 	CookiePacketMagicHeader    string
 	TransportPacketMagicHeader string
 	HeaderProtectionKey        string
+
+	// AmneziaWG i1-i5 (see option.WireGuardEndpointOptions).
+	SpecialJunkPacket1 string
+	SpecialJunkPacket2 string
+	SpecialJunkPacket3 string
+	SpecialJunkPacket4 string
+	SpecialJunkPacket5 string
 }
 
 type PeerOptions struct {

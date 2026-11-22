@@ -95,6 +95,21 @@ func NewEndpoint(options EndpointOptions) (*Endpoint, error) {
 	if options.TransportPacketMagicHeader != "" {
 		ipcConf += "\nh4=" + options.TransportPacketMagicHeader
 	}
+	if options.SpecialJunkPacket1 != "" {
+		ipcConf += "\ni1=" + options.SpecialJunkPacket1
+	}
+	if options.SpecialJunkPacket2 != "" {
+		ipcConf += "\ni2=" + options.SpecialJunkPacket2
+	}
+	if options.SpecialJunkPacket3 != "" {
+		ipcConf += "\ni3=" + options.SpecialJunkPacket3
+	}
+	if options.SpecialJunkPacket4 != "" {
+		ipcConf += "\ni4=" + options.SpecialJunkPacket4
+	}
+	if options.SpecialJunkPacket5 != "" {
+		ipcConf += "\ni5=" + options.SpecialJunkPacket5
+	}
 	if options.HeaderProtectionKey != "" {
 		headerProtectionKeyBytes, err := base64.StdEncoding.DecodeString(options.HeaderProtectionKey)
 		if err != nil {

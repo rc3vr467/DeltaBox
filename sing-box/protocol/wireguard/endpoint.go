@@ -132,6 +132,11 @@ func NewEndpoint(ctx context.Context, router adapter.Router, logger log.ContextL
 		CookiePacketMagicHeader:    options.CookiePacketMagicHeader,
 		TransportPacketMagicHeader: options.TransportPacketMagicHeader,
 		HeaderProtectionKey:        options.HeaderProtectionKey,
+		SpecialJunkPacket1:         options.SpecialJunkPacket1,
+		SpecialJunkPacket2:         options.SpecialJunkPacket2,
+		SpecialJunkPacket3:         options.SpecialJunkPacket3,
+		SpecialJunkPacket4:         options.SpecialJunkPacket4,
+		SpecialJunkPacket5:         options.SpecialJunkPacket5,
 
 		ResolvePeer: func(domain string) ([]netip.Addr, error) {
 			return ep.dnsRouter.Lookup(ctx, domain, outboundDialer.(dialer.ResolveDialer).QueryOptions())

@@ -118,6 +118,31 @@
             app:icon="@drawable/ic_settings_password"
             app:key="headerProtectionKey"
             app:title="@string/wireguard_header_protection_key" />
+        <EditTextPreference
+            app:icon="@drawable/ic_baseline_shuffle_24"
+            app:key="i1"
+            app:title="@string/wireguard_i1"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:icon="@drawable/ic_baseline_shuffle_24"
+            app:key="i2"
+            app:title="@string/wireguard_i2"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:icon="@drawable/ic_baseline_shuffle_24"
+            app:key="i3"
+            app:title="@string/wireguard_i3"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:icon="@drawable/ic_baseline_shuffle_24"
+            app:key="i4"
+            app:title="@string/wireguard_i4"
+            app:useSimpleSummaryProvider="true" />
+        <EditTextPreference
+            app:icon="@drawable/ic_baseline_shuffle_24"
+            app:key="i5"
+            app:title="@string/wireguard_i5"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
 </PreferenceScreen>

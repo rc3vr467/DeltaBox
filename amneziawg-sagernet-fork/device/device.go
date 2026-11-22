@@ -127,6 +127,11 @@ type Device struct {
 		sync.RWMutex
 		key HeaderCipherKey
 	}
+
+	// --- AmneziaWG: i1-i5, up to five fixed packets sent once, immediately ---
+	// --- before the real handshake initiation (see obf.go / send.go). Each ---
+	// --- slot nil (unset) is a no-op, so ordinary peers are unaffected. ---
+	ipackets [5]atomic.Pointer[obfChain]
 }
 
 // deviceState represents the state of a Device.

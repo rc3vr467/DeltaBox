@@ -499,6 +499,11 @@
     <string name="wireguard_h3">Cookie Packet Magic Header (H3)</string>
     <string name="wireguard_h4">Transport Packet Magic Header (H4)</string>
     <string name="wireguard_header_protection_key">Header Protection Key</string>
+    <string name="wireguard_i1">Special Junk Packet 1 (I1)</string>
+    <string name="wireguard_i2">Special Junk Packet 2 (I2)</string>
+    <string name="wireguard_i3">Special Junk Packet 3 (I3)</string>
+    <string name="wireguard_i4">Special Junk Packet 4 (I4)</string>
+    <string name="wireguard_i5">Special Junk Packet 5 (I5)</string>
 
     <string name="cloudflare_wrap" translatable="false">Cloudflare Warp</string>
     <string name="warp_license">CloudFlare Warp is a free WireGuard VPN provider. By using it, you

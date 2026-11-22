@@ -806,6 +806,41 @@ func (device *Device) JunkPackets(headerSize int) [][]byte {
 	return bufs
 }
 
+// SpecialJunkPackets returns the up to five i1-i5 obfuscated packets, each
+// built from its own obfChain (see obf.go), sent once immediately before the
+// real handshake initiation and before the jc-controlled JunkPackets. An
+// unset slot (nil chain, meaning the i1/.../i5 UAPI key was never set) is
+// skipped, so ordinary (non-obfuscated) peers get no extra packets from this
+// at all, identical to upstream amneziawg-go's own ipackets handling.
+//
+// headerSize must be the caller's MessageEncapsulatingTransportSize (see
+// JunkPackets, same requirement): every buffer handed to bind.Send() must
+// reserve that many leading bytes for sing-box's own transport framing, so a
+// chain whose configured spec is shorter than that is padded up to it with
+// extra random bytes rather than producing an undersized buffer.
+func (device *Device) SpecialJunkPackets(headerSize int) [][]byte {
+	var bufs [][]byte
+
+	for i := range device.ipackets {
+		chain := device.ipackets[i].Load()
+		if chain == nil {
+			continue
+		}
+		size := chain.ObfuscatedLen(0)
+		if size < headerSize {
+			size = headerSize
+		}
+		buf := make([]byte, size)
+		chain.Obfuscate(buf, nil)
+		if size > chain.ObfuscatedLen(0) {
+			randRead(buf[chain.ObfuscatedLen(0):])
+		}
+		bufs = append(bufs, buf)
+	}
+
+	return bufs
+}
+
 // HeaderProtectionCipher returns a chacha20 keystream cipher derived from the
 // configured header-protection key (set via a future "h-key"-style UAPI
 // field) and the given salt/nonce. Returns (nil, nil) — meaning "do not XOR

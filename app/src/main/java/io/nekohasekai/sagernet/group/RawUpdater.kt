@@ -744,6 +744,15 @@ object RawUpdater : GroupUpdater() {
         iface["H3"]?.let { bean.h3 = it }
         iface["H4"]?.let { bean.h4 = it }
         iface["HeaderProtectionKey"]?.let { bean.headerProtectionKey = it }
+        // AmneziaWG i1-i5: fixed obfuscated packets sent before the
+        // handshake, read from the same [Interface] section. Each value is
+        // an obfChain tag spec (e.g. "<b 0x...>"); left at "" when absent,
+        // meaning no extra packet for that slot.
+        iface["I1"]?.let { bean.i1 = it }
+        iface["I2"]?.let { bean.i2 = it }
+        iface["I3"]?.let { bean.i3 = it }
+        iface["I4"]?.let { bean.i4 = it }
+        iface["I5"]?.let { bean.i5 = it }
         val peers = ini.getAll("Peer")
         if (peers.isNullOrEmpty()) error("Missing 'Peer' selections")
         val beans = mutableListOf<WireGuardBean>()

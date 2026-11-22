@@ -36,6 +36,15 @@ public class WireGuardBean extends AbstractBean {
     public String h4;
     public String headerProtectionKey;
 
+    // AmneziaWG i1-i5: up to five fixed obfuscated packets sent once before
+    // the real handshake initiation. Each is an obfChain tag spec, e.g.
+    // "<b 0xDEADBEEF>". Empty string means "not set" (no extra packet).
+    public String i1;
+    public String i2;
+    public String i3;
+    public String i4;
+    public String i5;
+
     @Override
     public void initializeDefaultValues() {
         super.initializeDefaultValues();
@@ -57,30 +66,40 @@ public class WireGuardBean extends AbstractBean {
         if (h3 == null) h3 = "";
         if (h4 == null) h4 = "";
         if (headerProtectionKey == null) headerProtectionKey = "";
+        if (i1 == null) i1 = "";
+        if (i2 == null) i2 = "";
+        if (i3 == null) i3 = "";
+        if (i4 == null) i4 = "";
+        if (i5 == null) i5 = "";
     }
 
     @Override
     public void serialize(ByteBufferOutput output) {
-        output.writeInt(3);
+        output.writeInt(4);
         super.serialize(output);
         output.writeString(localAddress);
         output.writeString(privateKey);
         output.writeString(peerPublicKey);
         output.writeString(peerPreSharedKey);
-        output.writeInt(mtu);
+        output.writeInt(mtu == null ? 1420 : mtu);
         output.writeString(reserved);
-        output.writeInt(jc);
-        output.writeInt(jmin);
-        output.writeInt(jmax);
-        output.writeInt(s1);
-        output.writeInt(s2);
-        output.writeInt(s3);
-        output.writeInt(s4);
+        output.writeInt(jc == null ? 0 : jc);
+        output.writeInt(jmin == null ? 0 : jmin);
+        output.writeInt(jmax == null ? 0 : jmax);
+        output.writeInt(s1 == null ? 0 : s1);
+        output.writeInt(s2 == null ? 0 : s2);
+        output.writeInt(s3 == null ? 0 : s3);
+        output.writeInt(s4 == null ? 0 : s4);
         output.writeString(h1);
         output.writeString(h2);
         output.writeString(h3);
         output.writeString(h4);
         output.writeString(headerProtectionKey);
+        output.writeString(i1);
+        output.writeString(i2);
+        output.writeString(i3);
+        output.writeString(i4);
+        output.writeString(i5);
     }
 
     @Override
@@ -106,6 +125,13 @@ public class WireGuardBean extends AbstractBean {
             h3 = input.readString();
             h4 = input.readString();
             headerProtectionKey = input.readString();
+        }
+        if (version >= 4) {
+            i1 = input.readString();
+            i2 = input.readString();
+            i3 = input.readString();
+            i4 = input.readString();
+            i5 = input.readString();
         }
     }
 

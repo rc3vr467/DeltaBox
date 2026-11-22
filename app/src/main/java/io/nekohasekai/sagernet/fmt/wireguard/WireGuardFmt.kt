@@ -54,5 +54,10 @@ fun buildSingBoxOutboundWireguardBean(bean: WireGuardBean): SingBoxOptions.Outbo
         if (bean.h3.isNotBlank()) h3 = bean.h3
         if (bean.h4.isNotBlank()) h4 = bean.h4
         if (bean.headerProtectionKey.isNotBlank()) header_protection_key = bean.headerProtectionKey
+        if (bean.i1.isNotBlank()) i1 = bean.i1
+        if (bean.i2.isNotBlank()) i2 = bean.i2
+        if (bean.i3.isNotBlank()) i3 = bean.i3
+        if (bean.i4.isNotBlank()) i4 = bean.i4
+        if (bean.i5.isNotBlank()) i5 = bean.i5
     }
 }

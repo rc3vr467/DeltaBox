@@ -201,6 +201,12 @@ func (peer *Peer) SendHandshakeInitiation(isRetry bool) error {
 		return err
 	}
 
+	// --- AmneziaWG: i1-i5, up to five fixed packets (each built from its own ---
+	// --- obfChain tag spec, e.g. "<b 0x...>") sent once, before the jc junk ---
+	// --- packets and before the real handshake initiation. Empty when no ---
+	// --- i1/.../i5 UAPI key was ever set, so this is a no-op otherwise. ---
+	specialBuffers := peer.device.SpecialJunkPackets(MessageEncapsulatingTransportSize)
+
 	// --- AmneziaWG: optional junk packets sent immediately before the real ---
 	// --- handshake initiation. Empty/zero when jc/jmin/jmax were never set, ---
 	// --- so this is a no-op for ordinary (non-obfuscated) peers/configs. ---
@@ -254,7 +260,7 @@ func (peer *Peer) SendHandshakeInitiation(isRetry bool) error {
 	trailer := buf[MessageEncapsulatingTransportSize+padding+MessageInitiationSize:]
 	randRead(trailer)
 
-	sendBuffers := append(junkBuffers, buf)
+	sendBuffers := append(append(specialBuffers, junkBuffers...), buf)
 
 	if len(candidates) > 0 {
 		err = peer.sendHandshakeBuffers(sendBuffers, candidates)

@@ -481,6 +481,16 @@ fun buildConfig(
         } else {
             buildChain(0, proxy)
         }
+
+        // Default fallback for unmatched traffic: route it through the main proxy
+        // instead of relying on sing-box's "first outbound" fallback, which only
+        // scans `outbounds` and never sees `endpoints` (e.g. WireGuard endpoints).
+        // Without this, a profile with no user-defined catch-all rule silently
+        // leaks unmatched traffic out via the first `outbounds` entry (`direct`).
+        if (route.final_.isNullOrBlank()) {
+            route.final_ = TAG_PROXY
+        }
+
         // build outbounds from route item
         extraProxies.forEach { (key, p) ->
             tagMap[key] = buildChain(key, p)

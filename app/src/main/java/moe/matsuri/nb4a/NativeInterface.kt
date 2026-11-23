@@ -24,7 +24,31 @@ class NativeInterface : BoxPlatformInterface, NB4AInterface {
     //  libbox interface
 
     override fun autoDetectInterfaceControl(fd: Int) {
-        DataStore.vpnService?.protect(fd)
+        // VpnService.protect() returns false (instead of throwing) when it fails, e.g. when
+        // called too early right after establish()/startVpn() before Android has the VPN's
+        // network fully registered. Previously that Boolean was discarded here and this
+        // function always returned normally, so the Go side (whose interface contract is
+        // `AutoDetectInterfaceControl(fd int32) error`, see libcore/platform_java.go:15)
+        // always saw a nil/success error, even when the fd was never actually protected.
+        // An unprotected socket on Android gets its packets looped back into the VPN tun
+        // and the kernel reports them with "sendmsg: input/output error" forever after,
+        // since WireGuard/sing-box don't recreate the socket once it's open. Surfacing the
+        // failure as a thrown exception here (gomobile maps a thrown exception back to a
+        // non-nil Go `error`) lets the Go side know protection failed instead of silently
+        // treating it as success; a couple of quick retries covers the common transient
+        // case of calling protect() in the brief window right after establish().
+        val vpnService = DataStore.vpnService
+            ?: throw Exception("autoDetectInterfaceControl: no VpnService")
+        var protected = false
+        for (attempt in 0 until 3) {
+            protected = vpnService.protect(fd)
+            if (protected) break
+            if (attempt < 2) Thread.sleep(50)
+        }
+        if (!protected) {
+            Logs.w("autoDetectInterfaceControl: VpnService.protect(fd=$fd) failed after retries")
+            throw Exception("VpnService.protect(fd=$fd) failed")
+        }
     }
 
     override fun openTun(singTunOptionsJson: String, tunPlatformOptionsJson: String): Long {

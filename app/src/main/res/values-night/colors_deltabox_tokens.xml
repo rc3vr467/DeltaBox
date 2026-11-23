@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- DeltaBox 1.0.15 design tokens (dark). -->
 <resources>
-    <color name="delta_chart_download">#9278E8</color>
-    <color name="delta_chart_upload">#43C69A</color>
-    <color name="delta_chart_baseline">#292B3A</color>
-    <color name="delta_chart_label">#858399</color>
+    <color name="delta_chart_download">#4ADE80</color>
+    <color name="delta_chart_upload">#A78BFA</color>
+    <color name="delta_chart_baseline">#2A2A33</color>
+    <color name="delta_chart_label">#8888A0</color>
 </resources>

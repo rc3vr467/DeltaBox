@@ -25,7 +25,7 @@
     <string name="menu_delete_invalid">Delete Invalid</string>
     <string name="menu_sort_by_delay">Sort by Delay</string>
     <string name="about_developer">Developer</string>
-    <string name="developer_name" translatable="false">rc3vr467</string>
+    <string name="developer_name" translatable="false">Pedram &amp; Danial</string>
     <string name="about_telegram" translatable="false">Telegram</string>
     <string name="about_telegram_handle" translatable="false">@v2ray_DA</string>
     <string name="about_github" translatable="false">GitHub</string>

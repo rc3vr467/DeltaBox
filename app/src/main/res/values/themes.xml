@@ -159,7 +159,7 @@
         <item name="primaryOrTextSecondary">@color/delta_accent</item>
         <item name="primaryOrTextPrimary">@color/delta_accent</item>
         <item name="android:windowBackground">@color/delta_bg</item>
-        <item name="android:statusBarColor">@color/delta_toolbar_bg</item>
+        <item name="android:statusBarColor">@color/delta_primary_dark</item>
         <!-- Design system (display only) -->
         <item name="colorPrimaryVariant">@color/delta_primary_dark</item>
         <item name="colorSecondaryVariant">@color/delta_accent_soft</item>

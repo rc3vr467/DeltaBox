@@ -27,7 +27,7 @@
 
             <!-- Master toggle card -->
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.Delta.Card"
+                style="@style/Widget.MaterialComponents.CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
@@ -175,7 +175,7 @@
 
             <!-- AdBlock card -->
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.Delta.Card"
+                style="@style/Widget.MaterialComponents.CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

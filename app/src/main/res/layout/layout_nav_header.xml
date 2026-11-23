@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- DeltaBox v3 — Navigation Drawer Header -->
+<!-- DeltaBox v3 — Navigation Drawer Header
+     Visuals (logo size, spacing, letter-spacing) ported from 1.0.3.
+     Wordmark text kept from 1.0.4 ("Delta" + "Box") because the app name is unchanged. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -14,8 +16,8 @@
 
     <!-- Cat logo icon -->
     <ImageView
-        android:layout_width="52dp"
-        android:layout_height="52dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/ic_cat_base"
         android:scaleType="centerCrop"
         android:importantForAccessibility="no" />
@@ -38,7 +40,8 @@
                 android:text="Delta"
                 android:textColor="@color/delta_text"
                 android:textSize="20sp"
-                android:fontFamily="sans-serif-medium" />
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.01" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -47,7 +50,8 @@
                 android:text="Box"
                 android:textColor="@color/delta_brand"
                 android:textSize="20sp"
-                android:fontFamily="sans-serif-medium" />
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.01" />
         </LinearLayout>
 
         <TextView

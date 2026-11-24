@@ -21,8 +21,8 @@ object ConfigMigrate {
         val routeRules = list(route["rules"]) ?: mutableListOf<Any?>().also { route["rules"] = it }
 
         migrateInbounds(root, routeRules)
-        val dnsResolverTag = migrateDns(root, route)
-        migrateOutbounds(root, dnsResolverTag)
+        val (directResolverTag, remoteResolverTag) = migrateDns(root, route)
+        migrateOutbounds(root, directResolverTag, remoteResolverTag)
     }
 
     private fun migrateInbounds(root: MutableMap<String, Any?>, routeRules: MutableList<Any?>) {
@@ -88,12 +88,26 @@ object ConfigMigrate {
         return m
     }
 
-    /** returns tag of the server used as default domain resolver (or null) */
-    private fun migrateDns(root: MutableMap<String, Any?>, route: MutableMap<String, Any?>): String? {
-        val dns = map(root["dns"]) ?: return null
+    /**
+     * Returns the tags of the servers used as default domain resolvers:
+     * (dns-direct tag, dns-remote tag) - either may be null if not present.
+     *
+     * dns-direct resolves by going straight out the underlying (non-VPN) network
+     * interface. That's correct for outbounds/endpoints that themselves dial out
+     * directly, but wrong for a proxy endpoint like wireguard: a wireguard peer's
+     * own traffic is already routed through its tunnel, so resolving its domains
+     * via dns-direct sends the DNS query out a different path than the data ever
+     * takes, which the peer/upstream network may simply not answer, hanging until
+     * timeout ("missing default interface" noise aside, the real symptom is DNS
+     * queries made through the tunnel all failing with context deadline exceeded).
+     * dns-remote (resolved through the proxy/tunnel itself) is the correct default
+     * for these. See migrateOutbounds.
+     */
+    private fun migrateDns(root: MutableMap<String, Any?>, route: MutableMap<String, Any?>): Pair<String?, String?> {
+        val dns = map(root["dns"]) ?: return null to null
         dns.remove("independent_cache")
         val fakeip = map(dns.remove("fakeip"))
-        val servers = list(dns["servers"]) ?: return null
+        val servers = list(dns["servers"]) ?: return null to null
         val blockTags = mutableSetOf<String>()
         var globalStrategy: String? = null
         val newServers = mutableListOf<Any?>()
@@ -149,13 +163,14 @@ object ConfigMigrate {
             }
         }
         val directTag = newServers.firstNotNullOfOrNull { map(it)?.takeIf { m -> m["tag"] == "dns-direct" }?.get("tag") } as? String
+        val remoteTag = newServers.firstNotNullOfOrNull { map(it)?.takeIf { m -> m["tag"] == "dns-remote" }?.get("tag") } as? String
         if (needDefaultResolver && directTag != null && route["default_domain_resolver"] == null) {
             route["default_domain_resolver"] = directTag
         }
-        return directTag
+        return directTag to remoteTag
     }
 
-    private fun migrateOutbounds(root: MutableMap<String, Any?>, resolverTag: String?) {
+    private fun migrateOutbounds(root: MutableMap<String, Any?>, directResolverTag: String?, remoteResolverTag: String?) {
         val outbounds = list(root["outbounds"]) ?: return
         val endpoints = list(root["endpoints"]) ?: mutableListOf<Any?>()
         val it = outbounds.iterator()
@@ -163,6 +178,14 @@ object ConfigMigrate {
         while (it.hasNext()) {
             val ob = map(it.next()) ?: continue
             val ds = ob.remove("domain_strategy") as? String
+            // A proxy endpoint like wireguard dials its own peer and routes all of
+            // its traffic through that tunnel, so its domains (e.g. the DNS it's
+            // asked to resolve while already connected) must be resolved the same
+            // way: through dns-remote. Every other outbound here is a protocol that
+            // dials its own server directly from the device's own network, so
+            // dns-direct remains correct for those.
+            val isTunnelRoutedOutbound = ob["type"] == "wireguard"
+            val resolverTag = if (isTunnelRoutedOutbound) (remoteResolverTag ?: directResolverTag) else directResolverTag
             if (!ds.isNullOrEmpty() && ob["domain_resolver"] == null && resolverTag != null) {
                 ob["domain_resolver"] = mutableMapOf<String, Any?>("server" to resolverTag, "strategy" to ds)
             }

@@ -119,7 +119,7 @@ func (s *realInterfaceMonitor) updateDefaultInterfaceInfo(interfaceName string) 
 	}
 	old := s.current
 	unchanged := s.initialized && old != nil && old.Name == newInterface.Name && old.Index == newInterface.Index
-	s.current = &newInterface
+	s.current = newInterface
 	s.initialized = true
 	callbacks := s.callbacks.Array()
 	s.access.Unlock()
@@ -127,6 +127,6 @@ func (s *realInterfaceMonitor) updateDefaultInterfaceInfo(interfaceName string) 
 		return
 	}
 	for _, callback := range callbacks {
-		callback(&newInterface, 0)
+		callback(newInterface, 0)
 	}
 }

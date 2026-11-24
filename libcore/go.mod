@@ -208,3 +208,14 @@ require (
 replace github.com/matsuridayo/libneko => ../../libneko
 
 replace github.com/sagernet/sing-box => ../sing-box
+
+// Go's `replace` directives are not transitive: sing-box/go.mod already
+// replaces github.com/sagernet/wireguard-go with this same local fork (for
+// AmneziaWG's HeaderCipherKeySize/header_protection_key support), but that
+// only takes effect when sing-box is built as the main module. Here libcore
+// is the main module and sing-box is just a (replaced) dependency, so without
+// repeating the replace here too, Go silently falls back to the real,
+// unmodified github.com/sagernet/wireguard-go release pinned in sing-box's
+// `require` block - which doesn't have HeaderCipherKeySize yet, causing
+// "undefined: device.HeaderCipherKeySize" in transport/wireguard/endpoint.go.
+replace github.com/sagernet/wireguard-go => ../amneziawg-sagernet-fork

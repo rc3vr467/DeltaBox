@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- White icons on the midnight toolbar -->
-    <style name="ThemeOverlay.Delta.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="ThemeOverlay.Delta.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@color/delta_brand</item>
+    </style>
 </resources>

@@ -24,7 +24,9 @@
     </style>
 
     <!-- Toolbar overlay -->
-    <style name="ThemeOverlay.Delta.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar" />
+    <style name="ThemeOverlay.Delta.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/delta_brand</item>
+    </style>
 
     <!-- ── Cards ── -->
     <!-- Fallback alias: any bare @style/Widget.Delta resolves to the Delta card style. -->

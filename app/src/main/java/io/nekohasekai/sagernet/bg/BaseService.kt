@@ -296,20 +296,37 @@ class BaseService {
 
         suspend fun preInit() {
             DefaultNetworkListener.start(this) {
-                SagerNet.connectivity.getLinkProperties(it)?.also { link ->
-                    SagerNet.underlyingNetwork = it
-                    DataStore.vpnService?.updateUnderlyingNetwork()
-                    //
-                    val oldName = upstreamInterfaceName
-                    if (oldName != link.interfaceName) {
-                        upstreamInterfaceName = link.interfaceName
-                        Logs.step("Underlying network: ${oldName ?: "none"} -> ${link.interfaceName} (dns=${link.dnsServers.joinToString { d -> d.hostAddress ?: "?" }})")
+                val link = it?.let { network -> SagerNet.connectivity.getLinkProperties(network) }
+                if (link == null) {
+                    // Network lost (or none available yet): tell the Go core's router
+                    // there is no default interface right now, same as upstream libbox
+                    // does for interfaceIndex == -1. Previously nothing told the core
+                    // about this at all (see interface_monitor.go), so it always believed
+                    // there was no interface and paused all traffic dispatch regardless
+                    // of whether Android actually had a working network.
+                    if (upstreamInterfaceName != null) {
+                        Logs.step("Underlying network: $upstreamInterfaceName -> none")
                     }
-                    if (oldName != null && upstreamInterfaceName != null && oldName != upstreamInterfaceName) {
-                        Logs.d("Network changed: $oldName -> $upstreamInterfaceName")
-                        if (DataStore.networkChangeResetConnections) {
-                            Libcore.resetAllConnections(true)
-                        }
+                    upstreamInterfaceName = null
+                    Libcore.updateDefaultInterface("")
+                    return@start
+                }
+                SagerNet.underlyingNetwork = it
+                DataStore.vpnService?.updateUnderlyingNetwork()
+                //
+                val oldName = upstreamInterfaceName
+                if (oldName != link.interfaceName) {
+                    upstreamInterfaceName = link.interfaceName
+                    Logs.step("Underlying network: ${oldName ?: "none"} -> ${link.interfaceName} (dns=${link.dnsServers.joinToString { d -> d.hostAddress ?: "?" }})")
+                }
+                // Always push the current interface down to the Go core's router, not
+                // only on a name change: this also covers the very first callback after
+                // a cold start, where oldName starts out null and must still reach Go.
+                Libcore.updateDefaultInterface(link.interfaceName ?: "")
+                if (oldName != null && upstreamInterfaceName != null && oldName != upstreamInterfaceName) {
+                    Logs.d("Network changed: $oldName -> $upstreamInterfaceName")
+                    if (DataStore.networkChangeResetConnections) {
+                        Libcore.resetAllConnections(true)
                     }
                 }
             }

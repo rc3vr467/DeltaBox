@@ -1,1847 +1,408 @@
-diff -ruN --strip-trailing-cr a/app/src/main/res/drawable/bg_black_wall_level_card.xml b/app/src/main/res/drawable/bg_black_wall_level_card.xml
---- a/app/src/main/res/drawable/bg_black_wall_level_card.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/drawable/bg_black_wall_level_card.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -2,6 +2,5 @@
- <shape xmlns:android="http://schemas.android.com/apk/res/android"
-     android:shape="rectangle">
-     <corners android:radius="14dp" />
--    <solid android:color="@color/delta_card" />
--    <stroke android:width="1dp" android:color="@color/delta_stroke" />
-+    <solid android:color="#FFFFFF" />
- </shape>
-diff -ruN --strip-trailing-cr a/app/src/main/res/drawable/bg_delta_popup.xml b/app/src/main/res/drawable/bg_delta_popup.xml
---- a/app/src/main/res/drawable/bg_delta_popup.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/drawable/bg_delta_popup.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -1,7 +1,7 @@
- <?xml version="1.0" encoding="utf-8"?>
- <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-     <solid android:color="@color/delta_popup_bg" />
--    <corners android:radius="14dp" />
-+    <corners android:radius="18dp" />
-     <stroke
-         android:width="1dp"
-         android:color="@color/delta_popup_stroke" />
-diff -ruN --strip-trailing-cr a/app/src/main/res/drawable/bg_tools_icon_container_danger.xml b/app/src/main/res/drawable/bg_tools_icon_container_danger.xml
---- a/app/src/main/res/drawable/bg_tools_icon_container_danger.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/drawable/bg_tools_icon_container_danger.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -2,6 +2,6 @@
- <!-- DeltaBox v3: Tools popup icon bg — danger/destructive -->
- <shape xmlns:android="http://schemas.android.com/apk/res/android"
-     android:shape="rectangle">
--    <solid android:color="@color/delta_error_soft" />
-+    <solid android:color="#15EF4444" />
-     <corners android:radius="10dp" />
- </shape>
-diff -ruN --strip-trailing-cr a/app/src/main/res/layout/layout_about.xml b/app/src/main/res/layout/layout_about.xml
---- a/app/src/main/res/layout/layout_about.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/layout/layout_about.xml	2026-11-23 23:20:55.963453468 +0330
-@@ -1,4 +1,8 @@
- <?xml version="1.0" encoding="utf-8"?>
-+<!-- DeltaBox 1.0.4 — About screen.
-+     Visual design ported from 1.0.3. Row structure and IDs follow 1.0.4:
-+     Developer (informational, not clickable) → Telegram → GitHub.
-+     about_row_telegram / about_row_github are bound in AboutFragment. -->
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:app="http://schemas.android.com/apk/res-auto"
-     xmlns:tools="http://schemas.android.com/tools"
-@@ -13,104 +17,81 @@
- 
-     <androidx.core.widget.NestedScrollView
-         android:layout_width="match_parent"
--        android:layout_height="match_parent"
--        android:clipToPadding="false"
--        android:paddingBottom="16dp">
-+        android:layout_height="match_parent">
- 
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="vertical">
- 
--            <!-- Hero: app identity -->
-             <com.google.android.material.card.MaterialCardView
-                 android:id="@+id/title_card"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
--                android:layout_marginStart="8dp"
-+                android:layout_marginLeft="8dp"
-                 android:layout_marginTop="8dp"
--                android:layout_marginEnd="8dp"
--                app:cardElevation="0dp">
-+                android:layout_marginRight="8dp"
-+                android:clickable="true"
-+                android:focusable="true">
- 
-                 <LinearLayout
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
--                    android:gravity="center_vertical"
--                    android:orientation="horizontal"
-+                    android:orientation="vertical"
-                     android:padding="16dp">
- 
--                    <ImageView
--                        android:layout_width="48dp"
--                        android:layout_height="48dp"
--                        android:importantForAccessibility="no"
--                        android:src="@drawable/ic_cat_base" />
--
--                    <LinearLayout
--                        android:layout_width="0dp"
-+                    <TextView
-+                        android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
--                        android:layout_marginStart="16dp"
--                        android:layout_weight="1"
--                        android:orientation="vertical">
--
--                        <TextView
--                            android:layout_width="wrap_content"
--                            android:layout_height="wrap_content"
--                            android:text="@string/app_name_long"
--                            android:textAppearance="?attr/textAppearanceSubtitle2" />
-+                        android:text="@string/app_name_long"
-+                        android:textAppearance="?attr/textAppearanceSubtitle2" />
- 
--                        <TextView
--                            android:layout_width="wrap_content"
--                            android:layout_height="wrap_content"
--                            android:layout_marginTop="4dp"
--                            android:text="@string/app_desc"
--                            android:textAppearance="?attr/textAppearanceBody2"
--                            android:textColor="?android:textColorSecondary" />
--
--                    </LinearLayout>
-+                    <TextView
-+                        android:layout_width="wrap_content"
-+                        android:layout_height="wrap_content"
-+                        android:layout_marginTop="16dp"
-+                        android:text="@string/app_desc"
-+                        android:textAppearance="?attr/textAppearanceBody2"
-+                        android:textColor="?android:textColorSecondary" />
- 
-                 </LinearLayout>
- 
-             </com.google.android.material.card.MaterialCardView>
- 
--            <!-- Developer / links: order is Developer, Telegram, Github -->
-             <com.google.android.material.card.MaterialCardView
-                 android:id="@+id/about_fragment_holder"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
--                android:layout_marginStart="8dp"
-+                android:layout_marginLeft="8dp"
-                 android:layout_marginTop="8dp"
--                android:layout_marginEnd="8dp"
--                app:cardElevation="0dp">
-+                android:layout_marginRight="8dp">
- 
-                 <LinearLayout
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:orientation="vertical">
- 
--                    <!-- 1. Developer (informational, not clickable) -->
-+                    <!-- 1. Developer (informational, not clickable). Name comes from developer_name. -->
-                     <LinearLayout
-                         android:id="@+id/about_row_developer"
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
--                        android:gravity="center_vertical"
-                         android:orientation="horizontal"
--                        android:paddingStart="16dp"
--                        android:paddingTop="16dp"
--                        android:paddingEnd="16dp"
--                        android:paddingBottom="16dp">
-+                        android:gravity="center_vertical"
-+                        android:padding="16dp">
- 
-                         <ImageView
-                             android:layout_width="24dp"
-                             android:layout_height="24dp"
--                            android:importantForAccessibility="no"
-                             android:src="@drawable/ic_baseline_person_24"
-+                            android:importantForAccessibility="no"
-                             app:tint="?attr/colorControlNormal" />
- 
-                         <LinearLayout
-                             android:layout_width="0dp"
-                             android:layout_height="wrap_content"
--                            android:layout_marginStart="24dp"
-                             android:layout_weight="1"
-+                            android:layout_marginStart="24dp"
-                             android:orientation="vertical">
- 
-                             <TextView
-@@ -134,7 +115,6 @@
-                     <View
-                         android:layout_width="match_parent"
-                         android:layout_height="1dp"
--                        android:layout_marginStart="64dp"
-                         android:background="?android:attr/listDivider" />
- 
-                     <!-- 2. Telegram -->
-@@ -142,28 +122,24 @@
-                         android:id="@+id/about_row_telegram"
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
--                        android:background="?attr/selectableItemBackground"
-+                        android:orientation="horizontal"
-+                        android:gravity="center_vertical"
-+                        android:padding="16dp"
-                         android:clickable="true"
-                         android:focusable="true"
--                        android:gravity="center_vertical"
--                        android:orientation="horizontal"
--                        android:paddingStart="16dp"
--                        android:paddingTop="16dp"
--                        android:paddingEnd="16dp"
--                        android:paddingBottom="16dp">
-+                        android:background="?attr/selectableItemBackground">
- 
-                         <ImageView
-                             android:layout_width="24dp"
-                             android:layout_height="24dp"
--                            android:importantForAccessibility="no"
-                             android:src="@drawable/baseline_send_24"
-                             app:tint="?attr/colorControlNormal" />
- 
-                         <LinearLayout
-                             android:layout_width="0dp"
-                             android:layout_height="wrap_content"
--                            android:layout_marginStart="24dp"
-                             android:layout_weight="1"
-+                            android:layout_marginStart="24dp"
-                             android:orientation="vertical">
- 
-                             <TextView
-@@ -187,36 +163,31 @@
-                     <View
-                         android:layout_width="match_parent"
-                         android:layout_height="1dp"
--                        android:layout_marginStart="64dp"
-                         android:background="?android:attr/listDivider" />
- 
--                    <!-- 3. Github -->
-+                    <!-- 3. GitHub -->
-                     <LinearLayout
-                         android:id="@+id/about_row_github"
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
--                        android:background="?attr/selectableItemBackground"
-+                        android:orientation="horizontal"
-+                        android:gravity="center_vertical"
-+                        android:padding="16dp"
-                         android:clickable="true"
-                         android:focusable="true"
--                        android:gravity="center_vertical"
--                        android:orientation="horizontal"
--                        android:paddingStart="16dp"
--                        android:paddingTop="16dp"
--                        android:paddingEnd="16dp"
--                        android:paddingBottom="16dp">
-+                        android:background="?attr/selectableItemBackground">
- 
-                         <ImageView
-                             android:layout_width="24dp"
-                             android:layout_height="24dp"
--                            android:importantForAccessibility="no"
-                             android:src="@drawable/ic_baseline_link_24"
-                             app:tint="?attr/colorControlNormal" />
- 
-                         <LinearLayout
-                             android:layout_width="0dp"
-                             android:layout_height="wrap_content"
--                            android:layout_marginStart="24dp"
-                             android:layout_weight="1"
-+                            android:layout_marginStart="24dp"
-                             android:orientation="vertical">
- 
-                             <TextView
-diff -ruN --strip-trailing-cr a/app/src/main/res/layout/layout_app_list.xml b/app/src/main/res/layout/layout_app_list.xml
---- a/app/src/main/res/layout/layout_app_list.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/layout/layout_app_list.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -11,7 +11,7 @@
-         android:id="@+id/appbar"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
--        android:background="@color/delta_toolbar_bg">
-+        android:background="?attr/colorPrimary">
- 
-         <com.google.android.material.appbar.CollapsingToolbarLayout
-             android:layout_width="match_parent"
-@@ -23,12 +23,12 @@
-                 android:id="@+id/toolbar"
-                 android:layout_width="match_parent"
-                 android:layout_height="?attr/actionBarSize"
--                android:background="@color/delta_toolbar_bg"
-+                android:background="?attr/colorPrimary"
-                 android:elevation="4dp"
-                 android:theme="?actionBarTheme"
-                 android:touchscreenBlocksFocus="false"
-                 app:layout_collapseMode="pin"
--                app:popupTheme="@style/ThemeOverlay.Delta.Popup"
-+                app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
-                 app:title="@string/app_name" />
- 
-             <LinearLayout
-diff -ruN --strip-trailing-cr a/app/src/main/res/layout/layout_appbar.xml b/app/src/main/res/layout/layout_appbar.xml
---- a/app/src/main/res/layout/layout_appbar.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/layout/layout_appbar.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -4,17 +4,17 @@
-     android:id="@+id/appbar"
-     android:layout_width="match_parent"
-     android:layout_height="?attr/actionBarSize"
--    android:background="@color/delta_toolbar_bg"
-+    android:background="?attr/colorPrimary"
-     android:elevation="0dp">
- 
-     <com.google.android.material.appbar.MaterialToolbar
-         android:id="@+id/toolbar"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
--        android:background="@color/delta_toolbar_bg"
-+        android:background="?attr/colorPrimary"
-         android:theme="?actionBarTheme"
-         android:touchscreenBlocksFocus="false"
--        app:popupTheme="@style/ThemeOverlay.Delta.Popup"
-+        app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
-         app:title="@string/app_name"
-         app:titleTextAppearance="@style/TextAppearance.Delta.Toolbar" />
- </com.google.android.material.appbar.AppBarLayout>
-\ No newline at end of file
-diff -ruN --strip-trailing-cr a/app/src/main/res/layout/layout_apps.xml b/app/src/main/res/layout/layout_apps.xml
---- a/app/src/main/res/layout/layout_apps.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/layout/layout_apps.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -11,7 +11,7 @@
-         android:id="@+id/appbar"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
--        android:background="@color/delta_toolbar_bg">
-+        android:background="?attr/colorPrimary">
- 
-         <com.google.android.material.appbar.CollapsingToolbarLayout
-             android:layout_width="match_parent"
-@@ -23,12 +23,12 @@
-                 android:id="@+id/toolbar"
-                 android:layout_width="match_parent"
-                 android:layout_height="?attr/actionBarSize"
--                android:background="@color/delta_toolbar_bg"
-+                android:background="?attr/colorPrimary"
-                 android:elevation="4dp"
-                 android:theme="?actionBarTheme"
-                 android:touchscreenBlocksFocus="false"
-                 app:layout_collapseMode="pin"
--                app:popupTheme="@style/ThemeOverlay.Delta.Popup"
-+                app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
-                 app:title="@string/app_name" />
- 
-             <LinearLayout
-diff -ruN --strip-trailing-cr a/app/src/main/res/layout/layout_black_wall.xml b/app/src/main/res/layout/layout_black_wall.xml
---- a/app/src/main/res/layout/layout_black_wall.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/layout/layout_black_wall.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -27,7 +27,7 @@
- 
-             <!-- Master toggle card -->
-             <com.google.android.material.card.MaterialCardView
--                style="@style/Widget.Delta.Card"
-+                style="@style/Widget.MaterialComponents.CardView"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 app:cardCornerRadius="16dp"
-@@ -175,7 +175,7 @@
- 
-             <!-- AdBlock card -->
-             <com.google.android.material.card.MaterialCardView
--                style="@style/Widget.Delta.Card"
-+                style="@style/Widget.MaterialComponents.CardView"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_marginTop="20dp"
-diff -ruN --strip-trailing-cr a/app/src/main/res/layout/layout_group_list.xml b/app/src/main/res/layout/layout_group_list.xml
---- a/app/src/main/res/layout/layout_group_list.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/layout/layout_group_list.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -16,7 +16,7 @@
-         android:id="@+id/group_tab"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
--        android:background="@color/delta_toolbar_bg"
-+        android:background="?colorPrimary"
-         android:elevation="4dp"
-         android:visibility="gone"
-         app:tabIndicatorColor="?tabIndicatorColor"
-diff -ruN --strip-trailing-cr a/app/src/main/res/layout/layout_logcat.xml b/app/src/main/res/layout/layout_logcat.xml
---- a/app/src/main/res/layout/layout_logcat.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/layout/layout_logcat.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -14,8 +14,7 @@
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
--        android:padding="8dp"
--        android:background="@color/delta_bg">
-+        android:padding="8dp">
- 
-         <ScrollView
-             android:id="@+id/scroolview"
-@@ -29,12 +28,8 @@
-                 android:background="@null"
-                 android:ems="10"
-                 android:focusable="true"
--                android:fontFamily="monospace"
-                 android:gravity="start|top"
--                android:lineSpacingExtra="3dp"
--                android:padding="8dp"
-                 android:textIsSelectable="true"
--                android:textSize="12sp"
-                 tools:ignore="LabelFor" />
-         </ScrollView>
-     </LinearLayout>
 diff -ruN --strip-trailing-cr a/app/src/main/res/layout/layout_main.xml b/app/src/main/res/layout/layout_main.xml
---- a/app/src/main/res/layout/layout_main.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/layout/layout_main.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -54,9 +54,9 @@
-             android:nextFocusDown="@+id/stats"
-             app:backgroundTint="?fabColorBackground"
-             app:borderWidth="0dp"
--            app:fabCustomSize="68dp"
-+            app:fabCustomSize="60dp"
-             app:layout_anchor="@id/stats"
--            app:maxImageSize="68dp"
-+            app:maxImageSize="60dp"
-             app:pressedTranslationZ="8dp"
-             app:rippleColor="@color/delta_glow"
-             app:srcCompat="@drawable/ic_cat_base"
-@@ -72,30 +72,23 @@
-             app:backgroundTint="@color/delta_card"
-             app:contentInsetStart="0dp"
-             app:elevation="8dp"
--            app:fabCradleMargin="8dp"
--            app:fabCradleRoundedCornerRadius="40dp"
-+            app:fabCradleMargin="10dp"
-+            app:fabCradleRoundedCornerRadius="34dp"
-             app:fabCradleVerticalOffset="4dp"
-             app:hideOnScroll="true"
-             app:layout_scrollFlags="enterAlways|scroll">
- 
--            <!-- DeltaBox 1.0.15: status row (unchanged) + live traffic chart below it -->
--            <LinearLayout
--                android:layout_width="match_parent"
--                android:layout_height="wrap_content"
--                android:background="@drawable/bg_dashboard_panel"
--                android:orientation="vertical">
--
-             <LinearLayout
-                 android:layout_width="match_parent"
+--- a/app/src/main/res/layout/layout_main.xml	2026-11-09 19:18:48.000000000 +0000
++++ b/app/src/main/res/layout/layout_main.xml	2026-11-18 13:01:14.568665542 +0000
+@@ -72,7 +72,7 @@
                  android:layout_height="wrap_content"
                  android:background="?android:attr/selectableItemBackground"
                  android:gravity="center_vertical"
--                android:minHeight="64dp"
-+                android:minHeight="84dp"
+-                android:minHeight="84dp"
++                android:minHeight="88dp"
                  android:orientation="horizontal"
                  android:paddingStart="20dp"
--                android:paddingTop="10dp"
-+                android:paddingTop="12dp"
-                 android:paddingEnd="20dp"
--                android:paddingBottom="10dp">
+                 android:paddingTop="12dp"
+@@ -130,10 +130,10 @@
+                         android:layout_height="wrap_content"
+                         android:layout_marginTop="8dp"
+                         android:background="@drawable/bg_ping_badge"
+-                        android:paddingStart="10dp"
+-                        android:paddingTop="3dp"
+-                        android:paddingEnd="10dp"
+-                        android:paddingBottom="3dp"
++                        android:paddingStart="12dp"
++                        android:paddingTop="4dp"
++                        android:paddingEnd="12dp"
++                        android:paddingBottom="4dp"
+                         android:singleLine="true"
+                         android:textAppearance="@style/TextAppearance.Delta.PingBadge"
+                         tools:text="PING 45 ms" />
+@@ -222,7 +222,7 @@
+                     android:layout_height="wrap_content"
+                     android:text="MANAGE"
+                     android:textColor="@color/delta_nav_footer_text"
+-                    android:textSize="10sp"
++                    android:textSize="11sp"
+                     android:fontFamily="sans-serif-medium"
+                     android:letterSpacing="0.12"
+                     android:paddingStart="28dp"
+@@ -270,7 +270,7 @@
+                     android:layout_height="wrap_content"
+                     android:text="TOOLS"
+                     android:textColor="@color/delta_nav_footer_text"
+-                    android:textSize="10sp"
++                    android:textSize="11sp"
+                     android:fontFamily="sans-serif-medium"
+                     android:letterSpacing="0.12"
+                     android:paddingStart="28dp"
+diff -ruN --strip-trailing-cr a/app/src/main/res/layout/layout_profile.xml b/app/src/main/res/layout/layout_profile.xml
+--- a/app/src/main/res/layout/layout_profile.xml	2026-11-09 11:52:42.000000000 +0000
++++ b/app/src/main/res/layout/layout_profile.xml	2026-11-18 13:01:14.567878843 +0000
+@@ -10,9 +10,9 @@
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginStart="4dp"
+-    android:layout_marginTop="3dp"
++    android:layout_marginTop="4dp"
+     android:layout_marginEnd="4dp"
+-    android:layout_marginBottom="3dp"
++    android:layout_marginBottom="4dp"
+     android:clickable="true"
+     android:focusable="true">
+ 
+@@ -46,7 +46,7 @@
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center_vertical"
+-                android:minHeight="40dp"
++                android:minHeight="44dp"
+                 android:orientation="horizontal"
+                 android:paddingEnd="4dp">
+ 
+@@ -56,7 +56,7 @@
+                     android:layout_gravity="center_vertical"
+                     android:layout_weight="1"
+                     android:gravity="center_vertical"
+-                    android:paddingStart="12dp"
++                    android:paddingStart="16dp"
+                     android:paddingEnd="4dp">
+ 
+                     <TextView
+@@ -126,9 +126,9 @@
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal"
+-                android:paddingStart="12dp"
+-                android:paddingEnd="12dp"
+-                android:paddingBottom="2dp"
++                android:paddingStart="16dp"
++                android:paddingEnd="16dp"
++                android:paddingBottom="4dp"
+                 android:visibility="gone"
+                 tools:visibility="visible">
+ 
+@@ -161,9 +161,9 @@
+                 android:gravity="center_vertical"
+                 android:minHeight="22dp"
+                 android:orientation="horizontal"
+-                android:paddingStart="12dp"
+-                android:paddingEnd="12dp"
+-                android:paddingBottom="8dp">
++                android:paddingStart="16dp"
++                android:paddingEnd="16dp"
 +                android:paddingBottom="12dp">
  
-                 <LinearLayout
-                     android:layout_width="0dp"
-@@ -133,7 +126,9 @@
-                     <TextView
-                         android:id="@+id/exitIp"
-                         android:layout_width="wrap_content"
--                        android:layout_height="0dp"
-+                        android:layout_height="wrap_content"
-+                        android:layout_marginStart="18dp"
-+                        android:layout_marginTop="2dp"
-                         android:singleLine="true"
-                         android:textColor="@color/delta_state_on_text"
-                         android:textSize="13sp"
-@@ -144,7 +139,7 @@
-                         android:id="@+id/pingBadge"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
--                        android:layout_marginTop="6dp"
-+                        android:layout_marginTop="8dp"
-                         android:background="@drawable/bg_ping_badge"
-                         android:paddingStart="10dp"
-                         android:paddingTop="3dp"
-@@ -155,9 +150,8 @@
-                         tools:text="PING 45 ms" />
-                 </LinearLayout>
- 
--                <!-- Reserve a little extra breathing room for the centered cat button/ring. -->
-                 <Space
--                    android:layout_width="104dp"
-+                    android:layout_width="88dp"
-                     android:layout_height="1dp" />
- 
-                 <LinearLayout
-@@ -189,8 +183,6 @@
- 
-             </LinearLayout>
- 
--            </LinearLayout>
--
-         </io.nekohasekai.sagernet.widget.StatsBar>
- 
-     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-@@ -269,7 +261,7 @@
-                     app:itemShapeInsetStart="8dp"
-                     app:itemShapeInsetTop="2dp"
-                     app:itemTextAppearance="@style/TextAppearance.Delta.Nav"
--                    app:itemTextColor="@color/navigation_text"
-+                    app:itemTextColor="@color/navigation_icon"
-                     app:itemVerticalPadding="12dp"
-                     app:menu="@menu/main_drawer_menu_primary" />
- 
-@@ -316,7 +308,7 @@
-                     app:itemShapeInsetStart="8dp"
-                     app:itemShapeInsetTop="2dp"
-                     app:itemTextAppearance="@style/TextAppearance.Delta.Nav"
--                    app:itemTextColor="@color/navigation_text"
-+                    app:itemTextColor="@color/navigation_icon"
-                     app:itemVerticalPadding="12dp"
-                     app:menu="@menu/main_drawer_menu_tools" />
- 
-@@ -343,7 +335,7 @@
-         app:itemShapeInsetStart="8dp"
-         app:itemShapeInsetTop="2dp"
-         app:itemTextAppearance="@style/TextAppearance.Delta.Nav"
--        app:itemTextColor="@color/navigation_text"
-+        app:itemTextColor="@color/navigation_icon"
-         app:itemVerticalPadding="12dp"
-         app:menu="@menu/main_drawer_menu" />
- 
-diff -ruN --strip-trailing-cr a/app/src/main/res/layout/layout_nav_header.xml b/app/src/main/res/layout/layout_nav_header.xml
---- a/app/src/main/res/layout/layout_nav_header.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/layout/layout_nav_header.xml	2026-11-23 23:21:00.659453636 +0330
-@@ -1,5 +1,7 @@
- <?xml version="1.0" encoding="utf-8"?>
--<!-- DeltaBox v3 — Navigation Drawer Header -->
-+<!-- DeltaBox v3 — Navigation Drawer Header
-+     Visuals (logo size, spacing, letter-spacing) ported from 1.0.3.
-+     Wordmark text kept from 1.0.4 ("Delta" + "Box") because the app name is unchanged. -->
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:app="http://schemas.android.com/apk/res-auto"
-     android:layout_width="match_parent"
-@@ -14,8 +16,8 @@
- 
-     <!-- Cat logo icon -->
-     <ImageView
--        android:layout_width="52dp"
--        android:layout_height="52dp"
-+        android:layout_width="40dp"
-+        android:layout_height="40dp"
-         android:src="@drawable/ic_cat_base"
-         android:scaleType="centerCrop"
-         android:importantForAccessibility="no" />
-@@ -38,7 +40,8 @@
-                 android:text="Delta"
-                 android:textColor="@color/delta_text"
-                 android:textSize="20sp"
--                android:fontFamily="sans-serif-medium" />
-+                android:fontFamily="sans-serif-medium"
-+                android:letterSpacing="0.01" />
- 
-             <TextView
-                 android:layout_width="wrap_content"
-@@ -47,7 +50,8 @@
-                 android:text="Box"
-                 android:textColor="@color/delta_brand"
-                 android:textSize="20sp"
--                android:fontFamily="sans-serif-medium" />
-+                android:fontFamily="sans-serif-medium"
-+                android:letterSpacing="0.01" />
-         </LinearLayout>
- 
-         <TextView
-diff -ruN --strip-trailing-cr a/app/src/main/res/layout/layout_tools.xml b/app/src/main/res/layout/layout_tools.xml
---- a/app/src/main/res/layout/layout_tools.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/layout/layout_tools.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -16,7 +16,7 @@
-         android:id="@+id/tools_tab"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
--        android:background="@color/delta_toolbar_bg"
-+        android:background="?colorPrimary"
-         android:elevation="4dp"
-         app:tabIndicatorColor="?tabIndicatorColor"
-         app:tabIndicatorFullWidth="false"
-diff -ruN --strip-trailing-cr a/app/src/main/res/layout/layout_tools_popup.xml b/app/src/main/res/layout/layout_tools_popup.xml
---- a/app/src/main/res/layout/layout_tools_popup.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/layout/layout_tools_popup.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -1,336 +1,408 @@
- <?xml version="1.0" encoding="utf-8"?>
--<!-- DeltaBox 1.0.21 — Tools panel: two-column tile grid shown in a BottomSheetDialog by
--     ConfigurationFragment.showToolsSheet(). One tile per original tool; each forwards to the original menu item. -->
-+<!-- DeltaBox v3 — Premium Tools Popup (BottomSheet-style grouped panel) -->
-+<!-- This layout is inflated by ConfigurationFragment to replace the flat popup menu -->
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-+    xmlns:app="http://schemas.android.com/apk/res-auto"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
--    android:background="@color/delta_tools_bg"
-     android:orientation="vertical"
--    android:paddingStart="16dp"
--    android:paddingTop="20dp"
--    android:paddingEnd="16dp"
-+    android:background="@color/delta_tools_bg"
-+    android:paddingTop="8dp"
-     android:paddingBottom="8dp">
- 
-+    <!-- ── Group 1: Subscription Management ── -->
-+    <TextView
-+        android:layout_width="wrap_content"
-+        android:layout_height="wrap_content"
-+        android:text="SUBSCRIPTION"
-+        android:textColor="@color/delta_tools_header_text"
-+        android:textSize="10sp"
-+        android:fontFamily="sans-serif-medium"
-+        android:letterSpacing="0.12"
-+        android:paddingStart="20dp"
-+        android:paddingTop="12dp"
-+        android:paddingBottom="4dp" />
-+
-+    <!-- Update Subscription -->
-     <LinearLayout
-+        android:id="@+id/tools_update_subscription"
-         android:layout_width="match_parent"
--        android:layout_height="wrap_content"
--        android:layout_marginBottom="12dp"
--        android:orientation="horizontal">
-+        android:layout_height="52dp"
-+        android:orientation="horizontal"
-+        android:gravity="center_vertical"
-+        android:paddingStart="16dp"
-+        android:paddingEnd="16dp"
-+        android:background="?android:attr/selectableItemBackground"
-+        android:clickable="true"
-+        android:focusable="true">
-+
-+        <FrameLayout
-+            android:layout_width="36dp"
-+            android:layout_height="36dp"
-+            android:background="@drawable/bg_tools_icon_container_primary">
-+            <ImageView
-+                android:layout_width="20dp"
-+                android:layout_height="20dp"
-+                android:layout_gravity="center"
-+                android:src="@drawable/ic_baseline_refresh_24"
-+                android:tint="@color/delta_tools_icon_primary"
-+                android:importantForAccessibility="no" />
-+        </FrameLayout>
- 
--        <LinearLayout
--            android:id="@+id/tools_update_subscription"
-+        <TextView
-             android:layout_width="0dp"
--            android:layout_height="96dp"
-+            android:layout_height="wrap_content"
-             android:layout_weight="1"
--            android:layout_marginStart="0dp"
--            android:layout_marginEnd="6dp"
--            android:background="@drawable/bg_tools_card"
--            android:clickable="true"
--            android:focusable="true"
--            android:gravity="center"
--            android:orientation="vertical"
--            android:padding="8dp">
--
--            <FrameLayout
--                android:layout_width="36dp"
--                android:layout_height="36dp"
--                android:background="@drawable/bg_tools_icon_container_primary">
--                <ImageView
--                    android:layout_width="20dp"
--                    android:layout_height="20dp"
--                    android:layout_gravity="center"
--                    android:importantForAccessibility="no"
--                    android:src="@drawable/ic_baseline_refresh_24"
--                    android:tint="@color/delta_tools_icon_primary" />
--            </FrameLayout>
--
--            <TextView
--                android:layout_width="match_parent"
--                android:layout_height="wrap_content"
--                android:layout_marginTop="8dp"
--                android:ellipsize="end"
--                android:fontFamily="sans-serif-medium"
--                android:gravity="center"
--                android:maxLines="2"
--                android:text="@string/menu_update_group_sub"
--                android:textColor="@color/delta_text"
--                android:textSize="12sp" />
-+            android:layout_marginStart="12dp"
-+            android:text="@string/update_current_subscription"
-+            android:textColor="@color/delta_text"
-+            android:textSize="15sp"
-+            android:fontFamily="sans-serif-medium" />
-+
-+    </LinearLayout>
-+
-+    <!-- ── Divider ── -->
-+    <View
-+        android:layout_width="match_parent"
-+        android:layout_height="1dp"
-+        android:background="@color/delta_tools_divider"
-+        android:layout_marginStart="16dp"
-+        android:layout_marginEnd="16dp"
-+        android:layout_marginTop="4dp"
-+        android:layout_marginBottom="4dp" />
-+
-+    <!-- ── Group 2: Server Testing ── -->
-+    <TextView
-+        android:layout_width="wrap_content"
-+        android:layout_height="wrap_content"
-+        android:text="SERVER TESTING"
-+        android:textColor="@color/delta_tools_header_text"
-+        android:textSize="10sp"
-+        android:fontFamily="sans-serif-medium"
-+        android:letterSpacing="0.12"
-+        android:paddingStart="20dp"
-+        android:paddingTop="8dp"
-+        android:paddingBottom="4dp" />
- 
--        </LinearLayout>
-+    <!-- TCPing -->
-+    <LinearLayout
-+        android:id="@+id/tools_tcping"
-+        android:layout_width="match_parent"
-+        android:layout_height="52dp"
-+        android:orientation="horizontal"
-+        android:gravity="center_vertical"
-+        android:paddingStart="16dp"
-+        android:paddingEnd="16dp"
-+        android:background="?android:attr/selectableItemBackground"
-+        android:clickable="true"
-+        android:focusable="true">
-+
-+        <FrameLayout
-+            android:layout_width="36dp"
-+            android:layout_height="36dp"
-+            android:background="@drawable/bg_tools_icon_container_primary">
-+            <ImageView
-+                android:layout_width="20dp"
-+                android:layout_height="20dp"
-+                android:layout_gravity="center"
-+                android:src="@drawable/ic_baseline_speed_24"
-+                android:tint="@color/delta_tools_icon_primary"
-+                android:importantForAccessibility="no" />
-+        </FrameLayout>
- 
--        <LinearLayout
--            android:id="@+id/tools_url_test"
-+        <TextView
-             android:layout_width="0dp"
--            android:layout_height="96dp"
-+            android:layout_height="wrap_content"
-             android:layout_weight="1"
--            android:layout_marginStart="6dp"
--            android:layout_marginEnd="0dp"
--            android:background="@drawable/bg_tools_card"
--            android:clickable="true"
--            android:focusable="true"
--            android:gravity="center"
--            android:orientation="vertical"
--            android:padding="8dp">
--
--            <FrameLayout
--                android:layout_width="36dp"
--                android:layout_height="36dp"
--                android:background="@drawable/bg_tools_icon_container_warning">
--                <ImageView
--                    android:layout_width="20dp"
--                    android:layout_height="20dp"
--                    android:layout_gravity="center"
--                    android:importantForAccessibility="no"
--                    android:src="@drawable/ic_baseline_speed_24"
--                    android:tint="@color/delta_tools_icon_warning" />
--            </FrameLayout>
--
--            <TextView
--                android:layout_width="match_parent"
--                android:layout_height="wrap_content"
--                android:layout_marginTop="8dp"
--                android:ellipsize="end"
--                android:fontFamily="sans-serif-medium"
--                android:gravity="center"
--                android:maxLines="2"
--                android:text="@string/connection_test_url_test"
--                android:textColor="@color/delta_text"
--                android:textSize="12sp" />
-+            android:layout_marginStart="12dp"
-+            android:text="@string/connection_test_tcp_ping"
-+            android:textColor="@color/delta_text"
-+            android:textSize="15sp"
-+            android:fontFamily="sans-serif-medium" />
- 
--        </LinearLayout>
-     </LinearLayout>
- 
-+    <!-- URL Test -->
-     <LinearLayout
-+        android:id="@+id/tools_url_test"
-         android:layout_width="match_parent"
--        android:layout_height="wrap_content"
--        android:layout_marginBottom="12dp"
--        android:orientation="horizontal">
-+        android:layout_height="52dp"
-+        android:orientation="horizontal"
-+        android:gravity="center_vertical"
-+        android:paddingStart="16dp"
-+        android:paddingEnd="16dp"
-+        android:background="?android:attr/selectableItemBackground"
-+        android:clickable="true"
-+        android:focusable="true">
-+
-+        <FrameLayout
-+            android:layout_width="36dp"
-+            android:layout_height="36dp"
-+            android:background="@drawable/bg_tools_icon_container_primary">
-+            <ImageView
-+                android:layout_width="20dp"
-+                android:layout_height="20dp"
-+                android:layout_gravity="center"
-+                android:src="@drawable/ic_baseline_speed_24"
-+                android:tint="@color/delta_tools_icon_primary"
-+                android:importantForAccessibility="no" />
-+        </FrameLayout>
- 
--        <LinearLayout
--            android:id="@+id/tools_tcping"
-+        <TextView
-             android:layout_width="0dp"
--            android:layout_height="96dp"
-+            android:layout_height="wrap_content"
-             android:layout_weight="1"
--            android:layout_marginStart="0dp"
--            android:layout_marginEnd="6dp"
--            android:background="@drawable/bg_tools_card"
--            android:clickable="true"
--            android:focusable="true"
--            android:gravity="center"
--            android:orientation="vertical"
--            android:padding="8dp">
--
--            <FrameLayout
--                android:layout_width="36dp"
--                android:layout_height="36dp"
--                android:background="@drawable/bg_tools_icon_container_warning">
--                <ImageView
--                    android:layout_width="20dp"
--                    android:layout_height="20dp"
--                    android:layout_gravity="center"
--                    android:importantForAccessibility="no"
--                    android:src="@drawable/ic_baseline_speed_24"
--                    android:tint="@color/delta_tools_icon_warning" />
--            </FrameLayout>
--
--            <TextView
--                android:layout_width="match_parent"
--                android:layout_height="wrap_content"
--                android:layout_marginTop="8dp"
--                android:ellipsize="end"
--                android:fontFamily="sans-serif-medium"
--                android:gravity="center"
--                android:maxLines="2"
--                android:text="@string/connection_test_tcp_test"
--                android:textColor="@color/delta_text"
--                android:textSize="12sp" />
-+            android:layout_marginStart="12dp"
-+            android:text="@string/connection_test_url_test"
-+            android:textColor="@color/delta_text"
-+            android:textSize="15sp"
-+            android:fontFamily="sans-serif-medium" />
- 
--        </LinearLayout>
-+    </LinearLayout>
- 
--        <LinearLayout
--            android:id="@+id/tools_clear_results"
-+    <!-- ── Divider ── -->
-+    <View
-+        android:layout_width="match_parent"
-+        android:layout_height="1dp"
-+        android:background="@color/delta_tools_divider"
-+        android:layout_marginStart="16dp"
-+        android:layout_marginEnd="16dp"
-+        android:layout_marginTop="4dp"
-+        android:layout_marginBottom="4dp" />
-+
-+    <!-- ── Group 3: Maintenance & Cleanup ── -->
-+    <TextView
-+        android:layout_width="wrap_content"
-+        android:layout_height="wrap_content"
-+        android:text="MAINTENANCE"
-+        android:textColor="@color/delta_tools_header_text"
-+        android:textSize="10sp"
-+        android:fontFamily="sans-serif-medium"
-+        android:letterSpacing="0.12"
-+        android:paddingStart="20dp"
-+        android:paddingTop="8dp"
-+        android:paddingBottom="4dp" />
-+
-+    <!-- Clear Traffic Statistics -->
-+    <LinearLayout
-+        android:id="@+id/tools_clear_traffic"
-+        android:layout_width="match_parent"
-+        android:layout_height="52dp"
-+        android:orientation="horizontal"
-+        android:gravity="center_vertical"
-+        android:paddingStart="16dp"
-+        android:paddingEnd="16dp"
-+        android:background="?android:attr/selectableItemBackground"
-+        android:clickable="true"
-+        android:focusable="true">
-+
-+        <FrameLayout
-+            android:layout_width="36dp"
-+            android:layout_height="36dp"
-+            android:background="@drawable/bg_tools_icon_container_neutral">
-+            <ImageView
-+                android:layout_width="20dp"
-+                android:layout_height="20dp"
-+                android:layout_gravity="center"
-+                android:src="@drawable/ic_baseline_multiline_chart_24"
-+                android:tint="@color/delta_text_secondary"
-+                android:importantForAccessibility="no" />
-+        </FrameLayout>
-+
-+        <TextView
-             android:layout_width="0dp"
--            android:layout_height="96dp"
-+            android:layout_height="wrap_content"
-             android:layout_weight="1"
--            android:layout_marginStart="6dp"
--            android:layout_marginEnd="0dp"
--            android:background="@drawable/bg_tools_card"
--            android:clickable="true"
--            android:focusable="true"
--            android:gravity="center"
--            android:orientation="vertical"
--            android:padding="8dp">
--
--            <FrameLayout
--                android:layout_width="36dp"
--                android:layout_height="36dp"
--                android:background="@drawable/bg_tools_icon_container_success">
--                <ImageView
--                    android:layout_width="20dp"
--                    android:layout_height="20dp"
--                    android:layout_gravity="center"
--                    android:importantForAccessibility="no"
--                    android:src="@drawable/ic_baseline_refresh_24"
--                    android:tint="@color/delta_tools_icon_success" />
--            </FrameLayout>
--
--            <TextView
--                android:layout_width="match_parent"
--                android:layout_height="wrap_content"
--                android:layout_marginTop="8dp"
--                android:ellipsize="end"
--                android:fontFamily="sans-serif-medium"
--                android:gravity="center"
--                android:maxLines="2"
--                android:text="@string/menu_reset_ping"
--                android:textColor="@color/delta_text"
--                android:textSize="12sp" />
-+            android:layout_marginStart="12dp"
-+            android:text="@string/clear_traffic_statistics"
-+            android:textColor="@color/delta_text"
-+            android:textSize="15sp"
-+            android:fontFamily="sans-serif-medium" />
- 
--        </LinearLayout>
-     </LinearLayout>
- 
-+    <!-- Remove Duplicate Servers -->
-     <LinearLayout
-+        android:id="@+id/tools_remove_duplicate"
-         android:layout_width="match_parent"
--        android:layout_height="wrap_content"
--        android:layout_marginBottom="12dp"
--        android:orientation="horizontal">
-+        android:layout_height="52dp"
-+        android:orientation="horizontal"
-+        android:gravity="center_vertical"
-+        android:paddingStart="16dp"
-+        android:paddingEnd="16dp"
-+        android:background="?android:attr/selectableItemBackground"
-+        android:clickable="true"
-+        android:focusable="true">
-+
-+        <FrameLayout
-+            android:layout_width="36dp"
-+            android:layout_height="36dp"
-+            android:background="@drawable/bg_tools_icon_container_neutral">
-+            <ImageView
-+                android:layout_width="20dp"
-+                android:layout_height="20dp"
-+                android:layout_gravity="center"
-+                android:src="@drawable/ic_baseline_layers_24"
-+                android:tint="@color/delta_text_secondary"
-+                android:importantForAccessibility="no" />
-+        </FrameLayout>
- 
--        <LinearLayout
--            android:id="@+id/tools_clear_traffic"
-+        <TextView
-             android:layout_width="0dp"
--            android:layout_height="96dp"
-+            android:layout_height="wrap_content"
-             android:layout_weight="1"
--            android:layout_marginStart="0dp"
--            android:layout_marginEnd="6dp"
--            android:background="@drawable/bg_tools_card"
--            android:clickable="true"
--            android:focusable="true"
--            android:gravity="center"
--            android:orientation="vertical"
--            android:padding="8dp">
--
--            <FrameLayout
--                android:layout_width="36dp"
--                android:layout_height="36dp"
--                android:background="@drawable/bg_tools_icon_container_success">
--                <ImageView
--                    android:layout_width="20dp"
--                    android:layout_height="20dp"
--                    android:layout_gravity="center"
--                    android:importantForAccessibility="no"
--                    android:src="@drawable/ic_baseline_multiline_chart_24"
--                    android:tint="@color/delta_tools_icon_success" />
--            </FrameLayout>
--
--            <TextView
--                android:layout_width="match_parent"
--                android:layout_height="wrap_content"
--                android:layout_marginTop="8dp"
--                android:ellipsize="end"
--                android:fontFamily="sans-serif-medium"
--                android:gravity="center"
--                android:maxLines="2"
--                android:text="@string/menu_reset_data"
--                android:textColor="@color/delta_text"
--                android:textSize="12sp" />
-+            android:layout_marginStart="12dp"
-+            android:text="@string/remove_duplicate"
-+            android:textColor="@color/delta_text"
-+            android:textSize="15sp"
-+            android:fontFamily="sans-serif-medium" />
- 
--        </LinearLayout>
-+    </LinearLayout>
- 
--        <LinearLayout
--            android:id="@+id/tools_clear_unavailable"
-+    <!-- Clear Test Results -->
-+    <LinearLayout
-+        android:id="@+id/tools_clear_results"
-+        android:layout_width="match_parent"
-+        android:layout_height="52dp"
-+        android:orientation="horizontal"
-+        android:gravity="center_vertical"
-+        android:paddingStart="16dp"
-+        android:paddingEnd="16dp"
-+        android:background="?android:attr/selectableItemBackground"
-+        android:clickable="true"
-+        android:focusable="true">
-+
-+        <FrameLayout
-+            android:layout_width="36dp"
-+            android:layout_height="36dp"
-+            android:background="@drawable/bg_tools_icon_container_neutral">
-+            <ImageView
-+                android:layout_width="20dp"
-+                android:layout_height="20dp"
-+                android:layout_gravity="center"
-+                android:src="@drawable/ic_baseline_refresh_24"
-+                android:tint="@color/delta_text_secondary"
-+                android:importantForAccessibility="no" />
-+        </FrameLayout>
-+
-+        <TextView
-             android:layout_width="0dp"
--            android:layout_height="96dp"
-+            android:layout_height="wrap_content"
-             android:layout_weight="1"
--            android:layout_marginStart="6dp"
--            android:layout_marginEnd="0dp"
--            android:background="@drawable/bg_tools_card"
--            android:clickable="true"
--            android:focusable="true"
--            android:gravity="center"
--            android:orientation="vertical"
--            android:padding="8dp">
--
--            <FrameLayout
--                android:layout_width="36dp"
--                android:layout_height="36dp"
--                android:background="@drawable/bg_tools_icon_container_danger">
--                <ImageView
--                    android:layout_width="20dp"
--                    android:layout_height="20dp"
--                    android:layout_gravity="center"
--                    android:importantForAccessibility="no"
--                    android:src="@drawable/baseline_delete_sweep_24"
--                    android:tint="@color/delta_tools_icon_danger" />
--            </FrameLayout>
--
--            <TextView
--                android:layout_width="match_parent"
--                android:layout_height="wrap_content"
--                android:layout_marginTop="8dp"
--                android:ellipsize="end"
--                android:fontFamily="sans-serif-medium"
--                android:gravity="center"
--                android:maxLines="2"
--                android:text="@string/menu_delete_invalid"
--                android:textColor="@color/delta_tools_icon_danger"
--                android:textSize="12sp" />
-+            android:layout_marginStart="12dp"
-+            android:text="@string/connection_test_clear_results"
-+            android:textColor="@color/delta_text"
-+            android:textSize="15sp"
-+            android:fontFamily="sans-serif-medium" />
- 
--        </LinearLayout>
-     </LinearLayout>
- 
-+    <!-- Clear Unavailable -->
-     <LinearLayout
-+        android:id="@+id/tools_clear_unavailable"
-         android:layout_width="match_parent"
--        android:layout_height="wrap_content"
--        android:layout_marginBottom="12dp"
--        android:orientation="horizontal">
-+        android:layout_height="52dp"
-+        android:orientation="horizontal"
-+        android:gravity="center_vertical"
-+        android:paddingStart="16dp"
-+        android:paddingEnd="16dp"
-+        android:background="?android:attr/selectableItemBackground"
-+        android:clickable="true"
-+        android:focusable="true">
-+
-+        <FrameLayout
-+            android:layout_width="36dp"
-+            android:layout_height="36dp"
-+            android:background="@drawable/bg_tools_icon_container_danger">
-+            <ImageView
-+                android:layout_width="20dp"
-+                android:layout_height="20dp"
-+                android:layout_gravity="center"
-+                android:src="@drawable/baseline_delete_sweep_24"
-+                android:tint="@color/delta_tools_icon_danger"
-+                android:importantForAccessibility="no" />
-+        </FrameLayout>
- 
--        <LinearLayout
--            android:id="@+id/tools_order"
-+        <TextView
-             android:layout_width="0dp"
--            android:layout_height="96dp"
-+            android:layout_height="wrap_content"
-             android:layout_weight="1"
--            android:layout_marginStart="0dp"
--            android:layout_marginEnd="6dp"
--            android:background="@drawable/bg_tools_card"
--            android:clickable="true"
--            android:focusable="true"
--            android:gravity="center"
--            android:orientation="vertical"
--            android:padding="8dp">
--
--            <FrameLayout
--                android:layout_width="36dp"
--                android:layout_height="36dp"
--                android:background="@drawable/bg_tools_icon_container_primary">
--                <ImageView
--                    android:layout_width="20dp"
--                    android:layout_height="20dp"
--                    android:layout_gravity="center"
--                    android:importantForAccessibility="no"
--                    android:src="@drawable/ic_baseline_view_list_24"
--                    android:tint="@color/delta_tools_icon_primary" />
--            </FrameLayout>
--
--            <TextView
--                android:layout_width="match_parent"
--                android:layout_height="wrap_content"
--                android:layout_marginTop="8dp"
--                android:ellipsize="end"
--                android:fontFamily="sans-serif-medium"
--                android:gravity="center"
--                android:maxLines="2"
--                android:text="@string/menu_sort_by_delay"
--                android:textColor="@color/delta_text"
--                android:textSize="12sp" />
-+            android:layout_marginStart="12dp"
-+            android:text="@string/connection_test_delete_unavailable"
-+            android:textColor="@color/delta_tools_icon_danger"
-+            android:textSize="15sp"
-+            android:fontFamily="sans-serif-medium" />
- 
--        </LinearLayout>
-+    </LinearLayout>
- 
--        <View
-+    <!-- ── Divider ── -->
-+    <View
-+        android:layout_width="match_parent"
-+        android:layout_height="1dp"
-+        android:background="@color/delta_tools_divider"
-+        android:layout_marginStart="16dp"
-+        android:layout_marginEnd="16dp"
-+        android:layout_marginTop="4dp"
-+        android:layout_marginBottom="4dp" />
-+
-+    <!-- ── Group 4: Organization ── -->
-+    <TextView
-+        android:layout_width="wrap_content"
-+        android:layout_height="wrap_content"
-+        android:text="ORGANIZATION"
-+        android:textColor="@color/delta_tools_header_text"
-+        android:textSize="10sp"
-+        android:fontFamily="sans-serif-medium"
-+        android:letterSpacing="0.12"
-+        android:paddingStart="20dp"
-+        android:paddingTop="8dp"
-+        android:paddingBottom="4dp" />
-+
-+    <!-- Order -->
-+    <LinearLayout
-+        android:id="@+id/tools_order"
-+        android:layout_width="match_parent"
-+        android:layout_height="52dp"
-+        android:orientation="horizontal"
-+        android:gravity="center_vertical"
-+        android:paddingStart="16dp"
-+        android:paddingEnd="16dp"
-+        android:background="?android:attr/selectableItemBackground"
-+        android:clickable="true"
-+        android:focusable="true">
-+
-+        <FrameLayout
-+            android:layout_width="36dp"
-+            android:layout_height="36dp"
-+            android:background="@drawable/bg_tools_icon_container_primary">
-+            <ImageView
-+                android:layout_width="20dp"
-+                android:layout_height="20dp"
-+                android:layout_gravity="center"
-+                android:src="@drawable/ic_baseline_view_list_24"
-+                android:tint="@color/delta_tools_icon_primary"
-+                android:importantForAccessibility="no" />
-+        </FrameLayout>
-+
-+        <TextView
-             android:layout_width="0dp"
--            android:layout_height="96dp"
--            android:layout_marginStart="6dp"
-+            android:layout_height="wrap_content"
-             android:layout_weight="1"
-+            android:layout_marginStart="12dp"
-+            android:text="@string/group_order"
-+            android:textColor="@color/delta_text"
-+            android:textSize="15sp"
-+            android:fontFamily="sans-serif-medium" />
-+
-+        <ImageView
-+            android:layout_width="16dp"
-+            android:layout_height="16dp"
-+            android:src="@drawable/ic_pref_chevron"
-+            android:tint="@color/delta_text_secondary"
-             android:importantForAccessibility="no" />
-+
-     </LinearLayout>
- 
-+    <Space android:layout_width="match_parent" android:layout_height="8dp" />
-+
- </LinearLayout>
-diff -ruN --strip-trailing-cr a/app/src/main/res/layout/preference_category_material.xml b/app/src/main/res/layout/preference_category_material.xml
---- a/app/src/main/res/layout/preference_category_material.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/layout/preference_category_material.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -1,20 +1,20 @@
- <?xml version="1.0" encoding="utf-8"?>
--<!-- DeltaBox 1.0.21 — Settings preference category header -->
-+<!-- DeltaBox v3 — Settings preference category header -->
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
--    android:gravity="center_vertical"
-     android:orientation="horizontal"
-+    android:gravity="center_vertical"
-     android:paddingStart="16dp"
--    android:paddingTop="24dp"
-     android:paddingEnd="16dp"
--    android:paddingBottom="8dp">
-+    android:paddingTop="20dp"
-+    android:paddingBottom="6dp">
- 
-     <TextView
-         android:id="@android:id/title"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
--        android:textAllCaps="true"
--        android:textAppearance="@style/TextAppearance.Delta.SettingsGroup" />
-+        android:textAppearance="@style/TextAppearance.Delta.SettingsGroup"
-+        android:textAllCaps="true" />
- 
- </LinearLayout>
-diff -ruN --strip-trailing-cr a/app/src/main/res/menu/main_drawer_menu_primary.xml b/app/src/main/res/menu/main_drawer_menu_primary.xml
---- a/app/src/main/res/menu/main_drawer_menu_primary.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/menu/main_drawer_menu_primary.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -1,31 +1,25 @@
- <?xml version="1.0" encoding="utf-8"?>
- <!-- DeltaBox v3 — Primary drawer nav items (Manage group) -->
--<menu xmlns:android="http://schemas.android.com/apk/res/android"
--    xmlns:app="http://schemas.android.com/apk/res-auto">
-+<menu xmlns:android="http://schemas.android.com/apk/res/android">
-     <group android:checkableBehavior="single">
-         <item
-             android:id="@+id/nav_configuration"
--            app:actionLayout="@layout/nav_item_chevron"
-             android:icon="@drawable/ic_action_description"
-             android:title="@string/menu_configuration" />
-         <item
-             android:id="@+id/nav_group"
--            app:actionLayout="@layout/nav_item_chevron"
-             android:icon="@drawable/ic_baseline_view_list_24"
-             android:title="@string/menu_group" />
-         <item
-             android:id="@+id/nav_assets"
--            app:actionLayout="@layout/nav_item_chevron"
-             android:icon="@drawable/ic_baseline_rule_folder_24"
-             android:title="@string/route_assets" />
-         <item
-             android:id="@+id/nav_split_tunnel"
--            app:actionLayout="@layout/nav_item_chevron"
-             android:icon="@drawable/ic_navigation_apps"
-             android:title="@string/menu_split_tunnel" />
-         <item
-             android:id="@+id/nav_settings"
--            app:actionLayout="@layout/nav_item_chevron"
-             android:icon="@drawable/ic_action_settings"
-             android:title="@string/settings" />
-     </group>
-diff -ruN --strip-trailing-cr a/app/src/main/res/menu/main_drawer_menu_tools.xml b/app/src/main/res/menu/main_drawer_menu_tools.xml
---- a/app/src/main/res/menu/main_drawer_menu_tools.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/menu/main_drawer_menu_tools.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -1,21 +1,17 @@
- <?xml version="1.0" encoding="utf-8"?>
- <!-- DeltaBox v3 — Tools drawer nav items (Tools group) -->
--<menu xmlns:android="http://schemas.android.com/apk/res/android"
--    xmlns:app="http://schemas.android.com/apk/res-auto">
-+<menu xmlns:android="http://schemas.android.com/apk/res/android">
-     <group android:checkableBehavior="single">
-         <item
-             android:id="@+id/nav_logcat"
--            app:actionLayout="@layout/nav_item_chevron"
-             android:icon="@drawable/ic_baseline_bug_report_24"
-             android:title="@string/menu_log" />
-         <item
-             android:id="@+id/nav_tools"
--            app:actionLayout="@layout/nav_item_chevron"
-             android:icon="@drawable/baseline_construction_24"
-             android:title="@string/menu_tools" />
-         <item
-             android:id="@+id/nav_about"
--            app:actionLayout="@layout/nav_item_chevron"
-             android:icon="@drawable/ic_baseline_info_24"
-             android:title="@string/menu_about" />
-     </group>
-Binary files a/app/src/main/res/mipmap-hdpi/ic_launcher.png and b/app/src/main/res/mipmap-hdpi/ic_launcher.png differ
-Binary files a/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png and b/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png differ
-Binary files a/app/src/main/res/mipmap-mdpi/ic_launcher.png and b/app/src/main/res/mipmap-mdpi/ic_launcher.png differ
-Binary files a/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png and b/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png differ
-Binary files a/app/src/main/res/mipmap-xhdpi/ic_launcher.png and b/app/src/main/res/mipmap-xhdpi/ic_launcher.png differ
-Binary files a/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png and b/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png differ
-Binary files a/app/src/main/res/mipmap-xxhdpi/ic_launcher.png and b/app/src/main/res/mipmap-xxhdpi/ic_launcher.png differ
-Binary files a/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png and b/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png differ
-Binary files a/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png and b/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png differ
-Binary files a/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png and b/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png differ
+                 <TextView
+                     android:id="@+id/profile_type"
 diff -ruN --strip-trailing-cr a/app/src/main/res/values/colors.xml b/app/src/main/res/values/colors.xml
---- a/app/src/main/res/values/colors.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/values/colors.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -287,108 +287,108 @@
+--- a/app/src/main/res/values/colors.xml	2026-11-10 16:01:02.000000000 +0000
++++ b/app/src/main/res/values/colors.xml	2026-11-18 13:00:34.998696318 +0000
+@@ -287,8 +287,8 @@
           ════════════════════════════════════════════════════════ -->
  
      <!-- Brand identity -->
--    <color name="delta_brand">#5865D9</color>          <!-- Green for Light toolbar title -->
--    <color name="delta_brand_dark">#4653C3</color>     <!-- Darker green button fill -->
-+    <color name="delta_brand">#16A34A</color>          <!-- Green for Light toolbar title -->
-+    <color name="delta_brand_dark">#15803D</color>     <!-- Darker green button fill -->
+-    <color name="delta_brand">#16A34A</color>          <!-- Green for Light toolbar title -->
+-    <color name="delta_brand_dark">#15803D</color>     <!-- Darker green button fill -->
++    <color name="delta_brand">#4350D0</color>          <!-- Green for Light toolbar title -->
++    <color name="delta_brand_dark">#3A46BF</color>     <!-- Darker green button fill -->
  
      <!-- VPN state colours — NEVER change, independent of brand -->
      <color name="delta_state_off">#EF4444</color>
--    <color name="delta_state_connecting">#5865D9</color>
--    <color name="delta_state_on">#20A681</color>
-+    <color name="delta_state_connecting">#38BDF8</color>
-+    <color name="delta_state_on">#22C55E</color>
+@@ -296,34 +296,34 @@
+     <color name="delta_state_on">#22C55E</color>
  
      <!-- Surface system — Light Mode -->
--    <color name="delta_bg">#F6F7FB</color>
--    <color name="delta_surface">#FFFFFF</color>
-+    <color name="delta_bg">#FFFFFF</color>
-+    <color name="delta_surface">#F5F7F6</color>
+-    <color name="delta_bg">#FFFFFF</color>
+-    <color name="delta_surface">#F5F7F6</color>
++    <color name="delta_bg">#F3F4FA</color>
++    <color name="delta_surface">#FFFFFF</color>
      <color name="delta_card">#FFFFFF</color>
--    <color name="delta_surface_variant">#F0F2F8</color>
--    <color name="delta_primary">#5865D9</color>
--    <color name="delta_primary_dark">#4653C3</color>
--    <color name="delta_on_primary">#FFFFFF</color>
-+    <color name="delta_surface_variant">#EEF2EF</color>
-+    <color name="delta_primary">#FFFFFF</color>
-+    <color name="delta_primary_dark">#FFFFFF</color>
-+    <color name="delta_on_primary">#171717</color>
+-    <color name="delta_surface_variant">#EEF2EF</color>
+-    <color name="delta_primary">#FFFFFF</color>
+-    <color name="delta_primary_dark">#FFFFFF</color>
+-    <color name="delta_on_primary">#171717</color>
++    <color name="delta_surface_variant">#E9ECF6</color>
++    <color name="delta_primary">#F3F4FA</color>
++    <color name="delta_primary_dark">#F3F4FA</color>
++    <color name="delta_on_primary">#1A1D2E</color>
  
      <!-- Accent — Light uses green -->
--    <color name="delta_accent">#5865D9</color>
-+    <color name="delta_accent">#16A34A</color>
+-    <color name="delta_accent">#16A34A</color>
++    <color name="delta_accent">#4350D0</color>
      <!-- Black Wall screen only (light): dark purple instead of green, kept dark enough that white icon/text drawn on top of it (selected row) stays readable, but used here mainly for icon/title/checkmark on a light card, where it must be dark enough to read against white. -->
--    <color name="delta_blackwall_accent">#4653C3</color>
--    <color name="delta_accent_soft">#7485EB</color>
--    <color name="delta_fab">#FFFFFF</color>
-+    <color name="delta_blackwall_accent">#5B21B6</color>
-+    <color name="delta_accent_soft">#22C55E</color>
-+    <color name="delta_fab">#171717</color>
+     <color name="delta_blackwall_accent">#5B21B6</color>
+-    <color name="delta_accent_soft">#22C55E</color>
++    <color name="delta_accent_soft">#6A77E6</color>
+     <color name="delta_fab">#171717</color>
  
      <!-- Typography — Light -->
--    <color name="delta_text">#252941</color>
--    <color name="delta_text_secondary">#777E96</color>
--    <color name="delta_text_muted">#A2A8BA</color>
-+    <color name="delta_text">#171717</color>
-+    <color name="delta_text_secondary">#525D56</color>
-+    <color name="delta_text_muted">#7A877F</color>
+-    <color name="delta_text">#171717</color>
+-    <color name="delta_text_secondary">#525D56</color>
+-    <color name="delta_text_muted">#7A877F</color>
++    <color name="delta_text">#1A1D2E</color>
++    <color name="delta_text_secondary">#444B68</color>
++    <color name="delta_text_muted">#656C8C</color>
  
      <!-- Server type label (Shadowsocks / VLESS / ...) — Light: keep neutral, only Dark uses purple -->
--    <color name="delta_server_type_text">#777E96</color>
-+    <color name="delta_server_type_text">#525D56</color>
+-    <color name="delta_server_type_text">#525D56</color>
++    <color name="delta_server_type_text">#444B68</color>
  
      <!-- Chrome — Light -->
--    <color name="delta_divider">#ECEEF4</color>
--    <color name="delta_selected">#EEF0FF</color>
--    <color name="delta_stroke">#E8EAF1</color>
--    <color name="delta_glow">#335865D9</color>
-+    <color name="delta_divider">#1A000000</color>
-+    <color name="delta_selected">#1A16A34A</color>
-+    <color name="delta_stroke">#E1E7E3</color>
-+    <color name="delta_glow">#3316A34A</color>
+-    <color name="delta_divider">#1A000000</color>
+-    <color name="delta_selected">#1A16A34A</color>
+-    <color name="delta_stroke">#E1E7E3</color>
+-    <color name="delta_glow">#3316A34A</color>
++    <color name="delta_divider">#141A1D2E</color>
++    <color name="delta_selected">#1A4350D0</color>
++    <color name="delta_stroke">#E2E5F1</color>
++    <color name="delta_glow">#334350D0</color>
      <color name="delta_scrim">#66000000</color>
  
      <!-- Semantic — Light -->
--    <color name="delta_success">#20A681</color>
-+    <color name="delta_success">#15803D</color>
-     <color name="delta_error">#DC2626</color>
--    <color name="delta_warning">#E99A43</color>
-+    <color name="delta_warning">#B45309</color>
- 
-     <!-- VPN state text / panel — Light -->
-     <color name="delta_state_off_text">#B91C1C</color>
--    <color name="delta_state_connecting_text">#4653C3</color>
--    <color name="delta_state_on_text">#14806A</color>
--    <color name="delta_panel_off">#FFFFFF</color>
--    <color name="delta_panel_connecting">#FFFFFF</color>
--    <color name="delta_panel_on">#FFFFFF</color>
-+    <color name="delta_state_connecting_text">#0369A1</color>
-+    <color name="delta_state_on_text">#15803D</color>
-+    <color name="delta_panel_off">#FFF5F5</color>
-+    <color name="delta_panel_connecting">#F0F9FF</color>
-+    <color name="delta_panel_on">#F0FDF4</color>
- 
-     <!-- Ping badge tiers — Light -->
--    <color name="delta_ping_good">#14806A</color>
--    <color name="delta_ping_good_bg">#E8F7F1</color>
--    <color name="delta_ping_ok">#14806A</color>
--    <color name="delta_ping_ok_bg">#E8F7F1</color>
--    <color name="delta_ping_warn">#B7691A</color>
--    <color name="delta_ping_warn_bg">#FFF3E5</color>
-+    <color name="delta_ping_good">#15803D</color>
-+    <color name="delta_ping_good_bg">#DCFCE7</color>
-+    <color name="delta_ping_ok">#4D7C0F</color>
-+    <color name="delta_ping_ok_bg">#ECFCCB</color>
-+    <color name="delta_ping_warn">#C2410C</color>
-+    <color name="delta_ping_warn_bg">#FFEDD5</color>
-     <color name="delta_ping_bad">#B91C1C</color>
--    <color name="delta_ping_bad_bg">#FDECEC</color>
--    <color name="delta_ping_none">#777E96</color>
--    <color name="delta_ping_none_bg">#F0F2F8</color>
-+    <color name="delta_ping_bad_bg">#FEE2E2</color>
-+    <color name="delta_ping_none">#4B5563</color>
-+    <color name="delta_ping_none_bg">#F3F4F6</color>
+@@ -353,29 +353,29 @@
  
      <!-- Navigation Drawer v3 — Light -->
      <color name="delta_nav_bg">#FFFFFF</color>
--    <color name="delta_nav_header_bg">#F6F7FB</color>
--    <color name="delta_nav_selected_bg">#EEF0FF</color>
--    <color name="delta_nav_selected_icon">#5865D9</color>
--    <color name="delta_nav_selected_text">#4653C3</color>
--    <color name="delta_nav_unselected_icon">#7485EB</color>
--    <color name="delta_nav_unselected_text">#252941</color>
--    <color name="delta_nav_divider">#ECEEF4</color>
--    <color name="delta_nav_footer_text">#A2A8BA</color>
-+    <color name="delta_nav_header_bg">#F5F7F6</color>
-+    <color name="delta_nav_selected_bg">#1A16A34A</color>
-+    <color name="delta_nav_selected_icon">#16A34A</color>
-+    <color name="delta_nav_selected_text">#15803D</color>
-+    <color name="delta_nav_unselected_icon">#525D56</color>
-+    <color name="delta_nav_unselected_text">#171717</color>
-+    <color name="delta_nav_divider">#E1E7E3</color>
-+    <color name="delta_nav_footer_text">#7A877F</color>
+-    <color name="delta_nav_header_bg">#F5F7F6</color>
+-    <color name="delta_nav_selected_bg">#1A16A34A</color>
+-    <color name="delta_nav_selected_icon">#16A34A</color>
+-    <color name="delta_nav_selected_text">#15803D</color>
+-    <color name="delta_nav_unselected_icon">#525D56</color>
+-    <color name="delta_nav_unselected_text">#171717</color>
+-    <color name="delta_nav_divider">#E1E7E3</color>
+-    <color name="delta_nav_footer_text">#7A877F</color>
++    <color name="delta_nav_header_bg">#F3F4FA</color>
++    <color name="delta_nav_selected_bg">#1A4350D0</color>
++    <color name="delta_nav_selected_icon">#4350D0</color>
++    <color name="delta_nav_selected_text">#3A46BF</color>
++    <color name="delta_nav_unselected_icon">#444B68</color>
++    <color name="delta_nav_unselected_text">#1A1D2E</color>
++    <color name="delta_nav_divider">#E2E5F1</color>
++    <color name="delta_nav_footer_text">#656C8C</color>
  
      <!-- Tools popup v3 — Light -->
      <color name="delta_tools_bg">#FFFFFF</color>
--    <color name="delta_tools_header_text">#777E96</color>
--    <color name="delta_tools_icon_primary">#5865D9</color>
-+    <color name="delta_tools_header_text">#525D56</color>
-+    <color name="delta_tools_icon_primary">#16A34A</color>
+-    <color name="delta_tools_header_text">#525D56</color>
+-    <color name="delta_tools_icon_primary">#16A34A</color>
++    <color name="delta_tools_header_text">#444B68</color>
++    <color name="delta_tools_icon_primary">#4350D0</color>
      <color name="delta_tools_icon_danger">#DC2626</color>
--    <color name="delta_tools_divider">#ECEEF4</color>
-+    <color name="delta_tools_divider">#E1E7E3</color>
+-    <color name="delta_tools_divider">#E1E7E3</color>
++    <color name="delta_tools_divider">#E2E5F1</color>
  
      <!-- Settings v3 group header — Light -->
--    <color name="delta_settings_group_text">#5865D9</color>
--    <color name="delta_settings_group_icon">#5865D9</color>
-+    <color name="delta_settings_group_text">#16A34A</color>
-+    <color name="delta_settings_group_icon">#16A34A</color>
+-    <color name="delta_settings_group_text">#16A34A</color>
+-    <color name="delta_settings_group_icon">#16A34A</color>
++    <color name="delta_settings_group_text">#4350D0</color>
++    <color name="delta_settings_group_icon">#4350D0</color>
  
      <color name="material_deep_orange_accent_200">#FF9E80</color>
      <color name="color_ng_black_primary">#000000</color>
      <color name="color_ng_black_accent">#BDBDBD</color>
--    <color name="delta_switch_off_thumb">#FFFFFF</color>
--    <color name="delta_switch_off_track">#C7CAD5</color>
-+    <color name="delta_switch_off_thumb">#9E9E9E</color>
-+    <color name="delta_switch_off_track">#C9CDCB</color>
- 
--    <!-- DeltaBox 1.0.21 additional tokens -->
--    <color name="delta_success_soft">#E8F7F1</color>
--    <color name="delta_success_container">#F3FBF7</color>
--    <color name="delta_warning_soft">#FFF3E5</color>
--    <color name="delta_warning_container">#FFFAF3</color>
--    <color name="delta_ripple">#DDE2FF</color>
--    <color name="delta_disabled">#C7CAD5</color>
--    <color name="delta_toolbar_bg">#F6F7FB</color>
-+    <!-- 1.0.3-only tokens, mapped onto the reference palette -->
-+    <color name="delta_disabled">#7A877F</color>
-+    <color name="delta_error_soft">#15EF4444</color>
-     <color name="delta_on_success">#FFFFFF</color>
--    <color name="delta_error_soft">#FDECEC</color>
--    <color name="delta_tools_icon_warning">#E99A43</color>
--    <color name="delta_tools_icon_success">#20A681</color>
-+    <color name="delta_ripple">#3316A34A</color>
-+    <color name="delta_success_container">#F0FDF4</color>
-+    <color name="delta_success_soft">#1A16A34A</color>
-+    <color name="delta_toolbar_bg">#FFFFFF</color>
-+    <color name="delta_tools_icon_success">#16A34A</color>
-+    <color name="delta_tools_icon_warning">#B45309</color>
-+    <color name="delta_warning_container">#FFEDD5</color>
-+    <color name="delta_warning_soft">#15B45309</color>
+     <color name="delta_switch_off_thumb">#9E9E9E</color>
+-    <color name="delta_switch_off_track">#C9CDCB</color>
++    <color name="delta_switch_off_track">#CBCFE0</color>
  </resources>
 diff -ruN --strip-trailing-cr a/app/src/main/res/values/colors_delta_glass.xml b/app/src/main/res/values/colors_delta_glass.xml
---- a/app/src/main/res/values/colors_delta_glass.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/values/colors_delta_glass.xml	2026-11-22 16:01:17.000000000 +0330
+--- a/app/src/main/res/values/colors_delta_glass.xml	2026-11-09 11:52:42.000000000 +0000
++++ b/app/src/main/res/values/colors_delta_glass.xml	2026-11-18 13:00:35.000184529 +0000
 @@ -1,10 +1,10 @@
  <?xml version="1.0" encoding="utf-8"?>
  <resources>
--    <color name="delta_glass_top">#FFFFFFFF</color>
--    <color name="delta_glass_bottom">#FFFFFFFF</color>
--    <color name="delta_glass_stroke">#E8EAF1</color>
-+    <color name="delta_glass_top">#F2FFFFFF</color>
-+    <color name="delta_glass_bottom">#E6F5F7F6</color>
-+    <color name="delta_glass_stroke">#E1E7E3</color>
+     <color name="delta_glass_top">#F2FFFFFF</color>
+-    <color name="delta_glass_bottom">#E6F5F7F6</color>
+-    <color name="delta_glass_stroke">#E1E7E3</color>
++    <color name="delta_glass_bottom">#E6F1F3FB</color>
++    <color name="delta_glass_stroke">#E2E5F1</color>
      <color name="delta_popup_bg">#FFFFFF</color>
--    <color name="delta_popup_stroke">#E8EAF1</color>
--    <color name="delta_cat_button">#EF4444</color>
--    <color name="delta_cat_button_connected">#14806A</color>
-+    <color name="delta_popup_stroke">#E1E7E3</color>
-+    <color name="delta_cat_button">#16A34A</color>
-+    <color name="delta_cat_button_connected">#15803D</color>
- </resources>
-diff -ruN --strip-trailing-cr a/app/src/main/res/values/colors_deltabox_tokens.xml b/app/src/main/res/values/colors_deltabox_tokens.xml
---- a/app/src/main/res/values/colors_deltabox_tokens.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/values/colors_deltabox_tokens.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -2,8 +2,8 @@
- <!-- DeltaBox 1.0.15 design tokens (light). Values for the main palette live in colors.xml
-      (delta_* names); this file only adds tokens introduced by the traffic chart. -->
- <resources>
--    <color name="delta_chart_download">#5865D9</color>
--    <color name="delta_chart_upload">#20A681</color>
--    <color name="delta_chart_baseline">#ECEEF4</color>
--    <color name="delta_chart_label">#777E96</color>
-+    <color name="delta_chart_download">#16A34A</color>
-+    <color name="delta_chart_upload">#22C55E</color>
-+    <color name="delta_chart_baseline">#E1E7E3</color>
-+    <color name="delta_chart_label">#7A877F</color>
+-    <color name="delta_popup_stroke">#E1E7E3</color>
++    <color name="delta_popup_stroke">#E2E5F1</color>
+     <color name="delta_cat_button">#16A34A</color>
+     <color name="delta_cat_button_connected">#15803D</color>
  </resources>
 diff -ruN --strip-trailing-cr a/app/src/main/res/values/dimens.xml b/app/src/main/res/values/dimens.xml
---- a/app/src/main/res/values/dimens.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/values/dimens.xml	2026-11-23 23:20:46.043821693 +0330
-@@ -1,6 +1,5 @@
+--- a/app/src/main/res/values/dimens.xml	2026-11-09 11:52:42.000000000 +0000
++++ b/app/src/main/res/values/dimens.xml	2026-11-18 13:01:30.387892473 +0000
+@@ -1,6 +1,6 @@
  <resources>
      <dimen name="qrcode_size">264dp</dimen>
--    <dimen name="zxl_flashlight_margin_top">24dp</dimen>
-     <dimen name="main_list_padding_bottom">88dp</dimen>
+-    <dimen name="main_list_padding_bottom">88dp</dimen>
++    <dimen name="main_list_padding_bottom">96dp</dimen>
      <dimen name="bottom_sheet_padding">8dp</dimen>
      <!-- DeltaBox v3 -->
-@@ -10,4 +9,5 @@
-     <dimen name="delta_tools_popup_radius">20dp</dimen>
-     <dimen name="delta_tools_icon_size">36dp</dimen>
-     <dimen name="delta_tools_row_height">52dp</dimen>
-+    <dimen name="zxl_flashlight_margin_top">24dp</dimen>
- </resources>
-diff -ruN --strip-trailing-cr a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
---- a/app/src/main/res/values/strings.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/values/strings.xml	2026-11-23 23:20:46.047806935 +0330
-@@ -25,7 +25,7 @@
-     <string name="menu_delete_invalid">Delete Invalid</string>
-     <string name="menu_sort_by_delay">Sort by Delay</string>
-     <string name="about_developer">Developer</string>
--    <string name="developer_name" translatable="false">rc3vr467</string>
-+    <string name="developer_name" translatable="false">Pedram &amp; Danial</string>
-     <string name="about_telegram" translatable="false">Telegram</string>
-     <string name="about_telegram_handle" translatable="false">@v2ray_DA</string>
-     <string name="about_github" translatable="false">GitHub</string>
+     <dimen name="delta_nav_drawer_width">288dp</dimen>
+diff -ruN --strip-trailing-cr a/app/src/main/res/values/dimens_delta_scale.xml b/app/src/main/res/values/dimens_delta_scale.xml
+--- a/app/src/main/res/values/dimens_delta_scale.xml	1970-01-01 00:00:00.000000000 +0000
++++ b/app/src/main/res/values/dimens_delta_scale.xml	2026-11-18 13:00:57.562561790 +0000
+@@ -0,0 +1,16 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- DeltaBox design scale (Refactoring UI: "establish a spacing and sizing system").
++     Additive only: no existing dimen is renamed or removed. Base unit 4dp; steps are
++     deliberately uneven so a value can be picked without agonising between 14 and 15. -->
++<resources>
++    <dimen name="delta_space_1">4dp</dimen>
++    <dimen name="delta_space_2">8dp</dimen>
++    <dimen name="delta_space_3">12dp</dimen>
++    <dimen name="delta_space_4">16dp</dimen>
++    <dimen name="delta_space_5">24dp</dimen>
++    <dimen name="delta_space_6">32dp</dimen>
++    <dimen name="delta_space_7">48dp</dimen>
++    <dimen name="delta_space_8">64dp</dimen>
++    <!-- Raised cards: a 1dp shadow in Light; Dark separates surfaces with a lighter fill + hairline instead. -->
++    <dimen name="delta_card_elevation">1dp</dimen>
++</resources>
 diff -ruN --strip-trailing-cr a/app/src/main/res/values/styles_delta.xml b/app/src/main/res/values/styles_delta.xml
---- a/app/src/main/res/values/styles_delta.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/values/styles_delta.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -24,9 +24,7 @@
+--- a/app/src/main/res/values/styles_delta.xml	2026-11-09 11:52:42.000000000 +0000
++++ b/app/src/main/res/values/styles_delta.xml	2026-11-18 13:01:07.949199760 +0000
+@@ -30,7 +30,7 @@
+     <style name="Widget.Delta.Card" parent="Widget.MaterialComponents.CardView">
+         <item name="cardBackgroundColor">@color/delta_card</item>
+         <item name="cardCornerRadius">14dp</item>
+-        <item name="cardElevation">0dp</item>
++        <item name="cardElevation">@dimen/delta_card_elevation</item>
+         <item name="cardPreventCornerOverlap">true</item>
+         <item name="strokeColor">@color/delta_stroke</item>
+         <item name="strokeWidth">1dp</item>
+@@ -71,14 +71,14 @@
      </style>
  
-     <!-- Toolbar overlay -->
--    <style name="ThemeOverlay.Delta.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
--        <item name="colorControlNormal">@color/delta_brand</item>
--    </style>
-+    <style name="ThemeOverlay.Delta.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar" />
+     <style name="TextAppearance.Delta.StatsStatus" parent="TextAppearance.MaterialComponents.Subtitle1">
+-        <item name="android:textSize">15sp</item>
++        <item name="android:textSize">16sp</item>
+         <item name="android:textStyle">bold</item>
+         <item name="android:textColor">@color/delta_text</item>
+         <item name="android:letterSpacing">0</item>
+     </style>
  
-     <!-- ── Cards ── -->
-     <!-- Fallback alias: any bare @style/Widget.Delta resolves to the Delta card style. -->
-diff -ruN --strip-trailing-cr a/app/src/main/res/values/themes.xml b/app/src/main/res/values/themes.xml
---- a/app/src/main/res/values/themes.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/values/themes.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -159,7 +159,7 @@
-         <item name="primaryOrTextSecondary">@color/delta_accent</item>
-         <item name="primaryOrTextPrimary">@color/delta_accent</item>
-         <item name="android:windowBackground">@color/delta_bg</item>
--        <item name="android:statusBarColor">@color/delta_toolbar_bg</item>
-+        <item name="android:statusBarColor">@color/delta_primary_dark</item>
-         <!-- Design system (display only) -->
-         <item name="colorPrimaryVariant">@color/delta_primary_dark</item>
-         <item name="colorSecondaryVariant">@color/delta_accent_soft</item>
+     <style name="TextAppearance.Delta.CardTitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+-        <item name="android:textSize">15sp</item>
++        <item name="android:textSize">16sp</item>
+         <item name="android:textColor">@color/delta_text</item>
+         <item name="android:fontFamily">sans-serif-medium</item>
+         <item name="android:letterSpacing">0</item>
+@@ -86,8 +86,8 @@
+ 
+     <style name="TextAppearance.Delta.CardMeta" parent="TextAppearance.MaterialComponents.Caption">
+         <item name="android:textSize">12sp</item>
+-        <item name="android:textColor">@color/delta_text_secondary</item>
+-        <item name="android:letterSpacing">0</item>
++        <item name="android:textColor">@color/delta_text_muted</item>
++        <item name="android:letterSpacing">0.01</item>
+     </style>
+ 
+     <style name="TextAppearance.Delta.PingBadge" parent="TextAppearance.MaterialComponents.Caption">
+@@ -114,7 +114,7 @@
+ 
+     <!-- ── Tools popup group label ── -->
+     <style name="TextAppearance.Delta.ToolsGroup" parent="TextAppearance.MaterialComponents.Caption">
+-        <item name="android:textSize">10sp</item>
++        <item name="android:textSize">11sp</item>
+         <item name="android:textColor">@color/delta_tools_header_text</item>
+         <item name="android:fontFamily">sans-serif-medium</item>
+         <item name="android:letterSpacing">0.12</item>
 diff -ruN --strip-trailing-cr a/app/src/main/res/values-night/colors.xml b/app/src/main/res/values-night/colors.xml
---- a/app/src/main/res/values-night/colors.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/values-night/colors.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -3,101 +3,101 @@
- <resources>
- 
-     <!-- Brand identity — Dark uses light purple -->
--    <color name="delta_brand">#9278E8</color>
--    <color name="delta_brand_dark">#59449E</color>
-+    <color name="delta_brand">#A78BFA</color>
-+    <color name="delta_brand_dark">#7C3AED</color>
+--- a/app/src/main/res/values-night/colors.xml	2026-11-09 11:53:26.000000000 +0000
++++ b/app/src/main/res/values-night/colors.xml	2026-11-18 13:00:34.999479647 +0000
+@@ -7,12 +7,12 @@
+     <color name="delta_brand_dark">#7C3AED</color>
  
      <!-- Surface system — Dark: matte black everywhere, cards one step lighter -->
--    <color name="delta_bg">#11121A</color>
--    <color name="delta_surface">#191A25</color>
--    <color name="delta_card">#1D1F2B</color>
--    <color name="delta_surface_variant">#272938</color>
--    <color name="delta_primary">#8268D9</color>
--    <color name="delta_primary_dark">#59449E</color>
-+    <color name="delta_bg">#050507</color>
-+    <color name="delta_surface">#0C0C10</color>
-+    <color name="delta_card">#141418</color>
-+    <color name="delta_surface_variant">#17171C</color>
-+    <color name="delta_primary">#050507</color>
-+    <color name="delta_primary_dark">#050507</color>
+-    <color name="delta_bg">#050507</color>
+-    <color name="delta_surface">#0C0C10</color>
+-    <color name="delta_card">#141418</color>
+-    <color name="delta_surface_variant">#17171C</color>
+-    <color name="delta_primary">#050507</color>
+-    <color name="delta_primary_dark">#050507</color>
++    <color name="delta_bg">#08080C</color>
++    <color name="delta_surface">#0F0F15</color>
++    <color name="delta_card">#15151D</color>
++    <color name="delta_surface_variant">#1C1C26</color>
++    <color name="delta_primary">#08080C</color>
++    <color name="delta_primary_dark">#08080C</color>
      <color name="delta_on_primary">#FFFFFF</color>
  
      <!-- Accent — Dark uses light purple (bright enough to read, not so light it washes out white text) -->
--    <color name="delta_accent">#A18AF4</color>
--    <color name="delta_accent_soft">#B6A5F8</color>
--    <color name="delta_fab">#1D1F2B</color>
-+    <color name="delta_accent">#A78BFA</color>
-+    <color name="delta_accent_soft">#C4B5FD</color>
-+    <color name="delta_fab">#0A0A0D</color>
- 
-     <!-- Black Wall screen only (dark): same light purple family -->
--    <color name="delta_blackwall_accent">#B6A5F8</color>
-+    <color name="delta_blackwall_accent">#B794F4</color>
+@@ -25,16 +25,16 @@
  
      <!-- Typography — Dark (left as white, per request: fonts/icons stay white and visible) -->
--    <color name="delta_text">#F0EFF8</color>
--    <color name="delta_text_secondary">#B3B0C6</color>
--    <color name="delta_text_muted">#858399</color>
-+    <color name="delta_text">#FFFFFF</color>
-+    <color name="delta_text_secondary">#C0C0CE</color>
-+    <color name="delta_text_muted">#8888A0</color>
+     <color name="delta_text">#FFFFFF</color>
+-    <color name="delta_text_secondary">#C0C0CE</color>
+-    <color name="delta_text_muted">#8888A0</color>
++    <color name="delta_text_secondary">#C2C4D8</color>
++    <color name="delta_text_muted">#9094AE</color>
  
      <!-- Server type label (Shadowsocks / VLESS / ...) — light purple -->
--    <color name="delta_server_type_text">#B6A5F8</color>
-+    <color name="delta_server_type_text">#C4B5FD</color>
+     <color name="delta_server_type_text">#C4B5FD</color>
  
      <!-- Chrome — Dark -->
--    <color name="delta_divider">#292B3A</color>
--    <color name="delta_selected">#30264D</color>
--    <color name="delta_stroke">#303244</color>
--    <color name="delta_glow">#269278E8</color>
-+    <color name="delta_divider">#22FFFFFF</color>
-+    <color name="delta_selected">#332E1065</color>
-+    <color name="delta_stroke">#2A2A33</color>
-+    <color name="delta_glow">#44A78BFA</color>
+-    <color name="delta_divider">#22FFFFFF</color>
++    <color name="delta_divider">#1FFFFFFF</color>
+     <color name="delta_selected">#332E1065</color>
+-    <color name="delta_stroke">#2A2A33</color>
++    <color name="delta_stroke">#2A2A38</color>
+     <color name="delta_glow">#44A78BFA</color>
      <color name="delta_scrim">#99000000</color>
  
-     <!-- Semantic — Dark (connection-state colours; untouched) -->
--    <color name="delta_success">#43C69A</color>
-+    <color name="delta_success">#4ADE80</color>
-     <color name="delta_error">#F87171</color>
--    <color name="delta_warning">#F0A34A</color>
-+    <color name="delta_warning">#FBBF24</color>
- 
-     <!-- VPN state text / panel — Dark (connect / disconnect / connected states; untouched) -->
-     <color name="delta_state_off_text">#F87171</color>
--    <color name="delta_state_connecting_text">#B6A5F8</color>
--    <color name="delta_state_on_text">#43C69A</color>
--    <color name="delta_panel_off">#1D1F2B</color>
--    <color name="delta_panel_connecting">#1D1F2B</color>
--    <color name="delta_panel_on">#1D1F2B</color>
-+    <color name="delta_state_connecting_text">#38BDF8</color>
-+    <color name="delta_state_on_text">#4ADE80</color>
-+    <color name="delta_panel_off">#241A20</color>
-+    <color name="delta_panel_connecting">#182430</color>
-+    <color name="delta_panel_on">#16261E</color>
- 
-     <!-- Ping badge tiers — Dark (green below 500ms, orange 500-1600ms, red above 1600ms) -->
--    <color name="delta_ping_good">#43C69A</color>
--    <color name="delta_ping_good_bg">#183D33</color>
--    <color name="delta_ping_ok">#43C69A</color>
--    <color name="delta_ping_ok_bg">#183D33</color>
--    <color name="delta_ping_warn">#F0A34A</color>
--    <color name="delta_ping_warn_bg">#49351F</color>
-+    <color name="delta_ping_good">#4ADE80</color>
-+    <color name="delta_ping_good_bg">#12301F</color>
-+    <color name="delta_ping_ok">#A3E635</color>
-+    <color name="delta_ping_ok_bg">#26300F</color>
-+    <color name="delta_ping_warn">#FB923C</color>
-+    <color name="delta_ping_warn_bg">#35200F</color>
-     <color name="delta_ping_bad">#F87171</color>
-     <color name="delta_ping_bad_bg">#3A1517</color>
--    <color name="delta_ping_none">#858399</color>
--    <color name="delta_ping_none_bg">#272938</color>
-+    <color name="delta_ping_none">#9CA3AF</color>
-+    <color name="delta_ping_none_bg">#2E2E3A</color>
+@@ -64,22 +64,22 @@
+     <color name="delta_ping_none_bg">#2E2E3A</color>
  
      <!-- Navigation Drawer v3 — Dark: matte black, light-purple selection -->
--    <color name="delta_nav_bg">#191A25</color>
--    <color name="delta_nav_header_bg">#191A25</color>
--    <color name="delta_nav_selected_bg">#30264D</color>
--    <color name="delta_nav_selected_icon">#A18AF4</color>
--    <color name="delta_nav_selected_text">#D6CCFB</color>
--    <color name="delta_nav_unselected_icon">#A18AF4</color>
--    <color name="delta_nav_unselected_text">#F0EFF8</color>
--    <color name="delta_nav_divider">#292B3A</color>
--    <color name="delta_nav_footer_text">#858399</color>
-+    <color name="delta_nav_bg">#000000</color>
-+    <color name="delta_nav_header_bg">#000000</color>
-+    <color name="delta_nav_selected_bg">#332E1065</color>
-+    <color name="delta_nav_selected_icon">#C4B5FD</color>
-+    <color name="delta_nav_selected_text">#DDD3FC</color>
-+    <color name="delta_nav_unselected_icon">#FFFFFF</color>
-+    <color name="delta_nav_unselected_text">#FFFFFF</color>
-+    <color name="delta_nav_divider">#28FFFFFF</color>
-+    <color name="delta_nav_footer_text">#8888A0</color>
+-    <color name="delta_nav_bg">#000000</color>
+-    <color name="delta_nav_header_bg">#000000</color>
++    <color name="delta_nav_bg">#060609</color>
++    <color name="delta_nav_header_bg">#060609</color>
+     <color name="delta_nav_selected_bg">#332E1065</color>
+     <color name="delta_nav_selected_icon">#C4B5FD</color>
+     <color name="delta_nav_selected_text">#DDD3FC</color>
+     <color name="delta_nav_unselected_icon">#FFFFFF</color>
+     <color name="delta_nav_unselected_text">#FFFFFF</color>
+-    <color name="delta_nav_divider">#28FFFFFF</color>
+-    <color name="delta_nav_footer_text">#8888A0</color>
++    <color name="delta_nav_divider">#24FFFFFF</color>
++    <color name="delta_nav_footer_text">#9094AE</color>
  
      <!-- Tools popup v3 — Dark: matte black -->
--    <color name="delta_tools_bg">#191A25</color>
--    <color name="delta_tools_header_text">#B3B0C6</color>
--    <color name="delta_tools_icon_primary">#A18AF4</color>
-+    <color name="delta_tools_bg">#000000</color>
-+    <color name="delta_tools_header_text">#C0C0CE</color>
-+    <color name="delta_tools_icon_primary">#C4B5FD</color>
+-    <color name="delta_tools_bg">#000000</color>
+-    <color name="delta_tools_header_text">#C0C0CE</color>
++    <color name="delta_tools_bg">#101017</color>
++    <color name="delta_tools_header_text">#C2C4D8</color>
+     <color name="delta_tools_icon_primary">#C4B5FD</color>
      <color name="delta_tools_icon_danger">#F87171</color>
--    <color name="delta_tools_divider">#292B3A</color>
-+    <color name="delta_tools_divider">#28FFFFFF</color>
+-    <color name="delta_tools_divider">#28FFFFFF</color>
++    <color name="delta_tools_divider">#24FFFFFF</color>
  
      <!-- Settings v3 group header — Dark: light purple -->
--    <color name="delta_settings_group_text">#A18AF4</color>
--    <color name="delta_settings_group_icon">#A18AF4</color>
-+    <color name="delta_settings_group_text">#C4B5FD</color>
-+    <color name="delta_settings_group_icon">#C4B5FD</color>
- 
--    <color name="delta_switch_off_thumb">#B3B0C6</color>
--    <color name="delta_switch_off_track">#3A3C50</color>
-+    <color name="delta_switch_off_thumb">#9AA0A6</color>
-+    <color name="delta_switch_off_track">#4A4F55</color>
- 
--    <!-- DeltaBox 1.0.21 additional tokens -->
--    <color name="delta_success_soft">#183D33</color>
--    <color name="delta_success_container">#203D35</color>
--    <color name="delta_warning_soft">#49351F</color>
--    <color name="delta_warning_container">#382B20</color>
--    <color name="delta_ripple">#443568</color>
--    <color name="delta_disabled">#55576A</color>
--    <color name="delta_toolbar_bg">#11121A</color>
-+    <!-- 1.0.3-only tokens, mapped onto the reference palette -->
-+    <color name="delta_disabled">#8888A0</color>
-+    <color name="delta_error_soft">#26F87171</color>
-     <color name="delta_on_success">#FFFFFF</color>
--    <color name="delta_error_soft">#3A1517</color>
--    <color name="delta_tools_icon_warning">#F0A34A</color>
--    <color name="delta_tools_icon_success">#43C69A</color>
-+    <color name="delta_ripple">#33A78BFA</color>
-+    <color name="delta_success_container">#12301F</color>
-+    <color name="delta_success_soft">#1A4ADE80</color>
-+    <color name="delta_toolbar_bg">#050507</color>
-+    <color name="delta_tools_icon_success">#4ADE80</color>
-+    <color name="delta_tools_icon_warning">#FBBF24</color>
-+    <color name="delta_warning_container">#3A2A10</color>
-+    <color name="delta_warning_soft">#1AFBBF24</color>
- </resources>
+     <color name="delta_settings_group_text">#C4B5FD</color>
 diff -ruN --strip-trailing-cr a/app/src/main/res/values-night/colors_delta_glass.xml b/app/src/main/res/values-night/colors_delta_glass.xml
---- a/app/src/main/res/values-night/colors_delta_glass.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/values-night/colors_delta_glass.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -1,10 +1,10 @@
+--- a/app/src/main/res/values-night/colors_delta_glass.xml	2026-11-09 11:52:42.000000000 +0000
++++ b/app/src/main/res/values-night/colors_delta_glass.xml	2026-11-18 13:00:35.000678352 +0000
+@@ -1,9 +1,9 @@
  <?xml version="1.0" encoding="utf-8"?>
  <resources>
--    <color name="delta_glass_top">#FF1D1F2B</color>
--    <color name="delta_glass_bottom">#FF191A25</color>
--    <color name="delta_glass_stroke">#303244</color>
--    <color name="delta_popup_bg">#1D1F2B</color>
--    <color name="delta_popup_stroke">#303244</color>
-+    <color name="delta_glass_top">#F2242431</color>
-+    <color name="delta_glass_bottom">#E6191923</color>
-+    <color name="delta_glass_stroke">#33FFFFFF</color>
-+    <color name="delta_popup_bg">#242431</color>
-+    <color name="delta_popup_stroke">#33FFFFFF</color>
+-    <color name="delta_glass_top">#F2242431</color>
+-    <color name="delta_glass_bottom">#E6191923</color>
++    <color name="delta_glass_top">#F21B1B25</color>
++    <color name="delta_glass_bottom">#E6121219</color>
+     <color name="delta_glass_stroke">#33FFFFFF</color>
+-    <color name="delta_popup_bg">#242431</color>
++    <color name="delta_popup_bg">#1C1C26</color>
+     <color name="delta_popup_stroke">#33FFFFFF</color>
      <color name="delta_cat_button">#FF4545</color>
--    <color name="delta_cat_button_connected">#43C69A</color>
-+    <color name="delta_cat_button_connected">#22C55E</color>
- </resources>
-diff -ruN --strip-trailing-cr a/app/src/main/res/values-night/colors_deltabox_tokens.xml b/app/src/main/res/values-night/colors_deltabox_tokens.xml
---- a/app/src/main/res/values-night/colors_deltabox_tokens.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/values-night/colors_deltabox_tokens.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -1,8 +1,8 @@
- <?xml version="1.0" encoding="utf-8"?>
- <!-- DeltaBox 1.0.15 design tokens (dark). -->
- <resources>
--    <color name="delta_chart_download">#9278E8</color>
--    <color name="delta_chart_upload">#43C69A</color>
--    <color name="delta_chart_baseline">#292B3A</color>
--    <color name="delta_chart_label">#858399</color>
-+    <color name="delta_chart_download">#4ADE80</color>
-+    <color name="delta_chart_upload">#A78BFA</color>
-+    <color name="delta_chart_baseline">#2A2A33</color>
-+    <color name="delta_chart_label">#8888A0</color>
- </resources>
-diff -ruN --strip-trailing-cr a/app/src/main/res/values-night/styles_delta.xml b/app/src/main/res/values-night/styles_delta.xml
---- a/app/src/main/res/values-night/styles_delta.xml	2026-11-23 22:52:25.000000000 +0330
-+++ b/app/src/main/res/values-night/styles_delta.xml	2026-11-22 16:01:17.000000000 +0330
-@@ -1,7 +1,5 @@
- <?xml version="1.0" encoding="utf-8"?>
- <resources>
-     <!-- White icons on the midnight toolbar -->
--    <style name="ThemeOverlay.Delta.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
--        <item name="colorControlNormal">@color/delta_brand</item>
--    </style>
-+    <style name="ThemeOverlay.Delta.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
- </resources>
+     <color name="delta_cat_button_connected">#22C55E</color>
+diff -ruN --strip-trailing-cr a/app/src/main/res/values-night/dimens_delta_scale.xml b/app/src/main/res/values-night/dimens_delta_scale.xml
+--- a/app/src/main/res/values-night/dimens_delta_scale.xml	1970-01-01 00:00:00.000000000 +0000
++++ b/app/src/main/res/values-night/dimens_delta_scale.xml	2026-11-18 13:00:57.563375178 +0000
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Dark mode: shadows are invisible on near-black, so depth comes from surface lightness + stroke. -->
++<resources>
++    <dimen name="delta_card_elevation">0dp</dimen>
++</resources>

@@ -33,6 +33,18 @@ func ForceGc() {
 	go debug.FreeOSMemory()
 }
 
+// UpdateDefaultInterface is called from Kotlin (DefaultNetworkListener's
+// ConnectivityManager callback, via BaseService.preInit()/SagerNet.kt) whenever the
+// device's underlying default network changes. interfaceName should be the name
+// Android reports (LinkProperties.interfaceName, e.g. "wlan0"); pass an empty string
+// when the network was lost. This feeds the router's own default-interface monitor
+// (see interface_monitor.go) so sing-box knows which real interface to route/bind
+// outbound traffic through. Without this call the router never learns of any
+// interface and pauses all traffic dispatch ("missing default interface").
+func UpdateDefaultInterface(interfaceName string) {
+	defaultInterfaceMonitor.updateDefaultInterfaceInfo(interfaceName)
+}
+
 func InitCore(process, cachePath, internalAssets, externalAssets string,
 	maxLogSizeKb int32, logEnable bool,
 	if1 NB4AInterface, if2 BoxPlatformInterface, if3 LocalDNSTransport,

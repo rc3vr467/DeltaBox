@@ -870,3 +870,12 @@ func (device *Device) HeaderProtectionCipher(salt []byte) (*chacha20.Cipher, err
 func (peer *Peer) randomTrailer(packetSize int) int {
 	return -1
 }
+
+// randomTrailer on *Device exists only for SendHandshakeCookie, which replies
+// to a not-yet-authenticated initiator and so has no *Peer in scope. Cookie
+// replies get the same "decoy trailers off" behavior as the *Peer version
+// above, for the same reason (see its comment): this merge does not port
+// AWG 2.0's decoy-packet feature set (I1-I5) yet.
+func (device *Device) randomTrailer(packetSize int) int {
+	return -1
+}

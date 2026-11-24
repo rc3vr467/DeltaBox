@@ -115,7 +115,13 @@ func (q *peerQueue) write(packetBuffers []*buf.Buffer) {
 	for _, packetBuffer := range packetBuffers {
 		q.packets = append(q.packets, packetBuffer.Bytes())
 	}
-	q.peer.WritePackets(q.packets)
+	// AmneziaWG's merged *device.Peer exposes this as SendBuffers (returning an
+	// error), not WritePackets: same [][]byte signature, just a different name
+	// than upstream wireguard-go's. Error intentionally discarded here, same as
+	// this call already did before this fix (this is a fire-and-forget transport
+	// write loop with no logger in scope, matching how send failures are handled
+	// elsewhere in this same hot path).
+	_ = q.peer.SendBuffers(q.packets)
 	clear(q.packets)
 	q.packets = q.packets[:0]
 	buf.ReleaseMulti(packetBuffers)

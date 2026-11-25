@@ -21,8 +21,8 @@ object ConfigMigrate {
         val routeRules = list(route["rules"]) ?: mutableListOf<Any?>().also { route["rules"] = it }
 
         migrateInbounds(root, routeRules)
-        val (directResolverTag, remoteResolverTag) = migrateDns(root, route)
-        migrateOutbounds(root, directResolverTag, remoteResolverTag)
+        val directResolverTag = migrateDns(root, route)
+        migrateOutbounds(root, directResolverTag)
     }
 
     private fun migrateInbounds(root: MutableMap<String, Any?>, routeRules: MutableList<Any?>) {
@@ -89,25 +89,29 @@ object ConfigMigrate {
     }
 
     /**
-     * Returns the tags of the servers used as default domain resolvers:
-     * (dns-direct tag, dns-remote tag) - either may be null if not present.
+     * Returns the tag of the server used as the default domain resolver (or null).
      *
-     * dns-direct resolves by going straight out the underlying (non-VPN) network
-     * interface. That's correct for outbounds/endpoints that themselves dial out
-     * directly, but wrong for a proxy endpoint like wireguard: a wireguard peer's
-     * own traffic is already routed through its tunnel, so resolving its domains
-     * via dns-direct sends the DNS query out a different path than the data ever
-     * takes, which the peer/upstream network may simply not answer, hanging until
-     * timeout ("missing default interface" noise aside, the real symptom is DNS
-     * queries made through the tunnel all failing with context deadline exceeded).
-     * dns-remote (resolved through the proxy/tunnel itself) is the correct default
-     * for these. See migrateOutbounds.
+     * This is dns-direct: it resolves by going straight out the underlying
+     * (non-VPN) network interface, before/independent of any tunnel. That is the
+     * correct resolver for every outbound/endpoint's own `domain_resolver` field,
+     * wireguard included: sing-box's wireguard transport uses this exact field
+     * via its own internal ResolveDialer purely to look up the *peer's* address
+     * (e.g. entry7-fr.vzrsy.com) before/outside the tunnel, every time it dials
+     * out - it is never applied to domains the user visits once the tunnel is up
+     * (those go through route.rules' hijack-dns + dns.final/dns-remote,
+     * independently of this field). Pointing a wireguard endpoint's
+     * domain_resolver at dns-remote - which itself routes through the tunnel,
+     * i.e. this same endpoint - creates a circular dependency: the peer can't be
+     * reached until its address is resolved, and the address can't be resolved
+     * until the peer (the tunnel itself) is reachable. That produced
+     * "handshake: context canceled" / DNS "context deadline exceeded" failures -
+     * not a routing mismatch, but a deadlock. See migrateOutbounds.
      */
-    private fun migrateDns(root: MutableMap<String, Any?>, route: MutableMap<String, Any?>): Pair<String?, String?> {
-        val dns = map(root["dns"]) ?: return null to null
+    private fun migrateDns(root: MutableMap<String, Any?>, route: MutableMap<String, Any?>): String? {
+        val dns = map(root["dns"]) ?: return null
         dns.remove("independent_cache")
         val fakeip = map(dns.remove("fakeip"))
-        val servers = list(dns["servers"]) ?: return null to null
+        val servers = list(dns["servers"]) ?: return null
         val blockTags = mutableSetOf<String>()
         var globalStrategy: String? = null
         val newServers = mutableListOf<Any?>()
@@ -163,14 +167,13 @@ object ConfigMigrate {
             }
         }
         val directTag = newServers.firstNotNullOfOrNull { map(it)?.takeIf { m -> m["tag"] == "dns-direct" }?.get("tag") } as? String
-        val remoteTag = newServers.firstNotNullOfOrNull { map(it)?.takeIf { m -> m["tag"] == "dns-remote" }?.get("tag") } as? String
         if (needDefaultResolver && directTag != null && route["default_domain_resolver"] == null) {
             route["default_domain_resolver"] = directTag
         }
-        return directTag to remoteTag
+        return directTag
     }
 
-    private fun migrateOutbounds(root: MutableMap<String, Any?>, directResolverTag: String?, remoteResolverTag: String?) {
+    private fun migrateOutbounds(root: MutableMap<String, Any?>, resolverTag: String?) {
         val outbounds = list(root["outbounds"]) ?: return
         val endpoints = list(root["endpoints"]) ?: mutableListOf<Any?>()
         val it = outbounds.iterator()
@@ -178,14 +181,6 @@ object ConfigMigrate {
         while (it.hasNext()) {
             val ob = map(it.next()) ?: continue
             val ds = ob.remove("domain_strategy") as? String
-            // A proxy endpoint like wireguard dials its own peer and routes all of
-            // its traffic through that tunnel, so its domains (e.g. the DNS it's
-            // asked to resolve while already connected) must be resolved the same
-            // way: through dns-remote. Every other outbound here is a protocol that
-            // dials its own server directly from the device's own network, so
-            // dns-direct remains correct for those.
-            val isTunnelRoutedOutbound = ob["type"] == "wireguard"
-            val resolverTag = if (isTunnelRoutedOutbound) (remoteResolverTag ?: directResolverTag) else directResolverTag
             if (!ds.isNullOrEmpty() && ob["domain_resolver"] == null && resolverTag != null) {
                 ob["domain_resolver"] = mutableMapOf<String, Any?>("server" to resolverTag, "strategy" to ds)
             }

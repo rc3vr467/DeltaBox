@@ -215,6 +215,46 @@ func (e *Endpoint) Start(postStart bool) error {
 	if postStart != hasDomainPeer {
 		return nil
 	}
+	// A domain peer's `endpoint` field is still its zero value at this point
+	// (only a literal-address peer has one here - see peerConfig below). If
+	// IpcSet is later handed a config with no `endpoint=` line for such a
+	// peer, amneziawg-sagernet-fork's wireguard-go returns "no known endpoint
+	// for peer" the first time it tries to handshake and only consults
+	// e.options.ResolvePeer (via SetEndpointResolverFunc, wired up below) on
+	// the 5-second retry that follows - a startup latency hit on every
+	// domain-peer connection that a literal-address peer never pays. (This is
+	// the same regression SagerNet/sing-box#4539 reports upstream: 1.13.x's
+	// Start(resolve bool) resolved domain peers up front, so IpcSet always got
+	// an endpoint=; the 1.14.0 rewrite to Start(postStart bool) dropped that.)
+	// Resolving here - before isUDPListener's SetSinglePeerMode check and the
+	// else branch's isConnect/connectAddr/reserved setup just below, both of
+	// which key off peer.endpoint.IsValid() - lets a domain peer get the same
+	// single-peer-mode/connected-bind treatment a literal-address peer
+	// already gets, and carry endpoint= in its very first IpcSet call so it
+	// can handshake immediately. A failed resolution here is left non-fatal
+	// (peer.endpoint stays invalid and the SetEndpointResolverFunc callback
+	// below still gets a chance to resolve it on retry) rather than aborting
+	// Start().
+	for peerIndex := range e.peers {
+		peer := &e.peers[peerIndex]
+		if peer.endpoint.IsValid() || !peer.destination.IsDomain() || e.options.ResolvePeer == nil {
+			continue
+		}
+		addresses, err := e.options.ResolvePeer(peer.destination.Fqdn)
+		if err != nil {
+			e.options.Logger.Warn(E.Cause(err, "resolve endpoint domain for peer[", peerIndex, "]: ", peer.destination))
+			continue
+		}
+		for _, address := range addresses {
+			if address.IsValid() {
+				peer.endpoint = netip.AddrPortFrom(address, peer.destination.Port)
+				break
+			}
+		}
+		if !peer.endpoint.IsValid() {
+			e.options.Logger.Warn("no endpoint address for peer[", peerIndex, "]: ", peer.destination)
+		}
+	}
 	var bind conn.Bind
 	udpListener, isUDPListener := common.Cast[dialer.UDPListener](e.options.Dialer)
 	if isUDPListener {
@@ -335,6 +375,23 @@ func (e *Endpoint) Start(postStart bool) error {
 		e.pauseCallback = e.pause.RegisterCallback(e.onPauseUpdated)
 	}
 	e.allowedIPs = wgDevice.AllowedIPs()
+	// A freshly constructed wireguard-go Device always starts in deviceStateDown
+	// (see device.NewDevice). Nothing else in this startup path brings it up:
+	// resumeLocked() only calls wgDevice.Up() when e.suspended was previously
+	// set true via SetIdle(true), and updateNetworkPause() only calls it in
+	// response to a pause.EventNetworkWake callback - neither fires on a plain
+	// first start. Left this way, the device stays "down" indefinitely: packets
+	// written by RoutineReadFromTUN still reach peer.StagePackets() (the TUN
+	// device and allowedips table are set up independently of device state), but
+	// peer.SendStagedPackets() checks !peer.device.isUp() and silently returns
+	// without ever calling peer.SendHandshakeInitiation() - the handshake is
+	// never sent, and the connection hangs until some unrelated pause/wake event
+	// happens to bring the device up. Bringing the device up here, as soon as
+	// it's been configured, is what the rest of this function's callers expect
+	// to have happened when Start(true) returns successfully.
+	if !e.networkPaused {
+		wgDevice.Up()
+	}
 	return nil
 }
 

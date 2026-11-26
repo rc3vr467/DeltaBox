@@ -39,6 +39,36 @@ object DefaultNetworkListener {
             is NetworkMessage.Start -> {
                 if (listeners.isEmpty()) register()
                 listeners[message.key] = message.listener
+                if (network == null && fallback) {
+                    // register() above failed (SecurityException, the per-app
+                    // 100-outstanding-request cap being hit, or some other
+                    // platform quirk on this device/API level) and fell back
+                    // to `fallback = true`. In that mode Callback.onAvailable
+                    // is never going to fire - nothing actually registered -
+                    // so `network` would otherwise stay null for the entire
+                    // session: every listener (including the one in
+                    // BaseService.kt that calls Libcore.updateDefaultInterface)
+                    // would simply never run. That leaves sing-box's
+                    // interfaceMonitor.DefaultInterface() permanently nil,
+                    // which makes dispatchInterfaceUpdateLocked() call
+                    // pauseManager.NetworkPause() on every interface-update
+                    // dispatch (not just a one-off "missing default interface"
+                    // log line) - which in turn, through the wireguard
+                    // endpoint's onPauseUpdated/updateNetworkPause callback,
+                    // calls wgDevice.Down(), undoing Up() and leaving the
+                    // handshake/traffic permanently stuck even though packets
+                    // appear to go out fine. Set `network` here directly from
+                    // the current activeNetwork - the same one get()'s own
+                    // fallback path already uses - instead of going through
+                    // Put via the actor's own channel (sending to this actor's
+                    // channel from inside its own message loop would just
+                    // fail silently: the default RENDEZVOUS/no-buffer channel
+                    // has no receiver ready to take it yet, since this coroutine
+                    // is still busy handling the current Start message).
+                    @TargetApi(23) {
+                        network = SagerNet.connectivity.activeNetwork
+                    }
+                }
                 if (network != null) message.listener(network)
             }
             is NetworkMessage.Get -> {

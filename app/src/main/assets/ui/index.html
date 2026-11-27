@@ -626,7 +626,6 @@ textarea.dlg-in{min-height:150px;resize:vertical}
         </div>
       </div>
     </header>
-    <input type="file" id="fileInput" accept=".txt,.json,text/plain" hidden>
 
     <!-- Sub strip: group info + group URL test (source: ConfigurationFragment toolbar) -->
     <div class="sub-strip">
@@ -719,6 +718,10 @@ textarea.dlg-in{min-height:150px;resize:vertical}
           <span data-i18n="bw_enable">Enable Black Wall</span>
           <span class="switch"><input id="bwSwitch" type="checkbox"><span></span></span>
         </label>
+        <label class="switch-row" style="margin-top:10px">
+          <span data-i18n="adblock_title">AdBlock</span>
+          <span class="switch"><input id="adSwitch" type="checkbox"><span></span></span>
+        </label>
         <div class="sheet-label" data-i18n="bw_level">PROTECTION LEVEL</div>
         <button class="bw-level" data-level="GHOST" type="button" aria-checked="false">
           <span><span class="bw-title">Ghost</span><span class="bw-desc" data-i18n="lvl_desc_GHOST" style="display:block"></span></span>
@@ -778,7 +781,20 @@ textarea.dlg-in{min-height:150px;resize:vertical}
   var ICON_DEL = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>';
 
   /* ---- Data model: NO local data. Everything comes from Kotlin through NativeBridge. ---- */
-  var NB = window.NativeBridge;
+  // Every bridge call goes through this wrapper: a Java exception becomes a visible toast instead of a silent dead button.
+  var NB = window.NB = (function (raw) {
+    function fail(name, e) {
+      try { console.error('NativeBridge.' + name + ' failed: ' + e); } catch (x) {}
+      var el = document.getElementById('toast');
+      if (el) { el.textContent = 'Bridge error (' + name + '): ' + (e && e.message ? e.message : e); el.classList.add('show'); setTimeout(function () { el.classList.remove('show'); }, 4000); }
+    }
+    return new Proxy({}, { get: function (_, name) {
+      return function () {
+        try { if (typeof raw[name] !== 'function') throw new Error('method missing'); return raw[name].apply(raw, arguments); }
+        catch (e) { fail(String(name), e); return undefined; }
+      };
+    } });
+  })(window.NativeBridge);
   function nj(x) { try { return JSON.parse(x); } catch (e) { return null; } }
   function flagOf(name) {
     var m = /[\uD83C][\uDDE6-\uDDFF][\uD83C][\uDDE6-\uDDFF]/.exec(name || '');
@@ -811,6 +827,7 @@ textarea.dlg-in{min-height:150px;resize:vertical}
   function refreshBW() {
     var b = nj(NB.getBlackWall()) || {};
     st.bw.enabled = !!b.enabled;
+    st.ad = !!(nj(NB.getSettings()) || {}).ad_block_enabled;
     if (b.level === 'GHOST' || b.level === 'PHANTOM' || b.level === 'WRAITH') st.bw.level = b.level;
   }
   var refreshTimer = null, refreshFull = false;
@@ -1029,6 +1046,7 @@ function bwMeta() {
   function renderBW() {
     var on = st.bw.enabled;
     $('bwSwitch').checked = on;
+    $('adSwitch').checked = !!st.ad;
     var btns = document.querySelectorAll('.bw-level');
     for (var i = 0; i < btns.length; i++) {
       var b = btns[i];
@@ -1118,9 +1136,15 @@ function bwMeta() {
 
     $('shieldBtn').addEventListener('click', openBW);
     $('bwScrim').addEventListener('click', closeBW);
+    $('adSwitch').addEventListener('change', function () {
+      NB.setSetting('ad_block_enabled', String(this.checked));
+      refreshBW();
+      renderBW();
+    });
     $('bwClose').addEventListener('click', closeBW);
     $('bwSwitch').addEventListener('change', function () {
-      if (NB.setBlackWall(this.checked, st.bw.level)) st.bw.enabled = this.checked;
+      NB.setBlackWall(this.checked, st.bw.level);
+      refreshBW();
       renderBW();
       renderStatus();
     });
@@ -1129,7 +1153,8 @@ function bwMeta() {
       levels[i].addEventListener('click', function () {
         if (this.disabled) return;
         var lv = this.getAttribute('data-level');
-        if (NB.setBlackWall(st.bw.enabled, lv)) st.bw.level = lv;
+        NB.setBlackWall(st.bw.enabled, lv);
+        refreshBW();
         renderBW();
       });
     }
@@ -1137,12 +1162,7 @@ function bwMeta() {
     $('addBtn').addEventListener('click', function (e) { toggleMenu('addMenu', e); });
     $('moreBtn').addEventListener('click', function (e) { toggleMenu('moreMenu', e); });
     $('actImportClip').addEventListener('click', importClipboard);
-    $('actImportFile').addEventListener('click', function () { closeMenus(); $('fileInput').click(); });
-    $('fileInput').addEventListener('change', function () {
-      var f = this.files && this.files[0];
-      this.value = '';
-      if (f) f.text().then(importText);
-    });
+    $('actImportFile').addEventListener('click', function () { closeMenus(); NB.importFile(); });
     $('actSub').addEventListener('click', function () {
       closeMenus();
       var g = curGroup();
@@ -1185,8 +1205,8 @@ function langFromSettings() {
     return l === 'fa' ? 'fa' : 'en';
   }
   function extraStrings() {
-    var en = { vpn_denied: 'VPN permission denied', test_busy: 'A test is already running', tcp_test: 'TCP Test', sub_updating: 'Updating subscription…', import_failed: 'Import failed' };
-    var fa = { vpn_denied: 'مجوز VPN داده نشد', test_busy: 'یک تست در حال اجراست', tcp_test: 'تست TCP', sub_updating: 'در حال به‌روزرسانی اشتراک…', import_failed: 'وارد کردن ناموفق بود' };
+    var en = { adblock_title: 'AdBlock', vpn_denied: 'VPN permission denied', test_busy: 'A test is already running', tcp_test: 'TCP Test', sub_updating: 'Updating subscription…', import_failed: 'Import failed' };
+    var fa = { adblock_title: 'مسدودکننده تبلیغات', vpn_denied: 'مجوز VPN داده نشد', test_busy: 'یک تست در حال اجراست', tcp_test: 'تست TCP', sub_updating: 'در حال به‌روزرسانی اشتراک…', import_failed: 'وارد کردن ناموفق بود' };
     Object.keys(en).forEach(function (k) { if (I18N.en[k] === undefined) I18N.en[k] = en[k]; });
     Object.keys(fa).forEach(function (k) { if (I18N.fa[k] === undefined) I18N.fa[k] = fa[k]; });
   }
@@ -1252,7 +1272,7 @@ function langFromSettings() {
 var D={"settings":[{"t":"App Settings","tf":"تنظیمات برنامه","k":"","s":"","sf":"","ty":"cat"},{"t":"Language","tf":"زبان","k":"appLanguage","s":"","sf":"","ty":"sel","d":"en","o":["English","فارسی"],"of":["English","فارسی"],"v":["en","fa"]},{"t":"Theme","tf":"ظاهر","k":"nightTheme","s":"","sf":"","ty":"sel","d":"1","o":["Dark","Light"],"of":["تیره","روشن"],"v":["1","2"]},{"t":"Service Mode","tf":"حالت سرویس","k":"serviceMode","s":"","sf":"","ty":"sel","d":"vpn","o":["VPN","Proxy only","service_mode_transproxy"],"of":["VPN","فقط به حالت پراکسی","service_mode_transproxy"],"v":["vpn","proxy","transproxy"]},{"t":"TUN Implementation","tf":"پیاده‌سازی TUN","k":"tunImplementation","s":"","sf":"","ty":"sel","d":"0","o":["gVisor","System","Mixed"],"of":["gVisor","System","Mixed"],"v":["0","1","2"]},{"t":"MTU","tf":"MTU","k":"mtu","s":"","sf":"","ty":"sel","d":"1500","o":["1500","9000"],"of":["1500","9000"],"v":["1500","9000"]},{"t":"Speed Notification Update Interval","tf":"تنظیم فاصله زمانی نمایش سرعت","k":"speedInterval","s":"","sf":"","ty":"sel","d":"1000","o":["Disable","500ms","1s","3s","10s"],"of":["غیرفعال","500ms","1s","3s","10s"],"v":["0","500","1000","3000","10000"]},{"t":"Profile Traffic Statistics","tf":"آمار ترافیک پراکسی","k":"profileTrafficStatistics","s":"When disabled, the used traffic will not be counted","sf":"در صورت غیرفعال شدن، ترافیک استفاده شده پراکسی محاسبه نخواهد شد","ty":"sw","d":true},{"t":"Show Direct Speed","tf":"نمایش سرعت","k":"showDirectSpeed","s":"Show the traffic speed without proxy in the notification as well","sf":"نمایش سرعت اتصال، حتی در هنگام غیرفعال بودن پراکسی","ty":"sw","d":true},{"t":"Show group name in notification","tf":"نمایش نام گروه در نوار اعلان","k":"showGroupInNotification","s":"","sf":"","ty":"sw","d":false},{"t":"Always Show Address","tf":"نشانی‌ها همواره نمایش داده شود","k":"alwaysShowAddress","s":"Always display the server address on the configuration card","sf":"همیشه نشانی سرور را روی کارت پیکربندی نمایش دهید","ty":"sw","d":true},{"t":"Metered Hint","tf":"اتصال اندازه‌گیری‌شده","k":"meteredNetwork","s":"Hint system to treat VPN as metered","sf":"تنظیم VPN برای سیستم به عنوان اتصال اندازه‌گیری‌شده","ty":"sw","d":false},{"t":"Acquire WakeLock","tf":"به دست آوردن WakeLock","k":"acquireWakeLock","s":"Keep the CPU on","sf":"پردازنده را روشن نگه‌می‌دارد.","ty":"sw","d":false},{"t":"Log Level","tf":"سطح ثبت آمار","k":"logLevel","s":"","sf":"","ty":"sel","d":"2","o":["None","Panic","Fatal","Error","Warn","Info","Debug","Trace"],"of":["None","Panic","Fatal","Error","Warn","Info","Debug","Trace"],"v":["0","1","2","3","4","5","6","7"]},{"t":"Custom Config","tf":"پیکربندی اختصاصی","k":"globalCustomConfig","s":"","sf":"","ty":"cfg"},{"t":"Route Settings","tf":"تنظیمات مسیردهی","k":"","s":"","sf":"","ty":"cat"},{"t":"Bypass LAN","tf":"دورزدن شبکه محلی","k":"bypassLan","s":"","sf":"","ty":"sw","d":false},{"t":"Bypass LAN in Core","tf":"دورزدن شبکه محلی در هسته برنامه","k":"bypassLanInCore","s":"","sf":"","ty":"sw","d":false},{"t":"Enable Traffic Sniffing","tf":"فعال کردن ثبت ترافیک","k":"trafficSniffing","s":"","sf":"","ty":"sel","d":"1","o":["Off","Sniff result for routing","Sniff result for destination"],"of":["خاموش","ردیابی نتایج برای مسیریابی","ردیابی نتایج برای مقصد"],"v":["0","1","2"]},{"t":"Resolve Destination","tf":"بررسی مقصد","k":"resolveDestination","s":"If the destination address is a domain, it is then passed out based on the IPv6 strategy (conflicts with FakeDNS)","sf":"اگر آدرس مقصد یک دامنه باشد، بر اساس استراتژی IPv6 (تعارض با FakeDNS) از بین می‌رود.","ty":"sw","d":false},{"t":"IPv6 Route","tf":"مسیریابی IP نسخه 6","k":"ipv6Mode","s":"","sf":"","ty":"sel","d":"0","o":["Disable","Enable","Prefer","Only"],"of":["غیرفعال","فعال","ترجیح","فقط"],"v":["0","1","2","3"]},{"t":"DNS Settings","tf":"تنظیمات DNs","k":"","s":"","sf":"","ty":"cat"},{"t":"Remote DNS","tf":"DNS ریموت","k":"remoteDns","s":"","sf":"","ty":"txt","d":"8.8.8.8"},{"t":"Domain strategy for Remote","tf":"راهبرد دامنه برای ارتباط از راه دور","k":"domain_strategy_for_remote","s":"","sf":"","ty":"sel","d":"ipv4_only","o":["auto","prefer_ipv6","prefer_ipv4","ipv4_only","ipv6_only"],"of":["auto","prefer_ipv6","prefer_ipv4","ipv4_only","ipv6_only"],"v":["auto","prefer_ipv6","prefer_ipv4","ipv4_only","ipv6_only"]},{"t":"Direct DNS","tf":"DNS مستقیم","k":"directDns","s":"","sf":"","ty":"txt","d":"223.5.5.5"},{"t":"Domain strategy for Direct","tf":"راهبرد دامنه برای ارتباط مستقیم","k":"domain_strategy_for_direct","s":"","sf":"","ty":"sel","d":"ipv4_only","o":["auto","prefer_ipv6","prefer_ipv4","ipv4_only","ipv6_only"],"of":["auto","prefer_ipv6","prefer_ipv4","ipv4_only","ipv6_only"],"v":["auto","prefer_ipv6","prefer_ipv4","ipv4_only","ipv6_only"]},{"t":"Domain strategy for Server address","tf":"راهبرد دامنه برای نشانی‌های سرور","k":"domain_strategy_for_server","s":"","sf":"","ty":"sel","d":"ipv4_only","o":["auto","prefer_ipv6","prefer_ipv4","ipv4_only","ipv6_only"],"of":["auto","prefer_ipv6","prefer_ipv4","ipv4_only","ipv6_only"],"v":["auto","prefer_ipv6","prefer_ipv4","ipv4_only","ipv6_only"]},{"t":"Enable DNS Routing","tf":"فعال‌کردن مسیریابی DNS","k":"enableDnsRouting","s":"Resolve domains in bypass routes with Direct DNS. Be aware of potential DNS leaks","sf":"بررسی دامنه‌ها در دورزدن مسیرها با DNS مستقیم. احتمال افشای نشانی DNS وجود دارد.","ty":"sw","d":true},{"t":"Enable FakeDNS","tf":"فعال کردن FakeDNS","k":"enableFakeDns","s":"May cause other applications need to be restarted to reconnect to the network after proxy stopped","sf":"ممکن است نیاز باشد که برنامه‌های دیگر را برای اتصال مجدد، دوباره راه‌اندازی کنید.","ty":"sw","d":false},{"t":"Inbound Settings","tf":"تنظیمات اتصالات ورودی","k":"","s":"","sf":"","ty":"cat"},{"t":"Proxy Port","tf":"پورت پراکسی","k":"mixedPort","s":"","sf":"","ty":"txt","d":""},{"t":"Append HTTP Proxy to VPN","tf":"پراکسی HTTP را به VPN اضافه کنید","k":"appendHttpProxy","s":"HTTP proxy will be used directly from (browser/ some supported apps), without going through the virtual NIC device (Android 10+)","sf":"پروکسی HTTP مستقیماً از (مرورگر/برخی برنامه‌های پشتیبانی‌شده) بدون استفاده از دستگاه NIC مجازی (نسخه اندروید بالاتر از 10) استفاده می‌شود.","ty":"sw","d":true},{"t":"Allow Connections from the LAN","tf":"اجازه اتصال از شبکه محلی","k":"allowAccess","s":"Bind inbound servers to 0.0.0.0","sf":"اجازه اتصال سرورهای ورودی به 0.0.0.0","ty":"sw","d":false},{"t":"Misc Settings","tf":"تنظیمات متفرقه","k":"","s":"","sf":"","ty":"cat"},{"t":"Connection Test URL","tf":"آزمایش اتصال به لینک","k":"connectionTestURL","s":"","sf":"","ty":"txt","d":"http://cp.cloudflare.com/"},{"t":"Connection test concurrency","tf":"همزمانی تست اتصال","k":"connectionTestConcurrent","s":"Parallel profiles tested at once (1-50)","sf":"تعداد پروفایل‌های تست همزمان (۱ تا ۵۰)","ty":"txt","d":"5"},{"t":"AdBlock","tf":"مسدودکننده تبلیغات","k":"ad_block_enabled","s":"","sf":"","ty":"sw","d":false},{"t":"Enable Clash API","tf":"فعال کردن Clash API","k":"enableClashAPI","s":"Provide clash api and yacd dashboard at 127.0.0.1:9090","sf":"ارائه Clash api و صفحه yacd را در 127.0.0.1: 9090","ty":"sw","d":false},{"t":"Reset outbound connections when network changes","tf":"بازنشانی اتصال خروجی، هنگام تغییر شبکه","k":"networkChangeResetConnections","s":"","sf":"","ty":"sw","d":true},{"t":"Reset outbound connections when device wake from sleep","tf":"بازنشانی اتصال خروجی، هنگام روشن‌شدن صفحه موبایل","k":"wakeResetConnections","s":"","sf":"","ty":"sw","d":true},{"t":"Always allow insecure","tf":"به اتصال محافظت‌نشده همیشه اجازه داده شود.","k":"globalAllowInsecure","s":"","sf":"","ty":"sw","d":true},{"t":"Disable certificate checking when updating subscriptions","tf":"غیرفعال کردن بررسی گواهی‌ها هنگام به‌روزرسانی اشتراک‌ها","k":"allowInsecureOnRequest","s":"","sf":"","ty":"sw","d":true},{"t":"Subscription Min TLS Version","tf":"نسخه TLS","k":"appTLSVersion","s":"","sf":"","ty":"sel","d":"1.2","o":["1.2","1.3"],"of":["1.2","1.3"],"v":["1.2","1.3"]},{"t":"Show bottom bar like SagerNet","tf":"نمایش نوار پایین مانند SagerNet","k":"showBottomBar","s":"","sf":"","ty":"sw","d":false}]};
 function $(i){return document.getElementById(i)}
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-var NB=window.NativeBridge;
+var NB=window.NB;
 function nj0(x){try{return JSON.parse(x)||{}}catch(e){return {}}}
 var P=nj0(NB.getSettings()), TH=nj0(NB.getState()).night?'dark':'light', cur='config', stack=[];
 function fa(){return P.appLanguage==='fa'}
@@ -1323,7 +1343,7 @@ function pSettings(b){setBar(title('settings'),0,'');var q='';
   draw();bind($('sl'),D.settings,P,function(){},draw);$('sq').oninput=function(){q=this.value;draw()}}
 function pAbout(b){setBar(title('about'),0,'');var logo=document.querySelector('#catBtn svg');
   b.innerHTML='<div class="card"><div class="about-hero"><div style="width:76px;height:76px;margin:auto">'+(logo?logo.outerHTML:'')+'</div><h2>Delta for Android</h2><p>The universal proxy toolchain for Android, written in Kotlin.</p></div></div><div class="card">'+
-  [['Developer','rc3vr467',''],['Telegram','@v2ray_DA','https://t.me/v2ray_DA'],['GitHub','rc3vr467/DeltaBox','https://github.com/rc3vr467/DeltaBox']].map(function(x){return '<a class="row" style="text-decoration:none;color:inherit" '+(x[2]?'href="'+x[2]+'" target="_blank" rel="noopener"':'')+'><div class="r-main"><div class="r-t">'+x[0]+'</div><div class="r-s">'+x[1]+'</div></div>'+(x[2]?CHEV:'')+'</a>'}).join('')+'</div>';b.onclick=null}
+  [['Developer','rc3vr467',''],['Telegram','@v2ray_DA','https://t.me/v2ray_DA'],['GitHub','rc3vr467/DeltaBox','https://github.com/rc3vr467/DeltaBox']].map(function(x){return '<a class="row" style="text-decoration:none;color:inherit;cursor:pointer" '+(x[2]?'data-url="'+x[2]+'"':'')+'><div class="r-main"><div class="r-t">'+x[0]+'</div><div class="r-s">'+x[1]+'</div></div>'+(x[2]?CHEV:'')+'</a>'}).join('')+'</div>';b.onclick=function(e){var a=e.target.closest('[data-url]');if(a)NB.openUrl(a.getAttribute('data-url'))}}
 function init(){
   var mb=$('pgBack');mb.dataset.menu=mb.innerHTML;mb.onclick=function(){if(mb.dataset.back)back();else $('drawer').classList.add('open')};
   var s=$('moreBtn').parentNode,tg=document.createElement('button');tg.id='tgl';tg.className='icon-btn';tg.type='button';tg.setAttribute('aria-label','Theme');tg.innerHTML=TH==='dark'?SUN:MOON;

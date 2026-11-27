@@ -60,6 +60,9 @@ class MainActivity : ThemedActivity(),
         const val EXTRA_NAV = "deltabox_nav"
     }
 
+    /** True when this screen was opened from the HTML UI (WebMainActivity). */
+    private val openedFromHtmlUi get() = intent?.hasExtra(EXTRA_NAV) == true
+
     lateinit var binding: LayoutMainBinding
     lateinit var navigation: NavigationView
 
@@ -97,7 +100,9 @@ class MainActivity : ThemedActivity(),
             displayFragmentWithId(navId)
         }
         onBackPressedDispatcher.addCallback {
-            if (supportFragmentManager.findFragmentById(R.id.fragment_holder) is ConfigurationFragment) {
+            if (openedFromHtmlUi) {
+                finish() // back to the HTML home (WebMainActivity)
+            } else if (supportFragmentManager.findFragmentById(R.id.fragment_holder) is ConfigurationFragment) {
                 moveTaskToBack(true)
             } else {
                 displayFragmentWithId(R.id.nav_configuration)
@@ -149,6 +154,7 @@ class MainActivity : ThemedActivity(),
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+        if (intent.hasExtra(EXTRA_NAV)) setIntent(intent)
 
         // DeltaBox hybrid UI: open a requested native screen when already running (singleTask)
         when (intent.getStringExtra(EXTRA_NAV)) {
@@ -356,7 +362,7 @@ class MainActivity : ThemedActivity(),
             binding.stats.allowShow = true
             binding.fab.show()
             binding.fabRing.visibility = View.VISIBLE
-        } else if (!DataStore.showBottomBar) {
+        } else if (openedFromHtmlUi || !DataStore.showBottomBar) {
             binding.stats.allowShow = false
             binding.stats.performHide()
             binding.fab.hide()

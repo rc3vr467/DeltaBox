@@ -34,6 +34,10 @@ STUB="""
   getInvalidIds:function(g){return JSON.stringify([12])},
   importText:function(t){rec('importText',arguments)},
   importFromClipboard:function(){rec('importFromClipboard',arguments)},
+  importFile:function(){rec('importFile',arguments)},
+  openUrl:function(u){rec('openUrl',arguments);return true},
+  importFile:function(){rec('importFile',arguments)},
+  openUrl:function(u){rec('openUrl',arguments);return true},
   updateSubscription:function(g){rec('updateSubscription',arguments);return true},
   openNative:function(t){rec('openNative',arguments);return true},
   setSetting:function(k,v){rec('setSetting',arguments);cfg[k]=(typeof cfg[k]==='boolean')?(v==='true'):v;return true}
@@ -81,9 +85,13 @@ with sync_playwright() as p:
     pg.click('#moreBtn'); pg.click('#actResetData'); check('reset data -> clearTraffic',['clearTraffic',1] in pg.evaluate('__calls'))
     pg.click('#moreBtn'); pg.click('#actDelInvalid'); pg.click('#modalOk'); check('delete invalid -> deleteProfiles([12])',['deleteProfiles','[12]'] in pg.evaluate('__calls'))
     pg.click('#addBtn'); pg.click('#actImportClip'); check('import clipboard -> bridge',any(c[0]=='importFromClipboard' for c in pg.evaluate('__calls')))
+    pg.click('#addBtn'); pg.click('#actImportFile'); check('import file -> native picker (importFile)',any(c[0]=='importFile' for c in pg.evaluate('__calls')))
+    pg.click('#addBtn'); pg.click('#actImportFile'); check('import file -> native picker (importFile)',any(c[0]=='importFile' for c in pg.evaluate('__calls')))
     pg.click('#shieldBtn'); pg.evaluate("document.getElementById('bwSwitch').click()"); pg.wait_for_timeout(50)
     check('black wall switch -> setBlackWall(true,GHOST)',['setBlackWall',True,'GHOST'] in pg.evaluate('__calls'))
     pg.click('.bw-level[data-level="PHANTOM"]'); check('black wall level -> PHANTOM',['setBlackWall',True,'PHANTOM'] in pg.evaluate('__calls'))
+    pg.evaluate("document.getElementById('adSwitch').click()"); pg.wait_for_timeout(50)
+    check('AdBlock switch in Black Wall sheet -> ad_block_enabled',['setSetting','ad_block_enabled','true'] in pg.evaluate('__calls'))
     pg.screenshot(path='/home/claude/work/test/bw_sheet.png')
     check('back closes BW sheet first',pg.evaluate("DeltaNative.onBack()") is True and not pg.evaluate("document.getElementById('bwSheet').classList.contains('open')"))
     check('back at home with nothing open -> false (Kotlin leaves app)',pg.evaluate("DeltaNative.onBack()") is False)
@@ -91,6 +99,11 @@ with sync_playwright() as p:
     for pgname in ('assets','route','split','logs','tools'):
         pg.evaluate("DB.nav('%s')"%pgname)
     check('other native pages open natively',all(['openNative',n] in pg.evaluate('__calls') for n in ('assets','split','logs','tools')))
+    pg.evaluate("DB.nav('about')"); pg.wait_for_timeout(150)
+    pg.click('#pgBody [data-url="https://t.me/v2ray_DA"]'); check('About Telegram link -> openUrl (allow-listed)',['openUrl','https://t.me/v2ray_DA'] in pg.evaluate('__calls'))
+    pg.evaluate("DB.nav('about')"); pg.wait_for_timeout(150)
+    pg.click('#pgBody [data-url="https://t.me/v2ray_DA"]'); check('About Telegram link -> openUrl (allow-listed)',['openUrl','https://t.me/v2ray_DA'] in pg.evaluate('__calls'))
+    pg.evaluate("DB.nav('config')"); pg.wait_for_timeout(100)
     pg.click('#menuBtn'); pg.click('#drawerNav [data-page="settings"]'); pg.wait_for_timeout(100)
     check('settings page rendered from native values',pg.locator('#pgBody .row').count()>10)
     pg.wait_for_timeout(700); pg.screenshot(path='/home/claude/work/test/settings_dark.png')
@@ -108,6 +121,11 @@ with sync_playwright() as p:
     pg.locator('#dlg .dlg-act button').first.click()
     check('back from settings page',pg.evaluate("DeltaNative.onBack()") is True)
     pg.evaluate("DeltaNative.onEvent('theme',{night:true})"); check('native theme event applies dark',pg.get_attribute('html','data-theme')=='dark')
+    pg.evaluate("window.NativeBridge.getSettings=undefined"); pg.evaluate("NB.getSettings()"); pg.wait_for_timeout(100)
+    check('bridge failure shows a visible toast',('Bridge error' in pg.inner_text('#toast')))
+    pg.evaluate("window.NativeBridge.getSettings=undefined"); pg.evaluate("NB.getSettings()"); pg.wait_for_timeout(100)
+    check('bridge failure shows a visible toast','Bridge error' in pg.inner_text('#toast'))
     b.close()
+errs=[e for e in errs if 'method missing' not in e]
 print('\nERRORS:',errs if errs else 'none'); print('FAILED:',fails if fails else 'none')
 sys.exit(1 if fails or errs else 0)

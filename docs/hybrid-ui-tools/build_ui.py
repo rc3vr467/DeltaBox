@@ -25,7 +25,20 @@ s=rep(s,'''  <link rel="preconnect" href="https://fonts.googleapis.com">
 
 # ---------- script 1: data model ----------
 DATA_MODEL=r'''/* ---- Data model: NO local data. Everything comes from Kotlin through NativeBridge. ---- */
-  var NB = window.NativeBridge;
+  // Every bridge call goes through this wrapper: a Java exception becomes a visible toast instead of a silent dead button.
+  var NB = window.NB = (function (raw) {
+    function fail(name, e) {
+      try { console.error('NativeBridge.' + name + ' failed: ' + e); } catch (x) {}
+      var el = document.getElementById('toast');
+      if (el) { el.textContent = 'Bridge error (' + name + '): ' + (e && e.message ? e.message : e); el.classList.add('show'); setTimeout(function () { el.classList.remove('show'); }, 4000); }
+    }
+    return new Proxy({}, { get: function (_, name) {
+      return function () {
+        try { if (typeof raw[name] !== 'function') throw new Error('method missing'); return raw[name].apply(raw, arguments); }
+        catch (e) { fail(String(name), e); return undefined; }
+      };
+    } });
+  })(window.NativeBridge);
   function nj(x) { try { return JSON.parse(x); } catch (e) { return null; } }
   function flagOf(name) {
     var m = /[\uD83C][\uDDE6-\uDDFF][\uD83C][\uDDE6-\uDDFF]/.exec(name || '');
@@ -343,6 +356,39 @@ i=s.index("  $('pgFile').onchange=function(){"); j=s.index("D.forms.group_=",i)
 s=s[:i]+"  $('tgl2').innerHTML=TH==='dark'?SUN:MOON;$('tgl2').onclick=tg.onclick;applyTheme()}\n"+s[j:]
 s=rep(s,"D.forms.group_=D.forms.group_||{title:'Group',items:D.group};D.forms.route_={title:'Route',items:D.route};\nvar _k=Object.keys(D.forms);\n","")
 s=rep(s,"mbn.onclick=function(){protoList()};","mbn.onclick=function(){NB.openNative('classic')};")
+# ---- device-test fixes ----
+# (a) second script shares the wrapped bridge
+s=rep(s,"var NB=window.NativeBridge;\nfunction nj0","var NB=window.NB;\nfunction nj0")
+# (b) import from file: native SAF picker (an <input type=file> does nothing in WebView without a file chooser)
+s=rep(s,"""    $('actImportFile').addEventListener('click', function () { closeMenus(); $('fileInput').click(); });
+    $('fileInput').addEventListener('change', function () {
+      var f = this.files && this.files[0];
+      this.value = '';
+      if (f) f.text().then(importText);
+    });
+""","""    $('actImportFile').addEventListener('click', function () { closeMenus(); NB.importFile(); });
+""")
+s=_re.sub(r'\s*<input type="file" id="fileInput"[^>]*>','',s,count=1)
+# (c) About links: WebView navigation is blocked on purpose -> open through Kotlin (allow-listed)
+s=rep(s,"""return '<a class="row" style="text-decoration:none;color:inherit" '+(x[2]?'href="'+x[2]+'" target="_blank" rel="noopener"':'')+'>""","""return '<a class="row" style="text-decoration:none;color:inherit;cursor:pointer" '+(x[2]?'data-url="'+x[2]+'"':'')+'>""")
+s=rep(s,"</a>'}).join('')+'</div>';b.onclick=null}","</a>'}).join('')+'</div>';b.onclick=function(e){var a=e.target.closest('[data-url]');if(a)NB.openUrl(a.getAttribute('data-url'))}}")
+# ---- Black Wall: trust native state (re-read) instead of the call's return value; AdBlock switch in the sheet ----
+s=rep(s,"      if (NB.setBlackWall(this.checked, st.bw.level)) st.bw.enabled = this.checked;\n      renderBW();","      NB.setBlackWall(this.checked, st.bw.level);\n      refreshBW();\n      renderBW();")
+s=rep(s,"        if (NB.setBlackWall(st.bw.enabled, lv)) st.bw.level = lv;\n        renderBW();","        NB.setBlackWall(st.bw.enabled, lv);\n        refreshBW();\n        renderBW();")
+s=rep(s,"    st.bw.enabled = !!b.enabled;\n","    st.bw.enabled = !!b.enabled;\n    st.ad = !!(nj(NB.getSettings()) || {}).ad_block_enabled;\n")
+s=rep(s,"    $('bwSwitch').checked = on;\n","    $('bwSwitch').checked = on;\n    $('adSwitch').checked = !!st.ad;\n")
+s=rep(s,"""          <span class="switch"><input id="bwSwitch" type="checkbox"><span></span></span>
+        </label>
+""","""          <span class="switch"><input id="bwSwitch" type="checkbox"><span></span></span>
+        </label>
+        <label class="switch-row" style="margin-top:10px">
+          <span data-i18n="adblock_title">AdBlock</span>
+          <span class="switch"><input id="adSwitch" type="checkbox"><span></span></span>
+        </label>
+""")
+s=rep(s,"    $('bwScrim').addEventListener('click', closeBW);\n","    $('bwScrim').addEventListener('click', closeBW);\n    $('adSwitch').addEventListener('change', function () {\n      NB.setSetting('ad_block_enabled', String(this.checked));\n      refreshBW();\n      renderBW();\n    });\n")
+s=rep(s,"var en = { vpn_denied:","var en = { adblock_title: 'AdBlock', vpn_denied:")
+s=rep(s,"var fa = { vpn_denied:","var fa = { adblock_title: 'مسدودکننده تبلیغات', vpn_denied:")
 k=s.rindex("init();\n})();")
 s=s[:k]+"window.DB={nav:nav,setTheme:setTheme,pageBack:pageBack};\n"+s[k:]
 s=rep(s,"  <input type=\"file\" id=\"pgFile\" hidden>\n","") if '  <input type="file" id="pgFile" hidden>\n' in s else s

@@ -429,6 +429,22 @@ class UiBridge(private val host: WebMainActivity) {
         return true
     }
 
+    // ---------------------------------------------------------------- files & links
+
+    /** Opens the system file picker; the chosen file is imported like pasted text. */
+    @JavascriptInterface
+    fun importFile() {
+        host.runOnUiThread { host.pickImportFile() }
+    }
+
+    /** Opens an allow-listed https link in the browser / Telegram. */
+    @JavascriptInterface
+    fun openUrl(url: String?): Boolean {
+        if (url == null || url !in ALLOWED_URLS) return false
+        host.runOnUiThread { host.openUrl(url) }
+        return true
+    }
+
     // ---------------------------------------------------------------- native screens
 
     /** Opens an existing native screen. Only whitelisted targets are accepted. */
@@ -441,6 +457,10 @@ class UiBridge(private val host: WebMainActivity) {
 
     companion object {
         private const val MAX_IMPORT_CHARS = 1_000_000
+        private val ALLOWED_URLS = setOf(
+            "https://t.me/v2ray_DA",
+            "https://github.com/rc3vr467/DeltaBox",
+        )
         private const val MAX_SETTING_CHARS = 20_000
         private val LANGUAGE_TAGS = setOf("", "en", "fa", "ru", "tr", "es", "fr", "it", "nl", "pt-BR", "uk", "in", "ko")
     }

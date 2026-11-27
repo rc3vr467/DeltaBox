@@ -3,7 +3,9 @@ package io.nekohasekai.sagernet.ui.web
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
+import android.content.ActivityNotFoundException
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.os.RemoteException
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
 import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -36,6 +39,8 @@ import io.nekohasekai.sagernet.ui.MainActivity
 import io.nekohasekai.sagernet.ui.RouteActivity
 import io.nekohasekai.sagernet.ui.ThemedActivity
 import io.nekohasekai.sagernet.ui.VpnRequestActivity
+import io.nekohasekai.sagernet.ktx.readableMessage
+import io.nekohasekai.sagernet.ktx.runOnDefaultDispatcher
 import org.json.JSONObject
 import java.io.ByteArrayInputStream
 
@@ -59,10 +64,43 @@ class WebMainActivity : ThemedActivity(),
         if (denied) emit("toast", JSONObject().put("code", "vpn_permission_denied"))
     }
 
+    private val bridge by lazy { UiBridge(this) }
+
+    private val pickFile = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        if (uri == null) return@registerForActivityResult
+        runOnDefaultDispatcher {
+            try {
+                val bytes = contentResolver.openInputStream(uri)?.use { it.readBytes() }
+                    ?: throw IllegalStateException("cannot open file")
+                if (bytes.size > MAX_IMPORT_BYTES) throw IllegalStateException("file too large")
+                bridge.importText(String(bytes, Charsets.UTF_8))
+            } catch (e: Exception) {
+                emit("toast", JSONObject().put("code", "import_failed").put("msg", e.readableMessage))
+            }
+        }
+    }
+
+    fun pickImportFile() {
+        try {
+            pickFile.launch("*/*")
+        } catch (_: ActivityNotFoundException) {
+            emit("toast", JSONObject().put("code", "import_failed").put("msg", "No file manager found"))
+        }
+    }
+
+    fun openUrl(url: String) {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        } catch (_: ActivityNotFoundException) {
+            emit("toast", JSONObject().put("code", "import_failed").put("msg", "No app can open this link"))
+        }
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if (io.nekohasekai.sagernet.BuildConfig.DEBUG) WebView.setWebContentsDebuggingEnabled(true)
         webView = WebView(this).apply {
             setBackgroundColor(ContextCompat.getColor(context, R.color.delta_bg))
             overScrollMode = WebView.OVER_SCROLL_NEVER
@@ -81,7 +119,7 @@ class WebMainActivity : ThemedActivity(),
                 javaScriptCanOpenWindowsAutomatically = false
             }
             webViewClient = LockedClient()
-            addJavascriptInterface(UiBridge(this@WebMainActivity), "NativeBridge")
+            addJavascriptInterface(bridge, "NativeBridge")
         }
 
         val root = FrameLayout(this).apply {
@@ -299,6 +337,7 @@ class WebMainActivity : ThemedActivity(),
     }
 
     companion object {
+        private const val MAX_IMPORT_BYTES = 1_000_000
         const val ENTRY_URL = "file:///android_asset/ui/index.html"
         const val ASSET_PREFIX = "file:///android_asset/ui/"
         val NATIVE_TARGETS = setOf(

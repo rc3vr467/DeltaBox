@@ -69,7 +69,17 @@ object DefaultNetworkListener {
                         network = SagerNet.connectivity.activeNetwork
                     }
                 }
-                if (network != null) message.listener(network)
+                // Kept as a val (rather than the original `if (network != null)
+                // message.listener(network)` directly): `network` is a var
+                // mutated just above in this same closure (the fallback branch
+                // added by this patch), so the compiler can no longer
+                // smart-cast straight from the null check to the non-null call -
+                // Kotlin won't trust a captured var not to change between the
+                // two. Snapshotting it to a val first keeps the original
+                // "only call the listener once we actually have a network"
+                // behavior intact while satisfying that.
+                val currentNetwork = network
+                if (currentNetwork != null) message.listener(currentNetwork)
             }
             is NetworkMessage.Get -> {
                 check(listeners.isNotEmpty()) { "Getting network without any listeners is not supported" }

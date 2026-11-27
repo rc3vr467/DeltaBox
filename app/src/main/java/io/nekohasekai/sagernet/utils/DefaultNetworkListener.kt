@@ -83,8 +83,15 @@ object DefaultNetworkListener {
             }
             is NetworkMessage.Get -> {
                 check(listeners.isNotEmpty()) { "Getting network without any listeners is not supported" }
-                if (network == null) pendingRequests += message else message.response.complete(
-                    network
+                // Same val-snapshot reasoning as the NetworkMessage.Start branch
+                // above: `network` is a var mutated in more than one place in
+                // this closure now (this patch's fallback branch included), so
+                // the compiler won't smart-cast it from the null check to
+                // CompletableDeferred<Network>.complete's non-null parameter
+                // anymore, even though this null check is unrelated to that one.
+                val currentNetwork = network
+                if (currentNetwork == null) pendingRequests += message else message.response.complete(
+                    currentNetwork
                 )
             }
             is NetworkMessage.Stop -> if (listeners.isNotEmpty() && // was not empty

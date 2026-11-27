@@ -1,0 +1,4397 @@
+{
+ "settings": [
+  {
+   "t": "App Settings",
+   "tf": "تنظیمات برنامه",
+   "k": "",
+   "s": "",
+   "sf": "",
+   "ty": "cat"
+  },
+  {
+   "t": "Language",
+   "tf": "زبان",
+   "k": "appLanguage",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "en",
+   "o": [
+    "System default",
+    "English",
+    "فارسی",
+    "Русский",
+    "Türkçe",
+    "Español",
+    "Français",
+    "Italiano",
+    "Nederlands",
+    "Português (BR)",
+    "Українська",
+    "Bahasa Indonesia",
+    "한국어"
+   ],
+   "of": [
+    "System default",
+    "English",
+    "فارسی",
+    "Русский",
+    "Türkçe",
+    "Español",
+    "Français",
+    "Italiano",
+    "Nederlands",
+    "Português (BR)",
+    "Українська",
+    "Bahasa Indonesia",
+    "한국어"
+   ],
+   "v": [
+    "",
+    "en",
+    "fa",
+    "ru",
+    "tr",
+    "es",
+    "fr",
+    "it",
+    "nl",
+    "pt-BR",
+    "uk",
+    "in",
+    "ko"
+   ]
+  },
+  {
+   "t": "Theme",
+   "tf": "ظاهر",
+   "k": "nightTheme",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "1",
+   "o": [
+    "Dark",
+    "Light"
+   ],
+   "of": [
+    "تیره",
+    "روشن"
+   ],
+   "v": [
+    "0",
+    "1"
+   ]
+  },
+  {
+   "t": "Service Mode",
+   "tf": "حالت سرویس",
+   "k": "serviceMode",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "vpn",
+   "o": [
+    "VPN",
+    "Proxy only",
+    "service_mode_transproxy"
+   ],
+   "of": [
+    "VPN",
+    "فقط به حالت پراکسی",
+    "service_mode_transproxy"
+   ],
+   "v": [
+    "vpn",
+    "proxy",
+    "transproxy"
+   ]
+  },
+  {
+   "t": "TUN Implementation",
+   "tf": "پیاده‌سازی TUN",
+   "k": "tunImplementation",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "0",
+   "o": [
+    "gVisor",
+    "System",
+    "Mixed"
+   ],
+   "of": [
+    "gVisor",
+    "System",
+    "Mixed"
+   ],
+   "v": [
+    "0",
+    "1",
+    "2"
+   ]
+  },
+  {
+   "t": "MTU",
+   "tf": "MTU",
+   "k": "mtu",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "1500",
+   "o": [
+    "1500",
+    "9000"
+   ],
+   "of": [
+    "1500",
+    "9000"
+   ],
+   "v": [
+    "1500",
+    "9000"
+   ]
+  },
+  {
+   "t": "Speed Notification Update Interval",
+   "tf": "تنظیم فاصله زمانی نمایش سرعت",
+   "k": "speedInterval",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "1000",
+   "o": [
+    "Disable",
+    "500ms",
+    "1s",
+    "3s",
+    "10s"
+   ],
+   "of": [
+    "غیرفعال",
+    "500ms",
+    "1s",
+    "3s",
+    "10s"
+   ],
+   "v": [
+    "0",
+    "500",
+    "1000",
+    "3000",
+    "10000"
+   ]
+  },
+  {
+   "t": "Profile Traffic Statistics",
+   "tf": "آمار ترافیک پراکسی",
+   "k": "profileTrafficStatistics",
+   "s": "When disabled, the used traffic will not be counted",
+   "sf": "در صورت غیرفعال شدن، ترافیک استفاده شده پراکسی محاسبه نخواهد شد",
+   "ty": "sw",
+   "d": true
+  },
+  {
+   "t": "Show Direct Speed",
+   "tf": "نمایش سرعت",
+   "k": "showDirectSpeed",
+   "s": "Show the traffic speed without proxy in the notification as well",
+   "sf": "نمایش سرعت اتصال، حتی در هنگام غیرفعال بودن پراکسی",
+   "ty": "sw",
+   "d": true
+  },
+  {
+   "t": "Show group name in notification",
+   "tf": "نمایش نام گروه در نوار اعلان",
+   "k": "showGroupInNotification",
+   "s": "",
+   "sf": "",
+   "ty": "sw",
+   "d": false
+  },
+  {
+   "t": "Always Show Address",
+   "tf": "نشانی‌ها همواره نمایش داده شود",
+   "k": "alwaysShowAddress",
+   "s": "Always display the server address on the configuration card",
+   "sf": "همیشه نشانی سرور را روی کارت پیکربندی نمایش دهید",
+   "ty": "sw",
+   "d": true
+  },
+  {
+   "t": "Metered Hint",
+   "tf": "اتصال اندازه‌گیری‌شده",
+   "k": "meteredNetwork",
+   "s": "Hint system to treat VPN as metered",
+   "sf": "تنظیم VPN برای سیستم به عنوان اتصال اندازه‌گیری‌شده",
+   "ty": "sw",
+   "d": false
+  },
+  {
+   "t": "Acquire WakeLock",
+   "tf": "به دست آوردن WakeLock",
+   "k": "acquireWakeLock",
+   "s": "Keep the CPU on",
+   "sf": "پردازنده را روشن نگه‌می‌دارد.",
+   "ty": "sw",
+   "d": false
+  },
+  {
+   "t": "Log Level",
+   "tf": "سطح ثبت آمار",
+   "k": "logLevel",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "2",
+   "o": [
+    "None",
+    "Panic",
+    "Fatal",
+    "Error",
+    "Warn",
+    "Info",
+    "Debug",
+    "Trace"
+   ],
+   "of": [
+    "None",
+    "Panic",
+    "Fatal",
+    "Error",
+    "Warn",
+    "Info",
+    "Debug",
+    "Trace"
+   ],
+   "v": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7"
+   ]
+  },
+  {
+   "t": "Custom Config",
+   "tf": "پیکربندی اختصاصی",
+   "k": "globalCustomConfig",
+   "s": "",
+   "sf": "",
+   "ty": "cfg"
+  },
+  {
+   "t": "Route Settings",
+   "tf": "تنظیمات مسیردهی",
+   "k": "",
+   "s": "",
+   "sf": "",
+   "ty": "cat"
+  },
+  {
+   "t": "Bypass LAN",
+   "tf": "دورزدن شبکه محلی",
+   "k": "bypassLan",
+   "s": "",
+   "sf": "",
+   "ty": "sw",
+   "d": false
+  },
+  {
+   "t": "Bypass LAN in Core",
+   "tf": "دورزدن شبکه محلی در هسته برنامه",
+   "k": "bypassLanInCore",
+   "s": "",
+   "sf": "",
+   "ty": "sw",
+   "d": false
+  },
+  {
+   "t": "Enable Traffic Sniffing",
+   "tf": "فعال کردن ثبت ترافیک",
+   "k": "trafficSniffing",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "1",
+   "o": [
+    "Off",
+    "Sniff result for routing",
+    "Sniff result for destination"
+   ],
+   "of": [
+    "خاموش",
+    "ردیابی نتایج برای مسیریابی",
+    "ردیابی نتایج برای مقصد"
+   ],
+   "v": [
+    "0",
+    "1",
+    "2"
+   ]
+  },
+  {
+   "t": "Resolve Destination",
+   "tf": "بررسی مقصد",
+   "k": "resolveDestination",
+   "s": "If the destination address is a domain, it is then passed out based on the IPv6 strategy (conflicts with FakeDNS)",
+   "sf": "اگر آدرس مقصد یک دامنه باشد، بر اساس استراتژی IPv6 (تعارض با FakeDNS) از بین می‌رود.",
+   "ty": "sw",
+   "d": false
+  },
+  {
+   "t": "IPv6 Route",
+   "tf": "مسیریابی IP نسخه 6",
+   "k": "ipv6Mode",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "0",
+   "o": [
+    "Disable",
+    "Enable",
+    "Prefer",
+    "Only"
+   ],
+   "of": [
+    "غیرفعال",
+    "فعال",
+    "ترجیح",
+    "فقط"
+   ],
+   "v": [
+    "0",
+    "1",
+    "2",
+    "3"
+   ]
+  },
+  {
+   "t": "DNS Settings",
+   "tf": "تنظیمات DNs",
+   "k": "",
+   "s": "",
+   "sf": "",
+   "ty": "cat"
+  },
+  {
+   "t": "Remote DNS",
+   "tf": "DNS ریموت",
+   "k": "remoteDns",
+   "s": "",
+   "sf": "",
+   "ty": "txt",
+   "d": "8.8.8.8"
+  },
+  {
+   "t": "Domain strategy for Remote",
+   "tf": "راهبرد دامنه برای ارتباط از راه دور",
+   "k": "domain_strategy_for_remote",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "ipv4_only",
+   "o": [
+    "auto",
+    "prefer_ipv6",
+    "prefer_ipv4",
+    "ipv4_only",
+    "ipv6_only"
+   ],
+   "of": [
+    "auto",
+    "prefer_ipv6",
+    "prefer_ipv4",
+    "ipv4_only",
+    "ipv6_only"
+   ],
+   "v": [
+    "auto",
+    "prefer_ipv6",
+    "prefer_ipv4",
+    "ipv4_only",
+    "ipv6_only"
+   ]
+  },
+  {
+   "t": "Direct DNS",
+   "tf": "DNS مستقیم",
+   "k": "directDns",
+   "s": "",
+   "sf": "",
+   "ty": "txt",
+   "d": "223.5.5.5"
+  },
+  {
+   "t": "Domain strategy for Direct",
+   "tf": "راهبرد دامنه برای ارتباط مستقیم",
+   "k": "domain_strategy_for_direct",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "ipv4_only",
+   "o": [
+    "auto",
+    "prefer_ipv6",
+    "prefer_ipv4",
+    "ipv4_only",
+    "ipv6_only"
+   ],
+   "of": [
+    "auto",
+    "prefer_ipv6",
+    "prefer_ipv4",
+    "ipv4_only",
+    "ipv6_only"
+   ],
+   "v": [
+    "auto",
+    "prefer_ipv6",
+    "prefer_ipv4",
+    "ipv4_only",
+    "ipv6_only"
+   ]
+  },
+  {
+   "t": "Domain strategy for Server address",
+   "tf": "راهبرد دامنه برای نشانی‌های سرور",
+   "k": "domain_strategy_for_server",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "ipv4_only",
+   "o": [
+    "auto",
+    "prefer_ipv6",
+    "prefer_ipv4",
+    "ipv4_only",
+    "ipv6_only"
+   ],
+   "of": [
+    "auto",
+    "prefer_ipv6",
+    "prefer_ipv4",
+    "ipv4_only",
+    "ipv6_only"
+   ],
+   "v": [
+    "auto",
+    "prefer_ipv6",
+    "prefer_ipv4",
+    "ipv4_only",
+    "ipv6_only"
+   ]
+  },
+  {
+   "t": "Enable DNS Routing",
+   "tf": "فعال‌کردن مسیریابی DNS",
+   "k": "enableDnsRouting",
+   "s": "Resolve domains in bypass routes with Direct DNS. Be aware of potential DNS leaks",
+   "sf": "بررسی دامنه‌ها در دورزدن مسیرها با DNS مستقیم. احتمال افشای نشانی DNS وجود دارد.",
+   "ty": "sw",
+   "d": true
+  },
+  {
+   "t": "Enable FakeDNS",
+   "tf": "فعال کردن FakeDNS",
+   "k": "enableFakeDns",
+   "s": "May cause other applications need to be restarted to reconnect to the network after proxy stopped",
+   "sf": "ممکن است نیاز باشد که برنامه‌های دیگر را برای اتصال مجدد، دوباره راه‌اندازی کنید.",
+   "ty": "sw",
+   "d": false
+  },
+  {
+   "t": "Inbound Settings",
+   "tf": "تنظیمات اتصالات ورودی",
+   "k": "",
+   "s": "",
+   "sf": "",
+   "ty": "cat"
+  },
+  {
+   "t": "Proxy Port",
+   "tf": "پورت پراکسی",
+   "k": "mixedPort",
+   "s": "",
+   "sf": "",
+   "ty": "txt",
+   "d": ""
+  },
+  {
+   "t": "Append HTTP Proxy to VPN",
+   "tf": "پراکسی HTTP را به VPN اضافه کنید",
+   "k": "appendHttpProxy",
+   "s": "HTTP proxy will be used directly from (browser/ some supported apps), without going through the virtual NIC device (Android 10+)",
+   "sf": "پروکسی HTTP مستقیماً از (مرورگر/برخی برنامه‌های پشتیبانی‌شده) بدون استفاده از دستگاه NIC مجازی (نسخه اندروید بالاتر از 10) استفاده می‌شود.",
+   "ty": "sw",
+   "d": true
+  },
+  {
+   "t": "Allow Connections from the LAN",
+   "tf": "اجازه اتصال از شبکه محلی",
+   "k": "allowAccess",
+   "s": "Bind inbound servers to 0.0.0.0",
+   "sf": "اجازه اتصال سرورهای ورودی به 0.0.0.0",
+   "ty": "sw",
+   "d": false
+  },
+  {
+   "t": "Misc Settings",
+   "tf": "تنظیمات متفرقه",
+   "k": "",
+   "s": "",
+   "sf": "",
+   "ty": "cat"
+  },
+  {
+   "t": "Connection Test URL",
+   "tf": "آزمایش اتصال به لینک",
+   "k": "connectionTestURL",
+   "s": "",
+   "sf": "",
+   "ty": "txt",
+   "d": "http://cp.cloudflare.com/"
+  },
+  {
+   "t": "Enable Clash API",
+   "tf": "فعال کردن Clash API",
+   "k": "enableClashAPI",
+   "s": "Provide clash api and yacd dashboard at 127.0.0.1:9090",
+   "sf": "ارائه Clash api و صفحه yacd را در 127.0.0.1: 9090",
+   "ty": "sw",
+   "d": false
+  },
+  {
+   "t": "Reset outbound connections when network changes",
+   "tf": "بازنشانی اتصال خروجی، هنگام تغییر شبکه",
+   "k": "networkChangeResetConnections",
+   "s": "",
+   "sf": "",
+   "ty": "sw",
+   "d": true
+  },
+  {
+   "t": "Reset outbound connections when device wake from sleep",
+   "tf": "بازنشانی اتصال خروجی، هنگام روشن‌شدن صفحه موبایل",
+   "k": "wakeResetConnections",
+   "s": "",
+   "sf": "",
+   "ty": "sw",
+   "d": true
+  },
+  {
+   "t": "Always allow insecure",
+   "tf": "به اتصال محافظت‌نشده همیشه اجازه داده شود.",
+   "k": "globalAllowInsecure",
+   "s": "",
+   "sf": "",
+   "ty": "sw",
+   "d": true
+  },
+  {
+   "t": "Disable certificate checking when updating subscriptions",
+   "tf": "غیرفعال کردن بررسی گواهی‌ها هنگام به‌روزرسانی اشتراک‌ها",
+   "k": "allowInsecureOnRequest",
+   "s": "",
+   "sf": "",
+   "ty": "sw",
+   "d": true
+  },
+  {
+   "t": "Subscription Min TLS Version",
+   "tf": "نسخه TLS",
+   "k": "appTLSVersion",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "1.2",
+   "o": [
+    "1.2",
+    "1.3"
+   ],
+   "of": [
+    "1.2",
+    "1.3"
+   ],
+   "v": [
+    "1.2",
+    "1.3"
+   ]
+  },
+  {
+   "t": "Show bottom bar like SagerNet",
+   "tf": "نمایش نوار پایین مانند SagerNet",
+   "k": "showBottomBar",
+   "s": "",
+   "sf": "",
+   "ty": "sw",
+   "d": false
+  }
+ ],
+ "route": [
+  {
+   "t": "Route Name",
+   "tf": "نام مسیر",
+   "k": "routeName",
+   "s": "",
+   "sf": "",
+   "ty": "txt",
+   "d": ""
+  },
+  {
+   "t": "Custom Config",
+   "tf": "پیکربندی اختصاصی",
+   "k": "serverConfig",
+   "s": "",
+   "sf": "",
+   "ty": "cfg"
+  },
+  {
+   "t": "Route Settings",
+   "tf": "تنظیمات مسیردهی",
+   "k": "",
+   "s": "",
+   "sf": "",
+   "ty": "cat"
+  },
+  {
+   "t": "Applications",
+   "tf": "برنامه‌ها",
+   "k": "routePackages",
+   "s": "",
+   "sf": "",
+   "ty": "app"
+  },
+  {
+   "t": "domain",
+   "tf": "domain",
+   "k": "routeDomain",
+   "s": "",
+   "sf": "",
+   "ty": "txt",
+   "d": ""
+  },
+  {
+   "t": "dst ip",
+   "tf": "dst ip",
+   "k": "routeIP",
+   "s": "",
+   "sf": "",
+   "ty": "txt",
+   "d": ""
+  },
+  {
+   "t": "dst port",
+   "tf": "dst port",
+   "k": "routePort",
+   "s": "",
+   "sf": "",
+   "ty": "txt",
+   "d": ""
+  },
+  {
+   "t": "src ip",
+   "tf": "src ip",
+   "k": "routeSource",
+   "s": "",
+   "sf": "",
+   "ty": "txt",
+   "d": ""
+  },
+  {
+   "t": "src port",
+   "tf": "src port",
+   "k": "routeSourcePort",
+   "s": "",
+   "sf": "",
+   "ty": "txt",
+   "d": ""
+  },
+  {
+   "t": "network",
+   "tf": "network",
+   "k": "routeNetwork",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "",
+   "o": [
+    "TCP and UDP",
+    "TCP",
+    "UDP"
+   ],
+   "of": [
+    "TCP and UDP",
+    "TCP",
+    "UDP"
+   ],
+   "v": [
+    "tcp",
+    "udp"
+   ]
+  },
+  {
+   "t": "protocol",
+   "tf": "protocol",
+   "k": "routeProtocol",
+   "s": "",
+   "sf": "",
+   "ty": "txt",
+   "d": ""
+  },
+  {
+   "t": "outbound",
+   "tf": "outbound",
+   "k": "routeOutbound",
+   "s": "",
+   "sf": "",
+   "ty": "out"
+  }
+ ],
+ "group": [
+  {
+   "t": "Group name",
+   "tf": "نام گروه",
+   "k": "groupName",
+   "s": "",
+   "sf": "",
+   "ty": "txt",
+   "d": ""
+  },
+  {
+   "t": "Group Type",
+   "tf": "نوع گروه",
+   "k": "groupType",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "0",
+   "o": [
+    "Basic",
+    "Subscription"
+   ],
+   "of": [
+    "ابتدایی",
+    "اشتراک"
+   ],
+   "v": [
+    "0",
+    "1"
+   ]
+  },
+  {
+   "t": "Order",
+   "tf": "مرتب‌سازی",
+   "k": "groupOrder",
+   "s": "",
+   "sf": "",
+   "ty": "sel",
+   "d": "0",
+   "o": [
+    "Origin",
+    "By Name",
+    "By Delay"
+   ],
+   "of": [
+    "مبدأ",
+    "به ترتیب نام",
+    "به میزان تأخیر"
+   ],
+   "v": [
+    "0",
+    "1",
+    "2"
+   ]
+  },
+  {
+   "t": "Use selector",
+   "tf": "استفاده از انتخاب‌گر",
+   "k": "groupIsSelector",
+   "s": "",
+   "sf": "",
+   "ty": "sw",
+   "d": false
+  },
+  {
+   "t": "Front proxy",
+   "tf": "پراکسی جلویی",
+   "k": "groupFrontProxy",
+   "s": "",
+   "sf": "",
+   "ty": "out"
+  },
+  {
+   "t": "Landing Proxy",
+   "tf": "پراکسی در حال فرود",
+   "k": "groupLandingProxy",
+   "s": "",
+   "sf": "",
+   "ty": "out"
+  },
+  {
+   "t": "Subscription Settings",
+   "tf": "تنظیمات اشتراک",
+   "k": "groupSubscription",
+   "s": "",
+   "sf": "",
+   "ty": "cat"
+  },
+  {
+   "t": "Subscription Link",
+   "tf": "لینک اشتراک",
+   "k": "subscriptionLink",
+   "s": "",
+   "sf": "",
+   "ty": "txt",
+   "d": ""
+  },
+  {
+   "t": "Force Resolve",
+   "tf": "بررسی اجباری",
+   "k": "subscriptionForceResolve",
+   "s": "Resolve all domain names to IP addresses when updating. Host and SNI will be automatically appended if possible",
+   "sf": "هنگام به‌روزرسانی گروه، همه نام‌های دامنه را به نشانی IP تفسیر کنید. میزبان و SNI در صورت امکان به صورت خودکار اضافه می‌شوند.",
+   "ty": "sw",
+   "d": false
+  },
+  {
+   "t": "Deduplication",
+   "tf": "حذف موارد تکراری",
+   "k": "subscriptionDeduplication",
+   "s": "Remove duplicate configurations when updating",
+   "sf": "حذف خودکار پراکسی‌های تکراری، بعد از به‌روزرسانی",
+   "ty": "sw",
+   "d": false
+  },
+  {
+   "t": "Update Settings",
+   "tf": "اعمال تغییرات",
+   "k": "subscriptionUpdate",
+   "s": "",
+   "sf": "",
+   "ty": "cat"
+  },
+  {
+   "t": "Update only when connected",
+   "tf": "به‌روزرسانی هنگام متصل بودن",
+   "k": "subscriptionUpdateWhenConnectedOnly",
+   "s": "Prevent IP address leakage",
+   "sf": "از افشای IP جلوگیری می‌شود.",
+   "ty": "sw",
+   "d": false
+  },
+  {
+   "t": "UserAgent",
+   "tf": "UserAgent",
+   "k": "subscriptionUserAgent",
+   "s": "",
+   "sf": "",
+   "ty": "txt",
+   "d": ""
+  },
+  {
+   "t": "Auto Update",
+   "tf": "به‌روزرسانی خودکار",
+   "k": "subscriptionAutoUpdate",
+   "s": "",
+   "sf": "",
+   "ty": "sw",
+   "d": false
+  },
+  {
+   "t": "Auto Update Delay (In minutes)",
+   "tf": "به‌روزرسانی خودکار گروه (در مدت زمان مورد نظر به دقیقه)",
+   "k": "subscriptionAutoUpdateDelay",
+   "s": "",
+   "sf": "",
+   "ty": "txt",
+   "d": "1440"
+  }
+ ],
+ "forms": {
+  "socks": {
+   "title": "SOCKS",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "profileName",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Settings",
+     "tf": "تنظیمات سرور",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Version",
+     "tf": "نسخه برنامه",
+     "k": "serverProtocol",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "2",
+     "o": [
+      "SOCKS4",
+      "SOCKS4A",
+      "SOCKS5"
+     ],
+     "of": [
+      "SOCKS4",
+      "SOCKS4A",
+      "SOCKS5"
+     ],
+     "v": [
+      "0",
+      "1",
+      "2"
+     ]
+    },
+    {
+     "t": "Server",
+     "tf": "آدرس سرور",
+     "k": "serverAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Remote Port",
+     "tf": "پورت سرور",
+     "k": "serverPort",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Username (Optional)",
+     "tf": "نام کاربری (اختیاری)",
+     "k": "serverUsername",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Password (Optional)",
+     "tf": "رمز عبور (اختیاری)",
+     "k": "serverPassword",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "sing-box server",
+     "tf": "sing-box server",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "UDP over TCP",
+     "tf": "UDP over TCP",
+     "k": "sUoT",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    }
+   ]
+  },
+  "http": {
+   "title": "HTTP",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "name",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Settings",
+     "tf": "تنظیمات سرور",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server",
+     "tf": "آدرس سرور",
+     "k": "serverAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Remote Port",
+     "tf": "پورت سرور",
+     "k": "serverPort",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Username (Optional)",
+     "tf": "نام کاربری (اختیاری)",
+     "k": "username",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Password (Optional)",
+     "tf": "رمز عبور (اختیاری)",
+     "k": "password",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "User ID",
+     "tf": "شناسه کاربری",
+     "k": "uuid",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Alter ID",
+     "tf": "شناسه دیگر",
+     "k": "alterId",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Encryption",
+     "tf": "رمزنگاری",
+     "k": "encryption",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "chacha20-poly1305",
+      "aes-128-gcm",
+      "auto",
+      "none",
+      "zero"
+     ],
+     "of": [
+      "chacha20-poly1305",
+      "aes-128-gcm",
+      "auto",
+      "none",
+      "zero"
+     ],
+     "v": [
+      "chacha20-poly1305",
+      "aes-128-gcm",
+      "auto",
+      "none",
+      "zero"
+     ]
+    },
+    {
+     "t": "Packet Encoding",
+     "tf": "رمزگذاری بسته",
+     "k": "packetEncoding",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "none",
+      "packet",
+      "xudp"
+     ],
+     "of": [
+      "none",
+      "packet",
+      "xudp"
+     ],
+     "v": [
+      "0",
+      "1",
+      "2"
+     ]
+    },
+    {
+     "t": "Network",
+     "tf": "شبکه",
+     "k": "type",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "tcp",
+      "ws",
+      "http",
+      "quic",
+      "grpc",
+      "httpupgrade"
+     ],
+     "of": [
+      "tcp",
+      "ws",
+      "http",
+      "quic",
+      "grpc",
+      "httpupgrade"
+     ],
+     "v": [
+      "tcp",
+      "ws",
+      "http",
+      "quic",
+      "grpc",
+      "httpupgrade"
+     ]
+    },
+    {
+     "t": "HTTP Host",
+     "tf": "میزبان HTTP",
+     "k": "host",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "HTTP Path",
+     "tf": "مسیر HTTP",
+     "k": "path",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Transport layer encryption",
+     "tf": "رمزنگاری لایه Transport",
+     "k": "security",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "none",
+      "tls"
+     ],
+     "of": [
+      "none",
+      "tls"
+     ],
+     "v": [
+      "none",
+      "tls"
+     ]
+    },
+    {
+     "t": "WebSocket Settings",
+     "tf": "تنظیمات WebSocket",
+     "k": "serverWsCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Max early data",
+     "tf": "Max early data",
+     "k": "wsMaxEarlyData",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "0"
+    },
+    {
+     "t": "Early Data Header Name",
+     "tf": "نام سرآیند درخواست داده‌های اولیه",
+     "k": "earlyDataHeaderName",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "TLS Security Settings",
+     "tf": "تنظیمات امنیت TLS",
+     "k": "serverSecurityCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server Name Indication",
+     "tf": "SNI",
+     "k": "sni",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Application-Layer Protocol Negotiation",
+     "tf": "ALPN",
+     "k": "alpn",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Certificates",
+     "tf": "گواهی‌ها",
+     "k": "certificates",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Allow Insecure",
+     "tf": "اتصال محافظت نشده",
+     "k": "allowInsecure",
+     "s": "Disable certificate checking. When enabled, this configuration is as secure as plaintext",
+     "sf": "اگر بررسی گواهی‌ها غیرفعال باشد، اتصال بدون رمزنگاری خواهد بود.",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "TLS Camouflage Settings",
+     "tf": "تنظیمات استتار TLS",
+     "k": "serverTlsCamouflageCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "uTLS fingerprint",
+     "tf": "اثر انگشت uTLS",
+     "k": "utlsFingerprint",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ],
+     "of": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ],
+     "v": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ]
+    },
+    {
+     "t": "Reality Public Key",
+     "tf": "Reality Public Key",
+     "k": "realityPubKey",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Reality ShortId",
+     "tf": "Reality ShortId",
+     "k": "realityShortId",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Mulitplex",
+     "tf": "Mulitplex",
+     "k": "serverMuxCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Enable Multiplexer",
+     "tf": "فعال کردن مالتی‌پلکسر",
+     "k": "enableMux",
+     "s": "Mux is designed to reduce TCP handshake latency, not to increase connection throughput. Using Mux to watch videos, download or speed test is usually counter productive. If the server does not support it, you will not be able to access the Internet.",
+     "sf": "باید سرور هم امکان پشتیبانی از مالتی‌پلکسر را داشته باشد. مالتی‌پلکسر برای کاهش زمان تأخیر در اتصال TCP طراحی شده است و نه برای افزایش توان اتصال. استفاده از مالتی‌پلکسر برای تماشای فیلم، دانلود فایل یا آزمایش سرعت معمولاً نتیجه‌ای ندارد.",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "Mux protocol",
+     "tf": "پروتکل مالتی‌پلکسر",
+     "k": "muxType",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "0",
+     "o": [
+      "h2mux",
+      "smux",
+      "yamux"
+     ],
+     "of": [
+      "h2mux",
+      "smux",
+      "yamux"
+     ],
+     "v": [
+      "0",
+      "1",
+      "2"
+     ]
+    },
+    {
+     "t": "Mux Concurrent Connections",
+     "tf": "تعداد اتصال همزمان با مالتی‌پلکسر",
+     "k": "muxConcurrency",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "1"
+    },
+    {
+     "t": "Padding",
+     "tf": "Padding",
+     "k": "muxPadding",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "ECH",
+     "tf": "ECH",
+     "k": "serverECHCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Enable",
+     "tf": "فعال",
+     "k": "enableECH",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "ECH Config",
+     "tf": "پیکربندی ECH",
+     "k": "echConfig",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    }
+   ]
+  },
+  "ss": {
+   "title": "Shadowsocks",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "name",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Settings",
+     "tf": "تنظیمات سرور",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server",
+     "tf": "آدرس سرور",
+     "k": "serverAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Remote Port",
+     "tf": "پورت سرور",
+     "k": "serverPort",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Encrypt Method",
+     "tf": "نوع رمزنگاری",
+     "k": "method",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "2022-blake3-aes-128-gcm",
+      "2022-blake3-aes-256-gcm",
+      "2022-blake3-chacha20-poly1305",
+      "none",
+      "aes-128-gcm",
+      "aes-192-gcm",
+      "aes-256-gcm",
+      "chacha20-ietf-poly1305",
+      "xchacha20-ietf-poly1305",
+      "aes-128-ctr",
+      "aes-192-ctr",
+      "aes-256-ctr",
+      "aes-128-cfb",
+      "aes-192-cfb",
+      "aes-256-cfb",
+      "rc4-md5",
+      "chacha20-ietf",
+      "xchacha20"
+     ],
+     "of": [
+      "2022-blake3-aes-128-gcm",
+      "2022-blake3-aes-256-gcm",
+      "2022-blake3-chacha20-poly1305",
+      "none",
+      "aes-128-gcm",
+      "aes-192-gcm",
+      "aes-256-gcm",
+      "chacha20-ietf-poly1305",
+      "xchacha20-ietf-poly1305",
+      "aes-128-ctr",
+      "aes-192-ctr",
+      "aes-256-ctr",
+      "aes-128-cfb",
+      "aes-192-cfb",
+      "aes-256-cfb",
+      "rc4-md5",
+      "chacha20-ietf",
+      "xchacha20"
+     ],
+     "v": [
+      "2022-blake3-aes-128-gcm",
+      "2022-blake3-aes-256-gcm",
+      "2022-blake3-chacha20-poly1305",
+      "none",
+      "aes-128-gcm",
+      "aes-192-gcm",
+      "aes-256-gcm",
+      "chacha20-ietf-poly1305",
+      "xchacha20-ietf-poly1305",
+      "aes-128-ctr",
+      "aes-192-ctr",
+      "aes-256-ctr",
+      "aes-128-cfb",
+      "aes-192-cfb",
+      "aes-256-cfb",
+      "rc4-md5",
+      "chacha20-ietf",
+      "xchacha20"
+     ]
+    },
+    {
+     "t": "Password",
+     "tf": "Pرمز عبور",
+     "k": "password",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Plugin",
+     "tf": "افزونه",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Plugin",
+     "tf": "افزونه",
+     "k": "pluginName",
+     "s": "Optional Shadowsocks transport plugin",
+     "sf": "افزونه انتقال اختیاری Shadowsocks",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "None",
+      "obfs-local",
+      "v2ray-plugin"
+     ],
+     "of": [
+      "بدون افزونه",
+      "obfs-local",
+      "v2ray-plugin"
+     ],
+     "v": [
+      "",
+      "obfs-local",
+      "v2ray-plugin"
+     ]
+    },
+    {
+     "t": "Configure…",
+     "tf": "پیکربندی...",
+     "k": "pluginConfig",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "sing-box server",
+     "tf": "sing-box server",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "UDP over TCP",
+     "tf": "UDP over TCP",
+     "k": "sUoT",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    }
+   ]
+  },
+  "vmess": {
+   "title": "VMess",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "name",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Settings",
+     "tf": "تنظیمات سرور",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server",
+     "tf": "آدرس سرور",
+     "k": "serverAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Remote Port",
+     "tf": "پورت سرور",
+     "k": "serverPort",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Username (Optional)",
+     "tf": "نام کاربری (اختیاری)",
+     "k": "username",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Password (Optional)",
+     "tf": "رمز عبور (اختیاری)",
+     "k": "password",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "User ID",
+     "tf": "شناسه کاربری",
+     "k": "uuid",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Alter ID",
+     "tf": "شناسه دیگر",
+     "k": "alterId",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Encryption",
+     "tf": "رمزنگاری",
+     "k": "encryption",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "chacha20-poly1305",
+      "aes-128-gcm",
+      "auto",
+      "none",
+      "zero"
+     ],
+     "of": [
+      "chacha20-poly1305",
+      "aes-128-gcm",
+      "auto",
+      "none",
+      "zero"
+     ],
+     "v": [
+      "chacha20-poly1305",
+      "aes-128-gcm",
+      "auto",
+      "none",
+      "zero"
+     ]
+    },
+    {
+     "t": "Packet Encoding",
+     "tf": "رمزگذاری بسته",
+     "k": "packetEncoding",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "none",
+      "packet",
+      "xudp"
+     ],
+     "of": [
+      "none",
+      "packet",
+      "xudp"
+     ],
+     "v": [
+      "0",
+      "1",
+      "2"
+     ]
+    },
+    {
+     "t": "Network",
+     "tf": "شبکه",
+     "k": "type",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "tcp",
+      "ws",
+      "http",
+      "quic",
+      "grpc",
+      "httpupgrade"
+     ],
+     "of": [
+      "tcp",
+      "ws",
+      "http",
+      "quic",
+      "grpc",
+      "httpupgrade"
+     ],
+     "v": [
+      "tcp",
+      "ws",
+      "http",
+      "quic",
+      "grpc",
+      "httpupgrade"
+     ]
+    },
+    {
+     "t": "HTTP Host",
+     "tf": "میزبان HTTP",
+     "k": "host",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "HTTP Path",
+     "tf": "مسیر HTTP",
+     "k": "path",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Transport layer encryption",
+     "tf": "رمزنگاری لایه Transport",
+     "k": "security",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "none",
+      "tls"
+     ],
+     "of": [
+      "none",
+      "tls"
+     ],
+     "v": [
+      "none",
+      "tls"
+     ]
+    },
+    {
+     "t": "WebSocket Settings",
+     "tf": "تنظیمات WebSocket",
+     "k": "serverWsCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Max early data",
+     "tf": "Max early data",
+     "k": "wsMaxEarlyData",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "0"
+    },
+    {
+     "t": "Early Data Header Name",
+     "tf": "نام سرآیند درخواست داده‌های اولیه",
+     "k": "earlyDataHeaderName",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "TLS Security Settings",
+     "tf": "تنظیمات امنیت TLS",
+     "k": "serverSecurityCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server Name Indication",
+     "tf": "SNI",
+     "k": "sni",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Application-Layer Protocol Negotiation",
+     "tf": "ALPN",
+     "k": "alpn",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Certificates",
+     "tf": "گواهی‌ها",
+     "k": "certificates",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Allow Insecure",
+     "tf": "اتصال محافظت نشده",
+     "k": "allowInsecure",
+     "s": "Disable certificate checking. When enabled, this configuration is as secure as plaintext",
+     "sf": "اگر بررسی گواهی‌ها غیرفعال باشد، اتصال بدون رمزنگاری خواهد بود.",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "TLS Camouflage Settings",
+     "tf": "تنظیمات استتار TLS",
+     "k": "serverTlsCamouflageCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "uTLS fingerprint",
+     "tf": "اثر انگشت uTLS",
+     "k": "utlsFingerprint",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ],
+     "of": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ],
+     "v": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ]
+    },
+    {
+     "t": "Reality Public Key",
+     "tf": "Reality Public Key",
+     "k": "realityPubKey",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Reality ShortId",
+     "tf": "Reality ShortId",
+     "k": "realityShortId",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Mulitplex",
+     "tf": "Mulitplex",
+     "k": "serverMuxCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Enable Multiplexer",
+     "tf": "فعال کردن مالتی‌پلکسر",
+     "k": "enableMux",
+     "s": "Mux is designed to reduce TCP handshake latency, not to increase connection throughput. Using Mux to watch videos, download or speed test is usually counter productive. If the server does not support it, you will not be able to access the Internet.",
+     "sf": "باید سرور هم امکان پشتیبانی از مالتی‌پلکسر را داشته باشد. مالتی‌پلکسر برای کاهش زمان تأخیر در اتصال TCP طراحی شده است و نه برای افزایش توان اتصال. استفاده از مالتی‌پلکسر برای تماشای فیلم، دانلود فایل یا آزمایش سرعت معمولاً نتیجه‌ای ندارد.",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "Mux protocol",
+     "tf": "پروتکل مالتی‌پلکسر",
+     "k": "muxType",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "0",
+     "o": [
+      "h2mux",
+      "smux",
+      "yamux"
+     ],
+     "of": [
+      "h2mux",
+      "smux",
+      "yamux"
+     ],
+     "v": [
+      "0",
+      "1",
+      "2"
+     ]
+    },
+    {
+     "t": "Mux Concurrent Connections",
+     "tf": "تعداد اتصال همزمان با مالتی‌پلکسر",
+     "k": "muxConcurrency",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "1"
+    },
+    {
+     "t": "Padding",
+     "tf": "Padding",
+     "k": "muxPadding",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "ECH",
+     "tf": "ECH",
+     "k": "serverECHCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Enable",
+     "tf": "فعال",
+     "k": "enableECH",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "ECH Config",
+     "tf": "پیکربندی ECH",
+     "k": "echConfig",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    }
+   ]
+  },
+  "vless": {
+   "title": "VLESS",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "name",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Settings",
+     "tf": "تنظیمات سرور",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server",
+     "tf": "آدرس سرور",
+     "k": "serverAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Remote Port",
+     "tf": "پورت سرور",
+     "k": "serverPort",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Username (Optional)",
+     "tf": "نام کاربری (اختیاری)",
+     "k": "username",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Password (Optional)",
+     "tf": "رمز عبور (اختیاری)",
+     "k": "password",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "User ID",
+     "tf": "شناسه کاربری",
+     "k": "uuid",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Alter ID",
+     "tf": "شناسه دیگر",
+     "k": "alterId",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Encryption",
+     "tf": "رمزنگاری",
+     "k": "encryption",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "chacha20-poly1305",
+      "aes-128-gcm",
+      "auto",
+      "none",
+      "zero"
+     ],
+     "of": [
+      "chacha20-poly1305",
+      "aes-128-gcm",
+      "auto",
+      "none",
+      "zero"
+     ],
+     "v": [
+      "chacha20-poly1305",
+      "aes-128-gcm",
+      "auto",
+      "none",
+      "zero"
+     ]
+    },
+    {
+     "t": "Packet Encoding",
+     "tf": "رمزگذاری بسته",
+     "k": "packetEncoding",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "none",
+      "packet",
+      "xudp"
+     ],
+     "of": [
+      "none",
+      "packet",
+      "xudp"
+     ],
+     "v": [
+      "0",
+      "1",
+      "2"
+     ]
+    },
+    {
+     "t": "Network",
+     "tf": "شبکه",
+     "k": "type",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "tcp",
+      "ws",
+      "http",
+      "quic",
+      "grpc",
+      "httpupgrade"
+     ],
+     "of": [
+      "tcp",
+      "ws",
+      "http",
+      "quic",
+      "grpc",
+      "httpupgrade"
+     ],
+     "v": [
+      "tcp",
+      "ws",
+      "http",
+      "quic",
+      "grpc",
+      "httpupgrade"
+     ]
+    },
+    {
+     "t": "HTTP Host",
+     "tf": "میزبان HTTP",
+     "k": "host",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "HTTP Path",
+     "tf": "مسیر HTTP",
+     "k": "path",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Transport layer encryption",
+     "tf": "رمزنگاری لایه Transport",
+     "k": "security",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "none",
+      "tls"
+     ],
+     "of": [
+      "none",
+      "tls"
+     ],
+     "v": [
+      "none",
+      "tls"
+     ]
+    },
+    {
+     "t": "WebSocket Settings",
+     "tf": "تنظیمات WebSocket",
+     "k": "serverWsCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Max early data",
+     "tf": "Max early data",
+     "k": "wsMaxEarlyData",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "0"
+    },
+    {
+     "t": "Early Data Header Name",
+     "tf": "نام سرآیند درخواست داده‌های اولیه",
+     "k": "earlyDataHeaderName",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "TLS Security Settings",
+     "tf": "تنظیمات امنیت TLS",
+     "k": "serverSecurityCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server Name Indication",
+     "tf": "SNI",
+     "k": "sni",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Application-Layer Protocol Negotiation",
+     "tf": "ALPN",
+     "k": "alpn",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Certificates",
+     "tf": "گواهی‌ها",
+     "k": "certificates",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Allow Insecure",
+     "tf": "اتصال محافظت نشده",
+     "k": "allowInsecure",
+     "s": "Disable certificate checking. When enabled, this configuration is as secure as plaintext",
+     "sf": "اگر بررسی گواهی‌ها غیرفعال باشد، اتصال بدون رمزنگاری خواهد بود.",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "TLS Camouflage Settings",
+     "tf": "تنظیمات استتار TLS",
+     "k": "serverTlsCamouflageCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "uTLS fingerprint",
+     "tf": "اثر انگشت uTLS",
+     "k": "utlsFingerprint",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ],
+     "of": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ],
+     "v": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ]
+    },
+    {
+     "t": "Reality Public Key",
+     "tf": "Reality Public Key",
+     "k": "realityPubKey",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Reality ShortId",
+     "tf": "Reality ShortId",
+     "k": "realityShortId",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Mulitplex",
+     "tf": "Mulitplex",
+     "k": "serverMuxCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Enable Multiplexer",
+     "tf": "فعال کردن مالتی‌پلکسر",
+     "k": "enableMux",
+     "s": "Mux is designed to reduce TCP handshake latency, not to increase connection throughput. Using Mux to watch videos, download or speed test is usually counter productive. If the server does not support it, you will not be able to access the Internet.",
+     "sf": "باید سرور هم امکان پشتیبانی از مالتی‌پلکسر را داشته باشد. مالتی‌پلکسر برای کاهش زمان تأخیر در اتصال TCP طراحی شده است و نه برای افزایش توان اتصال. استفاده از مالتی‌پلکسر برای تماشای فیلم، دانلود فایل یا آزمایش سرعت معمولاً نتیجه‌ای ندارد.",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "Mux protocol",
+     "tf": "پروتکل مالتی‌پلکسر",
+     "k": "muxType",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "0",
+     "o": [
+      "h2mux",
+      "smux",
+      "yamux"
+     ],
+     "of": [
+      "h2mux",
+      "smux",
+      "yamux"
+     ],
+     "v": [
+      "0",
+      "1",
+      "2"
+     ]
+    },
+    {
+     "t": "Mux Concurrent Connections",
+     "tf": "تعداد اتصال همزمان با مالتی‌پلکسر",
+     "k": "muxConcurrency",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "1"
+    },
+    {
+     "t": "Padding",
+     "tf": "Padding",
+     "k": "muxPadding",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "ECH",
+     "tf": "ECH",
+     "k": "serverECHCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Enable",
+     "tf": "فعال",
+     "k": "enableECH",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "ECH Config",
+     "tf": "پیکربندی ECH",
+     "k": "echConfig",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    }
+   ]
+  },
+  "trojan": {
+   "title": "Trojan",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "name",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Settings",
+     "tf": "تنظیمات سرور",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server",
+     "tf": "آدرس سرور",
+     "k": "serverAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Remote Port",
+     "tf": "پورت سرور",
+     "k": "serverPort",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Username (Optional)",
+     "tf": "نام کاربری (اختیاری)",
+     "k": "username",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Password (Optional)",
+     "tf": "رمز عبور (اختیاری)",
+     "k": "password",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "User ID",
+     "tf": "شناسه کاربری",
+     "k": "uuid",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Alter ID",
+     "tf": "شناسه دیگر",
+     "k": "alterId",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Encryption",
+     "tf": "رمزنگاری",
+     "k": "encryption",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "chacha20-poly1305",
+      "aes-128-gcm",
+      "auto",
+      "none",
+      "zero"
+     ],
+     "of": [
+      "chacha20-poly1305",
+      "aes-128-gcm",
+      "auto",
+      "none",
+      "zero"
+     ],
+     "v": [
+      "chacha20-poly1305",
+      "aes-128-gcm",
+      "auto",
+      "none",
+      "zero"
+     ]
+    },
+    {
+     "t": "Packet Encoding",
+     "tf": "رمزگذاری بسته",
+     "k": "packetEncoding",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "none",
+      "packet",
+      "xudp"
+     ],
+     "of": [
+      "none",
+      "packet",
+      "xudp"
+     ],
+     "v": [
+      "0",
+      "1",
+      "2"
+     ]
+    },
+    {
+     "t": "Network",
+     "tf": "شبکه",
+     "k": "type",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "tcp",
+      "ws",
+      "http",
+      "quic",
+      "grpc",
+      "httpupgrade"
+     ],
+     "of": [
+      "tcp",
+      "ws",
+      "http",
+      "quic",
+      "grpc",
+      "httpupgrade"
+     ],
+     "v": [
+      "tcp",
+      "ws",
+      "http",
+      "quic",
+      "grpc",
+      "httpupgrade"
+     ]
+    },
+    {
+     "t": "HTTP Host",
+     "tf": "میزبان HTTP",
+     "k": "host",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "HTTP Path",
+     "tf": "مسیر HTTP",
+     "k": "path",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Transport layer encryption",
+     "tf": "رمزنگاری لایه Transport",
+     "k": "security",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "none",
+      "tls"
+     ],
+     "of": [
+      "none",
+      "tls"
+     ],
+     "v": [
+      "none",
+      "tls"
+     ]
+    },
+    {
+     "t": "WebSocket Settings",
+     "tf": "تنظیمات WebSocket",
+     "k": "serverWsCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Max early data",
+     "tf": "Max early data",
+     "k": "wsMaxEarlyData",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "0"
+    },
+    {
+     "t": "Early Data Header Name",
+     "tf": "نام سرآیند درخواست داده‌های اولیه",
+     "k": "earlyDataHeaderName",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "TLS Security Settings",
+     "tf": "تنظیمات امنیت TLS",
+     "k": "serverSecurityCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server Name Indication",
+     "tf": "SNI",
+     "k": "sni",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Application-Layer Protocol Negotiation",
+     "tf": "ALPN",
+     "k": "alpn",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Certificates",
+     "tf": "گواهی‌ها",
+     "k": "certificates",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Allow Insecure",
+     "tf": "اتصال محافظت نشده",
+     "k": "allowInsecure",
+     "s": "Disable certificate checking. When enabled, this configuration is as secure as plaintext",
+     "sf": "اگر بررسی گواهی‌ها غیرفعال باشد، اتصال بدون رمزنگاری خواهد بود.",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "TLS Camouflage Settings",
+     "tf": "تنظیمات استتار TLS",
+     "k": "serverTlsCamouflageCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "uTLS fingerprint",
+     "tf": "اثر انگشت uTLS",
+     "k": "utlsFingerprint",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ],
+     "of": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ],
+     "v": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ]
+    },
+    {
+     "t": "Reality Public Key",
+     "tf": "Reality Public Key",
+     "k": "realityPubKey",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Reality ShortId",
+     "tf": "Reality ShortId",
+     "k": "realityShortId",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Mulitplex",
+     "tf": "Mulitplex",
+     "k": "serverMuxCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Enable Multiplexer",
+     "tf": "فعال کردن مالتی‌پلکسر",
+     "k": "enableMux",
+     "s": "Mux is designed to reduce TCP handshake latency, not to increase connection throughput. Using Mux to watch videos, download or speed test is usually counter productive. If the server does not support it, you will not be able to access the Internet.",
+     "sf": "باید سرور هم امکان پشتیبانی از مالتی‌پلکسر را داشته باشد. مالتی‌پلکسر برای کاهش زمان تأخیر در اتصال TCP طراحی شده است و نه برای افزایش توان اتصال. استفاده از مالتی‌پلکسر برای تماشای فیلم، دانلود فایل یا آزمایش سرعت معمولاً نتیجه‌ای ندارد.",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "Mux protocol",
+     "tf": "پروتکل مالتی‌پلکسر",
+     "k": "muxType",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "0",
+     "o": [
+      "h2mux",
+      "smux",
+      "yamux"
+     ],
+     "of": [
+      "h2mux",
+      "smux",
+      "yamux"
+     ],
+     "v": [
+      "0",
+      "1",
+      "2"
+     ]
+    },
+    {
+     "t": "Mux Concurrent Connections",
+     "tf": "تعداد اتصال همزمان با مالتی‌پلکسر",
+     "k": "muxConcurrency",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "1"
+    },
+    {
+     "t": "Padding",
+     "tf": "Padding",
+     "k": "muxPadding",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "ECH",
+     "tf": "ECH",
+     "k": "serverECHCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Enable",
+     "tf": "فعال",
+     "k": "enableECH",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "ECH Config",
+     "tf": "پیکربندی ECH",
+     "k": "echConfig",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    }
+   ]
+  },
+  "trojango": {
+   "title": "Trojan Go",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "profileName",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Settings",
+     "tf": "تنظیمات سرور",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server",
+     "tf": "آدرس سرور",
+     "k": "serverAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Remote Port",
+     "tf": "پورت سرور",
+     "k": "serverPort",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Password",
+     "tf": "Pرمز عبور",
+     "k": "serverPassword",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Name Indication",
+     "tf": "SNI",
+     "k": "serverSNI",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Allow Insecure",
+     "tf": "اتصال محافظت نشده",
+     "k": "serverAllowInsecure",
+     "s": "Disable certificate checking. When enabled, this configuration is as secure as plaintext",
+     "sf": "اگر بررسی گواهی‌ها غیرفعال باشد، اتصال بدون رمزنگاری خواهد بود.",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "Network",
+     "tf": "شبکه",
+     "k": "serverNetwork",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "none",
+     "o": [
+      "NONE",
+      "WEBSOCKET"
+     ],
+     "of": [
+      "NONE",
+      "WEBSOCKET"
+     ],
+     "v": [
+      "none",
+      "ws"
+     ]
+    },
+    {
+     "t": "Encryption",
+     "tf": "رمزنگاری",
+     "k": "serverEncryption",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "NONE",
+      "SHADOWSOCKS"
+     ],
+     "of": [
+      "NONE",
+      "SHADOWSOCKS"
+     ],
+     "v": [
+      "none",
+      "ss"
+     ]
+    },
+    {
+     "t": "WebSocket Settings",
+     "tf": "تنظیمات WebSocket",
+     "k": "serverWsCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "WebSocket Host",
+     "tf": "میزبان WebSocket",
+     "k": "serverHost",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "WebSocket Path",
+     "tf": "مسیر WebSocket",
+     "k": "serverPath",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Shadowsocks Settings",
+     "tf": "تنظیمات سرور",
+     "k": "serverSsCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Encrypt Method",
+     "tf": "نوع رمزنگاری",
+     "k": "serverMethod",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "AES-128-GCM",
+     "o": [
+      "AES-128-GCM",
+      "AES-256-GCM",
+      "CHACHA20-IETF-POLY1305"
+     ],
+     "of": [
+      "AES-128-GCM",
+      "AES-256-GCM",
+      "CHACHA20-IETF-POLY1305"
+     ],
+     "v": [
+      "AES-128-GCM",
+      "AES-256-GCM",
+      "CHACHA20-IETF-POLY1305"
+     ]
+    },
+    {
+     "t": "Password",
+     "tf": "Pرمز عبور",
+     "k": "serverPassword1",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    }
+   ]
+  },
+  "mieru": {
+   "title": "Mieru",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "profileName",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Settings",
+     "tf": "تنظیمات سرور",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server",
+     "tf": "آدرس سرور",
+     "k": "serverAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Remote Port",
+     "tf": "پورت سرور",
+     "k": "serverPort",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Protocol",
+     "tf": "دستورالعمل",
+     "k": "serverProtocol",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "TCP",
+     "o": [
+      "TCP",
+      "UDP"
+     ],
+     "of": [
+      "TCP",
+      "UDP"
+     ],
+     "v": [
+      "TCP",
+      "UDP"
+     ]
+    },
+    {
+     "t": "Username",
+     "tf": "نام کاربری",
+     "k": "serverUsername",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Password",
+     "tf": "Pرمز عبور",
+     "k": "serverPassword",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "MTU",
+     "tf": "MTU",
+     "k": "serverMTU",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    }
+   ]
+  },
+  "naive": {
+   "title": "Naïve",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "profileName",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Settings",
+     "tf": "تنظیمات سرور",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server",
+     "tf": "آدرس سرور",
+     "k": "serverAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Remote Port",
+     "tf": "پورت سرور",
+     "k": "serverPort",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Username (Optional)",
+     "tf": "نام کاربری (اختیاری)",
+     "k": "serverUsername",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Password (Optional)",
+     "tf": "رمز عبور (اختیاری)",
+     "k": "serverPassword",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Protocol",
+     "tf": "دستورالعمل",
+     "k": "serverProtocol",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "https",
+     "o": [
+      "HTTPS",
+      "QUIC"
+     ],
+     "of": [
+      "HTTPS",
+      "QUIC"
+     ],
+     "v": [
+      "https",
+      "quic"
+     ]
+    },
+    {
+     "t": "Extra Headers",
+     "tf": "سرآیندهای اضافی",
+     "k": "serverHeaders",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Name Indication",
+     "tf": "SNI",
+     "k": "serverSNI",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Certificates",
+     "tf": "گواهی‌ها",
+     "k": "serverCertificates",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Insecure Concurrency",
+     "tf": "همزمانی ناامن",
+     "k": "serverInsecureConcurrency",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "sing-box server",
+     "tf": "sing-box server",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "UDP over TCP",
+     "tf": "UDP over TCP",
+     "k": "sUoT",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    }
+   ]
+  },
+  "hysteria": {
+   "title": "Hysteria",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "profileName",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Protocol Version",
+     "tf": "نسخه پروتکل",
+     "k": "protocolVersion",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "2",
+     "o": [
+      "1",
+      "2"
+     ],
+     "of": [
+      "1",
+      "2"
+     ],
+     "v": [
+      "1",
+      "2"
+     ]
+    },
+    {
+     "t": "Server Settings",
+     "tf": "تنظیمات سرور",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server",
+     "tf": "آدرس سرور",
+     "k": "serverAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Remote Port",
+     "tf": "پورت سرور",
+     "k": "serverPorts",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Obfuscation Password",
+     "tf": "رمز دستورالعمل مبهم‌سازی",
+     "k": "serverObfs",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Authentication Type",
+     "tf": "نوع احراز هویت",
+     "k": "serverAuthType",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "Disabled",
+      "STRING",
+      "BASE64"
+     ],
+     "of": [
+      "غیرفعال",
+      "STRING",
+      "BASE64"
+     ],
+     "v": [
+      "0",
+      "1",
+      "2"
+     ]
+    },
+    {
+     "t": "Authentication Payload",
+     "tf": "بسته احرازهویت",
+     "k": "serverPassword",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Protocol",
+     "tf": "دستورالعمل",
+     "k": "serverProtocol",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "https",
+     "o": [
+      "UDP",
+      "FakeTCP (Root Required)",
+      "WeChat Video"
+     ],
+     "of": [
+      "UDP",
+      "FakeTCP (Root Required)",
+      "WeChat Video"
+     ],
+     "v": [
+      "0",
+      "1",
+      "2"
+     ]
+    },
+    {
+     "t": "Server Name Indication",
+     "tf": "SNI",
+     "k": "serverSNI",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Application-Layer Protocol Negotiation",
+     "tf": "ALPN",
+     "k": "serverALPN",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Certificates",
+     "tf": "گواهی‌ها",
+     "k": "serverCertificates",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Allow Insecure",
+     "tf": "اتصال محافظت نشده",
+     "k": "serverAllowInsecure",
+     "s": "Disable certificate checking. When enabled, this configuration is as secure as plaintext",
+     "sf": "اگر بررسی گواهی‌ها غیرفعال باشد، اتصال بدون رمزنگاری خواهد بود.",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "Max Upload Speed (in Mbps)",
+     "tf": "حدأکثر سرعت ارسال (به مگابیت‌برثانیه)",
+     "k": "serverUploadSpeed",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Max Download Speed (in Mbps)",
+     "tf": "حدأکثر سرعت دریافتی (به مگابیت‌برثانیه)",
+     "k": "serverDownloadSpeed",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "QUIC Stream Receive Window",
+     "tf": "پنجره دریافت جریان QUIC",
+     "k": "serverStreamReceiveWindow",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "QUIC Connection Receive Window",
+     "tf": "پنجره دریافت اتصال QUIC",
+     "k": "serverConnectionReceiveWindow",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Disable Path MTU Discovery",
+     "tf": "غیرفعال کردن Path MTU Discovery",
+     "k": "serverDisableMtuDiscovery",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "Port Hopping Interval(second)",
+     "tf": "مدت زمان Port hopping (به ثانیه)",
+     "k": "hopInterval",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    }
+   ]
+  },
+  "tuic": {
+   "title": "TUIC",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "profileName",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Settings",
+     "tf": "تنظیمات سرور",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server",
+     "tf": "آدرس سرور",
+     "k": "serverAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Remote Port",
+     "tf": "پورت سرور",
+     "k": "serverPort",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "User ID",
+     "tf": "شناسه کاربری",
+     "k": "serverUsername",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Password",
+     "tf": "Pرمز عبور",
+     "k": "serverPassword",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Application-Layer Protocol Negotiation",
+     "tf": "ALPN",
+     "k": "serverALPN",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Certificates",
+     "tf": "گواهی‌ها",
+     "k": "serverCertificates",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "UDP Relay Mode",
+     "tf": "حالت بازپخش UDP",
+     "k": "serverUDPRelayMode",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "https",
+     "o": [
+      "native",
+      "quic"
+     ],
+     "of": [
+      "native",
+      "quic"
+     ],
+     "v": [
+      "native",
+      "quic"
+     ]
+    },
+    {
+     "t": "Congestion Controller",
+     "tf": "کنترل‌کننده ازدحام",
+     "k": "serverCongestionController",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "https",
+     "o": [
+      "cubic",
+      "new_reno",
+      "bbr"
+     ],
+     "of": [
+      "cubic",
+      "new_reno",
+      "bbr"
+     ],
+     "v": [
+      "cubic",
+      "new_reno",
+      "bbr"
+     ]
+    },
+    {
+     "t": "Disable SNI",
+     "tf": "غیرفعال کردن SNI",
+     "k": "serverDisableSNI",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "Server Name Indication",
+     "tf": "SNI",
+     "k": "serverSNI",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Enable 0-RTT QUIC handshake",
+     "tf": "فعال کردن ارتباط 0-RTT QUIC",
+     "k": "serverReduceRTT",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "Allow Insecure",
+     "tf": "اتصال محافظت نشده",
+     "k": "serverAllowInsecure",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    }
+   ]
+  },
+  "shadowtls": {
+   "title": "ShadowTLS",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "name",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Settings",
+     "tf": "تنظیمات سرور",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server",
+     "tf": "آدرس سرور",
+     "k": "serverAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Remote Port",
+     "tf": "پورت سرور",
+     "k": "serverPort",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Protocol Version",
+     "tf": "نسخه پروتکل",
+     "k": "version",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "2",
+      "3"
+     ],
+     "of": [
+      "2",
+      "3"
+     ],
+     "v": [
+      "2",
+      "3"
+     ]
+    },
+    {
+     "t": "Password",
+     "tf": "Pرمز عبور",
+     "k": "password",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "TLS Security Settings",
+     "tf": "تنظیمات امنیت TLS",
+     "k": "serverSecurityCategory",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server Name Indication",
+     "tf": "SNI",
+     "k": "sni",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Application-Layer Protocol Negotiation",
+     "tf": "ALPN",
+     "k": "alpn",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Certificates",
+     "tf": "گواهی‌ها",
+     "k": "certificates",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Allow Insecure",
+     "tf": "اتصال محافظت نشده",
+     "k": "allowInsecure",
+     "s": "Disable certificate checking. When enabled, this configuration is as secure as plaintext",
+     "sf": "اگر بررسی گواهی‌ها غیرفعال باشد، اتصال بدون رمزنگاری خواهد بود.",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "uTLS fingerprint",
+     "tf": "اثر انگشت uTLS",
+     "k": "utlsFingerprint",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ],
+     "of": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ],
+     "v": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ]
+    }
+   ]
+  },
+  "anytls": {
+   "title": "AnyTLS",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "name",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Settings",
+     "tf": "تنظیمات سرور",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server",
+     "tf": "آدرس سرور",
+     "k": "serverAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Remote Port",
+     "tf": "پورت سرور",
+     "k": "serverPort",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Password",
+     "tf": "Pرمز عبور",
+     "k": "password",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "TLS Security Settings",
+     "tf": "تنظیمات امنیت TLS",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server Name Indication",
+     "tf": "SNI",
+     "k": "sni",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Allow Insecure",
+     "tf": "اتصال محافظت نشده",
+     "k": "allowInsecure",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "Application-Layer Protocol Negotiation",
+     "tf": "ALPN",
+     "k": "alpn",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Certificates",
+     "tf": "گواهی‌ها",
+     "k": "certificates",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "uTLS fingerprint",
+     "tf": "اثر انگشت uTLS",
+     "k": "utlsFingerprint",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ],
+     "of": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ],
+     "v": [
+      "",
+      "chrome",
+      "firefox",
+      "edge",
+      "safari",
+      "360",
+      "qq",
+      "ios",
+      "android",
+      "random",
+      "randomized"
+     ]
+    }
+   ]
+  },
+  "ssh": {
+   "title": "SSH",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "profileName",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Settings",
+     "tf": "تنظیمات سرور",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server",
+     "tf": "آدرس سرور",
+     "k": "serverAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Remote Port",
+     "tf": "پورت سرور",
+     "k": "serverPort",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Username",
+     "tf": "نام کاربری",
+     "k": "serverUsername",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Authentication Type",
+     "tf": "نوع احراز هویت",
+     "k": "serverAuthType",
+     "s": "",
+     "sf": "",
+     "ty": "sel",
+     "d": "",
+     "o": [
+      "None",
+      "Password",
+      "Public Key"
+     ],
+     "of": [
+      "هیچ کدام",
+      "Pرمز عبور",
+      "کلید عمومی"
+     ],
+     "v": [
+      "0",
+      "1",
+      "2"
+     ]
+    },
+    {
+     "t": "Password",
+     "tf": "Pرمز عبور",
+     "k": "serverPassword",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Private Key",
+     "tf": "کلید خصوصی",
+     "k": "serverPrivateKey",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Private Key Passphrase",
+     "tf": "عبارات عبور کلید خصوصی",
+     "k": "serverPassword1",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Public Key",
+     "tf": "کلید عمومی",
+     "k": "serverCertificates",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    }
+   ]
+  },
+  "wg": {
+   "title": "WireGuard",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "name",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Server Settings",
+     "tf": "تنظیمات سرور",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Server",
+     "tf": "آدرس سرور",
+     "k": "serverAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Remote Port",
+     "tf": "پورت سرور",
+     "k": "serverPort",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Local Address",
+     "tf": "نشانی محلی",
+     "k": "localAddress",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Private Key",
+     "tf": "کلید خصوصی",
+     "k": "privateKey",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Peer Public Key",
+     "tf": "کلید عمومی همتا",
+     "k": "peerPublicKey",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Peer Pre-Shared Key",
+     "tf": "کلید همتا از پیش مشترک",
+     "k": "peerPreSharedKey",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "MTU",
+     "tf": "MTU",
+     "k": "mtu",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "1420"
+    },
+    {
+     "t": "Reserved",
+     "tf": "Reserved",
+     "k": "reserved",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "AmneziaWG Obfuscation (optional)",
+     "tf": "AmneziaWG Obfuscation (optional)",
+     "k": "",
+     "s": "",
+     "sf": "",
+     "ty": "cat"
+    },
+    {
+     "t": "Junk Packet Count (Jc)",
+     "tf": "Junk Packet Count (Jc)",
+     "k": "jc",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "0"
+    },
+    {
+     "t": "Junk Packet Min Size (Jmin)",
+     "tf": "Junk Packet Min Size (Jmin)",
+     "k": "jmin",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "0"
+    },
+    {
+     "t": "Junk Packet Max Size (Jmax)",
+     "tf": "Junk Packet Max Size (Jmax)",
+     "k": "jmax",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "0"
+    },
+    {
+     "t": "Init Packet Junk Size (S1)",
+     "tf": "Init Packet Junk Size (S1)",
+     "k": "s1",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "0"
+    },
+    {
+     "t": "Response Packet Junk Size (S2)",
+     "tf": "Response Packet Junk Size (S2)",
+     "k": "s2",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "0"
+    },
+    {
+     "t": "Cookie Packet Junk Size (S3)",
+     "tf": "Cookie Packet Junk Size (S3)",
+     "k": "s3",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "0"
+    },
+    {
+     "t": "Transport Packet Junk Size (S4)",
+     "tf": "Transport Packet Junk Size (S4)",
+     "k": "s4",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": "0"
+    },
+    {
+     "t": "Init Packet Magic Header (H1)",
+     "tf": "Init Packet Magic Header (H1)",
+     "k": "h1",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Response Packet Magic Header (H2)",
+     "tf": "Response Packet Magic Header (H2)",
+     "k": "h2",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Cookie Packet Magic Header (H3)",
+     "tf": "Cookie Packet Magic Header (H3)",
+     "k": "h3",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Transport Packet Magic Header (H4)",
+     "tf": "Transport Packet Magic Header (H4)",
+     "k": "h4",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Header Protection Key",
+     "tf": "Header Protection Key",
+     "k": "headerProtectionKey",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Special Junk Packet 1 (I1)",
+     "tf": "Special Junk Packet 1 (I1)",
+     "k": "i1",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Special Junk Packet 2 (I2)",
+     "tf": "Special Junk Packet 2 (I2)",
+     "k": "i2",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Special Junk Packet 3 (I3)",
+     "tf": "Special Junk Packet 3 (I3)",
+     "k": "i3",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Special Junk Packet 4 (I4)",
+     "tf": "Special Junk Packet 4 (I4)",
+     "k": "i4",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "Special Junk Packet 5 (I5)",
+     "tf": "Special Junk Packet 5 (I5)",
+     "k": "i5",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    }
+   ]
+  },
+  "config": {
+   "title": "Custom Config",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "profileName",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    },
+    {
+     "t": "The JSON set is outbound",
+     "tf": "مجموعه JSON برای خروجی است",
+     "k": "isOutboundOnly",
+     "s": "",
+     "sf": "",
+     "ty": "sw",
+     "d": false
+    },
+    {
+     "t": "Custom Config",
+     "tf": "پیکربندی اختصاصی",
+     "k": "serverConfig",
+     "s": "",
+     "sf": "",
+     "ty": "cfg"
+    }
+   ]
+  },
+  "chain": {
+   "title": "Proxy Chain",
+   "items": [
+    {
+     "t": "Profile Name",
+     "tf": "نام",
+     "k": "profileName",
+     "s": "",
+     "sf": "",
+     "ty": "txt",
+     "d": ""
+    }
+   ]
+  }
+ }
+}

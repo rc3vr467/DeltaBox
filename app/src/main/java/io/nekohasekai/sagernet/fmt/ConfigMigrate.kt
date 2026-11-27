@@ -21,8 +21,8 @@ object ConfigMigrate {
         val routeRules = list(route["rules"]) ?: mutableListOf<Any?>().also { route["rules"] = it }
 
         migrateInbounds(root, routeRules)
-        val directResolverTag = migrateDns(root, route)
-        migrateOutbounds(root, directResolverTag)
+        val dnsResolverTag = migrateDns(root, route)
+        migrateOutbounds(root, dnsResolverTag)
     }
 
     private fun migrateInbounds(root: MutableMap<String, Any?>, routeRules: MutableList<Any?>) {
@@ -88,25 +88,7 @@ object ConfigMigrate {
         return m
     }
 
-    /**
-     * Returns the tag of the server used as the default domain resolver (or null).
-     *
-     * This is dns-direct: it resolves by going straight out the underlying
-     * (non-VPN) network interface, before/independent of any tunnel. That is the
-     * correct resolver for every outbound/endpoint's own `domain_resolver` field,
-     * wireguard included: sing-box's wireguard transport uses this exact field
-     * via its own internal ResolveDialer purely to look up the *peer's* address
-     * (e.g. entry7-fr.vzrsy.com) before/outside the tunnel, every time it dials
-     * out - it is never applied to domains the user visits once the tunnel is up
-     * (those go through route.rules' hijack-dns + dns.final/dns-remote,
-     * independently of this field). Pointing a wireguard endpoint's
-     * domain_resolver at dns-remote - which itself routes through the tunnel,
-     * i.e. this same endpoint - creates a circular dependency: the peer can't be
-     * reached until its address is resolved, and the address can't be resolved
-     * until the peer (the tunnel itself) is reachable. That produced
-     * "handshake: context canceled" / DNS "context deadline exceeded" failures -
-     * not a routing mismatch, but a deadlock. See migrateOutbounds.
-     */
+    /** returns tag of the server used as default domain resolver (or null) */
     private fun migrateDns(root: MutableMap<String, Any?>, route: MutableMap<String, Any?>): String? {
         val dns = map(root["dns"]) ?: return null
         dns.remove("independent_cache")

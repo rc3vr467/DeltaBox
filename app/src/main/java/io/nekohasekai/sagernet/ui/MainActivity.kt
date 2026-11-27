@@ -56,6 +56,10 @@ class MainActivity : ThemedActivity(),
     OnPreferenceDataStoreChangeListener,
     NavigationView.OnNavigationItemSelectedListener {
 
+    companion object {
+        const val EXTRA_NAV = "deltabox_nav"
+    }
+
     lateinit var binding: LayoutMainBinding
     lateinit var navigation: NavigationView
 
@@ -81,7 +85,16 @@ class MainActivity : ThemedActivity(),
         } catch (_: Exception) {}
 
         if (savedInstanceState == null) {
-            displayFragmentWithId(R.id.nav_configuration)
+            // DeltaBox hybrid UI: WebMainActivity can ask for a specific native screen.
+            val navId = when (intent?.getStringExtra(EXTRA_NAV)) {
+                "group" -> R.id.nav_group
+                "tools" -> R.id.nav_tools
+                "logs" -> R.id.nav_logcat
+                "about" -> R.id.nav_about
+                "settings" -> R.id.nav_settings
+                else -> R.id.nav_configuration
+            }
+            displayFragmentWithId(navId)
         }
         onBackPressedDispatcher.addCallback {
             if (supportFragmentManager.findFragmentById(R.id.fragment_holder) is ConfigurationFragment) {
@@ -136,6 +149,15 @@ class MainActivity : ThemedActivity(),
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+
+        // DeltaBox hybrid UI: open a requested native screen when already running (singleTask)
+        when (intent.getStringExtra(EXTRA_NAV)) {
+            "group" -> displayFragmentWithId(R.id.nav_group)
+            "tools" -> displayFragmentWithId(R.id.nav_tools)
+            "logs" -> displayFragmentWithId(R.id.nav_logcat)
+            "about" -> displayFragmentWithId(R.id.nav_about)
+            "settings" -> displayFragmentWithId(R.id.nav_settings)
+        }
 
         val uri = intent.data ?: return
 

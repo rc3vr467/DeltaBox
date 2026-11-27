@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="delta_glass_top">#FF1D1F2B</color>
-    <color name="delta_glass_bottom">#FF191A25</color>
-    <color name="delta_glass_stroke">#303244</color>
-    <color name="delta_popup_bg">#1D1F2B</color>
-    <color name="delta_popup_stroke">#303244</color>
+    <color name="delta_glass_top">#FF101722</color>
+    <color name="delta_glass_bottom">#FF101722</color>
+    <color name="delta_glass_stroke">#212935</color>
+    <color name="delta_popup_bg">#101722</color>
+    <color name="delta_popup_stroke">#212935</color>
     <color name="delta_cat_button">#FF4545</color>
     <color name="delta_cat_button_connected">#43C69A</color>
 </resources>

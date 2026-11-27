@@ -39,59 +39,12 @@ object DefaultNetworkListener {
             is NetworkMessage.Start -> {
                 if (listeners.isEmpty()) register()
                 listeners[message.key] = message.listener
-                if (network == null && fallback) {
-                    // register() above failed (SecurityException, the per-app
-                    // 100-outstanding-request cap being hit, or some other
-                    // platform quirk on this device/API level) and fell back
-                    // to `fallback = true`. In that mode Callback.onAvailable
-                    // is never going to fire - nothing actually registered -
-                    // so `network` would otherwise stay null for the entire
-                    // session: every listener (including the one in
-                    // BaseService.kt that calls Libcore.updateDefaultInterface)
-                    // would simply never run. That leaves sing-box's
-                    // interfaceMonitor.DefaultInterface() permanently nil,
-                    // which makes dispatchInterfaceUpdateLocked() call
-                    // pauseManager.NetworkPause() on every interface-update
-                    // dispatch (not just a one-off "missing default interface"
-                    // log line) - which in turn, through the wireguard
-                    // endpoint's onPauseUpdated/updateNetworkPause callback,
-                    // calls wgDevice.Down(), undoing Up() and leaving the
-                    // handshake/traffic permanently stuck even though packets
-                    // appear to go out fine. Set `network` here directly from
-                    // the current activeNetwork - the same one get()'s own
-                    // fallback path already uses - instead of going through
-                    // Put via the actor's own channel (sending to this actor's
-                    // channel from inside its own message loop would just
-                    // fail silently: the default RENDEZVOUS/no-buffer channel
-                    // has no receiver ready to take it yet, since this coroutine
-                    // is still busy handling the current Start message).
-                    @TargetApi(23) {
-                        network = SagerNet.connectivity.activeNetwork
-                    }
-                }
-                // Kept as a val (rather than the original `if (network != null)
-                // message.listener(network)` directly): `network` is a var
-                // mutated just above in this same closure (the fallback branch
-                // added by this patch), so the compiler can no longer
-                // smart-cast straight from the null check to the non-null call -
-                // Kotlin won't trust a captured var not to change between the
-                // two. Snapshotting it to a val first keeps the original
-                // "only call the listener once we actually have a network"
-                // behavior intact while satisfying that.
-                val currentNetwork = network
-                if (currentNetwork != null) message.listener(currentNetwork)
+                if (network != null) message.listener(network)
             }
             is NetworkMessage.Get -> {
                 check(listeners.isNotEmpty()) { "Getting network without any listeners is not supported" }
-                // Same val-snapshot reasoning as the NetworkMessage.Start branch
-                // above: `network` is a var mutated in more than one place in
-                // this closure now (this patch's fallback branch included), so
-                // the compiler won't smart-cast it from the null check to
-                // CompletableDeferred<Network>.complete's non-null parameter
-                // anymore, even though this null check is unrelated to that one.
-                val currentNetwork = network
-                if (currentNetwork == null) pendingRequests += message else message.response.complete(
-                    currentNetwork
+                if (network == null) pendingRequests += message else message.response.complete(
+                    network
                 )
             }
             is NetworkMessage.Stop -> if (listeners.isNotEmpty() && // was not empty

@@ -68,12 +68,10 @@
             android:name="android.app.shortcuts"
             android:resource="@xml/shortcuts" />
 
+        <!-- DeltaBox hybrid UI host (HTML in a locked-down WebView). This is the launcher activity.
+             MainActivity (classic UI) stays for native fragments, QS tile prefs and import links. -->
         <activity
-            android:name="io.nekohasekai.sagernet.ui.BlankActivity"
-            android:configChanges="uiMode" />
-
-        <activity
-            android:name="io.nekohasekai.sagernet.ui.MainActivity"
+            android:name="io.nekohasekai.sagernet.ui.web.WebMainActivity"
             android:configChanges="uiMode"
             android:exported="true"
             android:launchMode="singleTask">
@@ -88,6 +86,17 @@
 
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name="io.nekohasekai.sagernet.ui.BlankActivity"
+            android:configChanges="uiMode" />
+
+        <activity
+            android:name="io.nekohasekai.sagernet.ui.MainActivity"
+            android:configChanges="uiMode"
+            android:exported="true"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
             </intent-filter>
@@ -252,7 +261,7 @@
             android:excludeFromRecents="true"
             android:label="@string/menu_split_tunnel"
             android:launchMode="singleTask"
-            android:parentActivityName=".ui.MainActivity" />
+            android:parentActivityName=".ui.web.WebMainActivity" />
         <activity
             android:name="io.nekohasekai.sagernet.ui.ScannerActivity"
             android:configChanges="uiMode"
